@@ -10,7 +10,6 @@
 ## Schéma fonctionnel
 ![schéma](architecture-logicielle/archi.png)
 
-
 ### goup
 Plus de détails sont disponibles [ici](https://github.com/signaux-faibles/goup)
 
@@ -22,7 +21,7 @@ goup est basé sur [tusd](https://github.com/tus/tusd) et lui ajoute des fonctio
 - espaces privatifs par utilisateurs (gestion des droits et des chemins)
 - supprime la possibilité de télécharger les fichiers
 #### Authentification JWT
-En l'absence d'un JWT valide, le service refusera les sollicitations.  
+En l'absence d'un JWT valide, le service refuse les sollicitations.  
 Ce token devra en plus fournir dans son chargement une propriété `goup-path` correspondant au nom d'utilisateur posix ciblé par le versement.  
 
 
@@ -87,10 +86,45 @@ goup est développé en go (v1.10) et exploite les packages suivants:
 - https://github.com/spf13/viper
 
 ### client TUS 
-goup respecte le protocole tus en lui 
-### opensignauxfaibles
-### Stockage POSIX
+Un exemple de client tus est fourni [ici](https://github.com/signaux-faibles/goup/tree/master/goup-client) et permet de voir une implémentation javascript basée sur le client officiel.  
+On trouve toutefois des clients dans de nombreux langages qui permettront aux utilisateurs d'intégrer l'upload de fichier dans leurs plateformes.  
 
+### keycloak
+Il s'agit du produit officiel développé par Red-Hat.
+KeyCloak fournit les services d'authentification pour `goup` et `datapi` en forgeant les JWT des utilisateurs.
+
+#### Structure du chargement JWT
+Deux métadonnées sont utilisées:
+- goup-path: ouvre la possibilité de téléverger des fichiers sur goup et désigne l'utilisateur. Il s'agit d'une chaine de caractère
+- scope: fixe les attribution de l'utilisateurs au sein de datapi. Il s'agit d'une liste de chaines de caractères.
+
+### opensignauxfaibles
+#### Objectif
+opensignauxfaibles se charge du traitement des données:
+- import des fichiers bruts
+- calcul des données d'entrée de l'algorithme
+- stockage des résultats
+
+cette brique permet de stocker l'historique des données brutes, mais aussi calculées, ainsi que les résultats de façon offrir une plateforme de travail propice à l'investigation.
+#### Modules
+##### dbmongo
+Ce module est écrit en go (1.10) et centralise les fonctions de traitement des données suivantes:
+- analyse des fichiers bruts
+- conversion/insert dans mongodb
+- ordonnancement des traitements mapreduce/aggregations mongodb
+- publication vers datapi
+
+##### module R/H2O
+Ce module permet le traitement algorithmique.. (à écrire)
+
+#### Flux de traitement
+![schéma](architecture-logicielle/workflow-osf.png)
+1. Lecture des fichiers bruts ([dbmongo](#dbmongo))
+1. Les données brutes sont converties et insérées dans mongodb ([dbmongo](#dbmongo))
+1. Les données sont compactées dans mongodb par un traitement mapReduce
+1. Les variables sont calculées dans mongodb par un traitement mapReduce
+1. Le traitement algorithmique est effectué par le module [R/H20](#module-rh20)
+Pour plus de détail voir [ici](processus-traitement-donnees.md).
 ### datapi
 
 ### signauxfaibles-web
@@ -98,3 +132,4 @@ goup respecte le protocole tus en lui
 ### mongodb
 
 ### postgresql
+
