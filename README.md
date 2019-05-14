@@ -1,7 +1,7 @@
 # Documentation Signaux Faibles
 
-## Table des matières
-- Présentation du projet
+## Table des matières
+- [Présentation du projet](#presentation-du-projet)
 - Prise en Main
 - Architecture logicielle
 - Processus de traitement des données
