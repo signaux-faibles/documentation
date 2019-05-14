@@ -1,14 +1,14 @@
 # Documentation Signaux Faibles
 
 ## Table des matières
-- [Présentation du projet](#presentation-du-projet)
-- Prise en Main
-- Architecture logicielle
-- Processus de traitement des données
-- Publication des données
-- Description des données
-- Algorithme + Evaluation
-- Interface Graphique
+- [Présentation du projet](#présentation-du-projet)
+- [Prise en Main](https://github.com/signaux-faibles/documentation/prise-en-main.md)
+- [Architecture logicielle](https://github.com/signaux-faibles/documentation/architecture-logicielle.md)
+- [Processus de traitement des données](https://github.com/signaux-faibles/documentation/processus-traitement-donnees.md)
+- [Publication des données](https://github.com/signaux-faibles/documentation/processus-traitement-donnees.md)
+- [Description des données](https://github.com/signaux-faibles/documentation/description-donnees.md)
+- [Algorithme + Evaluation](https://github.com/signaux-faibles/documentation/algorithme-evaluation.md)
+- [Interface Graphique](https://github.com/signaux-faibles/documentation/interface-graphique.md)
 
 ## Présentation du projet
 L'organisation github [Signaux-Faibles](https://github.com/signaux-faibles/) regroupe tous les outils développés au sein de la startup d'état [Signaux Faibles](https://beta.gouv.fr/startups/signaux-faibles.html).
