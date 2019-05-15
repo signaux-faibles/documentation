@@ -164,6 +164,8 @@ Ce traitement est écrit en dur dans le code de dbmongo [ici](https://github.com
 ## datapi
 Le détail sur le fonctionnement de Datapi est disponible [ici](https://github.com/signaux-faibles/datapi)
 
+datapi est écrit en go (1.10) et se base sur postgresql (10).
+
 ### Objectif
 Dans cette infrastructure, datapi est la brique permettant la diffusion contrôlée des données produites dans le projet et sert notamment de back-end pour le signauxfaibles-web.  
 Parmi les fonctionnalités notables:
@@ -179,7 +181,17 @@ Il est à noter que:
 - la prise en compte de l'ajout de données et de politiques de sécurité est intégrée dans le système transactionnel de façon à présenter un comportement synchrone
 - les permissions accordées aux utilisateurs sont véhiculées dans le token JWT et reposent sur la sécurité de keycloak.
 
+### Principe de stockage
+Un object datapi est identifié par une clé et de multiples feuillets composés d'un scope de sécurité (ensemble des badges nécessaires) et d'un objet contenant les données souhaitées.
+![stockage](architecture-logicielle/datapi-object.png)
+
+### Principe de sécurité
+- Une ressource comporte des «badges» de sécurité (une liste de tags), les utilisateurs disposent dans leurs attributions de badges.
+- Une ressource n'est disponible à un utilisateur que si il dispose de l'ensemble des badges demandés par la ressource.
+- Des politiques de sécurités permettent de fixer des règles ajoutant des badges aux ressources (renforcement de la contrainte de sécurité) ou aux utilisateurs (promotion)
+- Les politiques de sécurité peuvent s'appliquer à un ensemble d'objets 
 ### Dépendances logicielles
+- postgresql v10
 - https://github.com/gin-contrib/cors
 - https://github.com/gin-gonic/gin
 - https://github.com/appleboy/gin-jwt
@@ -191,8 +203,56 @@ Il est à noter que:
 - https://golang.org/x/crypto/bcrypt
 
 ## signauxfaibles-web
+Il s'agit de l'interface utilisée par les agents.
+Cette interface communique avec datapi.
+
+### Connexion / Authentification
+![workflow](architecture-logicielle/workflow-sfw.png)
+Les tokens JWT (long terme et session) contiennent notamment dans leur chargement l'adresse email de l'agent auquel il est adressé et un contrôle est effectué pour prévenir une connexion avec un autre profil.
+
+### architecture
+signauxfaibles-web est une application vuejs codée en typescript avec les modules suivantes:
+- vuetify: environnement graphique
+- vuex: gestion d'un store partagé de variables entre composants
+- axios: client http asynchrone pour traiter les appels à datapi
+- echarts: environnement pour tracer des graphiques
+
+
+### Dépendance logicielle
+Voici la liste des modules yarn nécessaires à la compilation du projet vue.
+- @babel/core (7.4.3)
+- axios (0.18.0)
+- core-js (2.6.5)
+- echarts (4.2.1)
+- jest" (>=22 <24)
+- vue (2.6.10)
+- vue-class-component (7.0.2)
+- vue-echarts-v3 (2.0.1)
+- vue-native-websocket (2.0.13)
+- vue-property-decorator (8.1.0)
+- vue-router (3.0.3)
+- vuetify (1.5.5)
+- vuex (3.0.1)
+- vuex-persistedstate (2.5.4)
+- webpack (4.30.)
+- @types/jest (23.1.4)
+- @vue/cli-plugin-babel (3.6.0)
+- @vue/cli-plugin-e2e-nightwatch (3.6.0)
+- @vue/cli-plugin-typescript (3.6.0)
+- @vue/cli-plugin-unit-jest (3.6.0)
+- @vue/cli-service (3.6.0)
+- @vue/test-utils (1.0.0-beta.29)
+- babel-core (7.0.0-bridge.0)
+- stylus (0.54.5)
+- stylus-loader (3.0.1)
+- ts-jest (23.0.0)
+- typescript (3.4.3)
+- vue-cli-plugin-vuetify (0.5.0)
+- vue-template-compiler (2.5.21)
+- vuetify-loader (1.0.5)
 
 ## Produits extérieurs
+
 ### mongodb
 ### keycloak
 ### postgresql
