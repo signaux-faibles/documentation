@@ -181,9 +181,53 @@ Il est à noter que:
 - la prise en compte de l'ajout de données et de politiques de sécurité est intégrée dans le système transactionnel de façon à présenter un comportement synchrone
 - les permissions accordées aux utilisateurs sont véhiculées dans le token JWT et reposent sur la sécurité de keycloak.
 
-### Principe de stockage
+### Principe de stockage / sécurité
 Un object datapi est identifié par une clé et de multiples feuillets composés d'un scope de sécurité (ensemble des badges nécessaires) et d'un objet contenant les données souhaitées.
+
+datapi propose par ailleurs un système de paniers d'objets (buckets) qui permet de faciliter l'encodage des politiques de sécurité. Les politiques de sécurité sont stockées dans le bucket `system`.
+
+Avec l'exemple ci-dessous, nous avons un objet qui pourra-être vu de 3 façons différentes selon le niveau d'accéditation:
 ![stockage](architecture-logicielle/datapi-object.png)
+
+- un utilisateur disposant d'un scope vide verra:
+```javascript
+{
+  raisonSociale: "TEST"
+}
+```
+
+- un utilisateur disposant du scope [bfc]:
+```javascript
+{
+  raisonSociale: "TEST",
+  activitePartielle: [..., ..., ...]
+}
+```
+
+- un utilisateur disposant du scope [bfc, crp]:
+```javascript
+{
+  raisonSociale: "TEST",
+  activitePartielle: [..., ..., ...],
+  debitUrssaf: [..., ..., ...],
+  bilanBDF: [..., ..., ...]
+}
+```
+
+Une requête consiste à demander au serveur d'assembler les feuillets de tous les objets contenant la clé fournie dans la requête. Ce principe est appuyé sur l'opérateur `@>` du type hstore fourni par postgres, et comme on peut le voir ci-dessus, seuls les feuillets visibles par l'utilisateur sont utilisés dans l'assemblage.
+Seul le premier niveau de clé de l'objet contenu dans la valeur d'un objet sont confrontés, ce qui expose le système à des risques de collision, et dans ce cas, c'est la valeur insérée en dernier qui remplace les valeurs précédentes.
+
+### Planification/péremption des données
+Il est possible de fournir à datapi une date de publication à un feuillet de données, et dans ce cas, ce feuillet sera ignoré tant que la date système n'aura pas atteint cette valeur.
+
+La péremption des données est obtenue en publiant une version vide écrasant la donnée que l'on souhaite oblitérer avec une date de publication correspondant à la date de péremption.
+
+Ce principe seul ne permet pas de supprimer les données de la base de données, il ne fait qu'en contenir la diffusion, toutefois il est envisagé d'avoir un traitement planifié pour retrouver toutes ces valeurs les oblitérer.
+
+### Politiques de sécurité
+Une politique de sécurité permet d'intéragir avec les permissions accordées aux utilisateurs. Le périmètre d'application d'une politique de sécurité est définie par une clé d'objet, un scope, un ensemble de buckets (définis par une expression régulière).
+- en ajoutant des badges aux utilisateurs 
+- en ajoutant des badges aux objets 
 
 ### Principe de sécurité
 - Une ressource comporte des «badges» de sécurité (une liste de tags), les utilisateurs disposent dans leurs attributions de badges.
