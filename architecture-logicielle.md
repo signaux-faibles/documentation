@@ -251,11 +251,18 @@ Voici la liste des modules yarn nécessaires à la compilation du projet vue.
 - vue-template-compiler (2.5.21)
 - vuetify-loader (1.0.5)
 
-## Produits extérieurs
+## Briques extérieures
 
 ### mongodb
+La version de mongodb utilisée est la 3.6.
+
 ### keycloak
+Le version utilisée est la 6.0.1
+
 ### postgresql
+La version utilisée est la 10.8.
+Le module hstore du packages contrib est utilisé.
+
 ### client TUS 
 Un exemple de client tus est fourni [ici](https://github.com/signaux-faibles/goup/tree/master/goup-client) et permet de voir une implémentation javascript basée sur le client officiel.  
 On trouve toutefois des clients dans de nombreux langages qui permettront aux utilisateurs d'intégrer l'upload de fichier dans leurs plateformes. 
