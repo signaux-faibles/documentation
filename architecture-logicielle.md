@@ -91,15 +91,6 @@ goup est développé en go (v1.10) et exploite les packages suivants:
 - https://github.com/gin-gonic/gin
 - https://github.com/spf13/viper
 
-## keycloak
-Il s'agit du produit officiel développé par Red-Hat.
-KeyCloak fournit les services d'authentification pour `goup` et `datapi` en forgeant les JWT des utilisateurs.
-
-### Structure du chargement JWT
-Deux métadonnées sont utilisées:
-- goup-path: ouvre la possibilité de téléverger des fichiers sur goup et désigne l'utilisateur. Il s'agit d'une chaine de caractère
-- scope: fixe les attribution de l'utilisateurs au sein de datapi. Il s'agit d'une liste de chaines de caractères.
-
 ## opensignauxfaibles
 ### Objectif
 opensignauxfaibles se charge du traitement des données:
@@ -179,7 +170,7 @@ Parmi les fonctionnalités notables:
 Il est à noter que:
 - les insertions et lectures de données sont effectuées au sein de transactions postgres.
 - la prise en compte de l'ajout de données et de politiques de sécurité est intégrée dans le système transactionnel de façon à présenter un comportement synchrone
-- les permissions accordées aux utilisateurs sont véhiculées dans le token JWT et reposent sur la sécurité de keycloak.
+- les permissions accordées aux utilisateurs sont véhiculées dans le token JWT et reposent sur la sécurité de keycloak, on les retrouve dans les rôles clients communiqués dans le token.
 
 ### Principe de stockage / sécurité
 Un object datapi est identifié par une clé et de multiples feuillets composés d'un scope de sécurité (ensemble des badges nécessaires) et d'un objet contenant les données souhaitées.
@@ -300,8 +291,18 @@ Voici la liste des modules yarn nécessaires à la compilation du projet vue.
 ### mongodb
 La version de mongodb utilisée est la 3.6.
 
-### keycloak
-Le version utilisée est la 6.0.1
+## keycloak
+Il s'agit du produit officiel développé par Red-Hat.
+KeyCloak fournit les services d'authentification pour `goup` et `datapi` en forgeant les JWT des utilisateurs.
+
+Ce produit est utilisé en version 6.0.1.
+
+### Structure du chargement JWT
+Le chargement du token est effectué par keycloak à l'aide du modèle utilisateur.
+
+Un attribut utilisateur `goup-path` fixé dans keycloak sera utilisé pour fixer le nom d'utilisateur à utiliser sur l'infrastructure pour l'enregistrement des fichiers.
+
+Le scope utilisé par datapi sera accessible au travers des rôles clients configurés également dans keycloak et fixés par utilisateur.
 
 ### postgresql
 La version utilisée est la 10.8.

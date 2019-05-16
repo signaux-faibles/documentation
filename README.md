@@ -9,6 +9,7 @@
 - [Description des données](description-donnees.md) (vide)
 - [Algorithme + Evaluation](algorithme-evaluation.md) (vide)
 - [Interface Graphique](interface-graphique.md) (vide)
+- [Supervision](supervision.md) (wip)
 
 ## Présentation du projet
 L'organisation github [Signaux-Faibles](https://github.com/signaux-faibles/) regroupe tous les outils développés au sein de la startup d'état [Signaux Faibles](https://beta.gouv.fr/startups/signaux-faibles.html).
