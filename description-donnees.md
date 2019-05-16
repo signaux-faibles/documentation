@@ -225,8 +225,7 @@ ci-dessous.
 | 6 | Fourniture tardive des déclarations
 | 7 | Bases déclarées supérieures à Taxation provisionnelle
 | 8 | Retard dans le versement et fourniture tardive des déclarations
-| 9 | Absence ou insuffisance de versement et fourniture tardive des 
-déclarations
+| 9 | Absence ou insuffisance de versement et fourniture tardive des déclarations
 | 10 |  Rappel sur contrôle et fourniture tardive des déclarations
 | 11 | Régularisation d'une taxation provisionnelle
 | 12 | Régularisation annuelle
@@ -234,15 +233,12 @@ déclarations
 | 14 | Modification d'affectation d'un crédit
 | 15 | Annulation d'un crédit
 | 16 | Régularisation suite à modification du Taux Accident du Travail
-| 17 | Régularisation suite à assujettissement au transport (origine débit sur 
-PJ=4)
-| 18 | Majorations pour non respect de paiement par moyen dématérialisé Article 
-L243-14 19 Rapprochement TR/BRC sous réserve de vérification ultérieure
+| 17 | Régularisation suite à assujettissement au transport (origine débit sur PJ=4)
+| 18 | Majorations pour non respect de paiement par moyen dématérialisé Article L243-14 
+| 19 | Rapprochement TR/BRC sous réserve de vérification ultérieure
 | 20 | Cotisations complémentaires suite modification des revenus déclarés
-| 21 | Cotisations complémentaires suite à non fourniture du contrat 
-d'exonération
-| 22 | Contrôle. Chefs de redressement notifiés le JJ/MM/AA. Article L324.9 du 
-code du travail
+| 21 | Cotisations complémentaires suite à non fourniture du contrat d'exonération
+| 22 | Contrôle. Chefs de redressement notifiés le JJ/MM/AA. Article L324.9 du code du travail
 | 23 | Cotisations complémentaires suite conditions d'exonération non remplies
 | 24 | Absence de versement
 | 25 | Insuffisance de versement
