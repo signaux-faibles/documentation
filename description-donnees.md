@@ -22,16 +22,18 @@ Périmètre des données
 
 ### Nombre d'établissements  
 
+L'algorithme tourne actuellement sur les données de la
+Bourgogne-Franche-Comté et de Pays de la Loire. L'unité de base est
+l'établissement. Les établissements de moins de 10 salariés ou dont
+l'effectif est inconnu ne sont pas intégrés à l'entraînement de
+l'algorithme. Il en résulte un stock d'environ 30000 établissements. 
 
-    L'algorithme tourne actuellement sur les données de la Bourgogne-Franche-Comté et de Pays de la Loire. L'unité de base est l'établissement. Les établissements de moins de 10 salariés ou dont l'effectif est inconnu ne sont pas intégrés à l'entraînement de l'algorithme. Il en résulte un stock d'environ 30000 établissements.
+Les établissements absents de la base sirène sont filtrées en post-traitement. 
 
-    Les établissements absents de la base sirène sont filtrées en post-traitement. 
+### Taux de couverture des données 
 
-    ### Taux de couverture des données 
-
-    TODO
-    Rédaction en cours. 
-
+TODO
+ Rédaction en cours. 
 
 Données importées
 -----------------
@@ -44,38 +46,40 @@ TODO en cours
 
   Les données financières de la Banque de France couvrent à ce jour uniquement la région Bourgogne Franche Comté. Elles consistent en 6 ratios financiers détaillées ci-dessous. 
 
+| | |
+| ------------------------ | --------------------------------------------- |
 | Source                   | Banque de France                              |
 | Nombre de siren          | TODO                                          |
 | Couverture siret         | TODO                                          |
 | Fréquence de mise-à-jour | annuelle                                      |
 | Délai des données        | Exercice n obtenu en septembre de l'année n+1 |
 
-     * __SIREN__ Siren de l'entreprise
+* __SIREN__ Siren de l'entreprise
 
-     * __ANNEE__ Année de l'exercice
-     
-     * __ARRETE_BILAN__  Date de clôture de l'exercice. Format mm/jj/aaaa
-     
-     * __DENOM__ Raison sociale de l'entreprise 
-     
-     * __SECTEUR__ Secteur d'activité
-                
-     * __POIDS_FRNG__ Poids du fonds de roulement net global sur le chiffre d'affaire. Exprimé en \%. 
+* __ANNEE__ Année de l'exercice
 
-     * __TX_MARGE__  Taux de marge, rapport de l'excédent brut d'exploitation (EBE) sur la valeur ajoutée. Exprimé en \%. 
-     _100*EBE / valeur ajoutee_
+* __ARRETE_BILAN__  Date de clôture de l'exercice. Format mm/jj/aaaa
 
-     * __DELAI_FRS__ Délai estimé de paiement des fournisseurs. Exprimé en jours. 
-     _360 * dettes fournisseurs / achats HT_
+* __DENOM__ Raison sociale de l'entreprise 
 
-     * __POIDS_DFISC_SOC__  Poids des dettes fiscales et sociales, par rapport à la valeur ajoutée. Exprimé en \%. 
-     _100 * dettes fiscales et sociales / Valeur ajoutee_
+* __SECTEUR__ Secteur d'activité
+           
+* __POIDS_FRNG__ Poids du fonds de roulement net global sur le chiffre d'affaire. Exprimé en \%. 
 
-     * __POIDS_FIN_CT__ Poids du financement court terme. Exprimé en \%. 
-     _100 * concours bancaires courants / chiffre d'affaires HT_
+* __TX_MARGE__  Taux de marge, rapport de l'excédent brut d'exploitation (EBE) sur la valeur ajoutée. Exprimé en \%. 
+_100*EBE / valeur ajoutee_
 
-     * __POIDS_FRAIS_FIN__ Poids des frais financiers, sur l'excedent brut d'exploitation corrigé des produits et charges hors exploitation. Exprimé en \%. 
-     _100 * frais financiers / (EBE + Produits hors expl. - charges hors expl.)_
+* __DELAI_FRS__ Délai estimé de paiement des fournisseurs. Exprimé en jours. 
+_360 * dettes fournisseurs / achats HT_
+
+* __POIDS_DFISC_SOC__  Poids des dettes fiscales et sociales, par rapport à la valeur ajoutée. Exprimé en \%. 
+_100 * dettes fiscales et sociales / Valeur ajoutee_
+
+* __POIDS_FIN_CT__ Poids du financement court terme. Exprimé en \%. 
+_100 * concours bancaires courants / chiffre d'affaires HT_
+
+* __POIDS_FRAIS_FIN__ Poids des frais financiers, sur l'excedent brut d'exploitation corrigé des produits et charges hors exploitation. Exprimé en \%. 
+_100 * frais financiers / (EBE + Produits hors expl. - charges hors expl.)_
 
 ### Données financières issues des bilans déposés au greffe de tribunaux de commerce
 
@@ -85,6 +89,8 @@ En cours de rédaction
 
 Deux fichiers: demandes d'activité partielle, et consommations d'activité partielles
 
+| | |
+| ------------------------ | --------------------------------------------- |
 | Source                       | DARES                                      |
 | Couverture                   | Toutes les demandes et consommations       |
 | Fréquence de mise-à-jour     | Mensuelle, export base complète            |
@@ -101,6 +107,8 @@ TODO en cours
 
 ### Données sur l'effectif
 
+| | |
+| ------------------------ | --------------------------------------------- |
 | Source                   | URSSAF                        |
 | Couverture               | TODO                          |
 | Fréquence de mise-à-jour | Variable, tous les 3 à 6 mois |
@@ -124,6 +132,8 @@ TODO en cours
 
 Deux fichiers: cotisations, et débits sur les cotisations sociales
 
+| | |
+| ------------------------ | --------------------------------------------- |
 | Source                          | URSSAF                                  |
 | Couverture                      | TODO                                    |
 | Fréquence de mise-à-jour        | mensuelle (autour du 20 de chaque mois) |
@@ -170,44 +180,48 @@ ci-dessous.
 
 -   **Motif\_ecn** Code motif de l'écart négatif. Cf table ci-dessous
 
-
-**Codes état du compte**
+##### Codes état du compte
 | Code | Description |
+|  ----------------------- | --------------------------------------------- |
 | 1    | Actif       |
 | 2    | Suspendu    |
 | 3    | Radié       |
 
-**Codes procédure collective**
+##### Codes procédure collective
+
 | Code           | Description                             |
+|  ----------------------- | --------------------------------------------- |
 | 0, blanc, null | Pas de pro col                          |
 | 1              | Pro col en cours                        |
 | 2              | Pro col - plan de redressement en cours |
 | 9              | Pro col sans dette à l'Urssaf           |
 
-**Codes opération historique**
+
+##### Codes opération historique
 | Code | Description                               |
-| 1    | MISE EN RECOUVREMENT                      |
-| 2    | PAIEMENT                                  |
-| 3    | ADMISSION EN NON VALEUR                   |
-| 4    | REMISE DE MAJORATION DE RETARD            |
-| 5    | ABANDON DE SOLDE DEBITEUR                 |
-| 11   | ANNULATION DE MISE EN RECOUVREMENT        |
-| 12   | ANNULATION PAIEMENT                       |
-| 13   | ANNULATION A-N-V                          |
-| 14   | ANNULATION DE REMISE DE MAJORATION RETARD |
-| 15   | ANNULATION ABANDON SOLDE DEBITEUR         |
+|  ----------------------- | --------------------------------------------- |
+| 1    | Mise en recouvrement                      |
+| 2    | Paiement                                  |
+| 3    | Admission en non valeur                   |
+| 4    | Remise de majoration de retard            |
+| 5    | Abandon de solde debiteur                 |
+| 11   | Annulation de mise en recouvrement        |
+| 12   | Annulation paiement                       |
+| 13   | Annulation a-n-v                          |
+| 14   | Annulation de remise de majoration retard |
+| 15   | Annulation abandon solde debiteur         |
 
 
 
+##### Code motif de l'écart négatif
 | Code |  Description
+|  ----------------------- | --------------------------------------------- |
 | 0 | Cde motif inconnu
 | 1 | Retard dans le versement
 | 2 | Absence ou insuffisance de versement
 | 3 | Taxation provisionelle. Déclarations non fournies
-| 4 | Majorations de retard complémentaires Article R243-18 du code de la 
-sécurité sociale
-| 5 | Contrôle,chefs de redressement notifiés le JJ/MM/AA Article R243-59 de la 
-Securité Soci
+| 4 | Majorations de retard complémentaires Article R243-18 du code de la sécurité sociale
+| 5 | Contrôle,chefs de redressement notifiés le JJ/MM/AA Article R243-59 de la Securité Sociale
 | 6 | Fourniture tardive des déclarations
 | 7 | Bases déclarées supérieures à Taxation provisionnelle
 | 8 | Retard dans le versement et fourniture tardive des déclarations
