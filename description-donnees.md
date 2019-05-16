@@ -1,6 +1,29 @@
 Description des données
 =======================
 
+- [Description des données](#description-des-donn%C3%A9es)
+  - [Préambule](#pr%C3%A9ambule)
+  - [Périmètre des données](#p%C3%A9rim%C3%A8tre-des-donn%C3%A9es)
+    - [Nombre d'établissements](#nombre-d%C3%A9tablissements)
+    - [Taux de couverture des données](#taux-de-couverture-des-donn%C3%A9es)
+  - [Données importées](#donn%C3%A9es-import%C3%A9es)
+    - [Données sirene](#donn%C3%A9es-sirene)
+    - [Données financières de la Banque de France](#donn%C3%A9es-financi%C3%A8res-de-la-banque-de-france)
+    - [Données financières issues des bilans déposés au greffe de tribunaux de commerce](#donn%C3%A9es-financi%C3%A8res-issues-des-bilans-d%C3%A9pos%C3%A9s-au-greffe-de-tribunaux-de-commerce)
+    - [Données sur l'activité partielle](#donn%C3%A9es-sur-lactivit%C3%A9-partielle)
+      - [Données de demandes d'activité partielle](#donn%C3%A9es-de-demandes-dactivit%C3%A9-partielle)
+      - [Données de consommation d'activité partielle](#donn%C3%A9es-de-consommation-dactivit%C3%A9-partielle)
+    - [Données sur l'effectif](#donn%C3%A9es-sur-leffectif)
+    - [Données sur les cotisations sociales et les débits](#donn%C3%A9es-sur-les-cotisations-sociales-et-les-d%C3%A9bits)
+      - [Fichier sur les cotisations](#fichier-sur-les-cotisations)
+      - [Fichiers sur les débits](#fichiers-sur-les-d%C3%A9bits)
+        - [Codes état du compte](#codes-%C3%A9tat-du-compte)
+        - [Codes procédure collective](#codes-proc%C3%A9dure-collective)
+        - [Codes opération historique](#codes-op%C3%A9ration-historique)
+        - [Code motif de l'écart négatif](#code-motif-de-l%C3%A9cart-n%C3%A9gatif)
+    - [Données sur les délais](#donn%C3%A9es-sur-les-d%C3%A9lais)
+    - [Données sur le procédures collectives](#donn%C3%A9es-sur-le-proc%C3%A9dures-collectives)
+
 Préambule
 ---------
 
@@ -46,7 +69,7 @@ TODO en cours
 
   Les données financières de la Banque de France couvrent à ce jour uniquement la région Bourgogne Franche Comté. Elles consistent en 6 ratios financiers détaillées ci-dessous. 
 
-| | |
+|                          |                                               |
 | ------------------------ | --------------------------------------------- |
 | Source                   | Banque de France                              |
 | Nombre de siren          | TODO                                          |
@@ -89,8 +112,8 @@ En cours de rédaction
 
 Deux fichiers: demandes d'activité partielle, et consommations d'activité partielles
 
-| | |
-| ------------------------ | --------------------------------------------- |
+|                              |                                            |
+| ---------------------------- | ------------------------------------------ |
 | Source                       | DARES                                      |
 | Couverture                   | Toutes les demandes et consommations       |
 | Fréquence de mise-à-jour     | Mensuelle, export base complète            |
@@ -107,8 +130,8 @@ TODO en cours
 
 ### Données sur l'effectif
 
-| | |
-| ------------------------ | --------------------------------------------- |
+|                          |                               |
+| ------------------------ | ----------------------------- |
 | Source                   | URSSAF                        |
 | Couverture               | TODO                          |
 | Fréquence de mise-à-jour | Variable, tous les 3 à 6 mois |
@@ -132,8 +155,8 @@ TODO en cours
 
 Deux fichiers: cotisations, et débits sur les cotisations sociales
 
-| | |
-| ------------------------ | --------------------------------------------- |
+|                                 |                                         |
+| ------------------------------- | --------------------------------------- |
 | Source                          | URSSAF                                  |
 | Couverture                      | TODO                                    |
 | Fréquence de mise-à-jour        | mensuelle (autour du 20 de chaque mois) |
@@ -182,7 +205,7 @@ ci-dessous.
 
 ##### Codes état du compte
 | Code | Description |
-|  ----------------------- | --------------------------------------------- |
+| ---- | ----------- |
 | 1    | Actif       |
 | 2    | Suspendu    |
 | 3    | Radié       |
@@ -190,7 +213,7 @@ ci-dessous.
 ##### Codes procédure collective
 
 | Code           | Description                             |
-|  ----------------------- | --------------------------------------------- |
+| -------------- | --------------------------------------- |
 | 0, blanc, null | Pas de pro col                          |
 | 1              | Pro col en cours                        |
 | 2              | Pro col - plan de redressement en cours |
@@ -199,7 +222,7 @@ ci-dessous.
 
 ##### Codes opération historique
 | Code | Description                               |
-|  ----------------------- | --------------------------------------------- |
+| ---- | ----------------------------------------- |
 | 1    | Mise en recouvrement                      |
 | 2    | Paiement                                  |
 | 3    | Admission en non valeur                   |
@@ -214,36 +237,36 @@ ci-dessous.
 
 
 ##### Code motif de l'écart négatif
-| Code |  Description
-|  ----------------------- | --------------------------------------------- |
-| 0 | Cde motif inconnu
-| 1 | Retard dans le versement
-| 2 | Absence ou insuffisance de versement
-| 3 | Taxation provisionelle. Déclarations non fournies
-| 4 | Majorations de retard complémentaires Article R243-18 du code de la sécurité sociale
-| 5 | Contrôle,chefs de redressement notifiés le JJ/MM/AA Article R243-59 de la Securité Sociale
-| 6 | Fourniture tardive des déclarations
-| 7 | Bases déclarées supérieures à Taxation provisionnelle
-| 8 | Retard dans le versement et fourniture tardive des déclarations
-| 9 | Absence ou insuffisance de versement et fourniture tardive des déclarations
-| 10 |  Rappel sur contrôle et fourniture tardive des déclarations
-| 11 | Régularisation d'une taxation provisionnelle
-| 12 | Régularisation annuelle
-| 13 | Rejet du titre de paiement par la banque .
-| 14 | Modification d'affectation d'un crédit
-| 15 | Annulation d'un crédit
-| 16 | Régularisation suite à modification du Taux Accident du Travail
-| 17 | Régularisation suite à assujettissement au transport (origine débit sur PJ=4)
-| 18 | Majorations pour non respect de paiement par moyen dématérialisé Article L243-14 
-| 19 | Rapprochement TR/BRC sous réserve de vérification ultérieure
-| 20 | Cotisations complémentaires suite modification des revenus déclarés
-| 21 | Cotisations complémentaires suite à non fourniture du contrat d'exonération
-| 22 | Contrôle. Chefs de redressement notifiés le JJ/MM/AA. Article L324.9 du code du travail
-| 23 | Cotisations complémentaires suite conditions d'exonération non remplies
-| 24 | Absence de versement
-| 25 | Insuffisance de versement
-| 26 | Absence de versement et fourniture tardive des déclarations
-| 27 | Insuffisance de versement et fourniture tardive des déclarations
+| Code | Description                                                                                |
+| ---- | ------------------------------------------------------------------------------------------ |
+| 0    | Cde motif inconnu                                                                          |
+| 1    | Retard dans le versement                                                                   |
+| 2    | Absence ou insuffisance de versement                                                       |
+| 3    | Taxation provisionelle. Déclarations non fournies                                          |
+| 4    | Majorations de retard complémentaires Article R243-18 du code de la sécurité sociale       |
+| 5    | Contrôle,chefs de redressement notifiés le JJ/MM/AA Article R243-59 de la Securité Sociale |
+| 6    | Fourniture tardive des déclarations                                                        |
+| 7    | Bases déclarées supérieures à Taxation provisionnelle                                      |
+| 8    | Retard dans le versement et fourniture tardive des déclarations                            |
+| 9    | Absence ou insuffisance de versement et fourniture tardive des déclarations                |
+| 10   | Rappel sur contrôle et fourniture tardive des déclarations                                 |
+| 11   | Régularisation d'une taxation provisionnelle                                               |
+| 12   | Régularisation annuelle                                                                    |
+| 13   | Rejet du titre de paiement par la banque .                                                 |
+| 14   | Modification d'affectation d'un crédit                                                     |
+| 15   | Annulation d'un crédit                                                                     |
+| 16   | Régularisation suite à modification du Taux Accident du Travail                            |
+| 17   | Régularisation suite à assujettissement au transport (origine débit sur PJ=4)              |
+| 18   | Majorations pour non respect de paiement par moyen dématérialisé Article L243-14           |
+| 19   | Rapprochement TR/BRC sous réserve de vérification ultérieure                               |
+| 20   | Cotisations complémentaires suite modification des revenus déclarés                        |
+| 21   | Cotisations complémentaires suite à non fourniture du contrat d'exonération                |
+| 22   | Contrôle. Chefs de redressement notifiés le JJ/MM/AA. Article L324.9 du code du travail    |
+| 23   | Cotisations complémentaires suite conditions d'exonération non remplies                    |
+| 24   | Absence de versement                                                                       |
+| 25   | Insuffisance de versement                                                                  |
+| 26   | Absence de versement et fourniture tardive des déclarations                                |
+| 27   | Insuffisance de versement et fourniture tardive des déclarations                           |
 
 ### Données sur les délais
 
