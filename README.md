@@ -6,7 +6,7 @@
 - [Architecture logicielle](architecture-logicielle.md) (wip)
 - [Processus de traitement des données](processus-traitement-donnees.md) (vide)
 - [Publication des données](processus-traitement-donnees.md) (vide)
-- [Description des données](description-donnees.md) (vide)
+- [Description des données](description-donnees.md) (wip)
 - [Algorithme + Evaluation](algorithme-evaluation.md) (vide)
 - [Interface Graphique](interface-graphique.md) (vide)
 - [Supervision](supervision.md) (wip)
