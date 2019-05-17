@@ -4,7 +4,7 @@
 - [Présentation du projet](#présentation-du-projet) (vide)
 - [Prise en Main](prise-en-main.md) (vide)
 - [Architecture logicielle](architecture-logicielle.md) (wip)
-- [Processus de traitement des données](processus-traitement-donnees.md) (vide)
+- [Processus de traitement des données](processus-traitement-donnees.md) (wip)
 - [Publication des données](processus-traitement-donnees.md) (vide)
 - [Description des données](description-donnees.md) (wip)
 - [Algorithme + Evaluation](algorithme-evaluation.md) (vide)
