@@ -90,7 +90,7 @@ L'intégration se fait par "batch". Chaque batch est défini dans la collection 
         ], 
         "autre_type": [
           "Chemin/daccès/1.xlsx",
-          "Chemain/daccès/2.xlsx"
+          "Chemin/daccès/2.xlsx"
         ]
     }, 
     "readonly" : true, 
