@@ -41,14 +41,14 @@ Enfin, les données ainsi stockées vont servir au calcul des variables qui alim
 ## Workflow classique
 
 Le workflow classique d'intégration consiste à: 
-* Lancer l'API 
-```
-go build && ./dbmongo
-```
+
+* Lancer l'API: `go build && ./dbmongo`
+
 * Définir l'objet batch dans la collection Admin, avec les chemins d'accès des fichiers à intégrer
-* Apeler la fonction d'intégration process avec les options idoines:
+* Apeler la fonction d'intégration process, qui va se charger de l'import, du compactage et du calcul de variables avec les options idoines:
+
 ```
-  http :3000/api/admin/batch/process ...
+  http :3000/api/admin/batch/process batches:='["1904"]'
 ```
 
 Toutes ces étapes seront détaillées par la suite. 
@@ -62,10 +62,12 @@ Entre ces traitements, une façon de s'assurer que le processus tourne est de v�
 ## L'API servie par Golang
 
 L'intégralité des opérations sur les données se font au moyen d'une API servie par Golang, qui analyse et cadence les opérations à effectuer sur la base mongodb.
-L'API est ouverte avec la commande suivante, à exécuter dans le répertoire `./dbmongo` du projet. 
+L'API est ouverte avec la commande suivante, à exécuter dans le répertoire `./dbmongo` du projet.
+
 ```
 go build && ./dbmongo
 ```
+
 L'API est alors lancée sur localhost, par défaut sur le port 3000 (le port peut-être modifié dans le fichier `./dbmongo/config.toml`)
 
 Cette API est documentée par swagger, et est alors accessible sur `localhost:3000/swagger/index.html`. 
@@ -164,13 +166,17 @@ Le paramètre obligatoire `batch` indique la clé du batch à importer. Le param
 
 Le compactage est la procédure de fusion des nouvelles données importées avec les données importées dans des batchs antérieurs. 
 
-TODO
-
-
 Le paramètre `complete_types` dans la collection Admin définit la manière dont les nouvelles données se comportent par rapport au données existantes. Si le type est "complet", ou en "stock" (c'est-à-dire que chaque nouveau fichier reprèsente le stock à la période courante) alors les nouvelles données remplacent intégralement les dernières. Attention, si aucun fichier n'est intégré et que le type est considéré comme complet, alors toutes les données passées seront ignorées. Les types qui ne sont pas complets sont dits de "flux" (c'est-à-dire que chaque nouveau fichier vient compléter les fichiers des périodes précédentes), et les données précédentes sont conservées. 
 
-
 Par exemple, si certaines données n'ont pas changé d'une période sur l'autre, alors il n'est pas nécessaire de réintégrer de fichier mais simplement de veiller que le type n'est pas listé parmi les `complete_types`. 
+
+Le compactage se lance avec la commande suivante:
+
+```
+http :3000/api/data/compact [options]
+# Par exemple
+http :3000/api/data/compact batch="1804" 
+```
 
 
 ## Spécificités des calculs de variables 
@@ -193,7 +199,10 @@ Les données sont alors importées dans la collection `Etablissement_debug` plut
 
 La commande **batch/process** permet de lancer successivement l'import, le compactage et les calculs des variables pour un batch donné avec les options par défaut, en une seule commande. 
 
+Cette commande accepte plusieurs batches, auquel cas elle intégrera ces batches successivement.
+
 ```
 http :3000/api/admin/batch/process [options]
 http :3000/api/admin/batch/process batches:='["1904"]' 
+http :3000/api/admin/batch/process batches:='["1904", "1905"]'
 ```
