@@ -53,6 +53,8 @@ go build && ./dbmongo
 
 Toutes ces étapes seront détaillées par la suite. 
 
+Il est à noter qu'aucun travail d'UX n'a encore été mené, et donc peu d'information sur les travaux en cours sont donnés à l'utilisateur, mise à part le log de l'import dans la collection Journal. Une façon de s'assurer que le traitement tourne est de vérifier que mongodb travaille, par exemple avec la commande *top*. 
+
 ## L'API servie par Golang
 
 L'intégralité des opérations sur les données se font au moyen d'une API servie par Golang, qui analyse et cadence les opérations à effectuer sur la base mongodb.
@@ -90,7 +92,7 @@ L'intégration se fait par "batch". Chaque batch est défini dans la collection 
         ], 
         "autre_type": [
           "Chemin/daccès/1.xlsx",
-          "Chemain/daccès/2.xlsx"
+          "Chemin/daccès/2.xlsx"
         ]
     }, 
     "readonly" : true, 
