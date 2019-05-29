@@ -53,7 +53,11 @@ go build && ./dbmongo
 
 Toutes ces étapes seront détaillées par la suite. 
 
-Il est à noter qu'aucun travail d'UX n'a encore été mené, et donc peu d'information sur les travaux en cours sont donnés à l'utilisateur, mise à part le log de l'import dans la collection Journal. Une façon de s'assurer que le traitement tourne est de vérifier que mongodb travaille, par exemple avec la commande *top*. 
+Il est à noter qu'aucun travail d'UX n'a encore été mené, et donc peu d'information sur les travaux en cours peuvent être donnés à l'utilisateur.
+Au cours de l'import, un log des début et des fin d'intégration de fichiers et de types de fichiers sont loggés dans la collection Journal.
+Pendant le compactage et le calcul des variables, le log de mongodb peut être consulté.
+Entre ces traitements, une façon de s'assurer que le processus tourne est de vérifier qu'il n'y a pas d'erreur golang, et que mongodb travaille, par exemple avec la commande *top*. 
+
 
 ## L'API servie par Golang
 
@@ -149,9 +153,9 @@ Les fichiers en provenance des urssaf ont été regroupées dans un parser spéc
 
 L'import est lancé avec la requête: 
 ```
-http :3000/api/import [options]
+http :3000/api/data/import [options]
 # Par exemple
-http :3000/api/import batch="1904" parsers:='["urssaf", "diane"]'
+http :3000/api/data/import batch="1904" parsers:='["urssaf", "diane"]'
 ```
 
 Le paramètre obligatoire `batch` indique la clé du batch à importer. Le paramètre optionnel `parsers`, qui est entré sous forme de tableau, permet de sélectionner les parsers à faire tourner. Par défaut, tous les parsers du batch sont lancés, cette option permet de corriger un type de fichier en particulier en cas d'erreur pendant l'intégration. 
@@ -183,10 +187,11 @@ http :3000/api/data/reduce batch="1904" key="01234567891011" features="algo2"
 
 Les paramètres optionnels `batch` et `features` spécifient respectivement la clé du dernier batch intégré et le type de calcul à mener. Actuellement, uniquement "algo2" est fonctionnel. 
 Le paramètre facultatif `key` permet de ne faire tourner les calculs que pour un siret particulier, essentiellement pour des raisons de debugging. 
-Les données sont alors importées dans la collection `Etablissement_debug` plutôt que dans la collection `Etablissement`
-
+Les données sont alors importées dans la collection `Etablissement_debug` plutôt que dans la collection `Etablissement`.
 
 ## La commande batch/process
+
+La commande **batch/process** permet de lancer successivement l'import, le compactage et les calculs des variables pour un batch donné avec les options par défaut, en une seule commande. 
 
 ```
 http :3000/api/admin/batch/process [options]
