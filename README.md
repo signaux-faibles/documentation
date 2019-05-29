@@ -8,7 +8,7 @@
 - [Publication des données](processus-traitement-donnees.md) (vide)
 - [Description des données](description-donnees.md) (wip)
 - [Algorithme + Evaluation](algorithme-evaluation.md) (vide)
-- [Interface Graphique](interface-graphique.md) (vide)
+- [Interface Graphique](interface-graphique.md) (wip)
 - [Supervision](supervision.md) (wip)
 
 ## Présentation du projet
