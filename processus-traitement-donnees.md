@@ -22,21 +22,23 @@ L'intégration et le stockage de données se fait par mises-à-jours successives
 
   __1- Import__
 
-Ce parcours est représenté avec des flêches pleines. Toutes les nouvelles données sont d'abord importées dans une collection RawData à l'aide de fonctions golang spécifiques à chaque type de fichier. La collection Admin définit quels sont les fichiers à intégrer pour chaque "batch". Le processus d'intégration et les potentielles erreurs d'ouverture de fichier, de lecture, ou de conversion sont logués dans la collection Journal. 
+Ce parcours est représenté avec des flêches pleines. Toutes les nouvelles données sont d'abord importées dans une collection ImportedData à l'aide de fonctions golang spécifiques à chaque type de fichier. La collection Admin définit quels sont les fichiers à intégrer pour chaque "batch". Le processus d'intégration et les potentielles erreurs d'ouverture de fichier, de lecture, ou de conversion sont logués dans la collection Journal. 
 
 Les données ainsi intégrées proviennent de fichiers de différents formats: .csv, .excel, .sas7dbat etc. La façon dont les données sont mises-à-jour peut également être différente, avec des fichiers qui annulent et remplacent, qu'on qualifiera de "fichiers stocks", et des fichiers qui viennent amender, qu'on qualifiera de "fichiers flux". Ceci est configuré dans la collection admin. 
 
 __2- Compactage__
 
-Une fois le batch importées dans la collection RawData, elles vont venir compléter les collections Etablissement et Entreprise, qui comme leur nom l'indique concentrent les informations autour de l'établissement (identifiant: numéro siret) ou de l'entreprise (identifiant: numéro siren). C'est une opération de MapReduce qui est utilisé à cet effet. 
+Une fois le batch importées dans la collection ImportedData, elles vont venir compléter la collection RawData, qui concentrent les informations autour de l'établissement (identifiant: numéro siret) ou de l'entreprise (identifiant: numéro siren). C'est une opération de MapReduce qui est utilisé à cet effet. 
 
-Le processus de compactage consiste à attribuer à chaque objet les nouvelles données qui le concernent, vérifier si ces donneés étaient déjà connues (auquel cas l'objet n'est pas modifié), si les données amendent les informations connues, ou si des informations déjà connues, plus d'actualité, sont à supprimer.
+Le processus de compactage consiste à attribuer à chaque objet les nouvelles données qui le concernent, vérifier si ces donneés étaient déjà connues (auquel cas l'objet n'est pas modifié), si les données amendent les informations connues, ou si des informations connues, qui ne seraient plus d'actualité, sont à supprimer.
 
-Les collections Etablissement et Entreprise conservent la nature des modifications successives à chaque batch, ce qui rend possible de rétablir chaque objet dans son état après l'intégration de n'importe quel batch. 
+La collection RawData conserve l'historique des modifications successives à chaque batch, ce qui rend possible de rétablir chaque objet dans son état après l'intégration de n'importe quel batch.
+
+Si le compactage réussit, la collection ImportedData est purgée. 
 
 __3- Calcul des variables__
 
-Enfin, les données ainsi stockées vont servir au calcul des variables qui alimenteront l'algorithme, stockées dans la collection Features. C'est à nouveau une opération de MapReduce qui permet de fusionner les collections Etablissement et Entreprise et calculer les variables pertinentes. 
+Enfin, les données ainsi stockées vont servir au calcul des variables qui alimenteront l'algorithme, stockées dans la collection Features. C'est à nouveau une opération de MapReduce qui permet de prendre en compte l'historique des données conservées dans RawData et calculer les variables pertinentes. 
 
 ## Workflow classique
 
@@ -193,7 +195,7 @@ http :3000/api/data/reduce batch="1904" key="01234567891011" features="algo2"
 
 Les paramètres optionnels `batch` et `features` spécifient respectivement la clé du dernier batch intégré et le type de calcul à mener. Actuellement, uniquement "algo2" est fonctionnel. 
 Le paramètre facultatif `key` permet de ne faire tourner les calculs que pour un siret particulier, essentiellement pour des raisons de debugging. 
-Les données sont alors importées dans la collection `Etablissement_debug` plutôt que dans la collection `Etablissement`.
+Les données sont alors importées dans la collection `Features_debug` plutôt que dans la collection `Features`.
 
 ## La commande batch/process
 
