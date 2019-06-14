@@ -49,7 +49,7 @@ On y trouve la raison sociale, le siret, le secteur d'activité de l'entreprise,
 Rechercher un établissement
 ----------------------------
 
-En naviguant de la menu, on peut chercher un établissement sur la page **Consultation** et accéder à sa fiche. 
+Depuis le menu, on peut chercher un établissement sur la page **Consultation** et accéder à sa fiche. 
 
 ![Page consultation](./interface/DEMO1.JPG)
 
