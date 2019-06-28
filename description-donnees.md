@@ -64,7 +64,7 @@ Le tableau ci-dessous donne le détail par région (certaines entreprises ont de
 | Bourgogne-Franche-Comté  | 12347                                         | 9308
 | Pays de la Loire         | 17738                                         | 13807
 
-Les établissements éventuellements absents de la base sirène (en cas de base sirène obsolète par exemple) sont filtrées en post-traitement. 
+Les établissements éventuellement absents de la base sirène (en cas de base sirène obsolète par exemple) sont filtrés en post-traitement. 
 
 ### Taux de couverture des données 
 
