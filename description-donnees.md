@@ -54,9 +54,17 @@ L'algorithme tourne actuellement sur les données de la
 Bourgogne-Franche-Comté et de Pays de la Loire. L'unité de base est
 l'établissement. Les établissements de moins de 10 salariés ou dont
 l'effectif est inconnu ne sont pas intégrés à l'entraînement de
-l'algorithme. Il en résulte un stock d'environ 30000 établissements. 
+l'algorithme. 
 
-Les établissements absents de la base sirène sont filtrées en post-traitement. 
+Il en résulte un stock de 30085 établissements issues de 22665 entreprises. 
+Le tableau ci-dessous donne le détail par région (certaines entreprises ont des établissements dans plusieurs régions).
+
+|  Région                  |  Nombre d'établissements                      | Nombre d'entreprises
+| ------------------------ | --------------------------------------------- | --------------------------------
+| Bourgogne-Franche-Comté  | 12347                                         | 9308
+| Pays de la Loire         | 17738                                         | 13807
+
+Les établissements éventuellements absents de la base sirène (en cas de base sirène obsolète par exemple) sont filtrées en post-traitement. 
 
 ### Taux de couverture des données 
 
