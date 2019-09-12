@@ -10,6 +10,11 @@ Description des données
     - [Données sirene](#donn%C3%A9es-sirene)
     - [Données financières de la Banque de France](#donn%C3%A9es-financi%C3%A8res-de-la-banque-de-france)
     - [Données financières issues des bilans déposés au greffe de tribunaux de commerce](#donn%C3%A9es-financi%C3%A8res-issues-des-bilans-d%C3%A9pos%C3%A9s-au-greffe-de-tribunaux-de-commerce)
+      - [Structure et liquidité](#structure-et-liquidit%C3%A9)
+      - [Gestion](#gestion)
+      - [Productivité et rentabilité](#productivit%C3%A9-et-rentabilit%C3%A9)
+      - [Marge et valeur ajoutée](#marge-et-valeur-ajout%C3%A9e)
+      - [Compte de résultat](#compte-de-r%C3%A9sultat)
     - [Données sur l'activité partielle](#donn%C3%A9es-sur-lactivit%C3%A9-partielle)
       - [Données de demandes d'activité partielle](#donn%C3%A9es-de-demandes-dactivit%C3%A9-partielle)
         - [Table des motifs de recours à l'activité partielle](#table-des-motifs-de-recours-%C3%A0-lactivit%C3%A9-partielle)
@@ -76,7 +81,25 @@ Données importées
 
 ### Données sirene
 
-TODO en cours
+|                          |                                               |
+| ------------------------ | --------------------------------------------- |
+| Source        | [Géo-sirene](http://data.cquest.org/geo_sirene/), open source | 
+| Unité | siret |
+| Couverture siret         | Tout établissement actif                     |
+| Fréquence de mise-à-jour | Source mise à jour quotidiennement mais intégration mensuelle (voire bimensuelle) |
+
+  Le fichier sirene est utilisé comme fichier de référence pour les
+  établissements actifs. On s'en sert pour la raison sociale, le
+  code naf, l'adresse (y compris région et
+  département qui permettent d'ouvrir les droits de consultation sur
+  le terrain). \\
+  \vfill
+  On intègre pour l'algorithme également des données supplémentaires:
+  date de création de l'établissement, présence ou non
+  d'activité saisonnière.
+
+
+La description détaillée des variables du fichier Sirène est disponible [ici](https://static.data.gouv.fr/resources/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret-page-en-cours-de-construction/20181001-193247/description-fichier-stocketablissement.pdf).
 
 ### Données financières de la Banque de France  
 
@@ -85,8 +108,9 @@ TODO en cours
 |                          |                                               |
 | ------------------------ | --------------------------------------------- |
 | Source                   | Banque de France                              |
-| Nombre de siren          | TODO                                          |
-| Couverture siret         | TODO                                          |
+| Unité                    | siren                                         |  
+| Disponibilité            | 2014-2018                                     |
+| Couverture siren         | 70% en 2015                                   |
 | Fréquence de mise-à-jour | annuelle                                      |
 | Délai des données        | Exercice n obtenu en septembre de l'année n+1 |
 
@@ -119,7 +143,111 @@ _100 * frais financiers / (EBE + Produits hors expl. - charges hors expl.)_
 
 ### Données financières issues des bilans déposés au greffe de tribunaux de commerce
 
-En cours de rédaction
+|                          |                                               |
+| ------------------------ | --------------------------------------------- |
+| Source                   | [Diane](https://diane.bvdinfo.com/)           |
+| Unité                    | siren                                         |
+| Disponibilité            | 2014-2018                                     |
+| Couverture siren         | 76% en 2015, 61% en 2016                      |
+| Fréquence de mise-à-jour | Annuelle                                      |
+| Délai des données        | Exercice n obtenu en septembre de l'année n+1 |
+
+* __Annee__ Année de l'exercice
+* __NomEntreprise__ Raison sociale
+* __NumeroSiren__ Numéro siren
+* __StatutJuridique__  Statut juridique 
+* __ProcedureCollective__ Présence d'une procédure collective en cours 
+* __EffectifConsolide__ Effectif consolidé à l'entreprise
+* __DetteFiscaleEtSociale__  Dette fiscale et sociale
+* __FraisDeRetD__  Frais de Recherche et Développement 
+* __ConcesBrevEtDroitsSim__ Concessions, brevets, et droits similaires
+* __NotePreface__ Note Diane "Préface" entre 0 et 10. 
+* __NombreEtabSecondaire__ Nombre d'établissements secondaires de l'entreprise. 
+* __NombreFiliale__ Nombre de filiales de l'entreprise (filiales définies par une détention capitalistique d'au moins 50,01\%). 
+* __TailleCompoGroupe__ Nombre d'entreprises dans le groupe (groupe défini par les liens capitalistique d'au moins 50,01\%)
+* __ArreteBilan__ Date d'arrêté du bilan
+* __NombreMois__ Durée de l'exercice en mois. 
+* __ConcoursBancaireCourant__ Concours bancaires courants. (Pour recalculer les frais financiers court terme de la Banque de France)
+
+#### Structure et liquidité
+
+* __EquilibreFinancier__ Équilibre financier.
+* __IndependanceFinanciere__ Indépendance financière. 
+* __Endettement__  Endettement. 
+* __AutonomieFinanciere__ Autonomie financière. 
+* __DegreImmoCorporelle__  Degré d'amortissement des immobilisations corporelles
+* __FinancementActifCirculant__ Financement de l'actif circulant net. 
+* __LiquiditeGenerale__ Liquidité générale. 
+* __LiquiditeReduite__ Liquidité réduite. 
+
+#### Gestion
+
+* __RotationStocks__ Rotation des stocks (en jours).
+* __CreditClient__ Crédit clients
+* __CreditFournisseur__ Crédit fournisseurs
+* __CAparEffectif__ Chiffre d'affaire par effectif (k€/personne)
+* __TauxInteretFinancier__ Taux d'intérêt financier. 
+* __TauxInteretSurCA__ Intérêts sur chiffre d'affaire. 
+* __EndettementGlobal__ Endettement global
+* __TauxEndettement__ Taux d'endettement. 
+* __CapaciteRemboursement__ Capacité de remboursement. 
+* __CapaciteAutofinancement__ Capacité d'autofinancement.
+* __CouvertureCaFdr__ Couverture du chiffre d'affaire par le fonds de roulement. 
+* __CouvertureCaBesoinFdr__ Couverture du chiffre d'affaire par le besoin en fonds de roulement. 
+* __PoidsBFRExploitation__  Poids des besoins en fonds de roulement d'exploitation. 
+* __Exportation__ Exportation (%)
+
+#### Productivité et rentabilité
+
+* __EfficaciteEconomique__ Efficacité économique (k€/personne)
+* __ProductivitePotentielProduction__ Productivité du potentiel de production
+* __ProductiviteCapitalFinancier__ Productivtié du capital financier.
+* __ProductiviteCapitalInvesti__ Productivité du capital investi. 
+* __TauxDInvestissementProductif__ Taux d'investissement productif. 
+* __RentabiliteEconomique__ Rentabilité économique. 
+* __Performance__ Performance. 
+* __RendementBrutFondsPropres__ Rendement brut des fonds propres.  
+* __RentabiliteNette__  Rentabilité nette. 
+* __RendementCapitauxPropres__ Rendement des capitaux propres. 
+* __RendementRessourcesDurables__  Rendement des ressources durables. 
+
+#### Marge et valeur ajoutée
+
+* __TauxMargeCommerciale__ Taux de marge commerciale. 
+* __TauxValeurAjoutee__ Taux de valeur ajoutée. 
+* __PartSalaries__ Part des salariés. 
+* __PartEtat__ Part de l'État.
+* __PartPreteur__   Part des prêteurs.
+* __PartAutofinancement__ Part de l'autofinancement. 
+
+#### Compte de résultat
+
+* __CA__  Chiffre d'affaires
+* __CAExportation__ Chiffre d'affaires à l'exportation
+* __AchatMarchandises__ Achats de marchandises
+* __AchatMatieresPremieres__ Achats de matières premières et autres approvisionnement. 
+* __Production__ Production de l'exercice. 
+* __MargeCommerciale__ Marge commerciale.
+* __Consommation__ Consommation de l'exercice. 
+* __AutresAchatsChargesExternes__ Autres achats et charges externes.
+* __ValeurAjoutee__ Valeur ajoutée.
+* __ChargePersonnel__ Charges de personnel. 
+* __ImpotsTaxes__ Impôts, taxes et versements assimilés.
+* __SubventionsDExploitation__ Subventions d'exploitation. 
+* __ExcedentBrutDExploitation__ Excédent brut d'exploitation.
+* __AutresProduitsChargesReprises__ Autres produits, charges et reprises. 
+* __DotationAmortissement__ Dotation d'exploitation aux amortissements et aux provisions. 
+* __ResultatExpl__ Résultat d'exploitation.
+* __OperationsCommun__ Opérations en commun.
+* __ProduitsFinanciers__ Produits financiers. 
+* __ChargesFinancieres__ Charges financières. 
+* __Interets__ Intérêts et charges assimilées.
+* __ResultatAvantImpot__ Résultat courant avant impôts. 
+* __ProduitExceptionnel__ Produits exceptionnels.
+* __ChargeExceptionnelle__ Charges exceptionnelles. 
+* __ParticipationSalaries__ Participation des salariés aux résultats. 
+* __ImpotBenefice__ Impôts sur les bénéfices et impôts différés. 
+* __BeneficeOuPerte__ Bénéfice ou perte. 
 
 ### Données sur l'activité partielle
 
@@ -127,7 +255,8 @@ Deux fichiers: demandes d'activité partielle, et consommations d'activité part
 
 |                              |                                            |
 | ---------------------------- | ------------------------------------------ |
-| Source                       | DARES                                      |
+| Source                       | DGEFP                                      |
+| Unité                        | siret                                      |
 | Couverture                   | Toutes les demandes et consommations       |
 | Fréquence de mise-à-jour     | Mensuelle, export base complète            |
 | Délai des données (conso)    | Mois précédent, à quelques exceptions près |
