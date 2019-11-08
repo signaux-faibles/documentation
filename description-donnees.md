@@ -162,10 +162,10 @@ _100 * frais financiers / (EBE + Produits hors expl. - charges hors expl.)_
 * __FraisDeRetD__  Frais de Recherche et Développement 
 * __ConcesBrevEtDroitsSim__ Concessions, brevets, et droits similaires
 * __NotePreface__ Note Diane "Préface" entre 0 et 10. 
-* __NombreEtabSecondaire__ Nombre d'établissements secondaires de l'entreprise. 
-* __NombreFiliale__ Nombre de filiales de l'entreprise (filiales définies par une détention capitalistique d'au moins 50,01\%). 
+* __NombreEtabSecondaire__ Nombre d'établissements secondaires de l'entreprise, en plus du siège. 
+* __NombreFiliale__ Nombre de filiales de l'entreprise. Dans  la  base  de  données des  liens  capitalistiques,  le  concept  de  filiale  ne  fait  aucune  référence  au pourcentage d’appartenance entre le parent et la fille. Dans ce sens, si l'entreprise A est enregistrée comme  ayant  des  intérêts  dans  l'entreprise  B  avec  un  très  petit,  ou  même un  pourcentage  de participation inconnu, l'entreprise B sera considérée filiale de l'entreprise A.  
 * __TailleCompoGroupe__ Nombre d'entreprises dans le groupe (groupe défini par les liens capitalistique d'au moins 50,01\%)
-* __ArreteBilan__ Date d'arrêté du bilan
+* __ArreteBilan__ Date d'arrêté du bilan  
 * __NombreMois__ Durée de l'exercice en mois. 
 * __ConcoursBancaireCourant__ Concours bancaires courants. (Pour recalculer les frais financiers court terme de la Banque de France)
 
