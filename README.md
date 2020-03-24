@@ -18,7 +18,7 @@ L'organisation github [Signaux-Faibles](https://github.com/signaux-faibles/) reg
 
 L'objectif de ces outils est de fournir les outils techniques nécessaires à la mise en oeuvre de la détection algorithmique ainsi que la diffusion des résultats de cette détection auprès des utilisateurs.
 
-## Logiciels
+## Logiciels
 
 - [signauxfaibles-web](https://github.com/signaux-faibles/signauxfaibles-web) est l'interface utilisateur destinée aux agents publics
 - [opensignauxfaibles](https://github.com/signaux-faibles/opensignauxfaibles) contient le socle technique permettant la mise en oeuvre des méthodes de machine learning
