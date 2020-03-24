@@ -14,7 +14,7 @@ Cet aspect est utile pour effectuer un suivi au long cours de l'évolution de la
 
 Ces outils doivent permettre la mise en place de sondes automatiques pour faire remonter des alertes lorsque les dispositifs ne sont plus à même de fournir le service aux utilisateurs.
 
-## Solution envisagée
+## Solution envisagée
 
 ### netdata
 
