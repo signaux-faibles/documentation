@@ -83,7 +83,7 @@ L'import est le processus qui consiste à récupérer les fichiers bruts, c'est-
 
 L'intégration se fait par "batch". Chaque batch est défini dans la collection "Admin" de la base MongoDB par un objet de la forme suivante:
 
-```json
+```js
 {
   "_id": {
     "key": "1802", // Doit être en ordre alphabétique
