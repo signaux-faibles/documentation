@@ -8,6 +8,8 @@ Préambule
 
 Dans cette partie, nous explorons comment sont stockées et transformées les données à  partir des fichiers bruts.
 
+Note: Vous pouvez installer la commande `http` utilisée dans les exemples de cette page à partir de [HTTPie – command line HTTP client](https://httpie.org/).
+
 Vue d'ensemble des canaux de transformation des données
 -------------------------------------------------------
 
