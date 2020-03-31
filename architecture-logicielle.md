@@ -2,7 +2,7 @@
 
 ## Objectifs du dispositif
 
-- récolter les données brutes en provenance des partenaires (goup + stockage POSIX) 
+- récolter les données brutes en provenance des partenaires (goup + stockage POSIX)
 - traiter/importer les données brutes (opensignauxfaibles + mongodb)
 - raffiner les données pour obtenir les variables nécessaires à la bonne marche de l'algorithme (opensignauxfaibles + mongodb)
 - exécuter la détection algorithmique (opensignauxfaibles + mongodb)
@@ -18,11 +18,12 @@ Plus de détails sont disponibles [ici](https://github.com/signaux-faibles/goup)
 
 ### Objectif
 
-goup permet aux partenaires de déposer les fichiers de données brutes sur la plateforme.  
+goup permet aux partenaires de déposer les fichiers de données brutes sur la plateforme.
 
 ### Composition
 
 goup est basé sur [tusd](https://github.com/tus/tusd) et lui ajoute des fonctionnalités:
+
 - authentification par JWT
 - espaces privatifs par utilisateurs (gestion des droits et des chemins)
 - supprime la possibilité de télécharger les fichiers
@@ -30,8 +31,7 @@ goup est basé sur [tusd](https://github.com/tus/tusd) et lui ajoute des fonctio
 ### Authentification JWT
 
 En l'absence d'un JWT valide, le service refuse les sollicitations.  
-Ce token devra en plus fournir dans son chargement une propriété `goup-path` correspondant au nom d'utilisateur posix ciblé par le versement.  
-
+Ce token devra en plus fournir dans son chargement une propriété `goup-path` correspondant au nom d'utilisateur posix ciblé par le versement.
 
 ### Traitement des fichiers uploadés
 
@@ -41,27 +41,29 @@ Ce token devra en plus fournir dans son chargement une propriété `goup-path` c
 - Les droits sont fixés sur le fichier pour limiter l'accès aux utilisateurs souhaités (grace à la propriété `goup-path`)
 - Un lien est créé dans l'espace de stockage ad-hoc.
 
-
 ### Structure du stockage
 
 Le fichiers uploadés sont matérialisés sur le disque dur par deux fichiers nommés d'après le hash de l'upload généré par TUS:
+
 - un fichier .bin qui contient les données du fichier
 - un fichier .info qui contient les métadonnées
 
 Le stockage est organisé dans 2 répertoires permanents:
+
 - tusd: espace de traitement des upload par le serveur et accessible uniquement par ce dernier
 - public: espace commun à tous les utilisateurs
 
 1 répertoire privé pour chaque utilisateur (voir exemple ci-dessous)
 
 Voici l'état du stockage après l'upload de 4 fichiers par deux utilisateurs:
+
 - file1: user1, envoi public
 - file2: user1, envoi privé
 - file3: user2, envoi public
 - file4: user2, envoie privé
 
 ```
-chemin                           user:group            mode 
+chemin                           user:group            mode
 
 .
 +-- tusd                         goup:goup             770
@@ -89,6 +91,7 @@ chemin                           user:group            mode
 ### dépendances logicielles
 
 goup est développé en go (v1.10) et exploite les packages suivants:
+
 - https://github.com/tus/tusd
 - https://github.com/tus/tusd/filestore
 - https://github.com/appleboy/gin-jwt
@@ -101,6 +104,7 @@ goup est développé en go (v1.10) et exploite les packages suivants:
 ### Objectif
 
 opensignauxfaibles se charge du traitement des données:
+
 - import des fichiers bruts
 - calcul des données d'entrée de l'algorithme
 - stockage des résultats
@@ -112,6 +116,7 @@ Cette brique intègre le stockage de l'historique des données brutes, mais auss
 #### dbmongo
 
 Ce module est écrit en go (1.10) et centralise les fonctions de traitement des données suivantes:
+
 - analyse des fichiers bruts
 - conversion/insert dans mongodb
 - ordonnancement des traitements mapreduce/aggregations mongodb
@@ -145,6 +150,7 @@ Ce module permet le traitement algorithmique. (à écrire)
 ### Flux de traitement
 
 ![schéma](architecture-logicielle/workflow-osf.png)
+
 1. Lecture des fichiers bruts ([dbmongo](#dbmongo))
 1. Les données brutes sont converties et insérées dans mongodb ([dbmongo](#dbmongo))
 1. Les données sont compactées dans mongodb par un traitement map-reduce ([dbmongo](#dbmongo))
@@ -159,6 +165,7 @@ Pour plus de détail sur le traitement des données et les transformations qui l
 
 opensignauxfaibles dispose d'un identifiant lui ouvrant la possibilité de publier des données sur datapi.
 Il lui incombe de fournir à datapi:
+
 - des données détaillées sur les établissements et les entreprises (niveau A)
 - des données synthétiques sur les établissements et les entreprises (niveau B)
 - les listes de détection (niveau A)
@@ -176,6 +183,7 @@ datapi est écrit en go (1.10) et se base sur postgresql (10).
 
 Dans cette infrastructure, datapi est la brique permettant la diffusion contrôlée des données produites dans le projet et sert notamment de back-end pour le signauxfaibles-web.  
 Parmi les fonctionnalités notables:
+
 - stockage arbitraire d'objets JSON
 - gestion dynamique des permissions en lecture/écriture
 - journalisation des requêtes
@@ -185,6 +193,7 @@ Parmi les fonctionnalités notables:
 
 ![workflow](architecture-logicielle/workflow-datapi.png)
 Il est à noter que:
+
 - les insertions et lectures de données sont effectuées au sein de transactions postgres.
 - la prise en compte de l'ajout de données et de politiques de sécurité est intégrée dans le système transactionnel de façon à présenter un comportement synchrone
 - les permissions accordées aux utilisateurs sont véhiculées dans le token JWT et reposent sur la sécurité de keycloak, on les retrouve dans les rôles clients communiqués dans le token.
@@ -199,13 +208,15 @@ Avec l'exemple ci-dessous, nous avons un objet qui pourra-être vu de 3 façons 
 ![stockage](architecture-logicielle/datapi-object.png)
 
 - un utilisateur disposant d'un scope vide verra:
+
 ```javascript
 {
-  raisonSociale: "TEST"
+  raisonSociale: "TEST";
 }
 ```
 
 - un utilisateur disposant du scope [bfc]:
+
 ```javascript
 {
   raisonSociale: "TEST",
@@ -214,6 +225,7 @@ Avec l'exemple ci-dessous, nous avons un objet qui pourra-être vu de 3 façons 
 ```
 
 - un utilisateur disposant du scope [bfc, crp]:
+
 ```javascript
 {
   raisonSociale: "TEST",
@@ -237,15 +249,17 @@ Ce principe seul ne permet pas de supprimer les données de la base de données,
 ### Politiques de sécurité
 
 Une politique de sécurité permet d'intéragir avec les permissions accordées aux utilisateurs. Le périmètre d'application d'une politique de sécurité est définie par une clé d'objet, un scope, un ensemble de buckets (définis par une expression régulière).
-- en ajoutant des badges aux utilisateurs 
-- en ajoutant des badges aux objets 
+
+- en ajoutant des badges aux utilisateurs
+- en ajoutant des badges aux objets
 
 ### Principe de sécurité
 
 - Une ressource comporte des «badges» de sécurité (une liste de tags), les utilisateurs disposent dans leurs attributions de badges.
 - Une ressource n'est disponible à un utilisateur que si il dispose de l'ensemble des badges demandés par la ressource.
 - Des politiques de sécurités permettent de fixer des règles ajoutant des badges aux ressources (renforcement de la contrainte de sécurité) ou aux utilisateurs (promotion)
-- Les politiques de sécurité peuvent s'appliquer à un ensemble d'objets 
+- Les politiques de sécurité peuvent s'appliquer à un ensemble d'objets
+
 ### Dépendances logicielles
 
 - postgresql v10
@@ -260,6 +274,7 @@ Une politique de sécurité permet d'intéragir avec les permissions accordées 
 - https://golang.org/x/crypto/bcrypt
 
 ## signauxfaibles-web
+
 Il s'agit de l'interface utilisée par les agents.
 Cette interface communique avec datapi.
 
@@ -271,15 +286,16 @@ Les tokens JWT (long terme et session) contiennent notamment dans leur chargemen
 ### architecture
 
 signauxfaibles-web est une application vuejs codée en typescript avec les modules suivantes:
+
 - vuetify: environnement graphique
 - vuex: gestion d'un store partagé de variables entre composants
 - axios: client http asynchrone pour traiter les appels à datapi
 - echarts: environnement pour tracer des graphiques
 
-
 ### Dépendance logicielle
 
 Voici la liste des modules yarn nécessaires à la compilation du projet vue.
+
 - @babel/core (7.4.3)
 - axios (0.18.0)
 - core-js (2.6.5)
@@ -318,6 +334,7 @@ Voici la liste des modules yarn nécessaires à la compilation du projet vue.
 La version de mongodb utilisée est la 3.6.
 
 ## keycloak
+
 Il s'agit du produit officiel développé par Red-Hat.
 KeyCloak fournit les services d'authentification pour `goup` et `datapi` en forgeant les JWT des utilisateurs.
 
@@ -336,7 +353,7 @@ Le scope utilisé par datapi sera accessible au travers des rôles clients confi
 La version utilisée est la 10.8.
 Le module hstore du packages contrib est utilisé.
 
-### client TUS 
+### client TUS
 
 Un exemple de client tus est fourni [ici](https://github.com/signaux-faibles/goup/tree/master/goup-client) et permet de voir une implémentation javascript basée sur le client officiel.  
-On trouve toutefois des clients dans de nombreux langages qui permettront aux utilisateurs d'intégrer l'upload de fichier dans leurs plateformes. 
+On trouve toutefois des clients dans de nombreux langages qui permettront aux utilisateurs d'intégrer l'upload de fichier dans leurs plateformes.
