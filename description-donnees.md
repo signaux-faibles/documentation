@@ -1,5 +1,4 @@
-Description des données
-=======================
+# Description des données
 
 - [Description des données](#description-des-donn%C3%A9es)
   - [Préambule](#pr%C3%A9ambule)
@@ -34,112 +33,107 @@ Description des données
     - [Données sur le procédures collectives](#donn%C3%A9es-sur-le-proc%C3%A9dures-collectives)
     - [Données sur les CCSF](#donn%C3%A9es-sur-les-ccsf)
 
-Préambule
----------
+## Préambule
 
 Ce dossier technique décrite les données utilisées dans le projet signaux-faibles. Avec l'évolution du projet, celles-ci vont naturellement être amenées à évoluer.
 
 Les données utilisées proviennent de plusieurs sources:
 
--   **Données Sirene** Raison sociale, adresse, code APE, date de création etc.\
--   **Données Altarès** Données de défaillance, permet la définition de l'objectif d'apprentissage
--   **Données DIRECCTE** Autorisations et consommations d'activité partielle, recours à l'intérim, déclaration des mouvements de main-d'oeuvre
--   **Données URSSAF** Montant des cotisations, montant des dettes (part patronale, part ouvrière), demandes de délais de paiement, demandes préalables à l'embauche
--   **Données Banque de France** 6 ratios financiers
--   **Données Diane** Bilans et comptes de résultats. Permet d'enrichir les données financières de la Banque de France
+- **Données Sirene** Raison sociale, adresse, code APE, date de création etc.\
+- **Données Altarès** Données de défaillance, permet la définition de l'objectif d'apprentissage
+- **Données DIRECCTE** Autorisations et consommations d'activité partielle, recours à l'intérim, déclaration des mouvements de main-d'oeuvre
+- **Données URSSAF** Montant des cotisations, montant des dettes (part patronale, part ouvrière), demandes de délais de paiement, demandes préalables à l'embauche
+- **Données Banque de France** 6 ratios financiers
+- **Données Diane** Bilans et comptes de résultats. Permet d'enrichir les données financières de la Banque de France
 
 Les sections ci-dessous détaillent la nature des données importées, et la nature des traitements qui leurs sont appliqués.
 
-Périmètre des données
----------------------
+## Périmètre des données
 
-### Nombre d'établissements  
+### Nombre d'établissements
 
 L'algorithme tourne actuellement sur les données de la
 Bourgogne-Franche-Comté et de Pays de la Loire. L'unité de base est
 l'établissement. Les établissements de moins de 10 salariés ou dont
 l'effectif est inconnu ne sont pas intégrés à l'entraînement de
-l'algorithme. 
+l'algorithme.
 
-Il en résulte un stock de 30085 établissements issues de 22665 entreprises. 
+Il en résulte un stock de 30085 établissements issues de 22665 entreprises.
 Le tableau ci-dessous donne le détail par région (certaines entreprises ont des établissements dans plusieurs régions).
 
-|  Région                  |  Nombre d'établissements                      | Nombre d'entreprises
-| ------------------------ | --------------------------------------------- | --------------------------------
-| Bourgogne-Franche-Comté  | 12347                                         | 9308
-| Pays de la Loire         | 17738                                         | 13807
+| Région                  | Nombre d'établissements | Nombre d'entreprises |
+| ----------------------- | ----------------------- | -------------------- |
+| Bourgogne-Franche-Comté | 12347                   | 9308                 |
+| Pays de la Loire        | 17738                   | 13807                |
 
-Les établissements éventuellement absents de la base sirène (en cas de base sirène obsolète par exemple) sont filtrés en post-traitement. 
+Les établissements éventuellement absents de la base sirène (en cas de base sirène obsolète par exemple) sont filtrés en post-traitement.
 
-### Taux de couverture des données 
+### Taux de couverture des données
 
 TODO
- Rédaction en cours. 
+Rédaction en cours.
 
-Données importées
------------------
+## Données importées
 
 ### Données sirene
 
-|                          |                                               |
-| ------------------------ | --------------------------------------------- |
-| Source        | [Géo-sirene](http://data.cquest.org/geo_sirene/), open source | 
-| Unité | siret |
-| Couverture siret         | Tout établissement actif                     |
+|                          |                                                                                   |
+| ------------------------ | --------------------------------------------------------------------------------- |
+| Source                   | [Géo-sirene](http://data.cquest.org/geo_sirene/), open source                     |
+| Unité                    | siret                                                                             |
+| Couverture siret         | Tout établissement actif                                                          |
 | Fréquence de mise-à-jour | Source mise à jour quotidiennement mais intégration mensuelle (voire bimensuelle) |
 
-  Le fichier sirene est utilisé comme fichier de référence pour les
-  établissements actifs. On s'en sert pour la raison sociale, le
-  code naf, l'adresse (y compris région et
-  département qui permettent d'ouvrir les droits de consultation sur
-  le terrain). \\
-  \vfill
-  On intègre pour l'algorithme également des données supplémentaires:
-  date de création de l'établissement, présence ou non
-  d'activité saisonnière.
-
+Le fichier sirene est utilisé comme fichier de référence pour les
+établissements actifs. On s'en sert pour la raison sociale, le
+code naf, l'adresse (y compris région et
+département qui permettent d'ouvrir les droits de consultation sur
+le terrain). \\
+\vfill
+On intègre pour l'algorithme également des données supplémentaires:
+date de création de l'établissement, présence ou non
+d'activité saisonnière.
 
 La description détaillée des variables du fichier Sirène est disponible [ici](https://static.data.gouv.fr/resources/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret-page-en-cours-de-construction/20181001-193247/description-fichier-stocketablissement.pdf).
 
-### Données financières de la Banque de France  
+### Données financières de la Banque de France
 
-  Les données financières de la Banque de France couvrent à ce jour uniquement la région Bourgogne Franche Comté. Elles consistent en 6 ratios financiers détaillées ci-dessous. 
+Les données financières de la Banque de France couvrent à ce jour uniquement la région Bourgogne Franche Comté. Elles consistent en 6 ratios financiers détaillées ci-dessous.
 
 |                          |                                               |
 | ------------------------ | --------------------------------------------- |
 | Source                   | Banque de France                              |
-| Unité                    | siren                                         |  
+| Unité                    | siren                                         |
 | Disponibilité            | 2014-2018                                     |
 | Couverture siren         | 70% en 2015                                   |
 | Fréquence de mise-à-jour | annuelle                                      |
 | Délai des données        | Exercice n obtenu en septembre de l'année n+1 |
 
-* __SIREN__ Siren de l'entreprise
+- **SIREN** Siren de l'entreprise
 
-* __ANNEE__ Année de l'exercice
+- **ANNEE** Année de l'exercice
 
-* __ARRETE_BILAN__  Date de clôture de l'exercice. Format mm/jj/aaaa
+- **ARRETE_BILAN** Date de clôture de l'exercice. Format mm/jj/aaaa
 
-* __DENOM__ Raison sociale de l'entreprise 
+- **DENOM** Raison sociale de l'entreprise
 
-* __SECTEUR__ Secteur d'activité
-           
-* __POIDS_FRNG__ Poids du fonds de roulement net global sur le chiffre d'affaire. Exprimé en \%. 
+- **SECTEUR** Secteur d'activité
+- **POIDS_FRNG** Poids du fonds de roulement net global sur le chiffre d'affaire. Exprimé en \%.
 
-* __TX_MARGE__  Taux de marge, rapport de l'excédent brut d'exploitation (EBE) sur la valeur ajoutée. Exprimé en \%. 
-_100*EBE / valeur ajoutee_
+- **TX_MARGE** Taux de marge, rapport de l'excédent brut d'exploitation (EBE) sur la valeur ajoutée. Exprimé en \%.
+  _100\*EBE / valeur ajoutee_
 
-* __DELAI_FRS__ Délai estimé de paiement des fournisseurs. Exprimé en jours. 
-_360 * dettes fournisseurs / achats HT_
+- **DELAI_FRS** Délai estimé de paiement des fournisseurs. Exprimé en jours.
+  _360 \* dettes fournisseurs / achats HT_
 
-* __POIDS_DFISC_SOC__  Poids des dettes fiscales et sociales, par rapport à la valeur ajoutée. Exprimé en \%. 
-_100 * dettes fiscales et sociales / Valeur ajoutee_
+- **POIDS_DFISC_SOC** Poids des dettes fiscales et sociales, par rapport à la valeur ajoutée. Exprimé en \%.
+  _100 \* dettes fiscales et sociales / Valeur ajoutee_
 
-* __POIDS_FIN_CT__ Poids du financement court terme. Exprimé en \%. 
-_100 * concours bancaires courants / chiffre d'affaires HT_
+- **POIDS_FIN_CT** Poids du financement court terme. Exprimé en \%.
+  _100 \* concours bancaires courants / chiffre d'affaires HT_
 
-* __POIDS_FRAIS_FIN__ Poids des frais financiers, sur l'excedent brut d'exploitation corrigé des produits et charges hors exploitation. Exprimé en \%. 
-_100 * frais financiers / (EBE + Produits hors expl. - charges hors expl.)_
+- **POIDS_FRAIS_FIN** Poids des frais financiers, sur l'excedent brut d'exploitation corrigé des produits et charges hors exploitation. Exprimé en \%.
+  _100 \* frais financiers / (EBE + Produits hors expl. - charges hors expl.)_
 
 ### Données financières issues des bilans déposés au greffe de tribunaux de commerce
 
@@ -152,102 +146,102 @@ _100 * frais financiers / (EBE + Produits hors expl. - charges hors expl.)_
 | Fréquence de mise-à-jour | Annuelle                                      |
 | Délai des données        | Exercice n obtenu en septembre de l'année n+1 |
 
-* __Annee__ Année de l'exercice
-* __NomEntreprise__ Raison sociale
-* __NumeroSiren__ Numéro siren
-* __StatutJuridique__  Statut juridique 
-* __ProcedureCollective__ Présence d'une procédure collective en cours 
-* __EffectifConsolide__ Effectif consolidé à l'entreprise
-* __DetteFiscaleEtSociale__  Dette fiscale et sociale
-* __FraisDeRetD__  Frais de Recherche et Développement 
-* __ConcesBrevEtDroitsSim__ Concessions, brevets, et droits similaires
-* __NotePreface__ Note Diane "Préface" entre 0 et 10. 
-* __NombreEtabSecondaire__ Nombre d'établissements secondaires de l'entreprise, en plus du siège. 
-* __NombreFiliale__ Nombre de filiales de l'entreprise. Dans  la  base  de  données des  liens  capitalistiques,  le  concept  de  filiale  ne  fait  aucune  référence  au pourcentage d’appartenance entre le parent et la fille. Dans ce sens, si l'entreprise A est enregistrée comme  ayant  des  intérêts  dans  l'entreprise  B  avec  un  très  petit,  ou  même un  pourcentage  de participation inconnu, l'entreprise B sera considérée filiale de l'entreprise A.  
-* __TailleCompoGroupe__ Nombre d'entreprises dans le groupe (groupe défini par les liens capitalistique d'au moins 50,01\%)
-* __ArreteBilan__ Date d'arrêté du bilan  
-* __NombreMois__ Durée de l'exercice en mois. 
-* __ConcoursBancaireCourant__ Concours bancaires courants. (Pour recalculer les frais financiers court terme de la Banque de France)
+- **Annee** Année de l'exercice
+- **NomEntreprise** Raison sociale
+- **NumeroSiren** Numéro siren
+- **StatutJuridique** Statut juridique
+- **ProcedureCollective** Présence d'une procédure collective en cours
+- **EffectifConsolide** Effectif consolidé à l'entreprise
+- **DetteFiscaleEtSociale** Dette fiscale et sociale
+- **FraisDeRetD** Frais de Recherche et Développement
+- **ConcesBrevEtDroitsSim** Concessions, brevets, et droits similaires
+- **NotePreface** Note Diane "Préface" entre 0 et 10.
+- **NombreEtabSecondaire** Nombre d'établissements secondaires de l'entreprise, en plus du siège.
+- **NombreFiliale** Nombre de filiales de l'entreprise. Dans la base de données des liens capitalistiques, le concept de filiale ne fait aucune référence au pourcentage d’appartenance entre le parent et la fille. Dans ce sens, si l'entreprise A est enregistrée comme ayant des intérêts dans l'entreprise B avec un très petit, ou même un pourcentage de participation inconnu, l'entreprise B sera considérée filiale de l'entreprise A.
+- **TailleCompoGroupe** Nombre d'entreprises dans le groupe (groupe défini par les liens capitalistique d'au moins 50,01\%)
+- **ArreteBilan** Date d'arrêté du bilan
+- **NombreMois** Durée de l'exercice en mois.
+- **ConcoursBancaireCourant** Concours bancaires courants. (Pour recalculer les frais financiers court terme de la Banque de France)
 
 #### Structure et liquidité
 
-* __EquilibreFinancier__ Équilibre financier.
-* __IndependanceFinanciere__ Indépendance financière. 
-* __Endettement__  Endettement. 
-* __AutonomieFinanciere__ Autonomie financière. 
-* __DegreImmoCorporelle__  Degré d'amortissement des immobilisations corporelles
-* __FinancementActifCirculant__ Financement de l'actif circulant net. 
-* __LiquiditeGenerale__ Liquidité générale. 
-* __LiquiditeReduite__ Liquidité réduite. 
+- **EquilibreFinancier** Équilibre financier.
+- **IndependanceFinanciere** Indépendance financière.
+- **Endettement** Endettement.
+- **AutonomieFinanciere** Autonomie financière.
+- **DegreImmoCorporelle** Degré d'amortissement des immobilisations corporelles
+- **FinancementActifCirculant** Financement de l'actif circulant net.
+- **LiquiditeGenerale** Liquidité générale.
+- **LiquiditeReduite** Liquidité réduite.
 
 #### Gestion
 
-* __RotationStocks__ Rotation des stocks (en jours).
-* __CreditClient__ Crédit clients
-* __CreditFournisseur__ Crédit fournisseurs
-* __CAparEffectif__ Chiffre d'affaire par effectif (k€/personne)
-* __TauxInteretFinancier__ Taux d'intérêt financier. 
-* __TauxInteretSurCA__ Intérêts sur chiffre d'affaire. 
-* __EndettementGlobal__ Endettement global
-* __TauxEndettement__ Taux d'endettement. 
-* __CapaciteRemboursement__ Capacité de remboursement. 
-* __CapaciteAutofinancement__ Capacité d'autofinancement.
-* __CouvertureCaFdr__ Couverture du chiffre d'affaire par le fonds de roulement. 
-* __CouvertureCaBesoinFdr__ Couverture du chiffre d'affaire par le besoin en fonds de roulement. 
-* __PoidsBFRExploitation__  Poids des besoins en fonds de roulement d'exploitation. 
-* __Exportation__ Exportation (%)
+- **RotationStocks** Rotation des stocks (en jours).
+- **CreditClient** Crédit clients
+- **CreditFournisseur** Crédit fournisseurs
+- **CAparEffectif** Chiffre d'affaire par effectif (k€/personne)
+- **TauxInteretFinancier** Taux d'intérêt financier.
+- **TauxInteretSurCA** Intérêts sur chiffre d'affaire.
+- **EndettementGlobal** Endettement global
+- **TauxEndettement** Taux d'endettement.
+- **CapaciteRemboursement** Capacité de remboursement.
+- **CapaciteAutofinancement** Capacité d'autofinancement.
+- **CouvertureCaFdr** Couverture du chiffre d'affaire par le fonds de roulement.
+- **CouvertureCaBesoinFdr** Couverture du chiffre d'affaire par le besoin en fonds de roulement.
+- **PoidsBFRExploitation** Poids des besoins en fonds de roulement d'exploitation.
+- **Exportation** Exportation (%)
 
 #### Productivité et rentabilité
 
-* __EfficaciteEconomique__ Efficacité économique (k€/personne)
-* __ProductivitePotentielProduction__ Productivité du potentiel de production
-* __ProductiviteCapitalFinancier__ Productivtié du capital financier.
-* __ProductiviteCapitalInvesti__ Productivité du capital investi. 
-* __TauxDInvestissementProductif__ Taux d'investissement productif. 
-* __RentabiliteEconomique__ Rentabilité économique. 
-* __Performance__ Performance. 
-* __RendementBrutFondsPropres__ Rendement brut des fonds propres.  
-* __RentabiliteNette__  Rentabilité nette. 
-* __RendementCapitauxPropres__ Rendement des capitaux propres. 
-* __RendementRessourcesDurables__  Rendement des ressources durables. 
+- **EfficaciteEconomique** Efficacité économique (k€/personne)
+- **ProductivitePotentielProduction** Productivité du potentiel de production
+- **ProductiviteCapitalFinancier** Productivtié du capital financier.
+- **ProductiviteCapitalInvesti** Productivité du capital investi.
+- **TauxDInvestissementProductif** Taux d'investissement productif.
+- **RentabiliteEconomique** Rentabilité économique.
+- **Performance** Performance.
+- **RendementBrutFondsPropres** Rendement brut des fonds propres.
+- **RentabiliteNette** Rentabilité nette.
+- **RendementCapitauxPropres** Rendement des capitaux propres.
+- **RendementRessourcesDurables** Rendement des ressources durables.
 
 #### Marge et valeur ajoutée
 
-* __TauxMargeCommerciale__ Taux de marge commerciale. 
-* __TauxValeurAjoutee__ Taux de valeur ajoutée. 
-* __PartSalaries__ Part des salariés. 
-* __PartEtat__ Part de l'État.
-* __PartPreteur__   Part des prêteurs.
-* __PartAutofinancement__ Part de l'autofinancement. 
+- **TauxMargeCommerciale** Taux de marge commerciale.
+- **TauxValeurAjoutee** Taux de valeur ajoutée.
+- **PartSalaries** Part des salariés.
+- **PartEtat** Part de l'État.
+- **PartPreteur** Part des prêteurs.
+- **PartAutofinancement** Part de l'autofinancement.
 
 #### Compte de résultat
 
-* __CA__  Chiffre d'affaires
-* __CAExportation__ Chiffre d'affaires à l'exportation
-* __AchatMarchandises__ Achats de marchandises
-* __AchatMatieresPremieres__ Achats de matières premières et autres approvisionnement. 
-* __Production__ Production de l'exercice. 
-* __MargeCommerciale__ Marge commerciale.
-* __Consommation__ Consommation de l'exercice. 
-* __AutresAchatsChargesExternes__ Autres achats et charges externes.
-* __ValeurAjoutee__ Valeur ajoutée.
-* __ChargePersonnel__ Charges de personnel. 
-* __ImpotsTaxes__ Impôts, taxes et versements assimilés.
-* __SubventionsDExploitation__ Subventions d'exploitation. 
-* __ExcedentBrutDExploitation__ Excédent brut d'exploitation.
-* __AutresProduitsChargesReprises__ Autres produits, charges et reprises. 
-* __DotationAmortissement__ Dotation d'exploitation aux amortissements et aux provisions. 
-* __ResultatExpl__ Résultat d'exploitation.
-* __OperationsCommun__ Opérations en commun.
-* __ProduitsFinanciers__ Produits financiers. 
-* __ChargesFinancieres__ Charges financières. 
-* __Interets__ Intérêts et charges assimilées.
-* __ResultatAvantImpot__ Résultat courant avant impôts. 
-* __ProduitExceptionnel__ Produits exceptionnels.
-* __ChargeExceptionnelle__ Charges exceptionnelles. 
-* __ParticipationSalaries__ Participation des salariés aux résultats. 
-* __ImpotBenefice__ Impôts sur les bénéfices et impôts différés. 
-* __BeneficeOuPerte__ Bénéfice ou perte. 
+- **CA** Chiffre d'affaires
+- **CAExportation** Chiffre d'affaires à l'exportation
+- **AchatMarchandises** Achats de marchandises
+- **AchatMatieresPremieres** Achats de matières premières et autres approvisionnement.
+- **Production** Production de l'exercice.
+- **MargeCommerciale** Marge commerciale.
+- **Consommation** Consommation de l'exercice.
+- **AutresAchatsChargesExternes** Autres achats et charges externes.
+- **ValeurAjoutee** Valeur ajoutée.
+- **ChargePersonnel** Charges de personnel.
+- **ImpotsTaxes** Impôts, taxes et versements assimilés.
+- **SubventionsDExploitation** Subventions d'exploitation.
+- **ExcedentBrutDExploitation** Excédent brut d'exploitation.
+- **AutresProduitsChargesReprises** Autres produits, charges et reprises.
+- **DotationAmortissement** Dotation d'exploitation aux amortissements et aux provisions.
+- **ResultatExpl** Résultat d'exploitation.
+- **OperationsCommun** Opérations en commun.
+- **ProduitsFinanciers** Produits financiers.
+- **ChargesFinancieres** Charges financières.
+- **Interets** Intérêts et charges assimilées.
+- **ResultatAvantImpot** Résultat courant avant impôts.
+- **ProduitExceptionnel** Produits exceptionnels.
+- **ChargeExceptionnelle** Charges exceptionnelles.
+- **ParticipationSalaries** Participation des salariés aux résultats.
+- **ImpotBenefice** Impôts sur les bénéfices et impôts différés.
+- **BeneficeOuPerte** Bénéfice ou perte.
 
 ### Données sur l'activité partielle
 
@@ -264,99 +258,102 @@ Deux fichiers: demandes d'activité partielle, et consommations d'activité part
 
 Données communes :
 
-- __ID_DA__ N° de la demande
-- __ETAB_SIRET__ Siret du signataire
-- __ETAB_RSS__ Raison sociale du signataire
-- __DEP__ Département signataire
-- __REG__ Région signataire
-- __ETAB_CODE_INSEE__ Code INSEE commune
-- __ETAB_VILLE__ Ville
-- __CODE_NAF2__ Code NAF 2008
-- __CODE_NAF2_2__ Code NAF sur 88 postes (deux premiers caractères de la variable )CODE_NAF2)
-- __CODE_NAF_TP__ Pseudo indicatrice entreprises  travaux publics vaut :     - TP                si travaux publics     - Autres         sinon
-- __EFF_ENT__ Effectif de l'entreprise
-- __EFF_ETAB__ Effectif de l'établissement
+- **ID_DA** N° de la demande
+- **ETAB_SIRET** Siret du signataire
+- **ETAB_RSS** Raison sociale du signataire
+- **DEP** Département signataire
+- **REG** Région signataire
+- **ETAB_CODE_INSEE** Code INSEE commune
+- **ETAB_VILLE** Ville
+- **CODE_NAF2** Code NAF 2008
+- **CODE_NAF2_2** Code NAF sur 88 postes (deux premiers caractères de la variable )CODE_NAF2)
+- **CODE_NAF_TP** Pseudo indicatrice entreprises travaux publics vaut : - TP si travaux publics - Autres sinon
+- **EFF_ENT** Effectif de l'entreprise
+- **EFF_ETAB** Effectif de l'établissement
 
 #### Données de demandes d'activité partielle
 
-Données spécifiques aux demandes d'activité partielle.   
+Données spécifiques aux demandes d'activité partielle.
 
-- __DATE_STATUT__ Date de création de la demande
+- **DATE_STATUT** Date de création de la demande
 
-- __TX_PC__ Taux de prise en charge
+- **TX_PC** Taux de prise en charge
 
-- __TX_PC_UNEDIC_DARES__ Taux de prise en charge pas l'Unédic
+- **TX_PC_UNEDIC_DARES** Taux de prise en charge pas l'Unédic
 
-- __TX_PC_ETAT_DARES__ Taux de prise en charge par l'Etat
+- **TX_PC_ETAT_DARES** Taux de prise en charge par l'Etat
 
-- __DATE_DEB__ Date de début de la période d'activité partielle, au format JJ/MM/AAAA
+- **DATE_DEB** Date de début de la période d'activité partielle, au format JJ/MM/AAAA
 
-- __DATE_FIN__ Date de fin de la période d'activité partielle, au format JJ/MM/AAAA
+- **DATE_FIN** Date de fin de la période d'activité partielle, au format JJ/MM/AAAA
 
-- __HTA__ Nombre total d'heures autorisées. 
+- **HTA** Nombre total d'heures autorisées.
 
-- __MTA__ Montant total autorisé.
+- **MTA** Montant total autorisé.
 
-- __EFF_AUTO__ Effectifs autorisés. 
+- **EFF_AUTO** Effectifs autorisés.
 
-- __MOTIF_RECOURS_SE__ Cause d'activité partielle. Cf table ci-dessous 
-  
-- __(PERIMETE_EFF) PERIMETRE_AP__ Périmètre du chômage (1 à 4). Cf table ci-dessous
+- **MOTIF_RECOURS_SE** Cause d'activité partielle. Cf table ci-dessous
 
-- __RECOURS_ANTERIEUR__ Recours antérieurs au chômage (1 à 3) :    -  
+- **(PERIMETE_EFF) PERIMETRE_AP** Périmètre du chômage (1 à 4). Cf table ci-dessous
 
-- __AVIS_CE__ Avis du comité d’entreprise
+- **RECOURS_ANTERIEUR** Recours antérieurs au chômage (1 à 3) : -
+
+- **AVIS_CE** Avis du comité d’entreprise
 
 ##### Table des motifs de recours à l'activité partielle
-|   Code | Libellé |
-| ------ | ------- |
-| 1 | Conjoncture économique.  | 
-| 2 | Difficultés d’approvisionnement en matières premières ou en énergie  | 
-| 3 | Sinistre ou intempéries de caractère exceptionnel  | 
-| 4 | Transformation, restructuration ou modernisation des installations et des bâtiments  | 
-| 5 | Autres circonstances exceptionnelles |
+
+| Code | Libellé                                                                             |
+| ---- | ----------------------------------------------------------------------------------- |
+| 1    | Conjoncture économique.                                                             |
+| 2    | Difficultés d’approvisionnement en matières premières ou en énergie                 |
+| 3    | Sinistre ou intempéries de caractère exceptionnel                                   |
+| 4    | Transformation, restructuration ou modernisation des installations et des bâtiments |
+| 5    | Autres circonstances exceptionnelles                                                |
 
 ##### Table des périmètres du chômage.
-|   Code | Libellé |
-| ------ | ------- |
-| 1 | Réduction horaire tout Ets   |
-| 2 | Réduction horaire partie Ets |
-| 3 | Fermeture tempor. Tout Ets   | 
-| 4 | Fermeture tempor. Partie Ets | 
+
+| Code | Libellé                      |
+| ---- | ---------------------------- |
+| 1    | Réduction horaire tout Ets   |
+| 2    | Réduction horaire partie Ets |
+| 3    | Fermeture tempor. Tout Ets   |
+| 4    | Fermeture tempor. Partie Ets |
 
 ##### Table des codes de recours antérieurs au chômage
-|   Code | Libellé |
-| ------ | ------- |
-| 1 | Aucun recours depuis 3 ans                                     | 
-| 2 | Recours au chômage partiel au cours des 3 années précédentes   | 
-| 3 | Non renseigné                                                  | 
+
+| Code | Libellé                                                      |
+| ---- | ------------------------------------------------------------ |
+| 1    | Aucun recours depuis 3 ans                                   |
+| 2    | Recours au chômage partiel au cours des 3 années précédentes |
+| 3    | Non renseigné                                                |
 
 #### Données de consommation d'activité partielle
 
-- __S_HEURE_CONSOM_TOT__	Nombre total d'heures consommées
-- __S_MONTANT_CONSOM_TOT__	Montant total consommé
-- __S_EFF_CONSOM_TOT__	Effectifs consommés
+- **S_HEURE_CONSOM_TOT** Nombre total d'heures consommées
+- **S_MONTANT_CONSOM_TOT** Montant total consommé
+- **S_EFF_CONSOM_TOT** Effectifs consommés
 
-### Table de correspondance entre compte administratif URSSAF et siret 
+### Table de correspondance entre compte administratif URSSAF et siret
 
-|                          |                               |
-| ------------------------ | ----------------------------- |
-| Source                   | URSSAF                        |
-| Couverture               |                TODO           |
-| Fréquence de mise-à-jour | Mensuellement                 |
-| Délai des données        | En temps réel (parfois un mois de retard)       | 
+|                          |                                           |
+| ------------------------ | ----------------------------------------- |
+| Source                   | URSSAF                                    |
+| Couverture               | TODO                                      |
+| Fréquence de mise-à-jour | Mensuellement                             |
+| Délai des données        | En temps réel (parfois un mois de retard) |
 
-- __Numéro de compte externe__ Compte administratif URSSAF
-  
-- __Etat du compte__ Compte ouvert (1) ou fermé (3) ?
+- **Numéro de compte externe** Compte administratif URSSAF
 
-- __Numéro siren__ Numéro Siren de l'entreprise
+- **Etat du compte** Compte ouvert (1) ou fermé (3) ?
 
-- __Numéro d'établissement__ Numéro Siret de l'établissement. Les numéros avec des Lettres sont des sirets provisoires. 
+- **Numéro siren** Numéro Siren de l'entreprise
 
-- __Date de création de l'établissement__  Date de création de l'établissement au format (A)AAMMJJ. (A)AA = AAAA - 1900. 
+- **Numéro d'établissement** Numéro Siret de l'établissement. Les numéros avec des Lettres sont des sirets provisoires.
 
-- __Date de disparition de l'établissement__ Date de disparition de l'établissement au format (A)AAMMJJ (cf date de création)
+- **Date de création de l'établissement** Date de création de l'établissement au format (A)AAMMJJ. (A)AA = AAAA - 1900.
+
+- **Date de disparition de l'établissement** Date de disparition de l'établissement au format (A)AAMMJJ (cf date de création)
 
 ### Données sur l'effectif
 
@@ -367,19 +364,17 @@ Données spécifiques aux demandes d'activité partielle.
 | Fréquence de mise-à-jour | Variable, tous les 3 à 6 mois |
 | Délai des données        | 0 à 6 mois selon mise-à-jour  |
 
+- **Siret** Siret de l'établissement
 
--   **Siret** Siret de l'établissement
+- **Compte** Compte administratif URSSAF
 
--   **Compte** Compte administratif URSSAF
+- **Rais_soc** Raison sociale
 
--   **Rais\_soc** Raison sociale
+- **Ur_emet** Urssaf en charge de la gestion du compte
 
--   **Ur\_emet** Urssaf en charge de la gestion du compte
+- **Dep** Département
 
--   **Dep** Département 
-
--   **effAAAAXY** effectif du mois AAAAXY. AAAA = année. X = trimestre. Y = N° du mois dans le trimestre (ex: 201631 vaut juillet 2016)
-
+- **effAAAAXY** effectif du mois AAAAXY. AAAA = année. X = trimestre. Y = N° du mois dans le trimestre (ex: 201631 vaut juillet 2016)
 
 ### Données sur les cotisations sociales et les débits
 
@@ -395,55 +390,54 @@ Deux fichiers: cotisations, et débits sur les cotisations sociales
 
 #### Fichier sur les cotisations
 
-
-- __Compte__	Compte administratif URSSAF
-- __Periode_debit__	Période en débit.	*A ne pas prendre en compte*
-- __ecn__ Numéro écart négatif.
-- __periode__ Période. Format AAXY, cf ci-dessus l'effectif pour l'explication du format.  
-- __mer__	Cotisation mise en recouvrement, en euros.
-- __enc_direct__	Cotisation encaissée directement, en euros.
-- __cotis_due__	Cotisation due, I euros.	À utiliser pour calculer le montant moyen mensuel du : Somme cotisations dues / nb périodes
-
+- **Compte** Compte administratif URSSAF
+- **Periode_debit** Période en débit. _A ne pas prendre en compte_
+- **ecn** Numéro écart négatif.
+- **periode** Période. Format AAXY, cf ci-dessus l'effectif pour l'explication du format.
+- **mer** Cotisation mise en recouvrement, en euros.
+- **enc_direct** Cotisation encaissée directement, en euros.
+- **cotis_due** Cotisation due, I euros. À utiliser pour calculer le montant moyen mensuel du : Somme cotisations dues / nb périodes
 
 #### Fichiers sur les débits
 
--   **num\_cpte** Compte administratif URSSAF
+- **num_cpte** Compte administratif URSSAF
 
--   **Siren** Siren de l'entreprise
+- **Siren** Siren de l'entreprise
 
--   **Dt\_immat** Date d'immatriculation du compte à l'Urssaf
+- **Dt_immat** Date d'immatriculation du compte à l'Urssaf
 
--   **Etat\_cpte** Code état du compte. Cf la table ci-dessous.
+- **Etat_cpte** Code état du compte. Cf la table ci-dessous.
 
--   **Cd\_pro\_col** Code qui indique si le compte fait l'objet d'une procédure 
-collective. Cf la table ci-dessous. 
+- **Cd_pro_col** Code qui indique si le compte fait l'objet d'une procédure
+  collective. Cf la table ci-dessous.
 
--   **Periode** Période au format AAAAXY. Cf effectif pour l'explication. 
+- **Periode** Période au format AAAAXY. Cf effectif pour l'explication.
 
--   **Num\_Ecn** L'écart négatif (ecn) correspond à une période en débit. Pour 
-une même période, plusieurs débits peuvent être créés. On leur attribue un 
-numéro d'ordre. Par exemple, 101, 201, 301 etc.; ou 101, 102, 201 etc. 
-correspondent respectivement au 1er, 2ème et 3ème ecn de la période considérée. 
+- **Num_Ecn** L'écart négatif (ecn) correspond à une période en débit. Pour
+  une même période, plusieurs débits peuvent être créés. On leur attribue un
+  numéro d'ordre. Par exemple, 101, 201, 301 etc.; ou 101, 102, 201 etc.
+  correspondent respectivement au 1er, 2ème et 3ème ecn de la période considérée.
 
--   **Num\_Hist\_Ecn** Ordre des opérations pour un écart négatif donné. 
+- **Num_Hist_Ecn** Ordre des opérations pour un écart négatif donné.
 
--   **Dt\_trt\_ecn** Date de comptabilisation de l'évènement (mise en 
-recouvrement, paiement etc..). Format (A)AAMMJJ, ou (A)AA correspond à l'année 
-à laquelle a été soustrait 1900. Exemple: 1160318 vaut 18 mars 2016, 
-990612	vaut 12 juin 1999. 
+- **Dt_trt_ecn** Date de comptabilisation de l'évènement (mise en
+  recouvrement, paiement etc..). Format (A)AAMMJJ, ou (A)AA correspond à l'année
+  à laquelle a été soustrait 1900. Exemple: 1160318 vaut 18 mars 2016,
+  990612 vaut 12 juin 1999.
 
--   **Mt\_PO** Montant des débits sur la part ouvrières **en centimes**. Sont 
-exclues les pénalités et les majorations de retard. 
+- **Mt_PO** Montant des débits sur la part ouvrières **en centimes**. Sont
+  exclues les pénalités et les majorations de retard.
 
--   **Mt\_PP** Montant des débits sur la part patronale **en centimes**. Sont 
-exclues les pénalités et les majorations de retard. 
+- **Mt_PP** Montant des débits sur la part patronale **en centimes**. Sont
+  exclues les pénalités et les majorations de retard.
 
--   **Cd\_op\_ecn** Code opération historique de l'écart négatif. Cf table 
-ci-dessous.
+- **Cd_op_ecn** Code opération historique de l'écart négatif. Cf table
+  ci-dessous.
 
--   **Motif\_ecn** Code motif de l'écart négatif. Cf table ci-dessous
+- **Motif_ecn** Code motif de l'écart négatif. Cf table ci-dessous
 
 ##### Codes état du compte
+
 | Code | Description |
 | ---- | ----------- |
 | 1    | Actif       |
@@ -459,8 +453,8 @@ ci-dessous.
 | 2              | Pro col - plan de redressement en cours |
 | 9              | Pro col sans dette à l'Urssaf           |
 
-
 ##### Codes opération historique
+
 | Code | Description                               |
 | ---- | ----------------------------------------- |
 | 1    | Mise en recouvrement                      |
@@ -474,9 +468,8 @@ ci-dessous.
 | 14   | Annulation de remise de majoration retard |
 | 15   | Annulation abandon solde debiteur         |
 
-
-
 ##### Code motif de l'écart négatif
+
 | Code | Description                                                                                |
 | ---- | ------------------------------------------------------------------------------------------ |
 | 0    | Cde motif inconnu                                                                          |
@@ -510,60 +503,60 @@ ci-dessous.
 
 ### Données sur les délais
 
-|                          |                               |
-| ------------------------ | ----------------------------- |
-| Source                   | URSSAF                        |
-| Couverture               | Tous les délais               |
-| Fréquence de mise-à-jour | Mensuellement                 |
-| Délai des données        | Créations en temps réel       | 
+|                          |                         |
+| ------------------------ | ----------------------- |
+| Source                   | URSSAF                  |
+| Couverture               | Tous les délais         |
+| Fréquence de mise-à-jour | Mensuellement           |
+| Délai des données        | Créations en temps réel |
 
-- __Numero de compte externe__ Compte administratif URSSAF
+- **Numero de compte externe** Compte administratif URSSAF
 
-- __Numéro de structure__ Le numéro de structure est l'identifiant d'un dossier contentieux
+- **Numéro de structure** Le numéro de structure est l'identifiant d'un dossier contentieux
 
-- __Date de création__ Date de création du délai. Format aaaa-mm-jj
+- **Date de création** Date de création du délai. Format aaaa-mm-jj
 
-- __Date d'échéance__ Date d'échéance du délai. Format aaaa-mm-jj
+- **Date d'échéance** Date d'échéance du délai. Format aaaa-mm-jj
 
-- __Durée délai__ Durée du délai en jours.
+- **Durée délai** Durée du délai en jours.
 
-- __Dénomination premiére ligne__ Raison sociale de l'établissement.
+- **Dénomination premiére ligne** Raison sociale de l'établissement.
 
-- __Indic 6M__ Délai inférieur ou supérieur à 6 mois? Modalités INF et SUP.
+- **Indic 6M** Délai inférieur ou supérieur à 6 mois? Modalités INF et SUP.
 
-- __année (  Date de création  )__ Année de création du délai.
+- **année ( Date de création )** Année de création du délai.
 
-- __Montant global de l'échéancier__ Montant global de l'échéancier, en euros.
+- **Montant global de l'échéancier** Montant global de l'échéancier, en euros.
 
-- __Numéro de structure__ Champs en double, cf plus haut.
+- **Numéro de structure** Champs en double, cf plus haut.
 
-- __Code externe du stade__
+- **Code externe du stade**
 
-- __Code externe de l'action__
+- **Code externe de l'action**
 
 ### Données sur le procédures collectives
 
-Nous avons utilisé les données fournies par Altares concernant les défaillances en Bourgogne Franche Comté (prestation payante). Comme cette base n'est pas disponible dans toutes les régions, ce seront les données de procédure collective fournies par l'URSSAF qui seront dorénavent utilisées. 
+Nous avons utilisé les données fournies par Altares concernant les défaillances en Bourgogne Franche Comté (prestation payante). Comme cette base n'est pas disponible dans toutes les régions, ce seront les données de procédure collective fournies par l'URSSAF qui seront dorénavent utilisées.
 
-|                          |                                    |
-| ------------------------ | -----------------------------      |
-| Source                   | URSSAF                             |
-| Couverture               | Toutes les procédures collectives  |
-| Fréquence de mise-à-jour | Mensuellement                      |
-| Délai des données        | Créations en temps réel ?          | 
+|                          |                                   |
+| ------------------------ | --------------------------------- |
+| Source                   | URSSAF                            |
+| Couverture               | Toutes les procédures collectives |
+| Fréquence de mise-à-jour | Mensuellement                     |
+| Délai des données        | Créations en temps réel ?         |
 
-- __Siret__ Siret de l'établissement
-- __Siren__ Siren de l'entreprise
-- __Dt_effet__ Date effet de la procédure collective au format JJMMMAAAA, par exemple 24FEB2014
-- __Cat_v2__ ? TODO
-- __Lib_actx_stdx__ Champs double: Nature procédure +  évènement. 
+- **Siret** Siret de l'établissement
+- **Siren** Siren de l'entreprise
+- **Dt_effet** Date effet de la procédure collective au format JJMMMAAAA, par exemple 24FEB2014
+- **Cat_v2** ? TODO
+- **Lib_actx_stdx** Champs double: Nature procédure + évènement.
 
 ### Données sur les CCSF
 
-- __Compte__ Compte administratif URSSAF
-  
-- __Date de traitement__ Date de début de la procédure CCSF au format (A)AAMMJJ, ou (A)AA = AAAA -1900
+- **Compte** Compte administratif URSSAF
 
-- __Code externe du stade__ TODO
+- **Date de traitement** Date de début de la procédure CCSF au format (A)AAMMJJ, ou (A)AA = AAAA -1900
 
-- __Code externe de l'action__ TODO
+- **Code externe du stade** TODO
+
+- **Code externe de l'action** TODO

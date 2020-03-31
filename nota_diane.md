@@ -1,8 +1,8 @@
-* Faire une liste triée des sirets déja connus
-* Changer la liste des départements à extraire et le chemin d'accès vers la liste triée
-* Faire tourner le script sur le fichier effectif
-* Dans Diane (compte Brocard): nouvelles variables -> créer nouvelle variables (option identifiant entreprise)
-* Convertir le fichier csv enxlsx (veiller à mettre le siret en colonne texte) et changer le nom en fonction du nom dans l'interface CF00005
-* Aller dans "entreprises avec données importées"
-* Changer les colonnes (mettre à jour les années si besoin: export+ macro vim + import)
-* Extraire en 42 étapes
+- Faire une liste triée des sirets déja connus
+- Changer la liste des départements à extraire et le chemin d'accès vers la liste triée
+- Faire tourner le script sur le fichier effectif
+- Dans Diane (compte Brocard): nouvelles variables -> créer nouvelle variables (option identifiant entreprise)
+- Convertir le fichier csv enxlsx (veiller à mettre le siret en colonne texte) et changer le nom en fonction du nom dans l'interface CF00005
+- Aller dans "entreprises avec données importées"
+- Changer les colonnes (mettre à jour les années si besoin: export+ macro vim + import)
+- Extraire en 42 étapes
