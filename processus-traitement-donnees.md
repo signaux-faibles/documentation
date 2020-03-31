@@ -6,7 +6,10 @@ Table of content here TODO
 
 Dans cette partie, nous explorons comment sont stockées et transformées les données à partir des fichiers bruts.
 
+Note: Vous pouvez installer la commande `http` utilisée dans les exemples de cette page à partir de [HTTPie – command line HTTP client](https://httpie.org/).
+
 ## Vue d'ensemble des canaux de transformation des données
+
 
 La base de donneé MongoDB dans laquelle les données sont intégrées est définie dans le fichier config.toml.
 
@@ -105,7 +108,8 @@ L'intégration se fait par "batch". Chaque batch est défini dans la collection 
 
 Le champ `_id` permet de spécifier qu'il s'agit un objet batch, et lui donne un nom, sous forme de clé. Attention, les batchs seront traités par ordre alphabétique. Par convention, les batchs sont intitulés "AAMM", en fonction de la période à laquelle ils sont intégrés, et peuvent être découpés en plusieurs parties nommée "AAMM_partX" ou X est incrémenté à chaque partie. Le champ `key` doit être unique.
 
-Le champs `files` associe à un type un ou plusieurs fichiers. Les types définissent quel script d'intégration sera utilisé pour intégrer les fichiers mentionnés. Les chemins d'accès sont spécifiées avec comme racine le dossier défini dans config.toml avec le champs `APP_DATA`, sans `.` préalable au début du chemin d'accès. Une liste des types et des fichiers associés est donné dans le tableau TODO.
+Le champs `files` associe à un type un ou plusieurs fichiers. Les types définissent quel script d'intégration sera utilisé pour intégrer les fichiers mentionnés. Les chemins d'accès sont spécifiées avec comme racine le dossier défini dans config.toml avec le champs `APP_DATA`, sans `.` préalable au début du chemin d'accès. Une liste des types et des fichiers associés est donné dans le tableau, plus bas.
+
 
 Le champ `readonly` permet d'empêcher la modification de l'objet par l'API, une fois les traitements lancés, pour assurer l'adéquation entre l'objet dans Admin et les objets importés.
 
@@ -113,9 +117,8 @@ Le champ `complete_types` est utile pour le comportement de compactage (cf parag
 
 Le champ `param` est utile pour le calcul des variables (cf le paragraphe à ce sujet). Il définit l'étendu des périodes à traiter et la dernière période pour laquelle les données d'effectif sont disponibles.
 
-Attention, il n'y a à ce jour pas de processus de validation des chemins d'accès. Un chemin d'accès erroné provoquera une erreur dans l'import des données.
+Les types définis dans [handlers.go](https://github.com/signaux-faibles/opensignauxfaibles/blob/master/dbmongo/handlers.go) (variable `registeredParsers`) sont accessibles via:
 
-Les types définis sont accessibles via:
 
 ```
 http :3000/api/admin/types
