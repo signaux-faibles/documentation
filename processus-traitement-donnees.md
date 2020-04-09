@@ -2,18 +2,18 @@
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-- [Processus traitement des données](#processus-traitement-des-donn%C3%A9es)
-  - [Préambule](#pr%C3%A9ambule)
-  - [Vue d'ensemble des canaux de transformation des données](#vue-densemble-des-canaux-de-transformation-des-donn%C3%A9es)
-  - [Workflow classique](#workflow-classique)
-  - [L'API servie par Golang](#lapi-servie-par-golang)
-  - [La base de données MongoDB](#la-base-de-donn%C3%A9es-mongodb)
-  - [Spécificités de l'import](#sp%C3%A9cificit%C3%A9s-de-limport)
-  - [Spécificités du compactage](#sp%C3%A9cificit%C3%A9s-du-compactage)
-  - [Spécificités des calculs de variables](#sp%C3%A9cificit%C3%A9s-des-calculs-de-variables)
-  - [La commande batch/process](#la-commande-batchprocess)
+**Table of Contents** _generated with [DocToc](https://github.com/thlorenz/doctoc)_
+
+- [Préambule](#pr%C3%A9ambule)
+- [Vue d'ensemble des canaux de transformation des données](#vue-densemble-des-canaux-de-transformation-des-donn%C3%A9es)
+- [Workflow classique](#workflow-classique)
+- [L'API servie par Golang](#lapi-servie-par-golang)
+- [La base de données MongoDB](#la-base-de-donn%C3%A9es-mongodb)
+- [Spécificités de l'import](#sp%C3%A9cificit%C3%A9s-de-limport)
+- [Spécificités du compactage](#sp%C3%A9cificit%C3%A9s-du-compactage)
+- [Spécificités des calculs de variables](#sp%C3%A9cificit%C3%A9s-des-calculs-de-variables)
+- [La commande batch/process](#la-commande-batchprocess)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -24,7 +24,6 @@ Dans cette partie, nous explorons comment sont stockées et transformées les do
 Note: Vous pouvez installer la commande `http` utilisée dans les exemples de cette page à partir de [HTTPie – command line HTTP client](https://httpie.org/).
 
 ## Vue d'ensemble des canaux de transformation des données
-
 
 La base de donneé MongoDB dans laquelle les données sont intégrées est définie dans le fichier config.toml.
 
@@ -125,7 +124,6 @@ Le champ `_id` permet de spécifier qu'il s'agit un objet batch, et lui donne un
 
 Le champs `files` associe à un type un ou plusieurs fichiers. Les types définissent quel script d'intégration sera utilisé pour intégrer les fichiers mentionnés. Les chemins d'accès sont spécifiées avec comme racine le dossier défini dans config.toml avec le champs `APP_DATA`, sans `.` préalable au début du chemin d'accès. Une liste des types et des fichiers associés est donné dans le tableau, plus bas.
 
-
 Le champ `readonly` permet d'empêcher la modification de l'objet par l'API, une fois les traitements lancés, pour assurer l'adéquation entre l'objet dans Admin et les objets importés.
 
 Le champ `complete_types` est utile pour le comportement de compactage (cf paragraphe suivant). Les fichiers des types complets annulent et remplacent toutes les données précédemment importées pour ce type, alors que les autres viennent compléter les données passées.
@@ -133,7 +131,6 @@ Le champ `complete_types` est utile pour le comportement de compactage (cf parag
 Le champ `param` est utile pour le calcul des variables (cf le paragraphe à ce sujet). Il définit l'étendu des périodes à traiter et la dernière période pour laquelle les données d'effectif sont disponibles.
 
 Les types définis dans [handlers.go](https://github.com/signaux-faibles/opensignauxfaibles/blob/master/dbmongo/handlers.go) (variable `registeredParsers`) sont accessibles via:
-
 
 ```
 http :3000/api/admin/types
