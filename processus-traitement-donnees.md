@@ -1,6 +1,21 @@
 # Processus traitement des données
 
-Table of content here TODO
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Processus traitement des données](#processus-traitement-des-donn%C3%A9es)
+  - [Préambule](#pr%C3%A9ambule)
+  - [Vue d'ensemble des canaux de transformation des données](#vue-densemble-des-canaux-de-transformation-des-donn%C3%A9es)
+  - [Workflow classique](#workflow-classique)
+  - [L'API servie par Golang](#lapi-servie-par-golang)
+  - [La base de données MongoDB](#la-base-de-donn%C3%A9es-mongodb)
+  - [Spécificités de l'import](#sp%C3%A9cificit%C3%A9s-de-limport)
+  - [Spécificités du compactage](#sp%C3%A9cificit%C3%A9s-du-compactage)
+  - [Spécificités des calculs de variables](#sp%C3%A9cificit%C3%A9s-des-calculs-de-variables)
+  - [La commande batch/process](#la-commande-batchprocess)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Préambule
 
