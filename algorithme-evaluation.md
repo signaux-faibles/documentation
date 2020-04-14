@@ -1,5 +1,17 @@
 # Évaluation de l'algorithme
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Découpage en échantillon d'entraînement, de validation et de test.](#d%C3%A9coupage-en-%C3%A9chantillon-dentra%C3%AEnement-de-validation-et-de-test)
+- [Choix de la métrique](#choix-de-la-m%C3%A9trique)
+- [Reproductibilité de l'évaluation.](#reproductibilit%C3%A9-de-l%C3%A9valuation)
+  - [Intégration dans R](#int%C3%A9gration-dans-r)
+  - [Reproductibilité des traitements dans R](#reproductibilit%C3%A9-des-traitements-dans-r)
+- [Evolution de l'algorithme](#evolution-de-lalgorithme)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Découpage en échantillon d'entraînement, de validation et de test.
 
 Lorsque différents algorithmes sont explorés, alors les données sont scindés en échantillons d'entraînement, de validation et de test.

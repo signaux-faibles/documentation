@@ -1,5 +1,19 @@
 # Supervision de la plateforme
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Préambule](#pr%C3%A9ambule)
+- [Objectif](#objectif)
+  - [Monitoring des performances](#monitoring-des-performances)
+  - [Monitoring de la disponibilité](#monitoring-de-la-disponibilit%C3%A9)
+- [Solution envisagée](#solution-envisag%C3%A9e)
+  - [netdata](#netdata)
+  - [grafana](#grafana)
+  - [graphite](#graphite)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Préambule
 
 Cette partie en est à ses balbultiements, toutefois il semble opportun de mentionner les options techniques investiguées.

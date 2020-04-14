@@ -1,5 +1,16 @@
 # Documentation de l'interface graphique
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Volet menu](#volet-menu)
+- [Fenêtre Liste](#fen%C3%AAtre-liste)
+- [Fiche établissement](#fiche-%C3%A9tablissement)
+- [Rechercher un établissement](#rechercher-un-%C3%A9tablissement)
+- [F.A.Q.](#faq)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Volet menu
 
 Le volet menu permet de naviguer entre les différentes fonctionnalités de l'application, et de se déconnecter.
