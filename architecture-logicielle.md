@@ -3,7 +3,7 @@
 ## Objectifs du dispositif
 
 - récolter les données brutes en provenance des partenaires (goup + stockage POSIX)
-- traiter/importer les données brutes (opensignauxfaibles + mongodb)
+- traiter/importer les données brutes ([prepare-import](https://github.com/signaux-faibles/prepare-import) + opensignauxfaibles + mongodb)
 - raffiner les données pour obtenir les variables nécessaires à la bonne marche de l'algorithme (opensignauxfaibles + mongodb)
 - exécuter la détection algorithmique (opensignauxfaibles + mongodb)
 - publier les données à destination des agents (datapi + postgresql + signauxfaibles-web)
@@ -105,7 +105,7 @@ goup est développé en go (v1.10) et exploite les packages suivants:
 
 opensignauxfaibles se charge du traitement des données:
 
-- import des fichiers bruts
+- import des fichiers bruts (avec l'aide de [prepare-import](https://github.com/signaux-faibles/prepare-import))
 - calcul des données d'entrée de l'algorithme
 - stockage des résultats
 
