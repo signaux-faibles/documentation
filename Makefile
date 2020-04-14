@@ -4,7 +4,7 @@ formatting: ## Fix the formatting of md files
 	@npx prettier --write .
 
 doctoc: ## Update the tables of contents
-	@npx doctoc processus-traitement-donnees.md
+	@git grep -L 'DOCTOC SKIP' *.md | xargs npx doctoc
 
 all: doctoc formatting
 

@@ -1,5 +1,7 @@
 # Documentation Signaux Faibles
 
+<!-- DOCTOC SKIP -->
+
 ## Table des matières
 
 - [Présentation du projet](#présentation-du-projet) (vide)
