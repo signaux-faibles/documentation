@@ -317,85 +317,102 @@ Une politique de sécurité permet d'intéragir avec les permissions accordées 
 
 ## signauxfaibles-web
 
-Il s'agit de l'interface utilisée par les agents.
-Cette interface communique avec datapi.
+Il s'agit de l'interface web utilisée par les agents.
+Elle communique avec datapi.
 
 ### Connexion / Authentification
 
 ![workflow](architecture-logicielle/workflow-sfw.png)
-Les tokens JWT (long terme et session) contiennent notamment dans leur chargement l'adresse email de l'agent auquel il est adressé et un contrôle est effectué pour prévenir une connexion avec un autre profil.
+Les tokens JWT (long terme et session) contiennent notamment dans leur payload l'adresse email de l'agent auquel il est adressé et un contrôle est effectué pour empêcher une connexion avec un autre profil.
 
-### architecture
+### Architecture interne
 
-signauxfaibles-web est une application vuejs codée en typescript avec les modules suivantes:
+signauxfaibles-web est une application Vue.js écrite en TypeScript qui fait principalement usage des bibliothèques suivantes :
 
-- vuetify: environnement graphique
-- vuex: gestion d'un store partagé de variables entre composants
-- axios: client http asynchrone pour traiter les appels à datapi
-- echarts: environnement pour tracer des graphiques
+- Vuetify comme bibliothèque d'interface utilisateur 
+- Vuex pour centraliser la gestion des états de l'application
+- axios pour faire des appels Ajax notamment à datapi
+- ApexCharts comme bibliothèque de graphique
 
-### Dépendance logicielle
+### Dépendances logicielles
 
-Voici la liste des modules yarn nécessaires à la compilation du projet vue.
+Les dépendances logicielles sont gérées par yarn.
 
-- @babel/core (7.4.3)
-- axios (0.18.0)
-- core-js (2.6.5)
-- echarts (4.2.1)
-- jest" (>=22 <24)
-- vue (2.6.10)
-- vue-class-component (7.0.2)
-- vue-echarts-v3 (2.0.1)
-- vue-native-websocket (2.0.13)
-- vue-property-decorator (8.1.0)
-- vue-router (3.0.3)
-- vuetify (1.5.5)
-- vuex (3.0.1)
-- vuex-persistedstate (2.5.4)
-- webpack (4.30.)
-- @types/jest (23.1.4)
-- @vue/cli-plugin-babel (3.6.0)
-- @vue/cli-plugin-e2e-nightwatch (3.6.0)
-- @vue/cli-plugin-typescript (3.6.0)
-- @vue/cli-plugin-unit-jest (3.6.0)
-- @vue/cli-service (3.6.0)
-- @vue/test-utils (1.0.0-beta.29)
-- babel-core (7.0.0-bridge.0)
-- stylus (0.54.5)
-- stylus-loader (3.0.1)
-- ts-jest (23.0.0)
-- typescript (3.4.3)
-- vue-cli-plugin-vuetify (0.5.0)
-- vue-template-compiler (2.5.21)
-- vuetify-loader (1.0.5)
+Voici les paquets requis par le projet par ordre alphabétique :
+
+- [@babel/core](https://yarn.pm/@babel/core) (7.4.3) : Babel compiler core
+- [@dsb-norge/vue-keycloak-js](https://yarn.pm/@dsb-norge/vue-keycloak-js) (1.1.1) : A Keycloak plugin for Vue >= 2.x
+- [@types/jwt-decode](https://yarn.pm/@types/jwt-decode) (2.2.1) : TypeScript definitions for jwt-decode
+- [apexcharts](https://yarn.pm/apexcharts) (3.8.6)
+- [axios](https://yarnpkg.com/package/axios) (0.18.0) : Promise based HTTP client
+- [core-js](https://yarn.pm/core-js) (2.6.5) : Modular standard library for JavaScript including polyfills for ECMAScript up to 2019
+- [filesize](https://yarn.pm/filesize) (4.1.2) : JavaScript library to generate a human readable String describing the file size
+- [identicon.js](https://yarn.pm/identicon.js) (2.3.3) : GitHub-style identicons as PNGs or SVGs in JS
+- [jest](https://yarn.pm/jest) (>=22 <24) : Delightful JavaScript Testing
+- [js-md5](https://yarn.pm/js-md5) (0.7.3) : A simple MD5 hash function for JavaScript supports UTF-8 encoding
+- [jwt-decode](https://yarn.pm/jwt-decode) (2.2.0) : Decode JWT tokens which are Base64Url encoded
+- [mapbox-gl](https://yarn.pm/mapbox-gl) (1.4.1) : A WebGL interactive maps librar
+- [tiptap](https://yarn.pm/tiptap) (1.26.5) : A rich-text editor for Vue.js
+- [tiptap-extensions](https://yarn.pm/tiptap-extensions) (1.28.5) : Extensions for tiptap
+- [tus-js-client](https://yarn.pm/tus-js-client) (1.8.0-1) : A pure JavaScript client for the tus resumable upload protocol
+- [uuid](https://yarn.pm/uuid) (3.3.3) : RFC4122 (v1, v4, and v5) UUIDs
+- [vue](https://yarn.pm/vue) (2.6.10)
+- [vue-apexcharts](https://yarn.pm/apexcharts) (1.5.0)
+- [vue-class-component](https://yarn.pm/vue-class-component) (7.0.2) : ES201X/TypeScript class decorator for Vue components
+- [vue-mapbox](https://yarn.pm/vue-mapbox) (0.4.1) : Combine powers of Vue.js and Mapbox Gl JS
+- [vue-native-websocket](https://yarn.pm/vue-native-websocket) (2.0.13) : Native websocket implemantation for Vue.js and Vuex
+- [vue-property-decorator](https://yarn.pm/vue-property-decorator) (8.1.0) : Property decorators for Vue Component
+- [vue-router](https://yarn.pm/vue-router) (3.0.3) : Official router for Vue.js 2
+- [vuetify](https://yarn.pm/vuetify) (1.5.5)
+- [vuex](https://yarn.pm/vuex) (3.0.1)
+- [vuex-persistedstate](https://yarn.pm/vuex-persistedstate) (2.5.4) : Persist and rehydrate your Vuex state between page reloads
+- [webpack](https://yarn.pm/webpack) (4.30.0) : The module bundler
+
+Voici les paquets spécifiques au développement par ordre alphabétique :
+
+- [@types/jest](https://yarn.pm/@types/jest) (23.1.4) : TypeScript definitions for Jest
+- [@vue/cli-plugin-babel](https://yarn.pm/@vue/cli-plugin-babel) (3.6.0) : Babel plugin for vue-cli
+- [@vue/cli-plugin-e2e-nightwatch](https://yarn.pm/@vue/cli-plugin-e2e-nightwatch) (3.6.0) : e2e-nightwatch plugin for vue-cli
+- [@vue/cli-plugin-typescript](https://yarn.pm/@vue/cli-plugin-typescript) (3.6.0) : Typescript plugin for vue-cli
+- [@vue/cli-plugin-unit-jest](https://yarn.pm/@vue/cli-plugin-unit-jest) (3.6.0) : unit-jest plugin for vue-cli
+- [@vue/cli-service](https://yarn.pm/@vue/cli-service) (3.6.0) : Local service for vue-cli projects
+- [@vue/test-utils](https://yarnpkg.com/package/@vue/test-utils) (1.0.0-beta.29) : Utilities for testing Vue components.
+- [babel-core](https://yarn.pm/babel-core) (7.0.0-bridge.0) : Babel compiler core
+- [stylus](https://yarn.pm/stylus) (0.54.5) : Robust, expressive, and feature-rich CSS superset
+- [stylus-loader](https://yarn.pm/stylus-loader) (3.0.1) : Stylus loader for webpack
+- [ts-jest](https://yarn.pm/ts-jest) (23.0.0) : A preprocessor with source maps support to help use TypeScript with Jest
+- [typescript](https://yarn.pm/typescript) (3.4.3) : TypeScript is a language for application scale JavaScript development
+- [vue-cli-plugin-vuetify](https://yarnpkg.com/package/vue-cli-plugin-vuetify) (0.5.0) : Vuetify Framework Plugin for Vue CLI 3
+- [vue-template-compiler](https://yarn.pm/vue-template-compiler) (2.5.21) : Template compiler for Vue 2.0
+- [vuetify-loader](https://yarn.pm/vuetify-loader) (1.0.5) : A Webpack plugin for treeshaking Vuetify components
 
 ## Briques extérieures
 
-### mongodb
+### MongoDB
 
-La version de mongodb utilisée est la 3.6.
+La version de MongoDB utilisée est la 3.6.
 
-## keycloak
+### Keycloak
 
-Il s'agit du produit officiel développé par Red-Hat.
-KeyCloak fournit les services d'authentification pour `goup` et `datapi` en forgeant les JWT des utilisateurs.
+Il s'agit du produit officiel développé par Red Hat.
+Keycloak fournit les services d'authentification pour `goup` et `datapi` en forgeant les JWT des utilisateurs.
 
 Ce produit est utilisé en version 6.0.1.
 
 ### Structure du chargement JWT
 
-Le chargement du token est effectué par keycloak à l'aide du modèle utilisateur.
+Le chargement du token est effectué par Keycloak à l'aide du modèle utilisateur.
 
-Un attribut utilisateur `goup-path` fixé dans keycloak sera utilisé pour fixer le nom d'utilisateur à utiliser sur l'infrastructure pour l'enregistrement des fichiers.
+Un attribut utilisateur `goup-path` fixé dans Keycloak sera utilisé pour fixer le nom d'utilisateur à utiliser sur l'infrastructure pour l'enregistrement des fichiers.
 
-Le scope utilisé par datapi sera accessible au travers des rôles clients configurés également dans keycloak et fixés par utilisateur.
+Le scope utilisé par datapi sera accessible au travers des rôles clients configurés également dans Keycloak et fixés par utilisateur.
 
-### postgresql
+### PostgreSQL
 
 La version utilisée est la 10.8.
 Le module hstore du packages contrib est utilisé.
 
-### client TUS
+### Client tus
 
-Un exemple de client tus est fourni [ici](https://github.com/signaux-faibles/goup/tree/master/goup-client) et permet de voir une implémentation javascript basée sur le client officiel.  
+Un exemple de client tus (protocole de téléchargement résumable) est fourni [ici](https://github.com/signaux-faibles/goup/tree/master/goup-client) et permet de voir une implémentation JavaScript basée sur le client officiel.  
 On trouve toutefois des clients dans de nombreux langages qui permettront aux utilisateurs d'intégrer l'upload de fichier dans leurs plateformes.
