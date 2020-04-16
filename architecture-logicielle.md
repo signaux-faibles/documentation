@@ -329,7 +329,7 @@ Les tokens JWT (long terme et session) contiennent notamment dans leur payload l
 
 signauxfaibles-web est une application Vue.js écrite en TypeScript qui fait principalement usage des bibliothèques suivantes :
 
-- Vuetify comme bibliothèque d'interface utilisateur 
+- Vuetify comme bibliothèque d'interface utilisateur
 - Vuex pour centraliser la gestion des états de l'application
 - axios pour faire des appels Ajax notamment à datapi
 - ApexCharts comme bibliothèque de graphique
