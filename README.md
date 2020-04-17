@@ -27,3 +27,4 @@ L'objectif de ces outils est de fournir les outils techniques nécessaires à la
 - MLsegmentr(https://github.com/signaux-faibles/MLsegmentr) est un package R destiné à l'industrialisation de l'évaluation d'algorithmes
 - [frontend](https://github.com/signaux-faibles/frontend) est le site vitrine à vocation publique.
 - [gorncs-api](https://github.com/signaux-faibles/gorncs-api) est une api basée sur le dépôt RNCS fourni par l'INPI.
+- [prepare-import](https://github.com/signaux-faibles/prepare-import) permet de générer un "batch" de fichiers bruts (transférés via goup) en vue de leur importation en base de données.
