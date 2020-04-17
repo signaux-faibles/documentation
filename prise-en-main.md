@@ -58,6 +58,7 @@ $ cat db-schema.sql \
 ```
 
 > Notes:
+>
 > - Vous pouvez ignorer les warnings concernant l'absence de rôles.
 > - Plus tard, pensez à couper le serveur avec `docker ps`, `docker kill` puis `docker rm sf-postgres`.
 
@@ -70,10 +71,11 @@ $ docker run \
     -d jboss/keycloak \
     -p 8080:8080 \
     -e KEYCLOAK_USER=mykeycloak \
-    -e KEYCLOAK_PASSWORD=mysecretpassword 
+    -e KEYCLOAK_PASSWORD=mysecretpassword
 ```
 
 > Notes:
+>
 > - Les paramètres ci-dessus doivent coincider avec les valeurs fournies dans les variables `keycloakHostname`, `keycloakAdmin` et `keycloakPassword` du fichier `config.toml`.
 > - Plus tard, pensez à couper le serveur avec `docker ps`, `docker kill` puis `docker rm`.
 
@@ -99,10 +101,12 @@ $ curl 127.0.0.1:3000 # => la requête doit s'afficher dans les logs de datapi
 2. se connecter avec identifiants fournis au lancement du container keycloak
 3. créer un client `signauxfaibles` (comme client ID et nom)
 4. spécifier les paramètres suivants depuis l'onglet "Settings":
-  - Implicit Flow Enabled: `ON`
-  - Valid Redirect URIs: `http://localhost:8081/*`
-  - Base URLs: `http://localhost:8081/`
-  - Web Origins: `http://localhost:8081` (attention: ne pas inclure de slash en fin d'URL !)
+
+- Implicit Flow Enabled: `ON`
+- Valid Redirect URIs: `http://localhost:8081/*`
+- Base URLs: `http://localhost:8081/`
+- Web Origins: `http://localhost:8081` (attention: ne pas inclure de slash en fin d'URL !)
+
 5. Ajouter un role `urssaf`
 6. Dans "Users", ouvrir le username `mykeycloak`
 7. Onglet "Role Mappings": choisir le role `signaux-faibles` puis y ajouter `urssaf`
@@ -111,12 +115,12 @@ $ curl 127.0.0.1:3000 # => la requête doit s'afficher dans les logs de datapi
 
 1. Exécutez les commandes suivantes:
 
-    ```sh
-    $ git clone https://github.com/signaux-faibles/signauxfaibles-web
-    $ cd signauxfaibles-web
-    $ nvm use 12 # pour utiliser la version 12 de Node.js, dans la mesure du possible
-    $ npm install -g yarn
-    ```
+   ```sh
+   $ git clone https://github.com/signaux-faibles/signauxfaibles-web
+   $ cd signauxfaibles-web
+   $ nvm use 12 # pour utiliser la version 12 de Node.js, dans la mesure du possible
+   $ npm install -g yarn
+   ```
 
 2. Suivre les instructions d'installation de [signauxfaibles-web](https://github.com/signaux-faibles/signauxfaibles-web).
 
@@ -126,9 +130,9 @@ $ curl 127.0.0.1:3000 # => la requête doit s'afficher dans les logs de datapi
 
 1. Replacements à effectuer dans `src/main.ts`:
 
-    - `local = 'http://localhost/auth/'` --> `local = 'http://localhost:8080/auth/'`
-    - `url: prod` --> `url: local`
+   - `local = 'http://localhost/auth/'` --> `local = 'http://localhost:8080/auth/'`
+   - `url: prod` --> `url: local`
 
 2. Replacements à effectuer dans `store.ts`:
 
-    - `baseURL = '/'` --> `baseURL = 'http://localhost:3000/'`
+   - `baseURL = '/'` --> `baseURL = 'http://localhost:3000/'`
