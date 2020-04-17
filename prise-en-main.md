@@ -46,12 +46,14 @@ $ docker exec -it sf-postgres psql -U postgres
 
 ### 3. Initialiser la base de données locale
 
-Exécutez les commandes suivantes:
+1. Récupérez [`db-schema.sql`](https://github.com/signaux-faibles/datapi/blob/master/db-schema.sql) depuis le dépôt de `datapi`.
+
+2. Exécutez les commandes suivantes:
 
 ```sh
 $ echo "create database datapi;" \
     | docker exec -i sf-postgres psql -U postgres
-$ cat schema.sql \
+$ cat db-schema.sql \
     | docker exec -i sf-postgres psql -U postgres datapi
 ```
 
