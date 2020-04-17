@@ -1,5 +1,47 @@
 # Architecture logicielle
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Objectifs du dispositif](#objectifs-du-dispositif)
+- [Schéma fonctionnel](#sch%C3%A9ma-fonctionnel)
+- [goup](#goup)
+  - [Objectif](#objectif)
+  - [Composition](#composition)
+  - [Authentification JWT](#authentification-jwt)
+  - [Traitement des fichiers uploadés](#traitement-des-fichiers-upload%C3%A9s)
+  - [Structure du stockage](#structure-du-stockage)
+  - [dépendances logicielles](#d%C3%A9pendances-logicielles)
+- [opensignauxfaibles](#opensignauxfaibles)
+  - [Objectif](#objectif-1)
+  - [Modules](#modules)
+    - [dbmongo](#dbmongo)
+      - [Dépendances logicielles](#d%C3%A9pendances-logicielles)
+      - [utilisation](#utilisation)
+    - [module R/H2O](#module-rh2o)
+  - [Flux de traitement](#flux-de-traitement)
+  - [Publication vers datapi](#publication-vers-datapi)
+- [datapi](#datapi)
+  - [Objectif](#objectif-2)
+  - [Principe d'alimentation](#principe-dalimentation)
+  - [Principe de stockage / sécurité](#principe-de-stockage--s%C3%A9curit%C3%A9)
+  - [Planification/péremption des données](#planificationp%C3%A9remption-des-donn%C3%A9es)
+  - [Politiques de sécurité](#politiques-de-s%C3%A9curit%C3%A9)
+  - [Principe de sécurité](#principe-de-s%C3%A9curit%C3%A9)
+  - [Dépendances logicielles](#d%C3%A9pendances-logicielles-1)
+- [signauxfaibles-web](#signauxfaibles-web)
+  - [Connexion / Authentification](#connexion--authentification)
+  - [architecture](#architecture)
+  - [Dépendance logicielle](#d%C3%A9pendance-logicielle)
+- [Briques extérieures](#briques-ext%C3%A9rieures)
+  - [mongodb](#mongodb)
+- [keycloak](#keycloak)
+  - [Structure du chargement JWT](#structure-du-chargement-jwt)
+  - [postgresql](#postgresql)
+  - [client TUS](#client-tus)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Objectifs du dispositif
 
 - récolter les données brutes en provenance des partenaires (goup + stockage POSIX)
