@@ -334,6 +334,39 @@ signauxfaibles-web est une application Vue.js écrite en TypeScript qui fait pri
 - axios pour faire des appels Ajax notamment à datapi
 - ApexCharts comme bibliothèque de graphique
 
+Elle est architecturée de la manière suivante :
+
+| Vue                       | Description                                                                  | Vues parentes                                   |
+| ------------------------- | ---------------------------------------------------------------------------- | ----------------------------------------------- |
+| Browse                    | Consultation d'un établissement                                              |                                                 |
+| Etablissement             | Fiche établissement                                                          | Browse, PredictionWidget                        |
+| Etablissement/Commentaire | Commentaires sur un établissement                                            | Etablissement                                   |
+| Etablissement/Effectif    | Effectifs de l'établissement (dont activité partielle)                       | Etablissement                                   |
+| Etablissement/Finance     | _Non utilisé_                                                                | Etablissement                                   |
+| Etablissement/Historique  | Historique des alertes issues des listes de détection passées                | Etablissement/Identite                          |
+| Etablissement/Identite    | Identité de l'établissement (raison sociale, SIRET, coordonnées et activité) | Etablissement                                   |
+| Etablissement/Map         | Carte dynamique                                                              | Etablissement                                   |
+| Etablissement/NewComment  | Saisie d'un nouveau commentaire                                              | Etablissement/Commentaire, Etablissement/Thread |
+| Etablissement/OldFinance  | Informations financières (dont CA, REX, etc.)                                | Etablissement                                   |
+| Etablissement/Thread      | Fil de commentaires                                                          | Etablissement/Commentaire, Etablissement/Thread |
+| Etablissement/Urssaf      | Cotisations et dettes Urssaf                                                 | Etablissement                                   |
+| Goup                      | Envoi de données manuel                                                      |                                                 |
+| Help                      | Menu d'aide contextuelle                                                     | Etablissement, Goup                             |
+| Login                     | _Non utilisé_                                                                |                                                 |
+| NavigationDrawer          | Menu latéral de navigation                                                   | App                                             |
+| News                      | Changelog                                                                    | NavigationDrawer                                |
+| PageNotFound              | Page non trouvée                                                             |                                                 |
+| Prediction                | Liste de détection des établissements                                        |                                                 |
+| PredictionWidget          | Élément de la liste                                                          | Prediction                                      |
+| PredictionWidgetScore     | _Non utilisé_                                                                |                                                 |
+| ScoreWidget               | Niveau d'alerte détecté                                                      | PredictionWidget, Historique                    |
+| Security                  | Boîte de dialogue sur la confidentialité                                     | App                                             |
+| Spinner                   | En cours de chargement                                                       | Prediction                                      |
+| Toolbar                   | Barre supérieure                                                             | Browse, Goup                                    |
+| Upload                    | Upload de fichier                                                            | Goup                                            |
+
+Veuillez consulter la [documentation de l'interface graphique](interface-graphique.md) pour en savoir plus sur les aspects fonctionnels.
+
 ### Dépendances logicielles
 
 Les dépendances logicielles sont gérées par yarn.
