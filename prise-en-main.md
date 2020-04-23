@@ -46,7 +46,7 @@ $ docker exec -it sf-postgres psql -U postgres
 
 ### 3. Initialiser la base de données locale
 
-1. Exécutez les commandes suivantes:
+Exécutez les commandes suivantes:
 
 ```sh
 $ echo "create database datapi;" \
