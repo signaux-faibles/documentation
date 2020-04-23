@@ -1,8 +1,6 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-**Table of Contents** _generated with [DocToc](https://github.com/thlorenz/doctoc)_
-
 - [Prise en main](#prise-en-main)
   - [Survol des services Web](#survol-des-services-web)
   - [Developpement Datapi et frontal en local](#developpement-datapi-et-frontal-en-local)
