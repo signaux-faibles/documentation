@@ -23,7 +23,6 @@
 
 ![Aperçu global](./interface/accueil.png)
 
-
 ## Volet menu
 
 Le volet menu s'affiche et se ferme via l'icône en haut à gauche.
