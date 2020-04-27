@@ -34,7 +34,7 @@ Il permet de naviguer entre les différentes fonctionnalités de l'application e
 Les fonctionnalités accessibles via le menu sont :
 
 - La page de recherche d'un établissement, en cliquant sur l'entrée **Consultation**
-- L'accès aux listes de détection d'établissements, via l'entrée **Détection**
+- L'accès aux listes de détection d'établissements, via l'entrée **Listes de détection**
 - L'utilitaire externe de contribution Fider, en cliquant sur l'entrée **Contribuer**
 - L'envoi de données manuel, via l'entrée **Envoi de données manuel**
 
@@ -88,7 +88,7 @@ Pour consulter la fiche établissement, il suffit de cliquer n'importe où sur l
 
 Fider nous permet de collecter les retours et suggestions de nos utilisateurs, d'y réagir et de prioriser leur traitement.
 
-![Contribution](./interface/contribuer.png)
+![Contribution](./interface/contribuer.jpg)
 
 ## Envoi de données
 
