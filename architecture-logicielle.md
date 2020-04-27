@@ -31,14 +31,14 @@
   - [Dépendances logicielles](#d%C3%A9pendances-logicielles-1)
 - [signauxfaibles-web](#signauxfaibles-web)
   - [Connexion / Authentification](#connexion--authentification)
-  - [architecture](#architecture)
-  - [Dépendance logicielle](#d%C3%A9pendance-logicielle)
+  - [Architecture interne](#architecture-interne)
+  - [Dépendances logicielles](#d%C3%A9pendances-logicielles-2)
 - [Briques extérieures](#briques-ext%C3%A9rieures)
-  - [mongodb](#mongodb)
-- [keycloak](#keycloak)
+  - [MongoDB](#mongodb)
+  - [Keycloak](#keycloak)
   - [Structure du chargement JWT](#structure-du-chargement-jwt)
-  - [postgresql](#postgresql)
-  - [client TUS](#client-tus)
+  - [PostgreSQL](#postgresql)
+  - [Client tus](#client-tus)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 

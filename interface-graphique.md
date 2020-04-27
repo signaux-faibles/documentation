@@ -3,63 +3,100 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+- [Sitemap](#sitemap)
+- [Aperçu global de l'interface graphique](#aper%C3%A7u-global-de-linterface-graphique)
 - [Volet menu](#volet-menu)
-- [Fenêtre Liste](#fen%C3%AAtre-liste)
+- [Recherche d'établissement](#recherche-d%C3%A9tablissement)
 - [Fiche établissement](#fiche-%C3%A9tablissement)
-- [Rechercher un établissement](#rechercher-un-%C3%A9tablissement)
+- [Détection des établissements](#d%C3%A9tection-des-%C3%A9tablissements)
+- [Contribution via Fider](#contribution-via-fider)
+- [Envoi de données](#envoi-de-donn%C3%A9es)
 - [F.A.Q.](#faq)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
+## Sitemap
+
+![Sitemap](./interface/sitemap.png)
+
+## Aperçu global de l'interface graphique
+
+![Aperçu global](./interface/accueil.png)
+
+
 ## Volet menu
 
-Le volet menu permet de naviguer entre les différentes fonctionnalités de l'application, et de se déconnecter.
+Le volet menu s'affiche et se ferme via l'icône en haut à gauche.
+Il permet de naviguer entre les différentes fonctionnalités de l'application et de se déconnecter.
 
-Les fonctionnalités disponibles dans le menu sont:
+![Volet menu](./interface/volet-menu.png)
 
-- L'accès à la liste de détection en cliquant sur l'entrée **Détection**
-- La fenêtre de recherche d'un établissement en particulier, en cliquant sur l'entrée **Consultation**
-- L'entrée **Données** est à ignorer - elle ne concerne que les administrateurs des données.
+Les fonctionnalités accessibles via le menu sont :
 
-Le volet menu s'affiche avec l'icône ![Fleche ouverture](./interface/arrow_show_menu.JPG) en haut à gauche, sur le ruban bleu. Elle se masque avec l'icône ![Fleche fermeture](./interface/arrow_mask_menu.JPG).
+- La page de recherche d'un établissement, en cliquant sur l'entrée **Consultation**
+- L'accès aux listes de détection d'établissements, via l'entrée **Détection**
+- L'utilitaire externe de contribution Fider, en cliquant sur l'entrée **Contribuer**
+- L'envoi de données manuel, via l'entrée **Envoi de données manuel**
 
-![Volet menu](./interface/DEMO4.JPG)
+## Recherche d'établissement
 
-## Fenêtre Liste
+Depuis le menu, on peut rechercher un établissement sur la page **Consultation**.
 
-La fenêtre liste permet d'explorer les entreprises détectées par l'algorithme.
+Pour pouvoir accéder à la fiche d'un établissement, il suffit de rentrer le début de sa raison sociale ou le code SIRET de l'établissement puis de sélectionner l'établissement voulu dans la liste de résultats.
 
-La première étape consiste à fixer le périmètre de l'exploration dans le volet filtrage. Dans ce volet figurent plusieurs options de définition du périmètre d'exploration: le choix d'un périmètre géographique, le choix d'un secteur d'activité, le choix d'un effectif minimum, et le filtrage d'entreprises déjà accompagnées, soit par un partenaire, ou dans le contexte d'une procédure collective ou un plan CCSF.
-
-![Volet filtrage](./interface/volet_filtrage.png)
-
-Une fois ce périmètre fixé, les établissements correspondants apparaissent dans la liste centrale.
-Les établissements sont ordonnées par ordre décroissant d'alerte. Le niveau d'alerte est donné par le pictogramme coloré à gauche. Le symbole rouge avec un point d'exclamation signifie fort niveau d'alerte, le symbole orange avec un point d'interrogation est un niveau d'alerte intermédiaire, et le symbole vert indique l'absence d'alerte.
-
-Quelques données synthétiques complètent la présentation de l'établissement dans la liste: y figurent la raison sociale, le libellé du code naf (activité de l'entreprise). Si le voyant _urssaf_ est rouge, alors l'entreprise a connu dans les 6 derniers mois un incident de paiement à l'URSSAF. Si le pictogramme représentant un ouvrier est rouge, alors l'entreprise a recouru à l'activité partielle. Le nombre indiqué à droite du pictogramme représente l'effectif de l'établissement.
-
-À droite figurent le chiffre d'affaire et le résultat d'exploitation. Une flèche indique les variations de plus de 5% du chiffre d'affaire (augmentation ou diminution selon le sens de la flèche).
-Le résultat d'exploitation est rouge lorsqu'il est négatif.
-
-![Volet menu](./interface/DEMO2.JPG)
-
-Pour inspecter un établissement plus en détail, il suffit de cliquer n'importe où sur la ligne de celui-ci.
+![Résultats de la recherche](./interface/resultats-recherche.png)
 
 ## Fiche établissement
 
-La fenêtre établissement donne une information plus détaillée de l'établissement en question. Le niveau de détail et le contenu de cette page dépend du niveau d'habilitation de l'utilisateur.
+La fiche établissement est accessible depuis la recherche d'établissement et depuis les listes de détection.
+Elle donne une information détaillée sur l'établissement en question. Le niveau de détail et le contenu de cette page dépend du niveau d'habilitation de l'utilisateur.
 
-On y trouve la raison sociale, le siret, le secteur d'activité de l'entreprise, sa localisation, des informations sur mes variations d'effectif et le recours à l'activité partielle, des informations sur les cotisations URSSAF, d'éventuels débits ou délais de paiements octroyés par l'URSSAF, des informations financières sur plusieurs exercices consécutifs.
+![Fiche établissement](./interface/fiche-etablissement.png)
 
-![Fiche établissement](./interface/fiche_etablissement.jpg)
+On y trouve :
 
-## Rechercher un établissement
+- l'identité de l'établissement complétée de son historique d'alerte
+- son adresse postale et sa localisation sur la carte
+- un espace de commentaires qui permet la création de fils de discussions entre utilisateurs
+- les variations d'effectif et le recours ou non à l'activité partielle
+- les cotisations URSSAF appelées et d'éventuelles dettes à payer (soit sur la part salariale soit sur la part patronale)
+- des informations financières (telles que le chiffre d'affaire, le résultat d'exploitation, le résultat net, les délais fournisseur et client, le poids du fonds de roulement net global et le taux de financement court terme) sur plusieurs exercices consécutifs
 
-Depuis le menu, on peut chercher un établissement sur la page **Consultation** et accéder à sa fiche.
+## Détection des établissements
 
-![Page consultation](./interface/DEMO1.JPG)
+La liste permet d'explorer les entreprises détectées par l'algorithme.
 
-Il suffit de rentrer le début de sa raison sociale, ou le début du code SIRET de l'établissement, puis de sélectionner l'établissement en question dans la liste déroulante, pour pouvoir accéder à la fiche établissement correspondante.
+La première étape consiste à fixer le périmètre de l'exploration dans le volet filtrage situé à droite. Dans ce volet figurent plusieurs options de filtrage : le choix de la liste de détection datée, le choix d'un secteur d'activité (parmi les 21 sections NAF), le choix d'une zone géographique (nationale, régionale, départementale), le choix d'un effectif minimum (de 10 à 100), l'exclusion des entreprises faisant déjà l'objet d'un suivi ou selon une procédure collective en cours.
+
+Il est également possible d'utiliser un filtre de recherche rapide sur la raison sociale ou sur le numéro de SIRET.
+
+![Liste des établissements](./interface/liste-detection.png)
+
+Une fois ce périmètre fixé, les établissements correspondants apparaissent dans la liste centrale et les données sont exportables au format CSV.
+Les établissements sont ordonnées par ordre décroissant d'alerte. Le niveau d'alerte est donné par le pictogramme coloré à gauche. Le symbole rouge avec un point d'exclamation signifie fort niveau d'alerte, le symbole jaune avec un point d'interrogation est un niveau d'alerte intermédiaire et le symbole vert indique l'absence d'alerte.
+
+Quelques données synthétiques complètent la présentation de l'établissement dans la liste. Y figurent la raison sociale, le numéro de SIRET, le statut des procédures en cours, le département géographique et le libellé du code NAF (activité de l'entreprise).
+
+Si le voyant _URSSAF_ est rouge, alors l'entreprise a connu une augmentation des débits sur les 3 derniers mois.
+Si le pictogramme représentant un ouvrier est rouge, alors l'entreprise a recouru à l'activité partielle. Le nombre indiqué à droite du pictogramme représente l'effectif de l'établissement.
+
+Plus à droite figurent le chiffre d'affaire le plus récent connu et le résultat d'exploitation. Une flèche indique les variations de plus de 5% du chiffre d'affaire (augmentation ou diminution selon le sens de la flèche). Le résultat d'exploitation est rouge lorsqu'il est négatif.
+
+Pour consulter la fiche établissement, il suffit de cliquer n'importe où sur la ligne de celui-ci.
+
+## Contribution via Fider
+
+Fider nous permet de collecter les retours et suggestions de nos utilisateurs, d'y réagir et de prioriser leur traitement.
+
+![Contribution](./interface/contribuer.png)
+
+## Envoi de données
+
+Cette fonctionnalité d'envoi de données n'est disponible qu'à un nombre restreint d'utilisateur, les administrateurs des données.
+
+![Envoi de données](./interface/envoi-donnees.png)
+
+Une zone de dépôt est présente sur la partie gauche de la page et permet de sélectionner les fichiers à envoyer. Une fois les fichiers sélectionnés, il suffira de choisir via une case à cocher si l'envoi devra être effectué dans un espace partagé (choix par défaut) ou non (espace privé) puis de cliquer sur "▶ PROCÉDER À L'ENVOI". Le statut d'envoi de chacun des fichiers sera alors visible à l'écran.
 
 ## F.A.Q.
 
