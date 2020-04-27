@@ -1,3 +1,20 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Prise en main](#prise-en-main)
+  - [Survol des services Web](#survol-des-services-web)
+  - [Developpement Datapi et frontal en local](#developpement-datapi-et-frontal-en-local)
+    - [1. Configuration](#1-configuration)
+    - [2. Lancer la base de données en local avec Docker](#2-lancer-la-base-de-donn%C3%A9es-en-local-avec-docker)
+    - [3. Initialiser la base de données locale](#3-initialiser-la-base-de-donn%C3%A9es-locale)
+    - [4. Lancer keycloak (fournisseur identité oauth2) avec Docker](#4-lancer-keycloak-fournisseur-identit%C3%A9-oauth2-avec-docker)
+    - [5. Lancer datapi](#5-lancer-datapi)
+    - [6. Créer un utilisateur sur Keycloak](#6-cr%C3%A9er-un-utilisateur-sur-keycloak)
+    - [7. Compiler et lancer le frontal](#7-compiler-et-lancer-le-frontal)
+    - [8. Paramétrer `signauxfaibles-web` pour l'usage en local](#8-param%C3%A9trer-signauxfaibles-web-pour-lusage-en-local)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Prise en main
 
 ## Survol des services Web
