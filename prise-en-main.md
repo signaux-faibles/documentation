@@ -63,20 +63,15 @@ $ docker exec -it sf-postgres psql -U postgres
 
 ### 3. Initialiser la base de données locale
 
-1. Récupérez [`db-schema.sql`](https://github.com/signaux-faibles/datapi/blob/master/db-schema.sql) depuis le dépôt de `datapi`.
-
-2. Exécutez les commandes suivantes:
+Exécutez les commandes suivantes:
 
 ```sh
 $ echo "create database datapi;" \
     | docker exec -i sf-postgres psql -U postgres
-$ cat db-schema.sql \
-    | docker exec -i sf-postgres psql -U postgres datapi
 ```
 
 > Notes:
 >
-> - Vous pouvez ignorer les warnings concernant l'absence de rôles.
 > - Plus tard, pensez à couper le serveur avec `docker ps`, `docker kill` puis `docker rm sf-postgres`.
 
 ### 4. Lancer keycloak (fournisseur identité oauth2) avec Docker
@@ -98,12 +93,14 @@ $ docker run \
 
 ### 5. Lancer datapi
 
-Exécutez les commandes suivantes:
+L'exécutable datapi s'attend à trouver config.toml dans le répertoire de travail courant, veillez à vous positionner là où vous l'avez créé
 
 ```sh
 $ go get github.com/signaux-faibles/datapi
-$ go build ~/go/src/github.com/signaux-faibles/datapi # compile le binaire ./datapi dans le répertoire courant
-$ ./datapi -api # lance le serveur datapi sur le port 3000
+# Au premier lancement, créer le schéma
+$ $(go env GOPATH)/bin/datapi -createschema
+# Pour lancer le serveur datapi
+$ $(go env GOPATH)/bin/datapi -api
 ```
 
 Pour tester:
