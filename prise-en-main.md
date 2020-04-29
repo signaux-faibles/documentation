@@ -68,8 +68,6 @@ Exécutez les commandes suivantes:
 ```sh
 $ echo "create database datapi;" \
     | docker exec -i sf-postgres psql -U postgres
-$ cat db-schema.sql \
-    | docker exec -i sf-postgres psql -U postgres datapi
 ```
 
 > Notes:
