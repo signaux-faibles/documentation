@@ -98,7 +98,7 @@ L'exécutable datapi s'attend à trouver config.toml dans le répertoire de trav
 ```sh
 $ go get github.com/signaux-faibles/datapi
 # Au premier lancement, créer le schéma
-$ ~/go/bin/datapi -createschema
+$ $(go env GOPATH)/bin/datapi -createschema
 # Pour lancer le serveur datapi
 $ ~/go/bin/datapi -api
 ```
