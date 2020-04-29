@@ -100,7 +100,7 @@ $ go get github.com/signaux-faibles/datapi
 # Au premier lancement, créer le schéma
 $ $(go env GOPATH)/bin/datapi -createschema
 # Pour lancer le serveur datapi
-$ ~/go/bin/datapi -api
+$ $(go env GOPATH)/bin/datapi -api
 ```
 
 Pour tester:
