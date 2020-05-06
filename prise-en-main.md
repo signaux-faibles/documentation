@@ -13,12 +13,12 @@
   - [6. Créer un utilisateur sur Keycloak](#6-cr%C3%A9er-un-utilisateur-sur-keycloak)
   - [7. Compiler et lancer le frontal](#7-compiler-et-lancer-le-frontal)
   - [8. Paramétrer `signauxfaibles-web` pour l'usage en local](#8-param%C3%A9trer-signauxfaibles-web-pour-lusage-en-local)
-- [Intégration de données](#int%C3%A9gration-de-donn%C3%A9es)
+- [Étape de calculs pour populer "`Features`"](#%C3%A9tape-de-calculs-pour-populer-features)
   - [1. Lancement de mongodb avec Docker](#1-lancement-de-mongodb-avec-docker)
   - [2. Préparation du répertoire de données `${DATA_DIR}`](#2-pr%C3%A9paration-du-r%C3%A9pertoire-de-donn%C3%A9es-data_dir)
   - [3. Installation et configuration de `dbmongo`](#3-installation-et-configuration-de-dbmongo)
   - [4. Ajout de données de test](#4-ajout-de-donn%C3%A9es-de-test)
-  - [5. Exécution de la chaine d'intégration / calcul de données "`Features`"](#5-ex%C3%A9cution-de-la-chaine-dint%C3%A9gration--calcul-de-donn%C3%A9es-features)
+  - [5. Exécution des calculs pour populer la collection "`Features`"](#5-ex%C3%A9cution-des-calculs-pour-populer-la-collection-features)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -158,7 +158,7 @@ $ curl 127.0.0.1:3000 # => la requête doit s'afficher dans les logs de datapi
 
 ## Étape de calculs pour populer "`Features`"
 
-Cette étape exécute les calculs effectués après les étapes d'import et de compactage de la collection "`DataRaw`", en vue de populer "`Features`", la collection qui alimente le modèle prédictif.  
+Cette étape exécute les calculs effectués après les étapes d'import et de compactage de la collection "`DataRaw`", en vue de populer "`Features`", la collection qui alimente le modèle prédictif.
 
 ### 1. Lancement de mongodb avec Docker
 
