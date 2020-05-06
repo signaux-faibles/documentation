@@ -1,21 +1,26 @@
+# Prise en main
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [Prise en main](#prise-en-main)
-  - [Survol des services Web](#survol-des-services-web)
-  - [Developpement Datapi et frontal en local](#developpement-datapi-et-frontal-en-local)
-    - [1. Configuration](#1-configuration)
-    - [2. Lancer la base de données en local avec Docker](#2-lancer-la-base-de-donn%C3%A9es-en-local-avec-docker)
-    - [3. Initialiser la base de données locale](#3-initialiser-la-base-de-donn%C3%A9es-locale)
-    - [4. Lancer keycloak (fournisseur identité oauth2) avec Docker](#4-lancer-keycloak-fournisseur-identit%C3%A9-oauth2-avec-docker)
-    - [5. Lancer datapi](#5-lancer-datapi)
-    - [6. Créer un utilisateur sur Keycloak](#6-cr%C3%A9er-un-utilisateur-sur-keycloak)
-    - [7. Compiler et lancer le frontal](#7-compiler-et-lancer-le-frontal)
-    - [8. Paramétrer `signauxfaibles-web` pour l'usage en local](#8-param%C3%A9trer-signauxfaibles-web-pour-lusage-en-local)
+- [Survol des services Web](#survol-des-services-web)
+- [Developpement Datapi et frontal en local](#developpement-datapi-et-frontal-en-local)
+  - [1. Configuration](#1-configuration)
+  - [2. Lancer la base de données en local avec Docker](#2-lancer-la-base-de-donn%C3%A9es-en-local-avec-docker)
+  - [3. Initialiser la base de données locale](#3-initialiser-la-base-de-donn%C3%A9es-locale)
+  - [4. Lancer keycloak (fournisseur identité oauth2) avec Docker](#4-lancer-keycloak-fournisseur-identit%C3%A9-oauth2-avec-docker)
+  - [5. Lancer datapi](#5-lancer-datapi)
+  - [6. Créer un utilisateur sur Keycloak](#6-cr%C3%A9er-un-utilisateur-sur-keycloak)
+  - [7. Compiler et lancer le frontal](#7-compiler-et-lancer-le-frontal)
+  - [8. Paramétrer `signauxfaibles-web` pour l'usage en local](#8-param%C3%A9trer-signauxfaibles-web-pour-lusage-en-local)
+- [Étape de calculs pour populer "`Features`"](#%C3%A9tape-de-calculs-pour-populer-features)
+  - [1. Lancement de mongodb avec Docker](#1-lancement-de-mongodb-avec-docker)
+  - [2. Préparation du répertoire de données `${DATA_DIR}`](#2-pr%C3%A9paration-du-r%C3%A9pertoire-de-donn%C3%A9es-data_dir)
+  - [3. Installation et configuration de `dbmongo`](#3-installation-et-configuration-de-dbmongo)
+  - [4. Ajout de données de test](#4-ajout-de-donn%C3%A9es-de-test)
+  - [5. Exécution des calculs pour populer la collection "`Features`"](#5-ex%C3%A9cution-des-calculs-pour-populer-la-collection-features)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-# Prise en main
 
 ## Survol des services Web
 
@@ -150,3 +155,115 @@ $ curl 127.0.0.1:3000 # => la requête doit s'afficher dans les logs de datapi
 2. Replacements à effectuer dans `store.ts`:
 
    - `baseURL = '/'` --> `baseURL = 'http://localhost:3000/'`
+
+## Étape de calculs pour populer "`Features`"
+
+Cette étape exécute les calculs effectués après les étapes d'import et de compactage de la collection "`DataRaw`", en vue de populer "`Features`", la collection qui alimente le modèle prédictif.
+
+### 1. Lancement de mongodb avec Docker
+
+Après avoir installé Docker, exécutez les commandes suivantes:
+
+```sh
+$ docker run \
+    mongodb:4 \
+    --name sf-mongodb \
+    --publish 27017:27017 \
+    --rm # retirez ce paramètre si vous voulez pouvoir réutiliser ce conteneur plus tard
+```
+
+Pour tester la connexion:
+
+```sh
+$ docker exec -it sf-mongo mongo signauxfaibles
+
+> show collections
+
+# puis pressez Ctrl-C pour quitter le client mongo
+```
+
+### 2. Préparation du répertoire de données `${DATA_DIR}`
+
+Exécutez les commandes suivantes:
+
+```sh
+$ DATA_DIR=$(pwd)/opensignauxfaibles-data-raw
+$ mkdir ${DATA_DIR}
+$ touch ${DATA_DIR}/dummy.csv
+```
+
+### 3. Installation et configuration de `dbmongo`
+
+Exécutez les commandes suivantes:
+
+```sh
+$ git clone https://github.com/signaux-faibles/opensignauxfaibles.git
+$ cd opensignauxfaibles
+$ cd dbmongo
+$ go build
+$ cp config-sample.toml config.toml
+$ sed -i '' "s,/foo/bar/data-raw,${DATA_DIR}," config.toml
+$ sed -i '' 's,naf/.*\.csv,dummy.csv,' config.toml
+```
+
+### 4. Ajout de données de test
+
+Exécutez les commandes suivantes:
+
+```sh
+$ docker exec -it sf-mongo mongo signauxfaibles
+
+> db.createCollection('RawData')
+
+> db.Admin.insertOne({
+    "_id" : {
+        "key" : "1910",
+        "type" : "batch"
+    },
+    "files" : {
+        "bdf" : [
+            "/1910/bdf_1910.csv"
+        ]
+    },
+    "complete_types" : [
+    ],
+    "param" : {
+        "date_debut" : ISODate("2014-01-01T00:00:00.000+0000"),
+        "date_fin" : ISODate("2019-10-01T00:00:00.000+0000"),
+        "date_fin_effectif" : ISODate("2019-07-01T00:00:00.000+0000")
+    },
+    "name" : "Octobre"
+  })
+
+> db.RawData.remove({})
+
+> db.RawData.insertOne({
+    "_id": "01234567891011",
+    "value": {
+        "scope": "etablissement",
+        "index": {
+        "algo2": true
+        }
+    }
+  })
+
+# puis pressez Ctrl-C pour quitter le client mongo
+```
+
+### 5. Exécution des calculs pour populer la collection "`Features`"
+
+Après avoir installé [HTTPie – command line HTTP client](https://httpie.org/), exécutez la commande suivante:
+
+```sh
+$ http :5000/api/data/reduce algo=algo2 batch=1910 key=012345678
+```
+
+Puis vérifiez que la collection `Features_debug` a bien été populée par la chaine d'intégration:
+
+```sh
+$ docker exec -it sf-mongo mongo signauxfaibles
+
+> db.Features_debug.find()
+
+# puis pressez Ctrl-C pour quitter le client mongo
+```
