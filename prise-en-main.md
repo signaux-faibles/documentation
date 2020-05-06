@@ -175,7 +175,7 @@ $ docker exec -it sf-mongo mongo signauxfaibles
 # puis pressez Ctrl-C pour quitter le client mongo
 ```
 
-2. Préparation du répertoire de données `${DATA_DIR}`
+### 2. Préparation du répertoire de données `${DATA_DIR}`
 
 Exécutez les commandes suivantes:
 
@@ -185,7 +185,7 @@ $ mkdir ${DATA_DIR}
 $ touch ${DATA_DIR}/dummy.csv
 ```
 
-3. Installation et configuration de `dbmongo`
+### 3. Installation et configuration de `dbmongo`
 
 Exécutez les commandes suivantes:
 
@@ -199,7 +199,7 @@ $ sed -i '' "s,/foo/bar/data-raw,${DATA_DIR}," config.toml
 $ sed -i '' 's,naf/.*\.csv,dummy.csv,' config.toml
 ```
 
-4. Ajout de données de test
+### 4. Ajout de données de test
 
 Exécutez les commandes suivantes:
 
@@ -243,7 +243,7 @@ $ docker exec -it sf-mongo mongo signauxfaibles
 # puis pressez Ctrl-C pour quitter le client mongo
 ```
 
-5. Exécution de la chaine d'intégration / calcul de données "`Features`"
+### 5. Exécution de la chaine d'intégration / calcul de données "`Features`"
 
 Après avoir installé [HTTPie – command line HTTP client](https://httpie.org/), exécutez la commande suivante:
 
