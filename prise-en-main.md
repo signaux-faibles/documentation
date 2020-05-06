@@ -3,17 +3,22 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [Prise en main](#prise-en-main)
-  - [Survol des services Web](#survol-des-services-web)
-  - [Developpement Datapi et frontal en local](#developpement-datapi-et-frontal-en-local)
-    - [1. Configuration](#1-configuration)
-    - [2. Lancer la base de données en local avec Docker](#2-lancer-la-base-de-donn%C3%A9es-en-local-avec-docker)
-    - [3. Initialiser la base de données locale](#3-initialiser-la-base-de-donn%C3%A9es-locale)
-    - [4. Lancer keycloak (fournisseur identité oauth2) avec Docker](#4-lancer-keycloak-fournisseur-identit%C3%A9-oauth2-avec-docker)
-    - [5. Lancer datapi](#5-lancer-datapi)
-    - [6. Créer un utilisateur sur Keycloak](#6-cr%C3%A9er-un-utilisateur-sur-keycloak)
-    - [7. Compiler et lancer le frontal](#7-compiler-et-lancer-le-frontal)
-    - [8. Paramétrer `signauxfaibles-web` pour l'usage en local](#8-param%C3%A9trer-signauxfaibles-web-pour-lusage-en-local)
+- [Survol des services Web](#survol-des-services-web)
+- [Developpement Datapi et frontal en local](#developpement-datapi-et-frontal-en-local)
+  - [1. Configuration](#1-configuration)
+  - [2. Lancer la base de données en local avec Docker](#2-lancer-la-base-de-donn%C3%A9es-en-local-avec-docker)
+  - [3. Initialiser la base de données locale](#3-initialiser-la-base-de-donn%C3%A9es-locale)
+  - [4. Lancer keycloak (fournisseur identité oauth2) avec Docker](#4-lancer-keycloak-fournisseur-identit%C3%A9-oauth2-avec-docker)
+  - [5. Lancer datapi](#5-lancer-datapi)
+  - [6. Créer un utilisateur sur Keycloak](#6-cr%C3%A9er-un-utilisateur-sur-keycloak)
+  - [7. Compiler et lancer le frontal](#7-compiler-et-lancer-le-frontal)
+  - [8. Paramétrer `signauxfaibles-web` pour l'usage en local](#8-param%C3%A9trer-signauxfaibles-web-pour-lusage-en-local)
+- [Intégration de données](#int%C3%A9gration-de-donn%C3%A9es)
+  - [1. Lancement de mongodb avec Docker](#1-lancement-de-mongodb-avec-docker)
+  - [2. Préparation du répertoire de données `${DATA_DIR}`](#2-pr%C3%A9paration-du-r%C3%A9pertoire-de-donn%C3%A9es-data_dir)
+  - [3. Installation et configuration de `dbmongo`](#3-installation-et-configuration-de-dbmongo)
+  - [4. Ajout de données de test](#4-ajout-de-donn%C3%A9es-de-test)
+  - [5. Exécution de la chaine d'intégration / calcul de données "`Features`"](#5-ex%C3%A9cution-de-la-chaine-dint%C3%A9gration--calcul-de-donn%C3%A9es-features)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -208,23 +213,23 @@ $ docker exec -it sf-mongo mongo signauxfaibles
 
 > db.createCollection('RawData')
 
-> db.Admin.insertOne({ 
+> db.Admin.insertOne({
     "_id" : {
-        "key" : "1910", 
+        "key" : "1910",
         "type" : "batch"
-    }, 
+    },
     "files" : {
         "bdf" : [
             "/1910/bdf_1910.csv"
         ]
-    }, 
+    },
     "complete_types" : [
-    ], 
+    ],
     "param" : {
-        "date_debut" : ISODate("2014-01-01T00:00:00.000+0000"), 
-        "date_fin" : ISODate("2019-10-01T00:00:00.000+0000"), 
+        "date_debut" : ISODate("2014-01-01T00:00:00.000+0000"),
+        "date_fin" : ISODate("2019-10-01T00:00:00.000+0000"),
         "date_fin_effectif" : ISODate("2019-07-01T00:00:00.000+0000")
-    }, 
+    },
     "name" : "Octobre"
   })
 

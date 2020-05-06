@@ -107,13 +107,13 @@ Les données financières de la Banque de France couvrent à ce jour uniquement 
 
 - **SIREN** Siren de l'entreprise
 
-- **ANNEE** Année de l'exercice. 
+- **ANNEE** Année de l'exercice.
 
-  Intitulé dans la base: "annee_bdf". 
+  Intitulé dans la base: "annee_bdf".
 
 - **ARRETE_BILAN** Date de clôture de l'exercice. Format mm/jj/aaaa
 
-  Intitulé dans la base: "arrete_bilan_bdf". 
+  Intitulé dans la base: "arrete_bilan_bdf".
 
 - **DENOM** Raison sociale de l'entreprise.
 
@@ -121,7 +121,7 @@ Les données financières de la Banque de France couvrent à ce jour uniquement 
 
 - **SECTEUR** Secteur d'activité.
 
-  Intitulé dans la base: "secteur". 
+  Intitulé dans la base: "secteur".
 
 - **POIDS_FRNG** Poids du fonds de roulement net global sur le chiffre d'affaire. Exprimé en \%.
 
@@ -129,27 +129,27 @@ Les données financières de la Banque de France couvrent à ce jour uniquement 
 
 - **TX_MARGE** Taux de marge, rapport de l'excédent brut d'exploitation (EBE) sur la valeur ajoutée. Exprimé en \%.
   _100\*EBE / valeur ajoutee_
-  
+
   Intitulé dans la base: "taux_marge".
 
 - **DELAI_FRS** Délai estimé de paiement des fournisseurs. Exprimé en jours.
   _360 \* dettes fournisseurs / achats HT_
-  
+
   Intitulé dans la base: "delai_fournisseur".
 
 - **POIDS_DFISC_SOC** Poids des dettes fiscales et sociales, par rapport à la valeur ajoutée. Exprimé en \%.
   _100 \* dettes fiscales et sociales / Valeur ajoutee_
-  
+
   Intitulé dans la base: "dette_fiscale"
 
 - **POIDS_FIN_CT** Poids du financement court terme. Exprimé en \%.
   _100 \* concours bancaires courants / chiffre d'affaires HT_
-  
-   Intitulé dans la base: "financier_court_terme"
+
+  Intitulé dans la base: "financier_court_terme"
 
 - **POIDS_FRAIS_FIN** Poids des frais financiers, sur l'excedent brut d'exploitation corrigé des produits et charges hors exploitation. Exprimé en \%.
   _100 \* frais financiers / (EBE + Produits hors expl. - charges hors expl.)_
-  
+
   Intitulé dans la base: "frais_financier".
 
 ### Données financières issues des bilans déposés au greffe de tribunaux de commerce
