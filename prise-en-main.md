@@ -156,7 +156,9 @@ $ curl 127.0.0.1:3000 # => la requête doit s'afficher dans les logs de datapi
 
    - `baseURL = '/'` --> `baseURL = 'http://localhost:3000/'`
 
-## Intégration de données
+## Étape de calculs pour populer "`Features`"
+
+Cette étape exécute les calculs effectués après les étapes d'import et de compactage de la collection "`DataRaw`", en vue de populer "`Features`", la collection qui alimente le modèle prédictif.  
 
 ### 1. Lancement de mongodb avec Docker
 
@@ -248,7 +250,7 @@ $ docker exec -it sf-mongo mongo signauxfaibles
 # puis pressez Ctrl-C pour quitter le client mongo
 ```
 
-### 5. Exécution de la chaine d'intégration / calcul de données "`Features`"
+### 5. Exécution des calculs pour populer la collection "`Features`"
 
 Après avoir installé [HTTPie – command line HTTP client](https://httpie.org/), exécutez la commande suivante:
 
