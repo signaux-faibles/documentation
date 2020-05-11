@@ -23,10 +23,18 @@ L'objectif de ces outils est de fournir les outils techniques nécessaires à la
 ## Logiciels
 
 - [signauxfaibles-web](https://github.com/signaux-faibles/signauxfaibles-web) est l'interface utilisateur destinée aux agents publics
-- [opensignauxfaibles](https://github.com/signaux-faibles/opensignauxfaibles) contient le socle technique permettant la mise en oeuvre des méthodes de machine learning
-- [datapi](https://github.com/signaux-faibles/datapi) est une api orientée sur l'hébergement et l'échange de données dans un contexte de gestion complexe des attributions
+- [opensignauxfaibles](https://github.com/signaux-faibles/opensignauxfaibles)
+  contient le socle technique permettant l'intégration des données et les
+  calculs en vue d'entraîner l'algorithme.
+- [rsignauxfaibles](https://github.com/signaux-faibles/rsignauxfaibles)
+  contient les méthodes d'apprentissage de l'algorithme et de prédiction.
+- [datapi](https://github.com/signaux-faibles/datapi) est une api orientée sur
+  l'hébergement et l'échange de données dans un contexte de gestion complexe
+  des attributions
 - [goup](https://github.com/signaux-faibles/goup) est une api destinée à permettre le transfert des fichiers bruts avec un protocole flexible et fiable basé sur http (voir [tus](https://github.com/tus))
-- MLsegmentr(https://github.com/signaux-faibles/MLsegmentr) est un package R destiné à l'industrialisation de l'évaluation d'algorithmes
-- [frontend](https://github.com/signaux-faibles/frontend) est le site vitrine à vocation publique.
+- [frontend](https://github.com/signaux-faibles/frontend) est le site vitrine à
+  vocation publique.
 - [gorncs-api](https://github.com/signaux-faibles/gorncs-api) est une api basée sur le dépôt RNCS fourni par l'INPI.
-- [prepare-import](https://github.com/signaux-faibles/prepare-import) permet de générer un "batch" de fichiers bruts (transférés via goup) en vue de leur importation en base de données.
+- [prepare-import](https://github.com/signaux-faibles/prepare-import) permet de
+  générer un "batch" de fichiers bruts (transférés via goup) en vue de leur
+  importation en base de données.
