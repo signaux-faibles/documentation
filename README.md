@@ -13,6 +13,7 @@
 - [Algorithme + Evaluation](algorithme-evaluation.md) (wip)
 - [Interface Graphique](interface-graphique.md) (wip)
 - [Supervision](supervision.md) (wip)
+- [Staging frontend](staging-frontend.md)
 
 ## Présentation du projet
 
