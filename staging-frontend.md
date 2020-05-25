@@ -1,3 +1,17 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+**Table of Contents** _generated with [DocToc](https://github.com/thlorenz/doctoc)_
+
+- [Staging frontend](#staging-frontend)
+  - [Évolution des numéros de version](#%C3%A9volution-des-num%C3%A9ros-de-version)
+  - [Cycle de vie](#cycle-de-vie)
+    - [Développement](#d%C3%A9veloppement)
+    - [Pre-production](#pre-production)
+    - [Mise en production](#mise-en-production)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Staging frontend
 
 Les composants du frontend Signaux-Faibles sont signauxfaibles-web (frontend) et datapi (backend)
