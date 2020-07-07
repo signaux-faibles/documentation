@@ -178,8 +178,10 @@ Le compactage se lance avec la commande suivante:
 ```
 http :3000/api/data/compact [options]
 # Par exemple
-http :3000/api/data/compact batch="1804"
+http :3000/api/data/compact fromBatchKey="1804"
 ```
+
+L'option `fromBatchKey` indique le premier batch dans l'ordre alphabétique qui nécessite d'être compacté (c'est-à-dire qui a subi des changements). Tous les suivants le seront automatiquement.
 
 ## Spécificités des calculs de variables
 
