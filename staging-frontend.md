@@ -4,7 +4,7 @@
 - [Staging frontend](#staging-frontend)
   - [Évolution des numéros de version](#%C3%A9volution-des-num%C3%A9ros-de-version)
   - [Développement](#d%C3%A9veloppement)
-  - [Pre-production](#pre-production)
+  - [Pré-production](#pr%C3%A9-production)
   - [Mise en production](#mise-en-production)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -23,17 +23,17 @@ Les numéros de version de signauxfaibles-web et datapi sont synchronisés de fa
 
 Cette étape est dédiée à l'ajout/modification de fonctionnalités ou corrections, et des tests correspondants. Chaque ajout de fonctionnalité fait l'objet d'une création de branche dédiée.
 
-Il est à noter qu'un changelog embarqué dans signauxfaibles-web est à mettre à jour dans src/views/News.vue
+Il est à noter qu'un changelog embarqué dans signauxfaibles-web est à mettre à jour dans src/views/News.vue. La version de datapi en cours pourra également y figurer.
 
-Les branches créées pour les nouvelles fonctionnalités seront fusionnées dans une branche `release-vXX` pour la mise en pre-production.
+Les branches créées pour les nouvelles fonctionnalités seront fusionnées dans une branche `release-vXX` pour la mise en pré-production.
 
-## Pre-production
+## Pré-production
 
 Cette phase est dédiée à la recette des fonctionnalités et se base sur la branche `release-vXX`.
 
 L'aboutissement de cette phase est la fusion de la branche `release-vXX` dans la branche `master`
 
-L'application présentée aux utilisateurs en pre-production doit être signalée comme application de recette.
+L'application présentée aux utilisateurs en pré-production doit être signalée comme application de recette.
 
 ## Mise en production
 
