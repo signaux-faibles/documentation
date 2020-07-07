@@ -181,7 +181,7 @@ http :3000/api/data/compact [options]
 http :3000/api/data/compact fromBatchKey="1804"
 ```
 
-L'option `fromBatchKey` indique le premier batch dans l'ordre alphabétique qui nécessite d'être compacté (c'est-à-dire qui a subi des changements). Tous les suivants le seront automatiquement. 
+L'option `fromBatchKey` indique le premier batch dans l'ordre alphabétique qui nécessite d'être compacté (c'est-à-dire qui a subi des changements). Tous les suivants le seront automatiquement.
 
 ## Spécificités des calculs de variables
 
