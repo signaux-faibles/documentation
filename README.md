@@ -8,7 +8,7 @@
 - [Prise en Main](prise-en-main.md)
 - [Architecture logicielle](architecture-logicielle.md) (wip)
 - [Processus de traitement des données](processus-traitement-donnees.md) (wip)
-- [Publication des données](processus-traitement-donnees.md) (wip)
+- [Publication des données](publication-donnees.md) (wip)
 - [Description des données](description-donnees.md) (wip)
 - [Algorithme + Evaluation](algorithme-evaluation.md) (wip)
 - [Interface Graphique](interface-graphique.md) (wip)
