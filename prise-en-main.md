@@ -267,3 +267,13 @@ $ docker exec -it sf-mongo mongo signauxfaibles
 
 # puis pressez Ctrl-C pour quitter le client mongo
 ```
+
+### 6. En cas d'erreur – afficher le journal de MongoDB
+
+Il peut arriver qu'un appel API de traitement de données échoue et retourne le message d'erreur suivant: `erreurs constatées, consultez les journaux`.
+
+Dans ce cas, vous pouvez trouver le détail de ces erreurs dans les logs de MongoDB:
+
+```sh
+$ docker logs sf-mongodb | grep "uncaught exception"
+```
