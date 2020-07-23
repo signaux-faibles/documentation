@@ -19,6 +19,7 @@
   - [3. Installation et configuration de `dbmongo`](#3-installation-et-configuration-de-dbmongo)
   - [4. Ajout de données de test](#4-ajout-de-donn%C3%A9es-de-test)
   - [5. Exécution des calculs pour populer la collection "`Features`"](#5-ex%C3%A9cution-des-calculs-pour-populer-la-collection-features)
+  - [6. En cas d'erreur – afficher le journal de MongoDB](#6-en-cas-derreur--afficher-le-journal-de-mongodb)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -175,7 +176,7 @@ $ docker run \
 Pour tester la connexion:
 
 ```sh
-$ docker exec -it sf-mongo mongo signauxfaibles
+$ docker exec -it sf-mongodb mongo signauxfaibles
 
 > show collections
 
@@ -211,7 +212,7 @@ $ sed -i '' 's,naf/.*\.csv,dummy.csv,' config.toml
 Exécutez les commandes suivantes:
 
 ```sh
-$ docker exec -it sf-mongo mongo signauxfaibles
+$ docker exec -it sf-mongodb mongo signauxfaibles
 
 > db.createCollection('RawData')
 
@@ -261,9 +262,19 @@ $ http :5000/api/data/reduce algo=algo2 batch=1910 key=012345678
 Puis vérifiez que la collection `Features_debug` a bien été populée par la chaine d'intégration:
 
 ```sh
-$ docker exec -it sf-mongo mongo signauxfaibles
+$ docker exec -it sf-mongodb mongo signauxfaibles
 
 > db.Features_debug.find()
 
 # puis pressez Ctrl-C pour quitter le client mongo
+```
+
+### 6. En cas d'erreur – afficher le journal de MongoDB
+
+Il peut arriver qu'un appel API de traitement de données échoue et retourne le message d'erreur suivant: `erreurs constatées, consultez les journaux`.
+
+Dans ce cas, vous pouvez trouver le détail de ces erreurs dans les logs de MongoDB:
+
+```sh
+$ docker logs sf-mongodb | grep "uncaught exception"
 ```
