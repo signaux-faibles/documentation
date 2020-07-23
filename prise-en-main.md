@@ -176,7 +176,7 @@ $ docker run \
 Pour tester la connexion:
 
 ```sh
-$ docker exec -it sf-mongo mongo signauxfaibles
+$ docker exec -it sf-mongodb mongo signauxfaibles
 
 > show collections
 
@@ -212,7 +212,7 @@ $ sed -i '' 's,naf/.*\.csv,dummy.csv,' config.toml
 Exécutez les commandes suivantes:
 
 ```sh
-$ docker exec -it sf-mongo mongo signauxfaibles
+$ docker exec -it sf-mongodb mongo signauxfaibles
 
 > db.createCollection('RawData')
 
@@ -262,7 +262,7 @@ $ http :5000/api/data/reduce algo=algo2 batch=1910 key=012345678
 Puis vérifiez que la collection `Features_debug` a bien été populée par la chaine d'intégration:
 
 ```sh
-$ docker exec -it sf-mongo mongo signauxfaibles
+$ docker exec -it sf-mongodb mongo signauxfaibles
 
 > db.Features_debug.find()
 
