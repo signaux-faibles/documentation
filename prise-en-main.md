@@ -19,6 +19,7 @@
   - [3. Installation et configuration de `dbmongo`](#3-installation-et-configuration-de-dbmongo)
   - [4. Ajout de données de test](#4-ajout-de-donn%C3%A9es-de-test)
   - [5. Exécution des calculs pour populer la collection "`Features`"](#5-ex%C3%A9cution-des-calculs-pour-populer-la-collection-features)
+  - [6. En cas d'erreur – afficher le journal de MongoDB](#6-en-cas-derreur--afficher-le-journal-de-mongodb)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
