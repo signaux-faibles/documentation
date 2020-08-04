@@ -182,54 +182,130 @@ Les données financières de la Banque de France couvrent à ce jour uniquement 
 
 #### Structure et liquidité
 
-- **EquilibreFinancier** Équilibre financier.
-- **IndependanceFinanciere** Indépendance financière.
-- **Endettement** Endettement.
-- **AutonomieFinanciere** Autonomie financière.
-- **DegreImmoCorporelle** Degré d'amortissement des immobilisations corporelles
-- **FinancementActifCirculant** Financement de l'actif circulant net.
-- **LiquiditeGenerale** Liquidité générale.
-- **LiquiditeReduite** Liquidité réduite.
+- **EquilibreFinancier** Équilibre financier.  
+  _Ressources durables / Emplois stables_
+
+- **IndependanceFinanciere** Indépendance financière. Exprimé en \%.  
+  _Fonds propres / Ressources durables \* 100_
+
+- **Endettement** Endettement. Exprimé en \%.  
+  _Dettes de caractère financier / Ressources durables \* 100_
+
+- **AutonomieFinanciere** Autonomie financière. Exprimé en \%.  
+  _Fonds propres / Total bilan \* 100_
+
+- **DegreImmoCorporelle** Degré d'amortissement des immobilisations corporelles. Exprimé en \%.  
+  _Amortissements des immobilisations corporelles / Immobilisation corporelles brutes \* 100_
+
+- **FinancementActifCirculant** Financement de l'actif circulant net.  
+  _Fonds de roulement net global / Actif circulant net_
+
+- **LiquiditeGenerale** Liquidité générale.  
+  _Actif circulant net / Dettes à court terme_
+
+- **LiquiditeReduite** Liquidité réduite.  
+  _Actif circulant net hors stocks / Dettes à court terme_
 
 #### Gestion
 
-- **RotationStocks** Rotation des stocks (en jours).
-- **CreditClient** Crédit clients
-- **CreditFournisseur** Crédit fournisseurs
-- **CAparEffectif** Chiffre d'affaire par effectif (k€/personne)
-- **TauxInteretFinancier** Taux d'intérêt financier.
-- **TauxInteretSurCA** Intérêts sur chiffre d'affaire.
-- **EndettementGlobal** Endettement global
-- **TauxEndettement** Taux d'endettement.
-- **CapaciteRemboursement** Capacité de remboursement.
-- **CapaciteAutofinancement** Capacité d'autofinancement.
-- **CouvertureCaFdr** Couverture du chiffre d'affaire par le fonds de roulement.
-- **CouvertureCaBesoinFdr** Couverture du chiffre d'affaire par le besoin en fonds de roulement.
-- **PoidsBFRExploitation** Poids des besoins en fonds de roulement d'exploitation.
-- **Exportation** Exportation (%)
+- **RotationStocks** Rotation des stocks. Exprimé en jours.  
+  _Stock / Chiffre d'affaires net \* 360_  
+  Selon la nomenclature NAF Rév. 2 pour les secteurs d'activité 45, 46, 47, 95 (sauf 9511Z) ainsi que pour les codes d'activités 2319Z, 3831Z et 3832Z :
+  _Marchandises / (Achats de marchandises + Variation de stock) \* 360_
+
+- **CreditClient** Crédit clients. Exprimé en jours.  
+  _(Clients + Effets portés à l'escompte et non échus) / Chiffre d'affaires TTC \* 360_
+
+- **CreditFournisseur** Crédit fournisseurs. Exprimé en jours.  
+  _Fournisseurs / Achats TTC \* 360_
+
+- **CAparEffectif** Chiffre d'affaire par effectif. Exprimé en k€/emploi.  
+  _Chiffre d'affaires net / Effectif \* 1000_
+
+- **TauxInteretFinancier** Taux d'intérêt financier. Exprimé en \%.  
+  _Intérêts / Chiffre d'affaires net \* 100_
+
+- **TauxInteretSurCA** Intérêts sur chiffre d'affaire. Exprimé en \%.  
+  _Total des charges financières / Chiffre d'affaires net \* 100_
+
+- **EndettementGlobal** Endettement global. Exprimé en jours.  
+  _(Dettes + Effets portés à l'escompte et non échus) / Chiffre d'affaires net \* 360_
+
+- **TauxEndettement** Taux d'endettement. Exprimé en \%.  
+  _Dettes de caractère financier / (Capitaux propres + autres fonds propres) \* 100_
+
+- **CapaciteRemboursement** Capacité de remboursement.  
+  _Dettes de caractère financier / Capacité d'autofinancement avant répartition_
+
+- **CapaciteAutofinancement** Capacité d'autofinancement. Exprimé en \%.  
+  _Capacité d'autofinancement avant répartition / (Chiffre d'affaires net + Subvention d'exploitation) \* 100_
+
+- **CouvertureCaFdr** Couverture du chiffre d'affaire par le fonds de roulement. Exprimé en jours.  
+  _Fonds de roulement net global / Chiffre d'affaires net \* 360_
+
+- **CouvertureCaBesoinFdr** Couverture du chiffre d'affaire par le besoin en fonds de roulement. Exprimé en jours.  
+  _Besoins en fonds de roulement / Chiffre d'affaires net \* 360_
+
+- **PoidsBFRExploitation** Poids des besoins en fonds de roulement d'exploitation. Exprimé en \%.  
+  _Besoins en fonds de roulement d'exploitation / Chiffre d'affaires net \* 100_
+
+- **Exportation** Exportation. Exprimé en \%.  
+  _(Chiffre d'affaires net - Chiffre d'affaires net en France) / Chiffre d'affaires net \* 100_
 
 #### Productivité et rentabilité
 
-- **EfficaciteEconomique** Efficacité économique (k€/personne)
-- **ProductivitePotentielProduction** Productivité du potentiel de production
-- **ProductiviteCapitalFinancier** Productivtié du capital financier.
-- **ProductiviteCapitalInvesti** Productivité du capital investi.
-- **TauxDInvestissementProductif** Taux d'investissement productif.
-- **RentabiliteEconomique** Rentabilité économique.
-- **Performance** Performance.
-- **RendementBrutFondsPropres** Rendement brut des fonds propres.
-- **RentabiliteNette** Rentabilité nette.
-- **RendementCapitauxPropres** Rendement des capitaux propres.
-- **RendementRessourcesDurables** Rendement des ressources durables.
+- **EfficaciteEconomique** Efficacité économique. Exprimé en k€/emploi.  
+  _Valeur ajoutée / Effectif \* 1000_
+
+- **ProductivitePotentielProduction** Productivité du potentiel de production.  
+  _Valeur ajoutée / Immobilisations corporelles et incorporelles brutes_
+
+- **ProductiviteCapitalFinancier** Productivtié du capital financier.  
+  _Valeur ajoutée / Actif circulant net + Effets portés à l'escompte et non échus_
+
+- **ProductiviteCapitalInvesti** Productivité du capital investi.  
+  _Valeur ajoutée / Total de l'actif + Effets portés à l'escompte et non échus_
+
+- **TauxDInvestissementProductif** Taux d'investissement productif. Exprimé en \%.  
+  _Immobilisations à valeur d'acquisition / Valeur ajoutée \* 100_
+
+- **RentabiliteEconomique** Rentabilité économique. Exprimé en \%.  
+  _Excédent brut d'exploitation / Chiffre d'affaires net + Subventions d'exploitation \* 100_
+
+- **Performance** Performance. Exprimé en \%.  
+  _Résultat courant avant impôt / Chiffre d'affaires net + Subventions d'exploitation \* 100_
+
+- **RendementBrutFondsPropres** Rendement brut des fonds propres. Exprimé en \%.  
+  _Résultat courant avant impôt / Fonds propres nets \* 100_
+
+- **RentabiliteNette** Rentabilité nette. Exprimé en \%.  
+  _Bénéfice ou perte / Chiffre d'affaires net + Subventions d'exploitation \* 100_
+
+- **RendementCapitauxPropres** Rendement des capitaux propres. Exprimé en \%.  
+  _Bénéfice ou perte / Capitaux propres nets \* 100_
+
+- **RendementRessourcesDurables** Rendement des ressources durables. Exprimé en \%.  
+  _Résultat courant avant impôts + Intérêts et charges assimilées / Ressources durables nettes \* 100_
 
 #### Marge et valeur ajoutée
 
-- **TauxMargeCommerciale** Taux de marge commerciale.
-- **TauxValeurAjoutee** Taux de valeur ajoutée.
-- **PartSalaries** Part des salariés.
-- **PartEtat** Part de l'État.
-- **PartPreteur** Part des prêteurs.
-- **PartAutofinancement** Part de l'autofinancement.
+- **TauxMargeCommerciale** Taux de marge commerciale. Exprimé en \%.  
+  _Marge commerciale / Vente de marchandises \* 100_
+
+- **TauxValeurAjoutee** Taux de valeur ajoutée. Exprimé en \%.  
+  _Valeur ajoutée / Chiffre d'affaires net \* 100_
+
+- **PartSalaries** Part des salariés. Exprimé en \%.  
+  _(Charges de personnel + Participation des salariés aux résultats) / Valeur ajoutée \* 100_
+
+- **PartEtat** Part de l'État. Exprimé en \%.  
+  _Impôts et taxes / Valeur ajoutée \* 100_
+
+- **PartPreteur** Part des prêteurs. Exprimé en \%.  
+  _Intérêts / Valeur ajoutée \* 100_
+
+- **PartAutofinancement** Part de l'autofinancement. Exprimé en \%.  
+  _Capacité d'autofinancement avant répartition / Valeur ajoutée \* 100_
 
 #### Compte de résultat
 
