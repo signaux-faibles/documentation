@@ -116,19 +116,19 @@ $ curl 127.0.0.1:3000 # => la requête doit s'afficher dans les logs de datapi
 
 ### 6. Créer un utilisateur sur Keycloak
 
-1. ouvrir http://localhost:8080/auth/admin/master/console/#/realms/master
-2. se connecter avec identifiants fournis au lancement du container keycloak
-3. créer un client `signauxfaibles` (comme client ID et nom)
-4. spécifier les paramètres suivants depuis l'onglet "Settings":
+1. Ouvrir http://localhost:8080/auth/admin/master/console/#/realms/master
+2. Se connecter avec identifiants fournis au lancement du container keycloak
+3. Créer un client `signauxfaibles` (comme client ID et nom)
+4. Depuis l'onglet "Settings" de ce client, spécifier les paramètres suivants:
 
 - Implicit Flow Enabled: `ON`
 - Valid Redirect URIs: `http://localhost:8081/*`
 - Base URLs: `http://localhost:8081/`
 - Web Origins: `http://localhost:8081` (attention: ne pas inclure de slash en fin d'URL !)
 
-5. Ajouter un role `urssaf`
+5. Depuis l'onglet "Roles" de ce client, créer un role `urssaf`
 6. Dans "Users", ouvrir le username `mykeycloak`
-7. Onglet "Role Mappings": choisir le role `signaux-faibles` puis y ajouter `urssaf`
+7. Depuis l'onglet "Role Mappings" de cet utilisateur: choisir le "Client Role" `signaux-faibles` puis ajouter `urssaf` dans "Assigned Roles"
 
 ### 7. Lancer le serveur web frontal
 
