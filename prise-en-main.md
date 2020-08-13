@@ -51,10 +51,10 @@ Après avoir installé Docker, exécutez les commandes suivantes:
 
 ```sh
 $ docker run \
-    -d postgres:10 \
     --name sf-postgres \
     -P -p 127.0.0.1:5432:5432 \
-    -e POSTGRES_PASSWORD=mysecretpassword
+    -e POSTGRES_PASSWORD=mysecretpassword \
+    -d postgres:10
 ```
 
 > Note: ces paramètres doivent coincider avec celles fournies dans la variable `postgres` du fichier `config.toml`.
