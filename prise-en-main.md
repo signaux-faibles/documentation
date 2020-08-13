@@ -86,10 +86,10 @@ Exécutez les commandes suivantes:
 
 ```sh
 $ docker run \
-    -d jboss/keycloak \
     -p 8080:8080 \
     -e KEYCLOAK_USER=mykeycloak \
-    -e KEYCLOAK_PASSWORD=mysecretpassword
+    -e KEYCLOAK_PASSWORD=mysecretpassword \
+    -d jboss/keycloak
 ```
 
 > Notes:
@@ -131,7 +131,7 @@ $ curl 127.0.0.1:3000 # => la requête doit s'afficher dans les logs de datapi
 6. Dans "Users", ouvrir le username `mykeycloak`
 7. Onglet "Role Mappings": choisir le role `signaux-faibles` puis y ajouter `urssaf`
 
-### 7. Compiler et lancer le frontal
+### 7. Lancer le serveur web frontal
 
 1. Exécutez les commandes suivantes:
 
@@ -140,22 +140,10 @@ $ curl 127.0.0.1:3000 # => la requête doit s'afficher dans les logs de datapi
    $ cd signauxfaibles-web
    $ nvm use 12 # pour utiliser la version 12 de Node.js, dans la mesure du possible
    $ npm install -g yarn
+   $ PORT=8081 yarn run serve
    ```
 
-2. Suivre les instructions d'installation de [signauxfaibles-web](https://github.com/signaux-faibles/signauxfaibles-web).
-
-3. Ouvrir http://localhost:8081/ dans votre navigateur.
-
-### 8. Paramétrer `signauxfaibles-web` pour l'usage en local
-
-1. Replacements à effectuer dans `src/main.ts`:
-
-   - `local = 'http://localhost/auth/'` --> `local = 'http://localhost:8080/auth/'`
-   - `url: prod` --> `url: local`
-
-2. Replacements à effectuer dans `store.ts`:
-
-   - `baseURL = '/'` --> `baseURL = 'http://localhost:3000/'`
+2. Ouvrir http://localhost:8081/ dans votre navigateur.
 
 ## Étape de calculs pour populer "`Features`"
 
