@@ -165,6 +165,8 @@ http :3000/api/data/import batch="1904" parsers:='["urssaf", "diane"]'
 
 Le paramètre obligatoire `batch` indique la clé du batch à importer. Le paramètre optionnel `parsers`, qui est entré sous forme de tableau, permet de sélectionner les parsers à faire tourner. Par défaut, tous les parsers du batch sont lancés, cette option permet de corriger un type de fichier en particulier en cas d'erreur pendant l'intégration.
 
+> Important: Pour prévenir l'intégration de données corrompues, nous recommandons l'usage de `http :3000/api/data/check` avant importation en base de données. (cf [Procédure d'importation de données](https://github.com/signaux-faibles/prepare-import/blob/master/tools/procedure_import.md))
+
 ## Spécificités du compactage
 
 Le compactage est la procédure de fusion des nouvelles données importées avec les données importées dans des batchs antérieurs.
@@ -182,6 +184,8 @@ http :3000/api/data/compact fromBatchKey="1804"
 ```
 
 L'option `fromBatchKey` indique le premier batch dans l'ordre alphabétique qui nécessite d'être compacté (c'est-à-dire qui a subi des changements). Tous les suivants le seront automatiquement.
+
+> Important: Le compactage est une opération difficilement réversible. Pour prévenir toute corruption de données et/ou interruption prématurée du compactage, nous recommandons de valider les données importées avant leur compactage, à l'aide de `http :3000/api/data/validate collection="ImportedData"`. (cf [Procédure d'importation de données](https://github.com/signaux-faibles/prepare-import/blob/master/tools/procedure_import.md))
 
 ## Spécificités des calculs de variables
 
