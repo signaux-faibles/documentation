@@ -14,6 +14,7 @@
 - [Interface Graphique](interface-graphique.md) (wip)
 - [Supervision](supervision.md) (wip)
 - [Staging frontend](staging-frontend.md)
+- [Journalisation/Logging de l'intégration](journalisation-integration.md)
 
 ## Présentation du projet
 
