@@ -353,7 +353,7 @@ Deux fichiers: demandes d'activité partielle, et consommations d'activité part
 Données communes :
 
 - **ID_DA** Numéro de la demande (11 caractères principalement des chiffres)
-- **ETAB_SIRET** Numéro de SIRET de l'établissement (15 chiffres)
+- **ETAB_SIRET** Numéro de SIRET de l'établissement (14 chiffres)
 - **CODE_NAF2_2** Division sur 88 postes (2 premiers caractères de la variable CODE_NAF2, par exemple : `25`)
 - **EFF_ENT** Effectif de l'entreprise (nombre entier)
 - **EFF_ETAB** Effectif de l'établissement (nombre entier)
