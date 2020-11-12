@@ -19,9 +19,10 @@
   - [Données sur l'activité partielle](#donn%C3%A9es-sur-lactivit%C3%A9-partielle)
     - [Données de demandes d'activité partielle](#donn%C3%A9es-de-demandes-dactivit%C3%A9-partielle)
       - [Table des motifs de recours à l'activité partielle](#table-des-motifs-de-recours-%C3%A0-lactivit%C3%A9-partielle)
-      - [Table des périmètres du chômage.](#table-des-p%C3%A9rim%C3%A8tres-du-ch%C3%B4mage)
-      - [Table des codes de recours antérieurs au chômage](#table-des-codes-de-recours-ant%C3%A9rieurs-au-ch%C3%B4mage)
-    - [Données de consommation d'activité partielle](#donn%C3%A9es-de-consommation-dactivit%C3%A9-partielle)
+      - [Table des périmètres du chômage](#table-des-p%C3%A9rim%C3%A8tres-du-ch%C3%B4mage)
+      - [Table des recours antérieurs au chômage](#table-des-recours-ant%C3%A9rieurs-au-ch%C3%B4mage)
+      - [Table des avis du CE](#table-des-avis-du-ce)
+    - [Données de consommations d'activité partielle](#donn%C3%A9es-de-consommations-dactivit%C3%A9-partielle)
   - [Table de correspondance entre compte administratif URSSAF et siret](#table-de-correspondance-entre-compte-administratif-urssaf-et-siret)
   - [Données sur l'effectif](#donn%C3%A9es-sur-leffectif)
   - [Données sur les cotisations sociales et les débits](#donn%C3%A9es-sur-les-cotisations-sociales-et-les-d%C3%A9bits)
@@ -351,48 +352,47 @@ Deux fichiers: demandes d'activité partielle, et consommations d'activité part
 
 Données communes :
 
-- **ID_DA** N° de la demande
-- **ETAB_SIRET** Siret du signataire
-- **ETAB_RSS** Raison sociale du signataire
-- **DEP** Département signataire
-- **REG** Région signataire
-- **ETAB_CODE_INSEE** Code INSEE commune
-- **ETAB_VILLE** Ville
-- **CODE_NAF2** Code NAF 2008
-- **CODE_NAF2_2** Code NAF sur 88 postes (deux premiers caractères de la variable )CODE_NAF2)
-- **CODE_NAF_TP** Pseudo indicatrice entreprises travaux publics vaut : - TP si travaux publics - Autres sinon
-- **EFF_ENT** Effectif de l'entreprise
-- **EFF_ETAB** Effectif de l'établissement
+- **ID_DA** Numéro de la demande (11 caractères principalement des chiffres)
+- **ETAB_SIRET** Numéro de SIRET de l'établissement (14 chiffres)
+- **CODE_NAF2_2** Division sur 88 postes (2 premiers caractères de la variable CODE_NAF2, par exemple : `25`)
+- **EFF_ENT** Effectif de l'entreprise (nombre entier)
+- **EFF_ETAB** Effectif de l'établissement (nombre entier)
+- **SOURCE** Source de la donnée (`SINAPSE` ou `EXTRANET`)
+- **CODENAF2** et/ou **CODE_NAF2** Code NAF sur 5 positions (en majuscules, par exemple : `2573A`)
+- **CODE_NAF_21** Section A...U sur 21 postes
+- **CODE_NAF_TP** Pseudo indicatrice entreprises travaux publics vaut : `TP` si travaux publics, `AUTRES` sinon
+- **EFF_ENT_TR_TDB** Effectif de l'entreprise par tranche (découpage Dares) : `1. Moins de 20 salariés`, `2. Entre 20 et 49 salariés`, `3. Entre 50 et 249 salariés`, `4. Entre 250 et +`
 
 #### Données de demandes d'activité partielle
 
-Données spécifiques aux demandes d'activité partielle.
+Données spécifiques aux demandes d'activité partielle :
 
-- **DATE_STATUT** Date de création de la demande
-
-- **TX_PC** Taux de prise en charge
-
-- **TX_PC_UNEDIC_DARES** Taux de prise en charge pas l'Unédic
-
-- **TX_PC_ETAT_DARES** Taux de prise en charge par l'Etat
-
-- **DATE_DEB** Date de début de la période d'activité partielle, au format JJ/MM/AAAA
-
-- **DATE_FIN** Date de fin de la période d'activité partielle, au format JJ/MM/AAAA
-
-- **HTA** Nombre total d'heures autorisées.
-
-- **MTA** Montant total autorisé.
-
-- **EFF_AUTO** Effectifs autorisés.
-
-- **MOTIF_RECOURS_SE** Cause d'activité partielle. Cf table ci-dessous
-
-- **(PERIMETE_EFF) PERIMETRE_AP** Périmètre du chômage (1 à 4). Cf table ci-dessous
-
-- **RECOURS_ANTERIEUR** Recours antérieurs au chômage (1 à 3) : -
-
-- **AVIS_CE** Avis du comité d’entreprise
+- **EFF_ENT_TR** Effectif de l'entreprise par tranche (découpage DGEFP) : `1. Moins de 20 salariés`, `2. Entre 20 et 49 salariés`, `3. Entre 50 et 249 salariés`, `4. Entre 250 et 499 salariés`, `5. Entre 500 et 999 salariés`, `6. Plus de 1000 salariés`
+- **ETAB_RSS** Dénomination (raison sociale) de l'établissement
+- **ETAB_CODE_INSEE** Code INSEE de la commune de l'établissement
+- **ETAB_VILLE** Ville de l'établissement
+- **DATE_STATUT** Date du statut - création ou mise à jour de la demande - au format JJ/MM/AA
+- **TX_PC** Taux horaire d'indemnisation (nombre avec 2 chiffres après la virgule)
+- **TX_PC_ETAT_DARES** Taux de prise en charge par l'Etat (nombre avec 2 chiffres après la virgule)
+- **TX_PC_UNEDIC_DARES** Taux de prise en charge pas l'Unédic (nombre avec 2 chiffres après la virgule)
+- **DATE_DEB** Date de début de la période de chômage déterminée au format JJ/MM/AA
+- **DATE_FIN** Date de fin de la période de chômage déterminée au format JJ/MM/AA
+- **HTA** Nombre total d'heures autorisées (nombre décimal avec point)
+- **MTA** Montant total autorisé (nombre décimal avec virgule)
+- **EFF_AUTO** Effectifs autorisés (nombre entier)
+- **PROD_HTA_EFF** ?
+- **MOTIF_RECOURS_SE** Motif de recours à l'activité partielle (de `1` à `5`)
+- **PERIMETRE_AP** Périmètre du chômage (de `1` à `4`)
+- **RECOURS_ANTERIEUR** Activité partielle au cours des 36 derniers mois (3 ans) avant la demande (de `1` à `3`)
+- **AVIS_CE** Avis du CE (de `0` à `3`)
+- **S_HEURE_CONSOM_TOT** Nombre total d'heures consommées (nombre décimal avec point)
+- **S_MONTANT_CONSOM_TOT** Montant total consommé (nombre décimal avec virgule)
+- **S_EFF_CONSOM_TOT** (nombre entier)
+- **CPT** ?
+- **Date_Statut_Annee** Année du statut au format AAAA
+- **Date_Statut_Mois** MOis du statut au format M
+- **Date_Statut_Annee_Mois** Année et mois du statut au format AAAA_MM
+- **Date_Statut_Annee_Trim** Année et trimestre du statut au format AAAA_T
 
 ##### Table des motifs de recours à l'activité partielle
 
@@ -404,7 +404,7 @@ Données spécifiques aux demandes d'activité partielle.
 | 4    | Transformation, restructuration ou modernisation des installations et des bâtiments |
 | 5    | Autres circonstances exceptionnelles                                                |
 
-##### Table des périmètres du chômage.
+##### Table des périmètres du chômage
 
 | Code | Libellé                      |
 | ---- | ---------------------------- |
@@ -413,7 +413,7 @@ Données spécifiques aux demandes d'activité partielle.
 | 3    | Fermeture tempor. Tout Ets   |
 | 4    | Fermeture tempor. Partie Ets |
 
-##### Table des codes de recours antérieurs au chômage
+##### Table des recours antérieurs au chômage
 
 | Code | Libellé                                                      |
 | ---- | ------------------------------------------------------------ |
@@ -421,11 +421,35 @@ Données spécifiques aux demandes d'activité partielle.
 | 2    | Recours au chômage partiel au cours des 3 années précédentes |
 | 3    | Non renseigné                                                |
 
-#### Données de consommation d'activité partielle
+##### Table des avis du CE
 
-- **S_HEURE_CONSOM_TOT** Nombre total d'heures consommées
-- **S_MONTANT_CONSOM_TOT** Montant total consommé
-- **S_EFF_CONSOM_TOT** Effectifs consommés
+| Code | Libellé       |
+| ---- | ------------- |
+| 0    | Non renseigné |
+| 1    | Favorable     |
+| 2    | Défavorable   |
+| 3    | Sans objet    |
+
+#### Données de consommations d'activité partielle
+
+- **DEP** Code département sur 3 chiffres (par exemple : `073`)
+- **REG** Code région sur 2 chiffres (par exemple : `23`)
+- **MOIS** Mois au format MM/AAAA
+- **HEURES** Heures consommées (chômées) dans le mois (nombre décimal avec point)
+- **MONTANTS** Montants consommés dans le mois (nombre décimal avec virgule)
+- **EFFECTIFS** Nombre de salariés en activité partielle dans le mois (nombre entier)
+- **Date_Payement_Annee** Année de paiement au format AAAA
+- **Date_Payement_Mois** Mois de paiement au format M
+- **Date_Payement_Annee_Mois** Année et mois de paiement au format AAAA_MM
+- **Date_Payement_Annee_Trim** Année et trimestre de paiement au format AAAA_T
+- **Naf5_code** Code grand secteur
+- **Naf5_libelle** Libellé du grand secteur
+- **Naf38_code** Code NACE 38
+- **Naf38_libelle** Libellé NACE 38
+
+Les consommations affichées sur le frontend sont, depuis la mise en place de la nouvelle version de datapi, les consommations mensuelles issues des fichiers spécifiques livrés par la DGEFP.  
+Le valeur indiquée est le nombre d'équivalents temps plein correspondant à l'activité partielle (calculé à partir du volume d'heure mensuel **HEURES** sur la base d'une durée légale de 151,67 h).  
+Dans le cas où figurent différentes consommations mensuelles rattachées à différentes demandes concomitantes alors la valeur correspond à la somme des consommations.
 
 ### Table de correspondance entre compte administratif URSSAF et siret
 
