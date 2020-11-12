@@ -197,10 +197,10 @@ Le calcul des variables est lancé via la requête:
 ```
 http :3000/api/data/reduce [options]
 # Par exemple
-http :3000/api/data/reduce batch="1904" key="01234567891011" features="algo2"
+http :3000/api/data/reduce batch="1904" key="01234567891011" algo="algo2"
 ```
 
-Les paramètres optionnels `batch` et `features` spécifient respectivement la clé du dernier batch intégré et le type de calcul à mener. Actuellement, uniquement "algo2" est fonctionnel.
+Les paramètres obligatoires `batch` et `algo` spécifient respectivement la clé du dernier batch intégré et le type de calcul à mener. Actuellement, uniquement "algo2" est fonctionnel.
 Le paramètre facultatif `key` permet de ne faire tourner les calculs que pour un siret particulier, essentiellement pour des raisons de debugging.
 Les données sont alors importées dans la collection `Features_debug` plutôt que dans la collection `Features`.
 
