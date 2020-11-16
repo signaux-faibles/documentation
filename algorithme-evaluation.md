@@ -1,63 +1,84 @@
-# Évaluation de l'algorithme
+# Évaluation du modèle
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [Découpage en échantillon d'entraînement, de validation et de test.](#d%C3%A9coupage-en-%C3%A9chantillon-dentra%C3%AEnement-de-validation-et-de-test)
+- [Évaluation du modèle par validation croisée](#%C3%A9valuation-du-mod%C3%A8le-par-validation-crois%C3%A9e)
 - [Choix de la métrique](#choix-de-la-m%C3%A9trique)
 - [Reproductibilité de l'évaluation.](#reproductibilit%C3%A9-de-l%C3%A9valuation)
-  - [Intégration dans R](#int%C3%A9gration-dans-r)
+  - [Import des données dans R](#import-des-donn%C3%A9es-dans-r)
   - [Reproductibilité des traitements dans R](#reproductibilit%C3%A9-des-traitements-dans-r)
-- [Evolution de l'algorithme](#evolution-de-lalgorithme)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## Découpage en échantillon d'entraînement, de validation et de test.
+## Évaluation du modèle par validation croisée
 
-Lorsque différents algorithmes sont explorés, alors les données sont scindés en échantillons d'entraînement, de validation et de test.
-Par défaut, les proportions de ces échantillons sont 60%, 20% et 20% respectivement. Cette scission est parfaitement reproductible (cf paragraphe consacré)
+Afin que l'évaluation représente le mieux possible la mesure de la capacité de
+généralisation à la situation réelle d'utilisation du modèle, il faut veiller
+aux éléments suivants:
 
-L'échantillon d'entraînement sert à l'entraînement de différents algorithmes, celui de validation à la comparaison des résultats, et celui de test n'est que rarement sollicité pour avoir une évaluation de la performance réelle de l'algorithme.
+- Plusieurs observations d'un même établissement ou les établissements de la
+  même entreprise doivent se retrouver dans le même échantillon, sous peine
+  d'avoir une fuite d'information de l'échantillon d'entraînement vers
+  l'échantillon de test (la performance biaisée du modèle favoriserait le
+  sur-apprentissage au niveau de l'entreprise).
+- la période d'entraînement et les 18 mois qui suivent ne doivent pas être 
+  utilisés pour l'évaluation, sous peine de faire fuiter l'information sur la 
+  situation macro-économique
+  (générale ou par secteur d'activité) au travers le la variable
+  d'apprentissage (qui observe les défaillances à 18 mois).
+- Enfin, l'évaluation ne doit pas tenir compte des entreprises déjà
+  défaillantes, pour lesquelles le modèle n'est pas utilisé en pratique.
 
-Afin d'éviter de fuite d'information d'un échantillon vers l'autre, les différentes "vues" d'un même établissement à des périodes différentes, et les établissements d'une même entreprise seront toujours regroupées dans le même échantillon.
+En conséquence, pour l'évaluation, une validation croisée est effectuée, dans
+laquelle sont garantis:
 
-Par défaut, **les "signaux forts"**, c'est-à-dire les entreprises pour lesquelles on peut affirmer avec certitudes qu'elles tombent dans la cible d'apprentissage, **sont retirés des échantillons d'évaluation (validation, test)**.
-Ces entreprises sont les entreprises déjà en procédure collective, ou ayant déjà subi trois mois consécutifs de dette sur les cotisations sociales.
-L'évaluation donne ainsi une image fidèle de la capacité prédictive de l'algorithme.
+- les différentes "vues" d'un même établissement à des périodes différentes, et
+  les établissements d'une même entreprise seront toujours regroupées dans le
+  même échantillon.
+- un établissement pour l'entraînement est observé dans la période temporelle
+  2015-01 à 2016-06 inclus, alors qu'un établissement dans l'échantillon de
+  test est observé entre 2018-01 et 2018-06 inclus. L'échantillon de test ne
+  peut pas aller au-delà car il faut au moins 18 mois de visibilité dans le
+  futur pour la variable d'apprentissage (nécessaire à l'évaluation), et du
+  fait du souhait d'exclure les périodes affectées par la crise COVID.
+- les "signaux forts", c'est-à-dire les entreprises pour lesquelles on peut
+  affirmer avec certitudes qu'elles tombent dans la cible d'apprentissage, sont
+  retirés des échantillons d'évaluation.
 
 ## Choix de la métrique
 
 Après retrait des "signaux forts" (cf paragraphe précédent), la cible à détecter représente à peine 3% de l'échantillon d'entreprise. Il s'agit donc d'un échantillon très biaisé.
 
-Le choix de l'**aire sous la courbe précision-rappel** comme métrique est compatible avec ce biais.
+L'**aire sous la courbe précision-rappel** (AUCPR) est une métrique adaptée à
+ce contexte.
 
 ## Reproductibilité de l'évaluation.
 
-Des mesures ont été prises pour la reproductibilité de l'évaluation.
+Des mesures ont été prises pour que l'évaluation soit reproductibile,
+c'est-à-dire que sous réserve de faire les mêmes requêtes en base pour charger
+les données, la performance mesurée sera identique.
 
-### Intégration dans R
+Les paragraphes suivants indiquent de quelle manière cette reproductibilité est
+assurée.
 
-D'abord, l'échantillonnage des données importées sous R doit être reproductible.
-Pour cela, un nombre aléatoire est sauvegardé à même la base de données, pour les données historiques susceptibles d'être échantillonnées, à savoir les données de 2015 et 2016.
+### Import des données dans R
 
-Ce nombre aléatoire est généré dans un fichier à partir des données Sirene, puis intégré au même titre que les autres données, ce qui présente plusieurs avantages:
-
-    * La conservation de l'historique des batchs successifs dans DataRaw
-    * Le nombre aléatoire est transféré à la collection Features sous l'intitulé "random_order"
-    * Il est possible d'ajouter de nouvelles entreprises, par exemple issues de nouvelles régions, sans toucher aux anciens champs. Ainsi, même après ajout de ces nouveaux établissements, un échantillonnage sur l'ancien périmètre renverra le même résultat.
-    * Cela offre la possibilité future de compléter avec des informations d'échantillonnage directement dans la base: échantillon de test/validation/entraînement, ou validation croisée etc.
-    * Un fichier .csv est facilement échangeable d'une personne à l'autre
+D'abord, l'échantillonnage des données importées depuis la base mongodb sous R
+doit être reproductible. Pour cela, un nombre aléatoire est sauvegardé à même
+la base de données, sous l'intitulé "random_order". La requête utilisera ce
+nombre aléatoire pour ordonner les observations, et prendre les N premières, où
+N est le nombre d'observations à échantillonner.
 
 ### Reproductibilité des traitements dans R
 
-La reproductibilité des traitements dans R est assurée par l'utilisation de suites pseudo-random et d'une _seed_.
+La reproductibilité des traitements dans R est assurée par l'utilisation de
+suites pseudo-aléatoires avec `set.seed`, au moment du découpage en différents
+échantillons (réalisé par mlr3).
 
-C'est notamment le cas dans le découpage en différents échantillons, la préparation des données (ou un bruit peut être appliqué sur les données d'entraînement afin d'éviter le suréchantillonnage), ou encore dans l'entraînement de l'algorithme lorsque celui-ci dépend de composantes aléatoires.
+Il a néanmoins été constaté des ruptures dans la reproductibilité de
+l'échantillonnage dû à des changements de version de mlr3 (suspicion, cf
+https://github.com/signaux-faibles/rsignauxfaibles/issues/41)
 
-Il est à noter que pour la constitution des échantillons d'entraînement, de test et de validation, les données sont d'abord triées, afin que le résultat ne dépende pas de leur ordre.
-
-Cette reproducibilité est évidemment uniquement assuré en cas de paramètres identiques (pour l'algorithme, taille de l'échantillon initial, proportions dans les échantillons de validation, de test et de validation).
-
-# Evolution de l'algorithme
-
-TODO
+La même procédure peut être appliquée aux modèles qui ont un entraînement avec
+une composante aléatoire.
