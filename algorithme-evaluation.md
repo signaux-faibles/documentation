@@ -37,8 +37,8 @@ crise, a été étendu à la France entière en décembre 2019, mais a été mis
 l'arrêt depuis le début du confinement, car inapte à traiter la situation
 spécifique à la crise.
 
-Depuis octobre 2020, un nouveau modèle tenant en compte de
-l'impact de la crise a été proposé. Le
+Depuis octobre 2020, un nouveau modèle tenant compte de
+l'impact de la crise a été proposé.
 Le modèle qui a été retenu à cet effet est un modèle
 transparent, qui permet la définition de variables latentes
 explicatives, qui a été fortement inspiré par [ce
