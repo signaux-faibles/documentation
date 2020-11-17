@@ -22,8 +22,8 @@ aux éléments suivants:
   d'avoir une fuite d'information de l'échantillon d'entraînement vers
   l'échantillon de test (la performance biaisée du modèle favoriserait le
   sur-apprentissage au niveau de l'entreprise).
-- la période d'entraînement et les 18 mois qui suivent ne doivent pas être 
-  utilisés pour l'évaluation, sous peine de faire fuiter l'information sur la 
+- la période d'entraînement et les 18 mois qui suivent ne doivent pas être
+  utilisés pour l'évaluation, sous peine de faire fuiter l'information sur la
   situation macro-économique
   (générale ou par secteur d'activité) au travers le la variable
   d'apprentissage (qui observe les défaillances à 18 mois).
