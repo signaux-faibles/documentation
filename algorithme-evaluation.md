@@ -120,13 +120,13 @@ l'apprentissage supervisé:
 
   Comme ces valeurs sont hors des données d'entraînement, il s'agit d'une
   extrapolation, qui repose
-  sur l'hypothèse suivante: la proportion d'établissements défaillants suit une 
-  fonction de répartition de la loi normale en fonction de la conjoncture 
+  sur l'hypothèse suivante: la proportion d'établissements défaillants suit une
+  fonction de répartition de la loi normale en fonction de la conjoncture
   économique (fonction de lien "probit").
 
-  La pénalité est appliquée dans l'espace des log-vraisemblances (ce qui a pour 
-  effet dans l'espace des probabilités de plus pénaliser les entreprises avec 
-  un risque prédit de défaillance non-nul). 
+  La pénalité est appliquée dans l'espace des log-vraisemblances (ce qui a pour
+  effet dans l'espace des probabilités de plus pénaliser les entreprises avec
+  un risque prédit de défaillance non-nul).
 
 - Une seconde correction vise à pénaliser les entreprises qui ont encore des
   dettes URSSAF. Cette correction est à ce stade simpliste et mériterait d'être
