@@ -81,7 +81,7 @@ Chacun de ces aspects est détaillé dans ce qui suit.
   pertinentes à être
   détectées. C'est le cas par exemple d'entreprises
   financièrement solides mais dont l'activité ne leur
-  permette pas d'être profitable. Inversement, certaines
+  permet pas d'être profitable. Inversement, certaines
   défaillances sont dues à des évènements non encore
   identifiables avec 18 mois d'anticipation (accidents,
   etc.).
@@ -119,12 +119,14 @@ l'apprentissage supervisé:
   appliqué aux valeurs observées pendant la crise.
 
   Comme ces valeurs sont hors des données d'entraînement, il s'agit d'une
-  extrapolation (contrairement aux plus classiques interpolations), qui repose
-  sur l'hypothèse suivante: la probabilité de défaillance d'une entreprise, en
-  fonction de la conjoncture économique, est une densité de probabilité de la
-  loi normale (fonction de lien "probit").
+  extrapolation, qui repose
+  sur l'hypothèse suivante: la proportion d'établissements défaillants suit une 
+  fonction de répartition de la loi normale en fonction de la conjoncture 
+  économique (fonction de lien "probit").
 
-  La pénalité est appliquée dans l'espace des log-vraisemblances.
+  La pénalité est appliquée dans l'espace des log-vraisemblances (ce qui a pour 
+  effet dans l'espace des probabilités de plus pénaliser les entreprises avec 
+  un risque prédit de défaillance non-nul). 
 
 - Une seconde correction vise à pénaliser les entreprises qui ont encore des
   dettes URSSAF. Cette correction est à ce stade simpliste et mériterait d'être
@@ -145,7 +147,7 @@ Les variables latentes proposées sont les suivantes: TODO à compléter
 
 ### Seuils de détection
 
-Si les prédictions étaient calibrés en probabilité, alors une manière efficace
+Si les prédictions étaient calibrées en probabilité, alors une manière efficace
 de fixer les seuils serait de définir des seuils du type "L'établissement a 4x
 plus de chances de subir une défaillance à 18 mois qu'un établissement moyen".
 
@@ -154,7 +156,7 @@ il est difficile de procéder de cette manière.
 
 Ainsi, les seuils ont pour l'instant été arbitrairement fixés pour garantir des
 volumes raisonnables d'entreprises détéctées. Il serait pertinent d'améliorer
-cette méthode arbitraire.
+cette méthode.
 
 ## Évaluation du modèle
 
