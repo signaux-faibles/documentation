@@ -57,32 +57,45 @@ Enfin, les données ainsi stockées vont servir au calcul des variables qui alim
 
 Le workflow classique d'intégration consiste à:
 
-- Lancer l'API: `go build && ./dbmongo`
+- Constituer un objet `batch` listant les fichiers de données à importer (cf [procédure avec `prepare-import`](https://github.com/signaux-faibles/prepare-import/blob/master/tools/procedure_import.md)), puis l'insérer dans la collection `Admin`.
 
-- Définir l'objet batch dans la collection Admin, avec les chemins d'accès des fichiers à intégrer
-- Apeler la fonction d'intégration process, qui va se charger de l'import, du compactage et du calcul de variables avec les options idoines:
+- Lancer l'API:
 
-```
-  http :3000/api/admin/batch/process batches:='["1904"]'
-```
+  ```sh
+  $ go build && ./dbmongo
+  ```
 
-Toutes ces étapes seront détaillées par la suite.
+- Appeler séquentiellement les fonctions d'intégration (et de contrôle) pour importer, compacter les données puis calculer les variables avec les options idoines:
 
-Il est à noter qu'aucun travail d'UX n'a encore été mené, et donc peu d'information sur les travaux en cours peuvent être donnés à l'utilisateur.
-Au cours de l'import, un log des début et des fin d'intégration de fichiers et de types de fichiers sont loggés dans la collection Journal.
-Pendant le compactage et le calcul des variables, le log de mongodb peut être consulté.
-Entre ces traitements, une façon de s'assurer que le processus tourne est de vérifier qu'il n'y a pas d'erreur golang, et que mongodb travaille, par exemple avec la commande _top_.
+  ```sh
+  # 1. Import
+  $ http :3000/api/data/check batch="1904"
+  $ http :3000/api/data/import batch="1904"
+  # 2. Compactage
+  $ http :3000/api/data/validate collection="ImportedData"
+  $ http :3000/api/data/compact fromBatchKey="1904"
+  # 3. Calcul
+  $ http :3000/api/data/validate collection="RawData"
+  $ http :3000/api/data/reduce batch="1904"
+  ```
+
+Au cours de l'import, un log des début et des fin d'intégration de fichiers et de types de fichiers sont loggés dans la collection `Journal`. (cf [Journalisation/Logging de l'intégration](journalisation-integration.md))
+
+Pendant le compactage et le calcul des variables, le log de MongoDB peut être consulté.
+
+Entre ces traitements, une façon de s'assurer que le processus tourne est de vérifier qu'il n'y a pas d'erreur golang, et que MongoDB travaille, par exemple avec la commande _top_.
 
 ## L'API servie par Golang
 
-L'intégralité des opérations sur les données se font au moyen d'une API servie par Golang, qui analyse et cadence les opérations à effectuer sur la base mongodb.
-L'API est ouverte avec la commande suivante, à exécuter dans le répertoire `./dbmongo` du projet.
+L'intégralité des opérations sur les données se font au moyen d'une API servie par Golang, qui analyse et cadence les opérations à effectuer sur la base MongoDB.
 
-```
-go build && ./dbmongo
+L'API est ouverte avec la commande suivante, à exécuter dans le répertoire `./dbmongo` du projet `opensignauxfaibles`.
+
+```sh
+$ go build && ./dbmongo
 ```
 
-L'API est alors lancée sur localhost, par défaut sur le port 3000 (le port peut-être modifié dans le fichier `./dbmongo/config.toml`)
+L'API est alors lancée sur `localhost`, par défaut sur le port `3000` (le port peut-être modifié dans le fichier `./dbmongo/config.toml`)
 
 Cette API est documentée par swagger, et est alors accessible sur `localhost:3000/swagger/index.html`.
 
