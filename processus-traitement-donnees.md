@@ -5,13 +5,15 @@
 
 - [Préambule](#pr%C3%A9ambule)
 - [Vue d'ensemble des canaux de transformation des données](#vue-densemble-des-canaux-de-transformation-des-donn%C3%A9es)
+  - [Étape 1 – Import](#%C3%A9tape-1--import)
+  - [Étape 2 – Compactage](#%C3%A9tape-2--compactage)
+  - [Étape 3 – Calcul des variables](#%C3%A9tape-3--calcul-des-variables)
 - [Workflow classique](#workflow-classique)
 - [L'API servie par Golang](#lapi-servie-par-golang)
 - [La base de données MongoDB](#la-base-de-donn%C3%A9es-mongodb)
 - [Spécificités de l'import](#sp%C3%A9cificit%C3%A9s-de-limport)
 - [Spécificités du compactage](#sp%C3%A9cificit%C3%A9s-du-compactage)
 - [Spécificités des calculs de variables](#sp%C3%A9cificit%C3%A9s-des-calculs-de-variables)
-- [La commande batch/process](#la-commande-batchprocess)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -31,13 +33,13 @@ Le schéma ci-dessous montre les différentes étapes de transformation des donn
 
 L'intégration et le stockage de données se fait par mises-à-jours successives, qu'on appelle "batch". Le parcours de la données est alors à chaque fois identique.
 
-**1- Import**
+### Étape 1 – Import
 
 Ce parcours est représenté avec des flêches pleines. Toutes les nouvelles données sont d'abord importées dans une collection ImportedData à l'aide de fonctions golang spécifiques à chaque type de fichier. La collection Admin définit quels sont les fichiers à intégrer pour chaque "batch". Le processus d'intégration et les potentielles erreurs d'ouverture de fichier, de lecture, ou de conversion sont logués dans la collection Journal.
 
 Les données ainsi intégrées proviennent de fichiers de différents formats: .csv, .excel, .sas7dbat etc. La façon dont les données sont mises-à-jour peut également être différente, avec des fichiers qui annulent et remplacent, qu'on qualifiera de "fichiers stocks", et des fichiers qui viennent amender, qu'on qualifiera de "fichiers flux". Ceci est configuré dans la collection admin.
 
-**2- Compactage**
+### Étape 2 – Compactage
 
 Une fois le batch importées dans la collection ImportedData, elles vont venir compléter la collection RawData, qui concentrent les informations autour de l'établissement (identifiant: numéro siret) ou de l'entreprise (identifiant: numéro siren). C'est une opération de MapReduce qui est utilisé à cet effet.
 
@@ -47,7 +49,7 @@ La collection RawData conserve l'historique des modifications successives à cha
 
 Si le compactage réussit, la collection ImportedData est purgée.
 
-**3- Calcul des variables**
+### Étape 3 – Calcul des variables
 
 Enfin, les données ainsi stockées vont servir au calcul des variables qui alimenteront l'algorithme, stockées dans la collection Features. C'est à nouveau une opération de MapReduce qui permet de prendre en compte l'historique des données conservées dans RawData et calculer les variables pertinentes.
 
