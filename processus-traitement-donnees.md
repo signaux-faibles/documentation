@@ -203,15 +203,3 @@ http :3000/api/data/reduce batch="1904" key="01234567891011" algo="algo2"
 Les paramètres obligatoires `batch` et `algo` spécifient respectivement la clé du dernier batch intégré et le type de calcul à mener. Actuellement, uniquement "algo2" est fonctionnel.
 Le paramètre facultatif `key` permet de ne faire tourner les calculs que pour un siret particulier, essentiellement pour des raisons de debugging.
 Les données sont alors importées dans la collection `Features_debug` plutôt que dans la collection `Features`.
-
-## La commande batch/process
-
-La commande **batch/process** permet de lancer successivement l'import, le compactage et les calculs des variables pour un batch donné avec les options par défaut, en une seule commande.
-
-Cette commande accepte plusieurs batches, auquel cas elle intégrera ces batches successivement.
-
-```
-http :3000/api/admin/batch/process [options]
-http :3000/api/admin/batch/process batches:='["1904"]'
-http :3000/api/admin/batch/process batches:='["1904", "1905"]'
-```
