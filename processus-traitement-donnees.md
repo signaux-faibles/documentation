@@ -19,19 +19,19 @@
 
 ## Préambule
 
-Dans cette partie, nous explorons comment sont stockées et transformées les données à partir des fichiers bruts.
+Dans cette partie, nous explorons comment les données sont importées puis transformées par `dbmongo`, à partir des fichiers bruts.
 
 Note: Vous pouvez installer la commande `http` utilisée dans les exemples de cette page à partir de [HTTPie – command line HTTP client](https://httpie.org/).
 
 ## Vue d'ensemble des canaux de transformation des données
-
-La base de donneé MongoDB dans laquelle les données sont intégrées est définie dans le fichier config.toml.
 
 Le schéma ci-dessous montre les différentes étapes de transformation des données.
 
 ![Schéma vue d'ensemble traitement](./traitement-donnees/Vue_densemble_traitement.png)
 
 L'intégration et le stockage de données se fait par mises-à-jours successives, qu'on appelle "batch". Le parcours de la données est alors à chaque fois identique.
+
+Note: La base de données MongoDB dans laquelle les données sont intégrées est spécifiée dans le fichier `config.toml`.
 
 ### Étape 1 – Import
 
