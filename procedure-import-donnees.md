@@ -1,3 +1,19 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Procédure pour importer les données mensuelles](#proc%C3%A9dure-pour-importer-les-donn%C3%A9es-mensuelles)
+  - [Mettre à jour les outils](#mettre-%C3%A0-jour-les-outils)
+  - [Mettre les nouveaux fichiers dans un répertoire spécifique](#mettre-les-nouveaux-fichiers-dans-un-r%C3%A9pertoire-sp%C3%A9cifique)
+  - [Télécharger le fichier Siren](#t%C3%A9l%C3%A9charger-le-fichier-siren)
+  - [Télécharger le fichier Diane](#t%C3%A9l%C3%A9charger-le-fichier-diane)
+  - [Créer un objet admin pour l'intégration des données](#cr%C3%A9er-un-objet-admin-pour-lint%C3%A9gration-des-donn%C3%A9es)
+  - [(Re)lancer le serveur API `dbmongo` (optionnel)](#relancer-le-serveur-api-dbmongo-optionnel)
+  - [Lancer l'import](#lancer-limport)
+  - [Lancer le compactage](#lancer-le-compactage)
+  - [Calcul des variables et génération de la liste de detection](#calcul-des-variables-et-g%C3%A9n%C3%A9ration-de-la-liste-de-detection)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 <!-- importé depuis https://github.com/signaux-faibles/prepare-import/blob/master/tools/procedure_import.md -->
 
 # Procédure pour importer les données mensuelles
