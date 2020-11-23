@@ -21,14 +21,14 @@ Un [outil en ligne de commande](https://github.com/signaux-faibles/opensignauxfa
 
 Les champs du journal respectent un schéma commun afin de faciliter leur lecture et leur traitement statistique. Il est documenté ci-dessous.
 
-- `date`: (timestamp) date d'émission du log
-- `event`: (`object`)
-  - `linesParsed`: `(int)` nombre de lignes parsées dans le fichier
+- `date`: `(timestamp)` date d'émission du log
+- `reportType`: `(str)` étape du traitement ayant émis cette entrée de Journal (ex: `ImportBatch` ou `CheckBatch`)
+- `event`: `(object)`
+  - `linesParsed`: `(int)` nombre de lignes lues dans le fichier
   - `linesValid`: `(int)` nombre de lignes valides et intégrées
   - `linesSkipped`: `(int)` nombre de lignes sautées (ex: exclue par filtre SIRET/SIREN)
   - `linesRejected`: `(int)` nombre de lignes rejetées (ex: erreurs de syntaxe)
-  - `isFatal`: `(bool)` indique si une erreur fatal s'est produite (causant l'arret de l'import)
-  - `headSkipped`: `(list)` les 200 premiers messages pour les lignes sautées
+  - `isFatal`: `(bool)` indique si une erreur fatale s'est produite (causant l'arret de l'import)
   - `headRejected`: `(list)` les 200 premiers messages pour les lignes rejetées (_NB_: plusieurs messages de rejets peuvent avoir attrait à la même ligne d'un fichier)
   - `headFatal`: `(list)` le message d'erreur fatale
   - `batchKey`: `(str)` l'ID du batch traité

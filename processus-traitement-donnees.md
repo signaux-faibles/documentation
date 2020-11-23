@@ -5,25 +5,25 @@
 
 - [Préambule](#pr%C3%A9ambule)
 - [Vue d'ensemble des canaux de transformation des données](#vue-densemble-des-canaux-de-transformation-des-donn%C3%A9es)
+  - [Étape 1 – Import](#%C3%A9tape-1--import)
+  - [Étape 2 – Compactage](#%C3%A9tape-2--compactage)
+  - [Étape 3 – Calcul des variables](#%C3%A9tape-3--calcul-des-variables)
 - [Workflow classique](#workflow-classique)
 - [L'API servie par Golang](#lapi-servie-par-golang)
 - [La base de données MongoDB](#la-base-de-donn%C3%A9es-mongodb)
 - [Spécificités de l'import](#sp%C3%A9cificit%C3%A9s-de-limport)
 - [Spécificités du compactage](#sp%C3%A9cificit%C3%A9s-du-compactage)
 - [Spécificités des calculs de variables](#sp%C3%A9cificit%C3%A9s-des-calculs-de-variables)
-- [La commande batch/process](#la-commande-batchprocess)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Préambule
 
-Dans cette partie, nous explorons comment sont stockées et transformées les données à partir des fichiers bruts.
+Dans cette partie, nous explorons comment les données sont importées puis transformées par `dbmongo`, à partir des fichiers bruts.
 
 Note: Vous pouvez installer la commande `http` utilisée dans les exemples de cette page à partir de [HTTPie – command line HTTP client](https://httpie.org/).
 
 ## Vue d'ensemble des canaux de transformation des données
-
-La base de donneé MongoDB dans laquelle les données sont intégrées est définie dans le fichier config.toml.
 
 Le schéma ci-dessous montre les différentes étapes de transformation des données.
 
@@ -31,13 +31,15 @@ Le schéma ci-dessous montre les différentes étapes de transformation des donn
 
 L'intégration et le stockage de données se fait par mises-à-jours successives, qu'on appelle "batch". Le parcours de la données est alors à chaque fois identique.
 
-**1- Import**
+Note: La base de données MongoDB dans laquelle les données sont intégrées est spécifiée dans le fichier `config.toml`.
+
+### Étape 1 – Import
 
 Ce parcours est représenté avec des flêches pleines. Toutes les nouvelles données sont d'abord importées dans une collection ImportedData à l'aide de fonctions golang spécifiques à chaque type de fichier. La collection Admin définit quels sont les fichiers à intégrer pour chaque "batch". Le processus d'intégration et les potentielles erreurs d'ouverture de fichier, de lecture, ou de conversion sont logués dans la collection Journal.
 
 Les données ainsi intégrées proviennent de fichiers de différents formats: .csv, .excel, .sas7dbat etc. La façon dont les données sont mises-à-jour peut également être différente, avec des fichiers qui annulent et remplacent, qu'on qualifiera de "fichiers stocks", et des fichiers qui viennent amender, qu'on qualifiera de "fichiers flux". Ceci est configuré dans la collection admin.
 
-**2- Compactage**
+### Étape 2 – Compactage
 
 Une fois le batch importées dans la collection ImportedData, elles vont venir compléter la collection RawData, qui concentrent les informations autour de l'établissement (identifiant: numéro siret) ou de l'entreprise (identifiant: numéro siren). C'est une opération de MapReduce qui est utilisé à cet effet.
 
@@ -47,7 +49,7 @@ La collection RawData conserve l'historique des modifications successives à cha
 
 Si le compactage réussit, la collection ImportedData est purgée.
 
-**3- Calcul des variables**
+### Étape 3 – Calcul des variables
 
 Enfin, les données ainsi stockées vont servir au calcul des variables qui alimenteront l'algorithme, stockées dans la collection Features. C'est à nouveau une opération de MapReduce qui permet de prendre en compte l'historique des données conservées dans RawData et calculer les variables pertinentes.
 
@@ -55,32 +57,45 @@ Enfin, les données ainsi stockées vont servir au calcul des variables qui alim
 
 Le workflow classique d'intégration consiste à:
 
-- Lancer l'API: `go build && ./dbmongo`
+- Constituer un objet `batch` listant les fichiers de données à importer (cf [procédure avec `prepare-import`](procedure-import-donnees.md)), puis l'insérer dans la collection `Admin`.
 
-- Définir l'objet batch dans la collection Admin, avec les chemins d'accès des fichiers à intégrer
-- Apeler la fonction d'intégration process, qui va se charger de l'import, du compactage et du calcul de variables avec les options idoines:
+- Lancer l'API:
 
-```
-  http :3000/api/admin/batch/process batches:='["1904"]'
-```
+  ```sh
+  $ go build && ./dbmongo
+  ```
 
-Toutes ces étapes seront détaillées par la suite.
+- Appeler séquentiellement les fonctions d'intégration (et de contrôle) pour importer, compacter les données puis calculer les variables avec les options idoines:
 
-Il est à noter qu'aucun travail d'UX n'a encore été mené, et donc peu d'information sur les travaux en cours peuvent être donnés à l'utilisateur.
-Au cours de l'import, un log des début et des fin d'intégration de fichiers et de types de fichiers sont loggés dans la collection Journal.
-Pendant le compactage et le calcul des variables, le log de mongodb peut être consulté.
-Entre ces traitements, une façon de s'assurer que le processus tourne est de vérifier qu'il n'y a pas d'erreur golang, et que mongodb travaille, par exemple avec la commande _top_.
+  ```sh
+  # 1. Import
+  $ http :3000/api/data/check batch="1904"
+  $ http :3000/api/data/import batch="1904"
+  # 2. Compactage
+  $ http :3000/api/data/validate collection="ImportedData"
+  $ http :3000/api/data/compact fromBatchKey="1904"
+  # 3. Calcul
+  $ http :3000/api/data/validate collection="RawData"
+  $ http :3000/api/data/reduce batch="1904"
+  ```
+
+Au cours de l'import, un log des début et des fin d'intégration de fichiers et de types de fichiers sont loggés dans la collection `Journal`. (cf [Journalisation/Logging de l'intégration](journalisation-integration.md))
+
+Pendant le compactage et le calcul des variables, le log de MongoDB peut être consulté.
+
+Entre ces traitements, une façon de s'assurer que le processus tourne est de vérifier qu'il n'y a pas d'erreur golang, et que MongoDB travaille, par exemple avec la commande _top_.
 
 ## L'API servie par Golang
 
-L'intégralité des opérations sur les données se font au moyen d'une API servie par Golang, qui analyse et cadence les opérations à effectuer sur la base mongodb.
-L'API est ouverte avec la commande suivante, à exécuter dans le répertoire `./dbmongo` du projet.
+L'intégralité des opérations sur les données se font au moyen d'une API servie par Golang, qui analyse et cadence les opérations à effectuer sur la base MongoDB.
 
-```
-go build && ./dbmongo
+L'API est ouverte avec la commande suivante, à exécuter dans le répertoire `./dbmongo` du projet `opensignauxfaibles`.
+
+```sh
+$ go build && ./dbmongo
 ```
 
-L'API est alors lancée sur localhost, par défaut sur le port 3000 (le port peut-être modifié dans le fichier `./dbmongo/config.toml`)
+L'API est alors lancée sur `localhost`, par défaut sur le port `3000` (le port peut-être modifié dans le fichier `./dbmongo/config.toml`)
 
 Cette API est documentée par swagger, et est alors accessible sur `localhost:3000/swagger/index.html`.
 
@@ -165,7 +180,7 @@ http :3000/api/data/import batch="1904" parsers:='["urssaf", "diane"]'
 
 Le paramètre obligatoire `batch` indique la clé du batch à importer. Le paramètre optionnel `parsers`, qui est entré sous forme de tableau, permet de sélectionner les parsers à faire tourner. Par défaut, tous les parsers du batch sont lancés, cette option permet de corriger un type de fichier en particulier en cas d'erreur pendant l'intégration.
 
-> Important: Pour prévenir l'intégration de données corrompues, nous recommandons l'usage de `http :3000/api/data/check` avant importation en base de données. (cf [Procédure d'importation de données](https://github.com/signaux-faibles/prepare-import/blob/master/tools/procedure_import.md))
+> Important: Pour prévenir l'intégration de données corrompues, nous recommandons l'usage de `http :3000/api/data/check` avant importation en base de données. (cf [Procédure d'importation de données](procedure-import-donnees.md))
 
 ## Spécificités du compactage
 
@@ -185,7 +200,7 @@ http :3000/api/data/compact fromBatchKey="1804"
 
 L'option `fromBatchKey` indique le premier batch dans l'ordre alphabétique qui nécessite d'être compacté (c'est-à-dire qui a subi des changements). Tous les suivants le seront automatiquement.
 
-> Important: Le compactage est une opération difficilement réversible. Pour prévenir toute corruption de données et/ou interruption prématurée du compactage, nous recommandons de valider les données importées avant leur compactage, à l'aide de `http :3000/api/data/validate collection="ImportedData"`. (cf [Procédure d'importation de données](https://github.com/signaux-faibles/prepare-import/blob/master/tools/procedure_import.md))
+> Important: Le compactage est une opération difficilement réversible. Pour prévenir toute corruption de données et/ou interruption prématurée du compactage, nous recommandons de valider les données importées avant leur compactage, à l'aide de `http :3000/api/data/validate collection="ImportedData"`. (cf [Procédure d'importation de données](procedure-import-donnees.md))
 
 ## Spécificités des calculs de variables
 
@@ -203,15 +218,3 @@ http :3000/api/data/reduce batch="1904" key="01234567891011" algo="algo2"
 Les paramètres obligatoires `batch` et `algo` spécifient respectivement la clé du dernier batch intégré et le type de calcul à mener. Actuellement, uniquement "algo2" est fonctionnel.
 Le paramètre facultatif `key` permet de ne faire tourner les calculs que pour un siret particulier, essentiellement pour des raisons de debugging.
 Les données sont alors importées dans la collection `Features_debug` plutôt que dans la collection `Features`.
-
-## La commande batch/process
-
-La commande **batch/process** permet de lancer successivement l'import, le compactage et les calculs des variables pour un batch donné avec les options par défaut, en une seule commande.
-
-Cette commande accepte plusieurs batches, auquel cas elle intégrera ces batches successivement.
-
-```
-http :3000/api/admin/batch/process [options]
-http :3000/api/admin/batch/process batches:='["1904"]'
-http :3000/api/admin/batch/process batches:='["1904", "1905"]'
-```
