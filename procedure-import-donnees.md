@@ -2,6 +2,7 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Procédure pour importer les données mensuelles](#proc%C3%A9dure-pour-importer-les-donn%C3%A9es-mensuelles)
+  - [Structure des fichiers](#structure-des-fichiers)
   - [Mettre à jour les outils](#mettre-%C3%A0-jour-les-outils)
   - [Mettre les nouveaux fichiers dans un répertoire spécifique](#mettre-les-nouveaux-fichiers-dans-un-r%C3%A9pertoire-sp%C3%A9cifique)
   - [Télécharger le fichier Siren](#t%C3%A9l%C3%A9charger-le-fichier-siren)
@@ -20,10 +21,43 @@
 
 Cette procédure décrit:
 
+- la structure recommandée pour organiser les fichiers par (sous-)batch;
 - comment récupérer les fichiers de données de nos partenaires;
 - comment constituer un objet `batch` à partir de ces fichiers, en vue de les importer dans la base de données MongoDB, à l'aide de `dbmongo`. (cf [Processus de traitement des données](processus-traitement-donnees.md))
 
 La plupart de ces opérations sont menées sur `stockage`, serveur sur lequel sont reçus et conservés les fichiers régulièrement transmis par nos partenaires.
+
+## Structure des fichiers
+
+Un _batch_ est un ensemble de fichiers de données permettant de constituer (à minima) un _périmètre SIREN_ (aussi appelé _filtre_ ou _filter_) à partir de données `effectif` fraiches. Les fichiers d'un _batch_ sont réunis dans un même répertoire. Le nom d'un _batch_ est sous la forme `AAMM`, soit les deux derniers chiffres de l'année suivi par les deux chiffres du mois.
+
+Un _sous-batch_ est un ensemble de fichiers de données venant compléter un _batch_ déjà importé, en ré-utilisant le _périmètre SIREN_ de ce _batch_. Les fichiers d'un _sous-batch_ sont réunis dans un même répertoire, lui-même contenu dans le répertoire du _batch_ qu'il complète. Le nom d'un _sous-batch_ est sous la forme `AAMM_NN`, soit le nom du _batch_ parent suivi par un numéro à incrémenter pour chaque _sous-batch_.
+
+Voici une illustration de la structure des répertoires attendue par `prepare-import`, en supposant que nous ayons deux _batches_ et un _sous-batch_ sur la période de Février 2018:
+
+```
+|
+|-- /var/lib/goup_base/public
+|     |-- 1801
+|     |-- 1802
+|     |    |-- 1802_01
+```
+
+La génération de _batch_ ou _sous-batch_ sera effectuée depuis le répertoire `/var/lib/goup_base/public`:
+
+```sh
+$ cf /var/lib/goup_base/public
+$ prepare-import --batch 1801
+$ prepare-import --batch 1802
+$ prepare-import --batch 1802_01
+```
+
+Les informations suivantes seront inférées automatiquement par `prepare-import`:
+
+- `filter`: fichier de _périmètre SIREN_ hérité ou généré depuis le fichier `effectif` du batch parent
+- `date_fin_effectif`: date détectée depuis le fichier `effectif` du batch parent
+
+Note: quand on appelle `prepare-import` sur un sous-batch, le fichier `filter` du batch parent sera copié dans le répertoire du sous-batch, et intégré dans l'objet `Admin` résultant, en conservant le même nom de fichier.
 
 ## Mettre à jour les outils
 
@@ -96,10 +130,13 @@ _Entreprises mises à jour_ > _Données financières et descriptives_
 Utiliser `prepare-import` depuis `ssh stockage`:
 
 ```sh
-~/prepare-import/prepare-import -batch "<BATCH>" -path "../goup/public"
+cd /var/lib/goup_base/public/
+~/prepare-import/prepare-import -batch "<BATCH>"
 ```
 
 Penser à changer le nom du batch en langage naturel: ex "Février 2020".
+
+Insérer le document résultant dans la collection `Admin`.
 
 ## (Re)lancer le serveur API `dbmongo` (optionnel)
 
