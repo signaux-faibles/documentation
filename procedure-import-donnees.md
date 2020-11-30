@@ -12,6 +12,7 @@
   - [Lancer l'import](#lancer-limport)
   - [Lancer le compactage](#lancer-le-compactage)
   - [Calcul des variables et génération de la liste de detection](#calcul-des-variables-et-g%C3%A9n%C3%A9ration-de-la-liste-de-detection)
+  - [Maintenance: nettoyage des données hors périmètre](#maintenance-nettoyage-des-donn%C3%A9es-hors-p%C3%A9rim%C3%A8tre)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -201,3 +202,19 @@ http :3000/api/data/compact batch="2002_1"
 ## Calcul des variables et génération de la liste de detection
 
 > Documentation de référence: [Exécution des calculs pour populer la collection `Features`](prise-en-main.md#5-ex%C3%A9cution-des-calculs-pour-populer-la-collection-features)
+
+## Maintenance: nettoyage des données hors périmètre
+
+Dans le cas où certaines entités (entreprises et/ou établissements) seraient représentées dans la collection `RawData` alors qu'elles ne figurent pas dans le _périmètre SIREN_ (représenté par le fichier _filtre_ rattaché à tout _batch_ importé dans la base de donnée), il convient de les retirer afin d'alléger le stockage et les traitements de données.
+
+Pour celà, utiliser l'API `/data/pruneEntities` depuis `ssh stockage -t tmux att`:
+
+```sh
+# dry-run, pour compter les entités à supprimer
+http :5000/api/data/pruneEntities batch=2010
+
+# après vérification, supprimer ces entités de RawData
+http :5000/api/data/pruneEntities batch=2010 delete:=true
+```
+
+Remplacer l'identifiant de _batch_ par celui du dernier _batch_ importé avec un fichier _filtre_ à jour.
