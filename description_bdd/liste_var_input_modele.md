@@ -122,11 +122,26 @@ Deux fichiers: cotisations, et débits sur les cotisations sociales
 | Délai des données (cotisations) | cotisations du mois précédent           |
 | Délai des données (débits)      | débits sur les cot. du mois précédent   |
 
--**cotisation_moy_12mois** moyenne glissante sur les 12 derniers mois du montant des cotisations sociales dues (part patronale et ouvrière). 
+### Fichier sur les cotisations
 
-- **montant_part_ouvriere**  montant des dettes sur la part ouvrière.  
-**montant_part_patronale**  moyenne glissante sur la part patronale. 
+- **enc_direct** Cotisation encaissée directement, en euros.
+- **cotis_due** Cotisation due, I euros. Elle est utilisée pour calculer **cotisation_moy_12mois** : montant moyen (moyenne glissante sur les 12 derniers mois) de la somme des cotisations sociales dues (part patronale et ouvrière). 
 
--**ratio_dette** : (montant_part_patronale + montant_part_ouvrière)/cotisation_moy_12mois. Cela mesure mois par mois la dette auprès de l'URSSAF. 
--
+#### Fichiers sur les débits
+
+- **Mt_PO** Montant des débits sur la part ouvrières **en centimes**. Sont
+  exclues les pénalités et les majorations de retard (intitulée montant_part_ouvriere dans la base)
+
+- **Mt_PP** Montant des débits sur la part patronale **en centimes**. Sont
+  exclues les pénalités et les majorations de retard (intitulée montant_part_patronale dans la base). 
+
+--> A partir de ces 2 variables est calculée **ratio_dette** : (montant_part_patronale + montant_part_ouvrière)/cotisation_moy_12mois. Cela mesure mois par mois la dette auprès de l'URSSAF. 
+
+- **duree_delai** : durée de délai en jours. Un délai correspond à une période de report de paiement des charges sociales acceptée par l'URSSAF. 
+
+-**montant_echeancier**: volume en euros qui bénéficie d'un délai. 
+
+-**delai**: nombre de mois restants du délai accordé par l'URSSAF. 
+
+
 
