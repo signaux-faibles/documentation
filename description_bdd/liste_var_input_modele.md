@@ -94,8 +94,8 @@ Deux fichiers: demandes d'activité partielle, et consommations d'activité part
 | Délai des données (conso)    | Mois précédent, à quelques exceptions près |
 | Délai des données (demandes) | Temps réel                                 |
 
-HTA : Nombre total d'heure d'activité partiellle autorisées (intitulé dans la base apart_heures_autorisees)
-S_HEURE_CONSOM_TOT: Nombre total d'heures consommées (intitulé dans la base apart_heures_consommees)
+- **HTA** : Nombre total d'heure d'activité partiellle autorisées (intitulé dans la base apart_heures_autorisees)
+- **S_HEURE_CONSOM_TOT** : Nombre total d'heures consommées (intitulé dans la base apart_heures_consommees)
 
 
 ## Données sur l'effectif
