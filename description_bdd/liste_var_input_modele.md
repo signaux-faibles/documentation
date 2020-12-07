@@ -2,7 +2,7 @@
 
 ## Objectif de ce document
 
-L'objectif est de présenter de manière plus détaillée les données utilisées dans l'algorithme Signaux faibles (jusqu'à récemment) et amenées à être utilisées dans le cadre du futur modèle DGFIP-Signaux faibles. 
+L'objectif est de présenter de manière plus détaillée les données utilisées dans l'algorithme Signaux faibles (jusqu'à récemment) et amenées à être utilisées dans le futur modèle.  
 
 ## Récapitulatif des différentes sources de données 
 
@@ -129,19 +129,60 @@ Deux fichiers: cotisations, et débits sur les cotisations sociales
 
 #### Fichiers sur les débits
 
-- **Mt_PO** Montant des débits sur la part ouvrières **en centimes**. Sont
-  exclues les pénalités et les majorations de retard (intitulée montant_part_ouvriere dans la base)
+- **Num_Ecn** L'écart négatif (ecn) correspond à une période en débit. Pour
+  une même période, plusieurs débits peuvent être créés. On leur attribue un
+  numéro d'ordre. Par exemple, 101, 201, 301 etc.; ou 101, 102, 201 etc.
+  correspondent respectivement au 1er, 2ème et 3ème ecn de la période considérée.
 
-- **Mt_PP** Montant des débits sur la part patronale **en centimes**. Sont
-  exclues les pénalités et les majorations de retard (intitulée montant_part_patronale dans la base). 
+- **Num_Hist_Ecn** Ordre des opérations pour un écart négatif donné.
+
+- **Dt_trt_ecn** Date de comptabilisation de l'évènement (mise en
+  recouvrement, paiement etc..). Format (A)AAMMJJ, ou (A)AA correspond à l'année
+  à laquelle a été soustrait 1900. Exemple: 1160318 vaut 18 mars 2016,
+  990612 vaut 12 juin 1999.
+
+- **Mt_PO** Montant des débits sur la part ouvrières **en centimes**. Sont exclues les pénalités et les majorations de retard (intitulée montant_part_ouvriere dans la base)
+
+- **Mt_PP** Montant des débits sur la part patronale **en centimes**. Sont exclues les pénalités et les majorations de retard (intitulée montant_part_patronale dans la base). 
 
 --> A partir de ces 2 variables est calculée **ratio_dette** : (montant_part_patronale + montant_part_ouvrière)/cotisation_moy_12mois. Cela mesure mois par mois la dette auprès de l'URSSAF. 
 
-- **duree_delai** : durée de délai en jours. Un délai correspond à une période de report de paiement des charges sociales acceptée par l'URSSAF. 
+## Données sur les délais
 
--**montant_echeancier**: volume en euros qui bénéficie d'un délai. 
+|                          |                         |
+| ------------------------ | ----------------------- |
+| Source                   | URSSAF                  |
+| Couverture               | Tous les délais         |
+| Fréquence de mise-à-jour | Mensuellement           |
+| Délai des données        | Créations en temps réel |
 
--**delai**: nombre de mois restants du délai accordé par l'URSSAF. 
+Un délai correspond à une période de report de paiement des charges sociales acceptée par l'URSSAF. 
+
+- **Date de création** Date de création du délai. Format aaaa-mm-jj
+
+- **Date d'échéance** Date d'échéance du délai. Format aaaa-mm-jj
+
+- **Durée délai** Durée du délai en jours (intitulé **duree_delai** dans la base). 
+
+- **Montant global de l'échéancier** Montant global de l'échéancier, en euros. Cela donne le volume en euros qui bénéficie d'un délai (intitulé **montant_echeancier**: volume en euros qui bénéficie d'un délai).  
+
+--> à partir de ces variables est calculé **delai**: nombre de mois restants du délai accordé par l'URSSAF. 
+
+## Données sur les procédures collectives
 
 
+|                          |                                   |
+| ------------------------ | --------------------------------- |
+| Source                   | URSSAF                            |
+| Couverture               | Toutes les procédures collectives |
+| Fréquence de mise-à-jour | Mensuellement                     |
+| Délai des données        | Créations en temps réel ?         |
 
+- **Dt_effet** Date effet de la procédure collective au format JJMMMAAAA, par exemple 24FEB2014
+
+- **Lib_actx_stdx** Champ double qui indique la nature de la procédure + évènement.
+
+--> A partir de ces variables et des données URSSAF sur les impayés en cotisations sociales est calculé la variable outcome : Elle vaut TRUE si l'un de ces deux évènements est arrivé entre maintenant et les 18 prochains mois : 
+- Si l'établissement a fait défaut aux paiements URSSAF 3 mois consécutifs (ratio_delai>1). 
+- Si l'établissement est entrée en procédure collective. 
+Cette variable est la variable réponse qu'on cherche à prédire. 
