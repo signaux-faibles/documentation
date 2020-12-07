@@ -122,7 +122,7 @@ Deux fichiers: cotisations, et débits sur les cotisations sociales
 | Délai des données (cotisations) | cotisations du mois précédent           |
 | Délai des données (débits)      | débits sur les cot. du mois précédent   |
 
-### Fichier sur les cotisations
+#### Fichier sur les cotisations
 
 - **enc_direct** Cotisation encaissée directement, en euros.
 - **cotis_due** Cotisation due, I euros. Elle est utilisée pour calculer **cotisation_moy_12mois** : montant moyen (moyenne glissante sur les 12 derniers mois) de la somme des cotisations sociales dues (part patronale et ouvrière). 
