@@ -166,7 +166,7 @@ Un délai correspond à une période de report de paiement des charges sociales 
 
 - **Montant global de l'échéancier** Montant global de l'échéancier, en euros. Cela donne le volume en euros qui bénéficie d'un délai (intitulé **montant_echeancier**: volume en euros qui bénéficie d'un délai).  
 
---> à partir de ces variables est calculé **delai**: nombre de mois restants du délai accordé par l'URSSAF. 
+--> à partir de ces variables est calculé **delai**: nombre de jours restants du délai accordé par l'URSSAF. 
 
 ## Données sur les procédures collectives
 
