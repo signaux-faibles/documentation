@@ -1,4 +1,4 @@
-# Description des données Signaux faibles pour le futur modèle DGFIP-Signaux faibles 
+# Description des données Signaux faibles pour le futur modèle  
 
 ## Objectif de ce document
 
@@ -15,7 +15,7 @@ Les données utilisées proviennent de plusieurs sources:
 - **Données Banque de France** 6 ratios financiers
 - **Données Diane** Bilans et comptes de résultats. Permet d'enrichir les données financières de la Banque de France
 
-Dans la suite de ce document, les données Diane ne seront pas détaillées ici car elles se recoupent avec celles de la DGFIP qui ont un meilleur taux de couverture. 
+Dans la suite de ce document, les données Diane ne seront pas détaillées ici car elles se recoupent avec d'autres données plus riches qui vont bientôt arriver.  
 
 ## Données sirene
 
@@ -36,12 +36,10 @@ Il est possible d'intégrer pour l'algorithme également des données supplémen
 date de création de l'établissement, présence ou non
 d'activité saisonnière.
 
-La description détaillée des variables du fichier Sirène est disponible [ici](https://static.data.gouv.fr/resources/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret-page-en-cours-de-construction/20181001-193247/description-fichier-stocketablissement.pdf).
-
 
 ## Données financières de la Banque de France
 
-Les données financières de la Banque de France couvrent à ce jour uniquement la région Bourgogne Franche Comté. Elles consistent en 6 ratios financiers détaillées ci-dessous.
+Elles consistent en 6 ratios financiers détaillées ci-dessous.
 
 |                          |                                               |
 | ------------------------ | --------------------------------------------- |
