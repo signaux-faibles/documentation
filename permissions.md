@@ -1,3 +1,15 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+**Table of Contents** _generated with [DocToc](https://github.com/thlorenz/doctoc)_
+
+- [Permissions d'accès](#permissions-dacc%C3%A8s)
+  - [Préambule](#pr%C3%A9ambule)
+  - [Flowchart des permissions générales](#flowchart-des-permissions-g%C3%A9n%C3%A9rales)
+  - [Restrictions particulières suivant la nature des données](#restrictions-particuli%C3%A8res-suivant-la-nature-des-donn%C3%A9es)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Permissions d'accès
 
 ## Préambule
