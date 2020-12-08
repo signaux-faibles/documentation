@@ -13,6 +13,7 @@
 - [Description des données](description-donnees.md) (wip)
 - [Algorithme + Evaluation](algorithme-evaluation.md) (wip)
 - [Interface Graphique](interface-graphique.md) (wip)
+- [Permissions d'accès](permissions.md) (wip)
 - [Supervision](supervision.md) (wip)
 - [Staging frontend](staging-frontend.md)
 - [Journalisation/Logging de l'intégration](journalisation-integration.md)
