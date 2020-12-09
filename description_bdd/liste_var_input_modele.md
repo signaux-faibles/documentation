@@ -15,6 +15,8 @@ Les données utilisées proviennent de plusieurs sources:
 - **Données Banque de France** 6 ratios financiers
 - **Données Diane** Bilans et comptes de résultats. Permet d'enrichir les données financières de la Banque de France
 
+En plus de ces données, un nouveau contrat vient d'être conclu avec Altharès permettant de récupérer de nouvelles variables sur le comportement de paiement des entreprises vis à vis de leurs fournisseurs (notamment un index moyen de retard de paiement). Ces données mensuelles seraient très corrélées à la défaillance d'entreprises et vont permettre d'enrichir le modèle. La couverture des données seraient de 70% - ce sont surtout les grandes entreprises appartenant au secteur de l'industrie qui possèdent suffisamment de contrats avec des fournisseurs pour qu'un index moyen de retard de paiement puisse être calculé.  
+
 Dans la suite de ce document, les données Diane ne seront pas détaillées ici car elles se recoupent avec d'autres données plus riches qui vont bientôt arriver.  
 
 ## Données sirene
