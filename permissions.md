@@ -18,7 +18,7 @@ Nos utilisateurs sont autorisés à accéder aux entreprises et établissements 
 - si l'entreprise est présente dans leur zone géographique
 - si un des établissements de l'entreprise est ou a déjà été en alerte
 
-Un niveau complémentaire de restrictions est appliqué sur des données de nature particulière présentes sur les fiches établissement et entreprise.
+Un niveau complémentaire de restrictions provenant des habilitations des utilisateurs est appliqué sur des données de nature particulière présentes sur les fiches établissement et entreprise.
 
 ## Flowchart des permissions générales
 
