@@ -258,7 +258,7 @@ $ docker exec -it sf-mongodb mongo signauxfaibles
 
 ### 6. En cas d'erreur – afficher le journal de MongoDB
 
-Il peut arriver qu'un appel API de traitement de données échoue et retourne le message d'erreur suivant: `erreurs constatées, consultez les journaux`.
+Il peut arriver qu'un traitement de données échoue et retourne le message d'erreur suivant: `erreurs constatées, consultez les journaux`.
 
 Dans ce cas, vous pouvez trouver le détail de ces erreurs dans les logs de MongoDB:
 

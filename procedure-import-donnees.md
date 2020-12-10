@@ -8,7 +8,7 @@
   - [Télécharger le fichier Siren](#t%C3%A9l%C3%A9charger-le-fichier-siren)
   - [Télécharger le fichier Diane](#t%C3%A9l%C3%A9charger-le-fichier-diane)
   - [Créer un objet admin pour l'intégration des données](#cr%C3%A9er-un-objet-admin-pour-lint%C3%A9gration-des-donn%C3%A9es)
-  - [(Re)lancer le serveur API `sfdata` (optionnel)](#relancer-le-serveur-api-sfdata-optionnel)
+  - [Mettre à jour la commande `sfdata` (optionnel)](#mettre-%C3%A0-jour-la-commande-sfdata-optionnel)
   - [Lancer l'import](#lancer-limport)
   - [Lancer le compactage](#lancer-le-compactage)
   - [Calcul des variables et génération de la liste de detection](#calcul-des-variables-et-g%C3%A9n%C3%A9ration-de-la-liste-de-detection)
@@ -139,13 +139,13 @@ Penser à changer le nom du batch en langage naturel: ex "Février 2020".
 
 Insérer le document résultant dans la collection `Admin`.
 
-## (Re)lancer le serveur API `sfdata` (optionnel)
+## Mettre à jour la commande `sfdata` (optionnel)
 
 Depuis `ssh centos@labtenant -t tmux att`:
 
 ```sh
 killall sfdata
-cd opensignauxfaibles/sfdata
+cd opensignauxfaibles
 git pull
 go build
 ./sfdata

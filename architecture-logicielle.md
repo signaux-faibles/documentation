@@ -183,7 +183,7 @@ Ce module est écrit en go (1.10) et centralise les fonctions de traitement des 
 
 ##### utilisation
 
-sfdata propose une api pour ordonner les traitements. Une documentation openapi est disponible [ici](https://raw.githubusercontent.com/signaux-faibles/opensignauxfaibles/master/sfdata/docs/swagger/swagger.yaml)
+`sfdata` est une commande (CLI) pour ordonner les traitements. Une documentation openapi est disponible [ici](https://raw.githubusercontent.com/signaux-faibles/opensignauxfaibles/master/sfdata/docs/swagger/swagger.yaml)
 
 #### module R/H2O
 

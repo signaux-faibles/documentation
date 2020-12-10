@@ -9,7 +9,7 @@
   - [Étape 2 – Compactage](#%C3%A9tape-2--compactage)
   - [Étape 3 – Calcul des variables](#%C3%A9tape-3--calcul-des-variables)
 - [Workflow classique](#workflow-classique)
-- [L'API servie par Golang](#lapi-servie-par-golang)
+- [Commande `sfdata`](#commande-sfdata)
 - [La base de données MongoDB](#la-base-de-donn%C3%A9es-mongodb)
 - [Spécificités de l'import](#sp%C3%A9cificit%C3%A9s-de-limport)
 - [Spécificités du compactage](#sp%C3%A9cificit%C3%A9s-du-compactage)
@@ -85,19 +85,15 @@ Pendant le compactage et le calcul des variables, le log de MongoDB peut être c
 
 Entre ces traitements, une façon de s'assurer que le processus tourne est de vérifier qu'il n'y a pas d'erreur golang, et que MongoDB travaille, par exemple avec la commande _top_.
 
-## L'API servie par Golang
+## Commande `sfdata`
 
-L'intégralité des opérations sur les données se font au moyen d'une API servie par Golang, qui analyse et cadence les opérations à effectuer sur la base MongoDB.
+L'intégralité des opérations sur les données se font au moyen de la commande `sfdata` (_CLI_ anciennement connu sous le nom de `dbmongo`), qui analyse et cadence les opérations à effectuer sur la base MongoDB.
 
-L'API est ouverte avec la commande suivante, à exécuter dans le répertoire `./sfdata` du projet `opensignauxfaibles`.
+Elle est implémentée en Golang, au sein du projet `opensignauxfaibles`.
 
 ```sh
 $ go build && ./sfdata
 ```
-
-L'API est alors lancée sur `localhost`, par défaut sur le port `3000` (le port peut-être modifié dans le fichier `./sfdata/config.toml`)
-
-Cette API est documentée par swagger, et est alors accessible sur `localhost:3000/swagger/index.html`.
 
 Certaines des commandes seront plus amplement détaillées dans ce qui suit.
 
