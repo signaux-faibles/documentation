@@ -207,6 +207,7 @@ http :3000/api/data/compact batch="2002_1"
 
 Dans le cas où certaines entités (entreprises et/ou établissements) seraient représentées dans la collection `RawData` alors qu'elles ne figurent pas dans le _périmètre SIREN_ (représenté par le fichier _filtre_ rattaché à tout _batch_ importé dans la base de donnée), il convient de les retirer afin d'alléger le stockage et les traitements de données.
 
+Ce traitement est destructif et irréversible, il convient de porter une attention particulière si le nombre de document à supprimer est conséquent.
 Pour celà, utiliser l'API `/data/pruneEntities` depuis `ssh stockage -t tmux att`:
 
 ```sh
