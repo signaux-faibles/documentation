@@ -63,21 +63,22 @@ Le workflow classique d'intégration consiste à:
   killall sfdata
   cd opensignauxfaibles
   git pull
-  go build
+  go build # pour compiler la commande ./sfdata
+  ./sfdata --help
   ```
 
 - Appeler séquentiellement les fonctions d'intégration (et de contrôle) pour importer, compacter les données puis calculer les variables avec les options idoines:
 
   ```sh
   # 1. Import
-  $ http :3000/api/data/check batch="1904"
-  $ http :3000/api/data/import batch="1904"
+  ./sfdata check --batch="1904"
+  ./sfdata import --batch="1904"
   # 2. Compactage
-  $ http :3000/api/data/validate collection="ImportedData"
-  $ http :3000/api/data/compact fromBatchKey="1904"
+  ./sfdata validate --collection="ImportedData"
+  ./sfdata compact --fromBatchKey="1904"
   # 3. Calcul
-  $ http :3000/api/data/validate collection="RawData"
-  $ http :3000/api/data/reduce batch="1904"
+  ./sfdata validate --collection="RawData"
+  ./sfdata reduce --batch="1904"
   ```
 
 Au cours de l'import, un log des début et des fin d'intégration de fichiers et de types de fichiers sont loggés dans la collection `Journal`. (cf [Journalisation/Logging de l'intégration](journalisation-integration.md))
@@ -93,14 +94,16 @@ L'intégralité des opérations sur les données se font au moyen de la commande
 Elle est implémentée en Golang, au sein du projet `opensignauxfaibles`.
 
 ```sh
-$ go build && ./sfdata
+cd opensignauxfaibles
+go build # pour compiler la commande ./sfdata
+./sfdata --help
 ```
 
 Certaines des commandes seront plus amplement détaillées dans ce qui suit.
 
 ## La base de données MongoDB
 
-Le stockage des données se fait dans une base de données "objet", notre choix s'est porté sur MongoDB. L'adresse et le port de la base de données est spécifiée dans `./sfdata/config.toml`.
+Le stockage des données se fait dans une base de données "objet", notre choix s'est porté sur MongoDB. L'adresse et le port de la base de données est spécifiée dans le fichier `config.toml`.
 
 Les différentes collections utilisées seront détaillées par la suite.
 
@@ -140,11 +143,7 @@ Le champ `complete_types` est utile pour le comportement de compactage (cf parag
 
 Le champ `param` est utile pour le calcul des variables (cf le paragraphe à ce sujet). Il définit l'étendu des périodes à traiter et la dernière période pour laquelle les données d'effectif sont disponibles.
 
-Les types définis dans [handlers.go](https://github.com/signaux-faibles/opensignauxfaibles/blob/master/sfdata/handlers.go) (variable `registeredParsers`) et reconnus par [prepare-import](https://github.com/signaux-faibles/prepare-import) sont accessibles via:
-
-```
-http :3000/api/admin/types
-```
+Les types reconnus sont listés dans [handlers.go](https://github.com/signaux-faibles/opensignauxfaibles/blob/master/handlers.go) (variable `registeredParsers`) et dans [prepare-import](https://github.com/signaux-faibles/prepare-import/blob/master/prepareimport/filetypes.go).
 
 | Parser              | type         | extension    | Scope                                 |
 | ------------------- | ------------ | ------------ | ------------------------------------- |
@@ -169,15 +168,16 @@ Les fichiers en provenance des urssaf ont été regroupées dans un parser spéc
 
 L'import est lancé avec la requête:
 
-```
-http :3000/api/data/import [options]
+```sh
+cd opensignauxfaibles
+./sfdata import [options]
 # Par exemple
-http :3000/api/data/import batch="1904" parsers:='["urssaf", "diane"]'
+./sfdata import --batch="1904" --parsers="urssaf,diane"
 ```
 
 Le paramètre obligatoire `batch` indique la clé du batch à importer. Le paramètre optionnel `parsers`, qui est entré sous forme de tableau, permet de sélectionner les parsers à faire tourner. Par défaut, tous les parsers du batch sont lancés, cette option permet de corriger un type de fichier en particulier en cas d'erreur pendant l'intégration.
 
-> Important: Pour prévenir l'intégration de données corrompues, nous recommandons l'usage de `http :3000/api/data/check` avant importation en base de données. (cf [Procédure d'importation de données](procedure-import-donnees.md))
+> Important: Pour prévenir l'intégration de données corrompues, nous recommandons l'usage de `./sfdata check` avant importation en base de données. (cf [Procédure d'importation de données](procedure-import-donnees.md))
 
 ## Spécificités du compactage
 
@@ -189,15 +189,16 @@ Par exemple, si certaines données n'ont pas changé d'une période sur l'autre,
 
 Le compactage se lance avec la commande suivante:
 
-```
-http :3000/api/data/compact [options]
+```sh
+cd opensignauxfaibles
+./sfdata compact [options]
 # Par exemple
-http :3000/api/data/compact fromBatchKey="1804"
+./sfdata compact --fromBatchKey="1804"
 ```
 
 L'option `fromBatchKey` indique le premier batch dans l'ordre alphabétique qui nécessite d'être compacté (c'est-à-dire qui a subi des changements). Tous les suivants le seront automatiquement.
 
-> Important: Le compactage est une opération difficilement réversible. Pour prévenir toute corruption de données et/ou interruption prématurée du compactage, nous recommandons de valider les données importées avant leur compactage, à l'aide de `http :3000/api/data/validate collection="ImportedData"`. (cf [Procédure d'importation de données](procedure-import-donnees.md))
+> Important: Le compactage est une opération difficilement réversible. Pour prévenir toute corruption de données et/ou interruption prématurée du compactage, nous recommandons de valider les données importées avant leur compactage, à l'aide de `./sfdata validate --collection="ImportedData"`. (cf [Procédure d'importation de données](procedure-import-donnees.md))
 
 ## Spécificités des calculs de variables
 
@@ -206,12 +207,13 @@ TODO
 
 Le calcul des variables est lancé via la requête:
 
-```
-http :3000/api/data/reduce [options]
+```sh
+cd opensignauxfaibles
+./sfdata reduce [options]
 # Par exemple
-http :3000/api/data/reduce batch="1904" key="01234567891011" algo="algo2"
+./sfdata reduce --batch="1904" --key="01234567891011"
 ```
 
-Les paramètres obligatoires `batch` et `algo` spécifient respectivement la clé du dernier batch intégré et le type de calcul à mener. Actuellement, uniquement "algo2" est fonctionnel.
-Le paramètre facultatif `key` permet de ne faire tourner les calculs que pour un siret particulier, essentiellement pour des raisons de debugging.
-Les données sont alors importées dans la collection `Features_debug` plutôt que dans la collection `Features`.
+Le paramètre obligatoire `batch` spécifie la clé du dernier batch intégré.
+
+Le paramètre facultatif `key` permet de ne faire tourner les calculs que pour un siret particulier, essentiellement pour des raisons de debugging. Les données sont alors importées dans la collection `Features_debug` plutôt que dans la collection `Features`.

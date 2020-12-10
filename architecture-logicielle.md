@@ -185,7 +185,7 @@ Cette brique intègre le stockage de l'historique des données brutes, mais auss
 
 ##### utilisation
 
-`sfdata` est une commande (CLI) pour ordonner les traitements. Une documentation openapi est disponible [ici](https://raw.githubusercontent.com/signaux-faibles/opensignauxfaibles/master/sfdata/docs/swagger/swagger.yaml)
+`sfdata` est une commande (CLI) pour ordonner les traitements. Une documentation openapi est disponible [ici](https://raw.githubusercontent.com/signaux-faibles/opensignauxfaibles/master/docs/swagger/swagger.yaml)
 
 #### module R/H2O
 
@@ -215,7 +215,7 @@ Il lui incombe de fournir à datapi:
 - les listes de détection (niveau A)
 - les badges de sécurité pour tous les objets exportés afin d'appliquer les niveaux de sécurité.
 
-Ce traitement est écrit en dur dans le code de sfdata [ici](https://github.com/signaux-faibles/opensignauxfaibles/blob/master/sfdata/lib/engine/datapi.go)
+Ce traitement est écrit en dur dans le code de sfdata [ici](https://github.com/signaux-faibles/opensignauxfaibles/blob/master/lib/engine/datapi.go)
 
 ## datapi
 
