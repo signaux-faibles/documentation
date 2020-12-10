@@ -14,6 +14,7 @@
 - [Spécificités de l'import](#sp%C3%A9cificit%C3%A9s-de-limport)
 - [Spécificités du compactage](#sp%C3%A9cificit%C3%A9s-du-compactage)
 - [Spécificités des calculs de variables](#sp%C3%A9cificit%C3%A9s-des-calculs-de-variables)
+- [Spécificités de la publication de données](#sp%C3%A9cificit%C3%A9s-de-la-publication-de-donn%C3%A9es)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -76,9 +77,10 @@ Le workflow classique d'intégration consiste à:
   # 2. Compactage
   ./sfdata validate --collection="ImportedData"
   ./sfdata compact --fromBatchKey="1904"
-  # 3. Calcul
   ./sfdata validate --collection="RawData"
-  ./sfdata reduce --batch="1904"
+  # 3. Calcul et publication
+  ./sfdata reduce --up-to-batch="1904"
+  ./sfdata public --up-to-batch="1904"
   ```
 
 Au cours de l'import, un log des début et des fin d'intégration de fichiers et de types de fichiers sont loggés dans la collection `Journal`. (cf [Journalisation/Logging de l'intégration](journalisation-integration.md))
@@ -166,7 +168,7 @@ Les types reconnus sont listés dans [handlers.go](https://github.com/signaux-fa
 
 Les fichiers en provenance des urssaf ont été regroupées dans un parser spécifique du fait de leur dépendance à la table de correspondance entre comptes Urssaf et codes Siret, qui est ainsi chargée une seule fois en mémoire.
 
-L'import est lancé avec la requête:
+L'import est lancé de la manière suivante:
 
 ```sh
 cd opensignauxfaibles
@@ -205,15 +207,28 @@ L'option `fromBatchKey` indique le premier batch dans l'ordre alphabétique qui 
 TODO
 `param` dans la collection Admin
 
-Le calcul des variables est lancé via la requête:
+Le calcul des variables est lancé de la manière suivante:
 
 ```sh
 cd opensignauxfaibles
 ./sfdata reduce [options]
 # Par exemple
-./sfdata reduce --batch="1904" --key="01234567891011"
+./sfdata reduce --up-to-batch="1904" --key="01234567891011"
 ```
 
-Le paramètre obligatoire `batch` spécifie la clé du dernier batch intégré.
+Le paramètre obligatoire `up-to-batch` spécifie la clé du dernier batch intégré.
 
 Le paramètre facultatif `key` permet de ne faire tourner les calculs que pour un siret particulier, essentiellement pour des raisons de debugging. Les données sont alors importées dans la collection `Features_debug` plutôt que dans la collection `Features`.
+
+## Spécificités de la publication de données
+
+La publication de variables est lancée de la manière suivante:
+
+```sh
+cd opensignauxfaibles
+./sfdata public [options]
+# Par exemple
+./sfdata public --up-to-batch="1904"
+```
+
+Le paramètre obligatoire `up-to-batch` spécifie la clé du dernier batch intégré.
