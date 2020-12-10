@@ -157,7 +157,7 @@ Cette brique intègre le stockage de l'historique des données brutes, mais auss
 
 #### sfdata
 
-Ce module est écrit en go (1.10) et centralise les fonctions de traitement des données suivantes:
+Écrit en Go, ce module centralise les fonctions de traitement des données suivantes:
 
 - analyse des fichiers bruts
 - conversion/insert dans mongodb
@@ -179,7 +179,9 @@ Ce module est écrit en go (1.10) et centralise les fonctions de traitement des 
 - https://github.com/spf13/viper
 - https://github.com/tealeg/xlsx
 - https://github.com/chrnin/gournal
-- mongodb 3.6
+- MongoDB 4.2
+
+> Note: Les dépendances et versions sont tenues à jour dans [README.md](https://github.com/signaux-faibles/opensignauxfaibles/blob/master/README.md) et [go.mod](https://github.com/signaux-faibles/opensignauxfaibles/blob/master/go.mod).
 
 ##### utilisation
 
@@ -423,7 +425,9 @@ Voici les paquets spécifiques au développement par ordre alphabétique :
 
 ### MongoDB
 
-La version de MongoDB utilisée est la 3.6.
+La version de MongoDB utilisée est la 4.2.
+
+> Note: Les dépendances et versions sont tenues à jour dans [README.md](https://github.com/signaux-faibles/opensignauxfaibles/blob/master/README.md) et [go.mod](https://github.com/signaux-faibles/opensignauxfaibles/blob/master/go.mod).
 
 ### Keycloak
 
