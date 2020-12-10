@@ -8,7 +8,7 @@
   - [Télécharger le fichier Siren](#t%C3%A9l%C3%A9charger-le-fichier-siren)
   - [Télécharger le fichier Diane](#t%C3%A9l%C3%A9charger-le-fichier-diane)
   - [Créer un objet admin pour l'intégration des données](#cr%C3%A9er-un-objet-admin-pour-lint%C3%A9gration-des-donn%C3%A9es)
-  - [(Re)lancer le serveur API `dbmongo` (optionnel)](#relancer-le-serveur-api-dbmongo-optionnel)
+  - [(Re)lancer le serveur API `sfdata` (optionnel)](#relancer-le-serveur-api-sfdata-optionnel)
   - [Lancer l'import](#lancer-limport)
   - [Lancer le compactage](#lancer-le-compactage)
   - [Calcul des variables et génération de la liste de detection](#calcul-des-variables-et-g%C3%A9n%C3%A9ration-de-la-liste-de-detection)
@@ -24,7 +24,7 @@ Cette procédure décrit:
 
 - la structure recommandée pour organiser les fichiers par (sous-)batch;
 - comment récupérer les fichiers de données de nos partenaires;
-- comment constituer un objet `batch` à partir de ces fichiers, en vue de les importer dans la base de données MongoDB, à l'aide de `dbmongo`. (cf [Processus de traitement des données](processus-traitement-donnees.md))
+- comment constituer un objet `batch` à partir de ces fichiers, en vue de les importer dans la base de données MongoDB, à l'aide de `sfdata`. (cf [Processus de traitement des données](processus-traitement-donnees.md))
 
 La plupart de ces opérations sont menées sur `stockage`, serveur sur lequel sont reçus et conservés les fichiers régulièrement transmis par nos partenaires.
 
@@ -139,16 +139,16 @@ Penser à changer le nom du batch en langage naturel: ex "Février 2020".
 
 Insérer le document résultant dans la collection `Admin`.
 
-## (Re)lancer le serveur API `dbmongo` (optionnel)
+## (Re)lancer le serveur API `sfdata` (optionnel)
 
 Depuis `ssh centos@labtenant -t tmux att`:
 
 ```sh
-killall dbmongo
-cd opensignauxfaibles/dbmongo
+killall sfdata
+cd opensignauxfaibles/sfdata
 git pull
 go build
-./dbmongo
+./sfdata
 ```
 
 > Documentation de référence: [API servie par Golang](processus-traitement-donnees.md#lapi-servie-par-golang)
@@ -185,7 +185,7 @@ http :3000/api/data/validate collection="RawData"      # valider les données d�
 Afficher les entrées de données invalides depuis `ssh centos@labtenant -t tmux att`:
 
 ```sh
-cd opensignauxfaibles/dbmongo
+cd opensignauxfaibles/sfdata
 zcat <nom_du_fichier_retourné_par_API>
 ```
 

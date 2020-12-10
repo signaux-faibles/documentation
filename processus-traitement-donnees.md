@@ -19,7 +19,7 @@
 
 ## Préambule
 
-Dans cette partie, nous explorons comment les données sont importées puis transformées par `dbmongo`, à partir des fichiers bruts.
+Dans cette partie, nous explorons comment les données sont importées puis transformées par `sfdata`, à partir des fichiers bruts.
 
 Note: Vous pouvez installer la commande `http` utilisée dans les exemples de cette page à partir de [HTTPie – command line HTTP client](https://httpie.org/).
 
@@ -62,7 +62,7 @@ Le workflow classique d'intégration consiste à:
 - Lancer l'API:
 
   ```sh
-  $ go build && ./dbmongo
+  $ go build && ./sfdata
   ```
 
 - Appeler séquentiellement les fonctions d'intégration (et de contrôle) pour importer, compacter les données puis calculer les variables avec les options idoines:
@@ -89,13 +89,13 @@ Entre ces traitements, une façon de s'assurer que le processus tourne est de v�
 
 L'intégralité des opérations sur les données se font au moyen d'une API servie par Golang, qui analyse et cadence les opérations à effectuer sur la base MongoDB.
 
-L'API est ouverte avec la commande suivante, à exécuter dans le répertoire `./dbmongo` du projet `opensignauxfaibles`.
+L'API est ouverte avec la commande suivante, à exécuter dans le répertoire `./sfdata` du projet `opensignauxfaibles`.
 
 ```sh
-$ go build && ./dbmongo
+$ go build && ./sfdata
 ```
 
-L'API est alors lancée sur `localhost`, par défaut sur le port `3000` (le port peut-être modifié dans le fichier `./dbmongo/config.toml`)
+L'API est alors lancée sur `localhost`, par défaut sur le port `3000` (le port peut-être modifié dans le fichier `./sfdata/config.toml`)
 
 Cette API est documentée par swagger, et est alors accessible sur `localhost:3000/swagger/index.html`.
 
@@ -103,7 +103,7 @@ Certaines des commandes seront plus amplement détaillées dans ce qui suit.
 
 ## La base de données MongoDB
 
-Le stockage des données se fait dans une base de données "objet", notre choix s'est porté sur MongoDB. L'adresse et le port de la base de données est spécifiée dans `./dbmongo/config.toml`.
+Le stockage des données se fait dans une base de données "objet", notre choix s'est porté sur MongoDB. L'adresse et le port de la base de données est spécifiée dans `./sfdata/config.toml`.
 
 Les différentes collections utilisées seront détaillées par la suite.
 
@@ -143,7 +143,7 @@ Le champ `complete_types` est utile pour le comportement de compactage (cf parag
 
 Le champ `param` est utile pour le calcul des variables (cf le paragraphe à ce sujet). Il définit l'étendu des périodes à traiter et la dernière période pour laquelle les données d'effectif sont disponibles.
 
-Les types définis dans [handlers.go](https://github.com/signaux-faibles/opensignauxfaibles/blob/master/dbmongo/handlers.go) (variable `registeredParsers`) et reconnus par [prepare-import](https://github.com/signaux-faibles/prepare-import) sont accessibles via:
+Les types définis dans [handlers.go](https://github.com/signaux-faibles/opensignauxfaibles/blob/master/sfdata/handlers.go) (variable `registeredParsers`) et reconnus par [prepare-import](https://github.com/signaux-faibles/prepare-import) sont accessibles via:
 
 ```
 http :3000/api/admin/types

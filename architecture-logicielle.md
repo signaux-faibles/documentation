@@ -15,7 +15,7 @@
 - [opensignauxfaibles](#opensignauxfaibles)
   - [Objectif](#objectif-1)
   - [Modules](#modules)
-    - [dbmongo](#dbmongo)
+    - [sfdata](#sfdata)
       - [Dépendances logicielles](#d%C3%A9pendances-logicielles)
       - [utilisation](#utilisation)
     - [module R/H2O](#module-rh2o)
@@ -155,7 +155,7 @@ Cette brique intègre le stockage de l'historique des données brutes, mais auss
 
 ### Modules
 
-#### dbmongo
+#### sfdata
 
 Ce module est écrit en go (1.10) et centralise les fonctions de traitement des données suivantes:
 
@@ -183,7 +183,7 @@ Ce module est écrit en go (1.10) et centralise les fonctions de traitement des 
 
 ##### utilisation
 
-dbmongo propose une api pour ordonner les traitements. Une documentation openapi est disponible [ici](https://raw.githubusercontent.com/signaux-faibles/opensignauxfaibles/master/dbmongo/docs/swagger/swagger.yaml)
+sfdata propose une api pour ordonner les traitements. Une documentation openapi est disponible [ici](https://raw.githubusercontent.com/signaux-faibles/opensignauxfaibles/master/sfdata/docs/swagger/swagger.yaml)
 
 #### module R/H2O
 
@@ -193,13 +193,13 @@ Ce module permet le traitement algorithmique. (à écrire)
 
 ![schéma](architecture-logicielle/workflow-osf.png)
 
-1. Lecture des fichiers bruts ([dbmongo](#dbmongo))
-1. Les données brutes sont converties et insérées dans mongodb ([dbmongo](#dbmongo))
-1. Les données sont compactées dans mongodb par un traitement map-reduce ([dbmongo](#dbmongo))
-1. Les variables sont calculées dans mongodb par un traitement map-reduce ([dbmongo](#dbmongo))
+1. Lecture des fichiers bruts ([sfdata](#sfdata))
+1. Les données brutes sont converties et insérées dans mongodb ([sfdata](#sfdata))
+1. Les données sont compactées dans mongodb par un traitement map-reduce ([sfdata](#sfdata))
+1. Les variables sont calculées dans mongodb par un traitement map-reduce ([sfdata](#sfdata))
 1. Le traitement algorithmique est effectué par le module [R/H2O](#module-rh2o)
 1. Les résultats sont injectés dans mongodb par le module [R/H2O](#module-rh2o)
-1. Les données nécessaires au frontend sont exportées dans datapi par le module ([dbmongo](#dbmongo))
+1. Les données nécessaires au frontend sont exportées dans datapi par le module ([sfdata](#sfdata))
 
 Pour plus de détail sur le traitement des données et les transformations qui leur sont appliquées, voir [ici](processus-traitement-donnees.md).
 
@@ -213,7 +213,7 @@ Il lui incombe de fournir à datapi:
 - les listes de détection (niveau A)
 - les badges de sécurité pour tous les objets exportés afin d'appliquer les niveaux de sécurité.
 
-Ce traitement est écrit en dur dans le code de dbmongo [ici](https://github.com/signaux-faibles/opensignauxfaibles/blob/master/dbmongo/lib/engine/datapi.go)
+Ce traitement est écrit en dur dans le code de sfdata [ici](https://github.com/signaux-faibles/opensignauxfaibles/blob/master/sfdata/lib/engine/datapi.go)
 
 ## datapi
 

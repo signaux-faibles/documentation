@@ -15,7 +15,7 @@
 - [Étape de calculs pour populer "`Features`"](#%C3%A9tape-de-calculs-pour-populer-features)
   - [1. Lancement de mongodb avec Docker](#1-lancement-de-mongodb-avec-docker)
   - [2. Préparation du répertoire de données `${DATA_DIR}`](#2-pr%C3%A9paration-du-r%C3%A9pertoire-de-donn%C3%A9es-data_dir)
-  - [3. Installation et configuration de `dbmongo`](#3-installation-et-configuration-de-dbmongo)
+  - [3. Installation et configuration de `sfdata`](#3-installation-et-configuration-de-sfdata)
   - [4. Ajout de données de test](#4-ajout-de-donn%C3%A9es-de-test)
   - [5. Exécution des calculs pour populer la collection "`Features`"](#5-ex%C3%A9cution-des-calculs-pour-populer-la-collection-features)
   - [6. En cas d'erreur – afficher le journal de MongoDB](#6-en-cas-derreur--afficher-le-journal-de-mongodb)
@@ -180,14 +180,14 @@ $ mkdir ${DATA_DIR}
 $ touch ${DATA_DIR}/dummy.csv
 ```
 
-### 3. Installation et configuration de `dbmongo`
+### 3. Installation et configuration de `sfdata`
 
 Exécutez les commandes suivantes:
 
 ```sh
 $ git clone https://github.com/signaux-faibles/opensignauxfaibles.git
 $ cd opensignauxfaibles
-$ cd dbmongo
+$ cd sfdata
 $ go build
 $ cp config-sample.toml config.toml
 $ sed -i '' "s,/foo/bar/data-raw,${DATA_DIR}," config.toml
