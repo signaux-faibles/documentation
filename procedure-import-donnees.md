@@ -46,10 +46,10 @@ Voici une illustration de la structure des répertoires attendue par `prepare-im
 La génération de _batch_ ou _sous-batch_ sera effectuée depuis le répertoire `/var/lib/goup_base/public`:
 
 ```sh
-$ cf /var/lib/goup_base/public
-$ prepare-import --batch 1801
-$ prepare-import --batch 1802
-$ prepare-import --batch 1802_01
+$ cd /var/lib/goup_base/public
+$ ~/prepare-import/prepare-import --batch 1801
+$ ~/prepare-import/prepare-import --batch 1802
+$ ~/prepare-import/prepare-import --batch 1802_01
 ```
 
 Les informations suivantes seront inférées automatiquement par `prepare-import`:
@@ -66,7 +66,7 @@ Depuis `ssh stockage -R 1080` (pour se connecter à `stockage` en partageant la 
 ```sh
 curl google.com --proxy socks5h://127.0.0.1:1080 # pour tester le bon fonctionnement du proxy http
 git config --global http.proxy 'socks5h://127.0.0.1:1080' # si nécéssaire: pour que git utilise le proxy
-cd /home/centos/prepare-import
+cd ~/prepare-import/
 git pull # pour mettre à jour les outils
 go build
 ```
@@ -79,7 +79,7 @@ Depuis `ssh stockage`:
 sudo su
 cd /var/lib/goup_base/public
 mkdir _<batch>_
-tools/goupy.py . # pour afficher les métadonnées de chaque fichier de données
+~/prepare-import/tools/goupy.py . # pour afficher les métadonnées de chaque fichier de données
 # /!\ Attention commande suivante non fonctionnelle !
 find -maxdepth 1 -ctime -10 -print0 | xargs -0 mv -t _<batch>_/
 ```
