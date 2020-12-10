@@ -148,53 +148,51 @@ killall sfdata
 cd opensignauxfaibles
 git pull
 go build
-./sfdata
 ```
 
-> Documentation de référence: [API servie par Golang](processus-traitement-donnees.md#lapi-servie-par-golang)
+> Documentation de référence: [Commande `sfdata`](processus-traitement-donnees.md#commande-sfdata)
 
 ## Lancer l'import
 
-Depuis `ssh stockage -t tmux att`:
+Depuis `ssh centos@labtenant -t tmux att`:
 
 ```sh
-http :3000/api/data/check batch="2002_1"
+cd opensignauxfaibles
+./sfdata check --batch="2002_1"
 ```
 
 Vérifier dans les logs que les fichiers sont bien valides. Corriger le batch si nécéssaire.
 
-Puis, toujours depuis `ssh stockage -t tmux att`:
+Puis, toujours depuis `ssh centos@labtenant -t tmux att`:
 
 ```sh
-http :3000/api/data/import batch="2002_1"
+cd opensignauxfaibles
+./sfdata import --batch="2002_1"
 ```
 
-> Documentation de référence: [Spécificités de l'import](processus-traitement-donnees.md#sp%C3%A9cificit%C3%A9s-de-limport)
+> Documentation de référence: [Workflow classique](processus-traitement-donnees.md#workflow-classique) et [Spécificités de l'import](processus-traitement-donnees.md#sp%C3%A9cificit%C3%A9s-de-limport)
 
 ## Lancer le compactage
 
 Le compactage consiste à intégrer dans la collection `RawData` les données du batch qui viennent d'être importées dans la collection `ImportedData`.
 
-Commencer par vérifier la validité des données importées, depuis `ssh stockage -t tmux att`:
+Commencer par vérifier la validité des données importées, depuis `ssh centos@labtenant -t tmux att`:
 
 ```sh
-http :3000/api/data/validate collection="ImportedData" # valider les données importées
-http :3000/api/data/validate collection="RawData"      # valider les données déjà en bdd (recommandé)
+cd opensignauxfaibles
+./sfdata validate --collection="ImportedData" # valider les données importées
+./sfdata validate --collection="RawData"      # valider les données déjà en bdd (recommandé)
 ```
 
-Afficher les entrées de données invalides depuis `ssh centos@labtenant -t tmux att`:
-
-```sh
-cd opensignauxfaibles/sfdata
-zcat <nom_du_fichier_retourné_par_API>
-```
+Les entrées de données invalides seront rendues dans la sortie standard.
 
 Puis, avant de lancer le compactage, corriger ou supprimer les entrées invalides éventuellement trouvées dans les collections `ImportedData` et/ou `Rawdata`.
 
-Une fois les données validées, toujours depuis `ssh stockage -t tmux att`:
+Une fois les données validées, toujours depuis `ssh centos@labtenant -t tmux att`:
 
 ```sh
-http :3000/api/data/compact batch="2002_1"
+cd opensignauxfaibles
+./sfdata compact --batch="2002_1"
 ```
 
 > Documentation de référence: [Spécificités du compactage](processus-traitement-donnees.md#sp%C3%A9cificit%C3%A9s-du-compactage)
@@ -208,14 +206,17 @@ http :3000/api/data/compact batch="2002_1"
 Dans le cas où certaines entités (entreprises et/ou établissements) seraient représentées dans la collection `RawData` alors qu'elles ne figurent pas dans le _périmètre SIREN_ (représenté par le fichier _filtre_ rattaché à tout _batch_ importé dans la base de donnée), il convient de les retirer afin d'alléger le stockage et les traitements de données.
 
 Ce traitement est destructif et irréversible, il convient de porter une attention particulière si le nombre de document à supprimer est conséquent.
-Pour celà, utiliser l'API `/data/pruneEntities` depuis `ssh stockage -t tmux att`:
+
+Pour celà, utiliser la commande `sfdata pruneEntities` depuis `ssh centos@labtenant -t tmux att`:
 
 ```sh
+cd opensignauxfaibles
+
 # dry-run, pour compter les entités à supprimer
-http :5000/api/data/pruneEntities batch=2010
+./sfdata pruneEntities --batch=2010 --dry-run
 
 # après vérification, supprimer ces entités de RawData
-http :5000/api/data/pruneEntities batch=2010 delete:=true
+./sfdata pruneEntities --batch=2010 --delete
 ```
 
 Remplacer l'identifiant de _batch_ par celui du dernier _batch_ importé avec un fichier _filtre_ à jour.

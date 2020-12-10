@@ -187,7 +187,6 @@ Exécutez les commandes suivantes:
 ```sh
 $ git clone https://github.com/signaux-faibles/opensignauxfaibles.git
 $ cd opensignauxfaibles
-$ cd sfdata
 $ go build
 $ cp config-sample.toml config.toml
 $ sed -i '' "s,/foo/bar/data-raw,${DATA_DIR}," config.toml
@@ -240,10 +239,11 @@ $ docker exec -it sf-mongodb mongo signauxfaibles
 
 ### 5. Exécution des calculs pour populer la collection "`Features`"
 
-Après avoir installé [HTTPie – command line HTTP client](https://httpie.org/), exécutez la commande suivante:
+Depuis `ssh centos@labtenant -t tmux att`:
 
 ```sh
-$ http :5000/api/data/reduce algo=algo2 batch=1910 key=012345678
+cd opensignauxfaibles
+./sfdata reduce --batch=1910 --key=012345678
 ```
 
 Puis vérifiez que la collection `Features_debug` a bien été populée par la chaine d'intégration:

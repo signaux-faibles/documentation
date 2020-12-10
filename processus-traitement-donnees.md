@@ -21,8 +21,6 @@
 
 Dans cette partie, nous explorons comment les données sont importées puis transformées par `sfdata`, à partir des fichiers bruts.
 
-Note: Vous pouvez installer la commande `http` utilisée dans les exemples de cette page à partir de [HTTPie – command line HTTP client](https://httpie.org/).
-
 ## Vue d'ensemble des canaux de transformation des données
 
 Le schéma ci-dessous montre les différentes étapes de transformation des données.
@@ -59,10 +57,13 @@ Le workflow classique d'intégration consiste à:
 
 - Constituer un objet `batch` listant les fichiers de données à importer (cf [procédure avec `prepare-import`](procedure-import-donnees.md)), puis l'insérer dans la collection `Admin`.
 
-- Lancer l'API:
+- Mettre à jour la commande `sfdata`, depuis `ssh centos@labtenant -t tmux att`:
 
   ```sh
-  $ go build && ./sfdata
+  killall sfdata
+  cd opensignauxfaibles
+  git pull
+  go build
   ```
 
 - Appeler séquentiellement les fonctions d'intégration (et de contrôle) pour importer, compacter les données puis calculer les variables avec les options idoines:
