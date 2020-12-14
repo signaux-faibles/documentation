@@ -195,10 +195,10 @@ Le compactage se lance avec la commande suivante:
 cd opensignauxfaibles
 ./sfdata compact [options]
 # Par exemple
-./sfdata compact --fromBatchKey="1804"
+./sfdata compact --since-batch="1804"
 ```
 
-L'option `fromBatchKey` indique le premier batch dans l'ordre alphabétique qui nécessite d'être compacté (c'est-à-dire qui a subi des changements). Tous les suivants le seront automatiquement.
+L'option `since-batch` indique le premier batch dans l'ordre alphabétique qui nécessite d'être compacté (c'est-à-dire qui a subi des changements). Tous les suivants le seront automatiquement.
 
 > Important: Le compactage est une opération difficilement réversible. Pour prévenir toute corruption de données et/ou interruption prématurée du compactage, nous recommandons de valider les données importées avant leur compactage, à l'aide de `./sfdata validate --collection="ImportedData"`. (cf [Procédure d'importation de données](procedure-import-donnees.md))
 
