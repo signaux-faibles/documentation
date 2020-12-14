@@ -243,7 +243,7 @@ Depuis `ssh centos@labtenant -t tmux att`:
 
 ```sh
 cd opensignauxfaibles
-./sfdata reduce --up-to-batch=1910 --key=012345678
+./sfdata reduce --until-batch=1910 --key=012345678
 ```
 
 Puis vérifiez que la collection `Features_debug` a bien été populée par la chaine d'intégration:

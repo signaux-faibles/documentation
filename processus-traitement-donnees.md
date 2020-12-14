@@ -79,8 +79,8 @@ Le workflow classique d'intégration consiste à:
   ./sfdata compact --since-batch="1904"
   ./sfdata validate --collection="RawData"
   # 3. Calcul et publication
-  ./sfdata reduce --up-to-batch="1904"
-  ./sfdata public --up-to-batch="1904"
+  ./sfdata reduce --until-batch="1904"
+  ./sfdata public --until-batch="1904"
   ```
 
 Au cours de l'import, un log des début et des fin d'intégration de fichiers et de types de fichiers sont loggés dans la collection `Journal`. (cf [Journalisation/Logging de l'intégration](journalisation-integration.md))
@@ -217,10 +217,10 @@ Le calcul des variables est lancé de la manière suivante:
 cd opensignauxfaibles
 ./sfdata reduce [options]
 # Par exemple
-./sfdata reduce --up-to-batch="1904" --key="01234567891011"
+./sfdata reduce --until-batch="1904" --key="01234567891011"
 ```
 
-Le paramètre obligatoire `up-to-batch` spécifie la clé du dernier batch intégré.
+Le paramètre obligatoire `until-batch` spécifie la clé du dernier batch intégré.
 
 Le paramètre facultatif `key` permet de ne faire tourner les calculs que pour un siret particulier, essentiellement pour des raisons de debugging. Les données sont alors importées dans la collection `Features_debug` plutôt que dans la collection `Features`.
 
@@ -232,7 +232,7 @@ La publication de variables est lancée de la manière suivante:
 cd opensignauxfaibles
 ./sfdata public [options]
 # Par exemple
-./sfdata public --up-to-batch="1904"
+./sfdata public --until-batch="1904"
 ```
 
-Le paramètre obligatoire `up-to-batch` spécifie la clé du dernier batch intégré.
+Le paramètre obligatoire `until-batch` spécifie la clé du dernier batch intégré.
