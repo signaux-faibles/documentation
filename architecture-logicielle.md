@@ -201,7 +201,7 @@ Ce module permet le traitement algorithmique. (à écrire)
 1. Les variables sont calculées dans mongodb par un traitement map-reduce ([sfdata](#sfdata))
 1. Le traitement algorithmique est effectué par le module [R/H2O](#module-rh2o)
 1. Les résultats sont injectés dans mongodb par le module [R/H2O](#module-rh2o)
-1. Les données nécessaires au frontend sont exportées dans datapi par le module ([sfdata](#sfdata))
+1. Les données nécessaires au frontend sont exportées dans un format destiné à datapi par le module ([sfdata](#sfdata))
 
 Pour plus de détail sur le traitement des données et les transformations qui leur sont appliquées, voir [ici](processus-traitement-donnees.md).
 
