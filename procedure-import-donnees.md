@@ -213,7 +213,7 @@ Pour celà, utiliser la commande `sfdata pruneEntities` depuis `ssh centos@labte
 cd opensignauxfaibles
 
 # dry-run, pour compter les entités à supprimer
-./sfdata pruneEntities --batch=2010 --dry-run
+./sfdata pruneEntities --batch=2010 --count
 
 # après vérification, supprimer ces entités de RawData
 ./sfdata pruneEntities --batch=2010 --delete
