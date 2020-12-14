@@ -217,12 +217,12 @@ Le calcul des variables est lancé de la manière suivante:
 cd opensignauxfaibles
 ./sfdata reduce [options]
 # Par exemple
-./sfdata reduce --until-batch="1904" --key="01234567891011"
+./sfdata reduce --until-batch="1904"
 ```
 
 Le paramètre obligatoire `until-batch` spécifie la clé du dernier batch intégré.
 
-Le paramètre facultatif `key` permet de ne faire tourner les calculs que pour un siret particulier, essentiellement pour des raisons de debugging. Les données sont alors importées dans la collection `Features_debug` plutôt que dans la collection `Features`.
+Le paramètre facultatif `key` permet de ne faire tourner les calculs que pour un siret particulier (ex: `--key="01234567891011"`), essentiellement pour des raisons de déboggage. Les données sont alors importées dans la collection `Features_debug` plutôt que dans la collection `Features`.
 
 ## Spécificités de la publication de données
 
