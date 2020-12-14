@@ -174,10 +174,14 @@ L'import est lancé de la manière suivante:
 cd opensignauxfaibles
 ./sfdata import [options]
 # Par exemple
-./sfdata import --batch="1904" --parsers="urssaf,diane"
+./sfdata import --batch="1904"
 ```
 
-Le paramètre obligatoire `batch` indique la clé du batch à importer. Le paramètre optionnel `parsers`, qui est entré sous forme de tableau, permet de sélectionner les parsers à faire tourner. Par défaut, tous les parsers du batch sont lancés, cette option permet de corriger un type de fichier en particulier en cas d'erreur pendant l'intégration.
+Le paramètre obligatoire `batch` indique la clé du batch à importer.
+
+Le paramètre optionnel `parsers` permet de sélectionner les parsers à employer. Cette option est pratique pour corriger un type de fichier en particulier, en cas d'erreur pendant l'intégration. Exemple: `--parsers="urssaf,diane"`.
+
+Par défaut, tous les parsers du batch sont employés.
 
 > Important: Pour prévenir l'intégration de données corrompues, nous recommandons l'usage de `./sfdata check` avant importation en base de données. (cf [Procédure d'importation de données](procedure-import-donnees.md))
 
