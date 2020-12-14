@@ -76,7 +76,7 @@ Le workflow classique d'intégration consiste à:
   ./sfdata import --batch="1904"
   # 2. Compactage
   ./sfdata validate --collection="ImportedData"
-  ./sfdata compact --fromBatchKey="1904"
+  ./sfdata compact --since-batch="1904"
   ./sfdata validate --collection="RawData"
   # 3. Calcul et publication
   ./sfdata reduce --up-to-batch="1904"
