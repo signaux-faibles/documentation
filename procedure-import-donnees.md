@@ -8,7 +8,7 @@
   - [Télécharger le fichier Siren](#t%C3%A9l%C3%A9charger-le-fichier-siren)
   - [Télécharger le fichier Diane](#t%C3%A9l%C3%A9charger-le-fichier-diane)
   - [Créer un objet admin pour l'intégration des données](#cr%C3%A9er-un-objet-admin-pour-lint%C3%A9gration-des-donn%C3%A9es)
-  - [(Re)lancer le serveur API `dbmongo` (optionnel)](#relancer-le-serveur-api-dbmongo-optionnel)
+  - [Mettre à jour la commande `sfdata` (optionnel)](#mettre-%C3%A0-jour-la-commande-sfdata-optionnel)
   - [Lancer l'import](#lancer-limport)
   - [Lancer le compactage](#lancer-le-compactage)
   - [Calcul des variables et génération de la liste de detection](#calcul-des-variables-et-g%C3%A9n%C3%A9ration-de-la-liste-de-detection)
@@ -24,7 +24,7 @@ Cette procédure décrit:
 
 - la structure recommandée pour organiser les fichiers par (sous-)batch;
 - comment récupérer les fichiers de données de nos partenaires;
-- comment constituer un objet `batch` à partir de ces fichiers, en vue de les importer dans la base de données MongoDB, à l'aide de `dbmongo`. (cf [Processus de traitement des données](processus-traitement-donnees.md))
+- comment constituer un objet `batch` à partir de ces fichiers, en vue de les importer dans la base de données MongoDB, à l'aide de `sfdata`. (cf [Processus de traitement des données](processus-traitement-donnees.md))
 
 La plupart de ces opérations sont menées sur `stockage`, serveur sur lequel sont reçus et conservés les fichiers régulièrement transmis par nos partenaires.
 
@@ -139,62 +139,60 @@ Penser à changer le nom du batch en langage naturel: ex "Février 2020".
 
 Insérer le document résultant dans la collection `Admin`.
 
-## (Re)lancer le serveur API `dbmongo` (optionnel)
+## Mettre à jour la commande `sfdata` (optionnel)
 
 Depuis `ssh centos@labtenant -t tmux att`:
 
 ```sh
-killall dbmongo
-cd opensignauxfaibles/dbmongo
+killall sfdata
+cd opensignauxfaibles
 git pull
 go build
-./dbmongo
 ```
 
-> Documentation de référence: [API servie par Golang](processus-traitement-donnees.md#lapi-servie-par-golang)
+> Documentation de référence: [Commande `sfdata`](processus-traitement-donnees.md#commande-sfdata)
 
 ## Lancer l'import
 
-Depuis `ssh stockage -t tmux att`:
+Depuis `ssh centos@labtenant -t tmux att`:
 
 ```sh
-http :3000/api/data/check batch="2002_1"
+cd opensignauxfaibles
+./sfdata check --batch="2002_1"
 ```
 
 Vérifier dans les logs que les fichiers sont bien valides. Corriger le batch si nécéssaire.
 
-Puis, toujours depuis `ssh stockage -t tmux att`:
+Puis, toujours depuis `ssh centos@labtenant -t tmux att`:
 
 ```sh
-http :3000/api/data/import batch="2002_1"
+cd opensignauxfaibles
+./sfdata import --batch="2002_1"
 ```
 
-> Documentation de référence: [Spécificités de l'import](processus-traitement-donnees.md#sp%C3%A9cificit%C3%A9s-de-limport)
+> Documentation de référence: [Workflow classique](processus-traitement-donnees.md#workflow-classique) et [Spécificités de l'import](processus-traitement-donnees.md#sp%C3%A9cificit%C3%A9s-de-limport)
 
 ## Lancer le compactage
 
 Le compactage consiste à intégrer dans la collection `RawData` les données du batch qui viennent d'être importées dans la collection `ImportedData`.
 
-Commencer par vérifier la validité des données importées, depuis `ssh stockage -t tmux att`:
+Commencer par vérifier la validité des données importées, depuis `ssh centos@labtenant -t tmux att`:
 
 ```sh
-http :3000/api/data/validate collection="ImportedData" # valider les données importées
-http :3000/api/data/validate collection="RawData"      # valider les données déjà en bdd (recommandé)
+cd opensignauxfaibles
+./sfdata validate --collection="ImportedData" # valider les données importées
+./sfdata validate --collection="RawData"      # valider les données déjà en bdd (recommandé)
 ```
 
-Afficher les entrées de données invalides depuis `ssh centos@labtenant -t tmux att`:
-
-```sh
-cd opensignauxfaibles/dbmongo
-zcat <nom_du_fichier_retourné_par_API>
-```
+Les entrées de données invalides seront rendues dans la sortie standard.
 
 Puis, avant de lancer le compactage, corriger ou supprimer les entrées invalides éventuellement trouvées dans les collections `ImportedData` et/ou `Rawdata`.
 
-Une fois les données validées, toujours depuis `ssh stockage -t tmux att`:
+Une fois les données validées, toujours depuis `ssh centos@labtenant -t tmux att`:
 
 ```sh
-http :3000/api/data/compact batch="2002_1"
+cd opensignauxfaibles
+./sfdata compact --batch="2002_1"
 ```
 
 > Documentation de référence: [Spécificités du compactage](processus-traitement-donnees.md#sp%C3%A9cificit%C3%A9s-du-compactage)
@@ -208,14 +206,17 @@ http :3000/api/data/compact batch="2002_1"
 Dans le cas où certaines entités (entreprises et/ou établissements) seraient représentées dans la collection `RawData` alors qu'elles ne figurent pas dans le _périmètre SIREN_ (représenté par le fichier _filtre_ rattaché à tout _batch_ importé dans la base de donnée), il convient de les retirer afin d'alléger le stockage et les traitements de données.
 
 Ce traitement est destructif et irréversible, il convient de porter une attention particulière si le nombre de document à supprimer est conséquent.
-Pour celà, utiliser l'API `/data/pruneEntities` depuis `ssh stockage -t tmux att`:
+
+Pour celà, utiliser la commande `sfdata pruneEntities` depuis `ssh centos@labtenant -t tmux att`:
 
 ```sh
+cd opensignauxfaibles
+
 # dry-run, pour compter les entités à supprimer
-http :5000/api/data/pruneEntities batch=2010
+./sfdata pruneEntities --batch=2010 --count
 
 # après vérification, supprimer ces entités de RawData
-http :5000/api/data/pruneEntities batch=2010 delete:=true
+./sfdata pruneEntities --batch=2010 --delete
 ```
 
 Remplacer l'identifiant de _batch_ par celui du dernier _batch_ importé avec un fichier _filtre_ à jour.

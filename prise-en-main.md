@@ -15,7 +15,7 @@
 - [Étape de calculs pour populer "`Features`"](#%C3%A9tape-de-calculs-pour-populer-features)
   - [1. Lancement de mongodb avec Docker](#1-lancement-de-mongodb-avec-docker)
   - [2. Préparation du répertoire de données `${DATA_DIR}`](#2-pr%C3%A9paration-du-r%C3%A9pertoire-de-donn%C3%A9es-data_dir)
-  - [3. Installation et configuration de `dbmongo`](#3-installation-et-configuration-de-dbmongo)
+  - [3. Installation et configuration de `sfdata`](#3-installation-et-configuration-de-sfdata)
   - [4. Ajout de données de test](#4-ajout-de-donn%C3%A9es-de-test)
   - [5. Exécution des calculs pour populer la collection "`Features`"](#5-ex%C3%A9cution-des-calculs-pour-populer-la-collection-features)
   - [6. En cas d'erreur – afficher le journal de MongoDB](#6-en-cas-derreur--afficher-le-journal-de-mongodb)
@@ -180,14 +180,13 @@ $ mkdir ${DATA_DIR}
 $ touch ${DATA_DIR}/dummy.csv
 ```
 
-### 3. Installation et configuration de `dbmongo`
+### 3. Installation et configuration de `sfdata`
 
 Exécutez les commandes suivantes:
 
 ```sh
 $ git clone https://github.com/signaux-faibles/opensignauxfaibles.git
 $ cd opensignauxfaibles
-$ cd dbmongo
 $ go build
 $ cp config-sample.toml config.toml
 $ sed -i '' "s,/foo/bar/data-raw,${DATA_DIR}," config.toml
@@ -240,13 +239,14 @@ $ docker exec -it sf-mongodb mongo signauxfaibles
 
 ### 5. Exécution des calculs pour populer la collection "`Features`"
 
-Après avoir installé [HTTPie – command line HTTP client](https://httpie.org/), exécutez la commande suivante:
+Depuis `ssh centos@labtenant -t tmux att`:
 
 ```sh
-$ http :5000/api/data/reduce algo=algo2 batch=1910 key=012345678
+cd opensignauxfaibles
+./sfdata reduce --until-batch=1910
 ```
 
-Puis vérifiez que la collection `Features_debug` a bien été populée par la chaine d'intégration:
+Puis vérifiez que la collection `Features` a bien été populée par la chaine d'intégration:
 
 ```sh
 $ docker exec -it sf-mongodb mongo signauxfaibles
@@ -258,7 +258,7 @@ $ docker exec -it sf-mongodb mongo signauxfaibles
 
 ### 6. En cas d'erreur – afficher le journal de MongoDB
 
-Il peut arriver qu'un appel API de traitement de données échoue et retourne le message d'erreur suivant: `erreurs constatées, consultez les journaux`.
+Il peut arriver qu'un traitement de données échoue et retourne le message d'erreur suivant: `erreurs constatées, consultez les journaux`.
 
 Dans ce cas, vous pouvez trouver le détail de ces erreurs dans les logs de MongoDB:
 
