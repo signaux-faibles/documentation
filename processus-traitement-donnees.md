@@ -148,26 +148,26 @@ Le champ `complete_types` est utile pour le comportement de compactage (cf parag
 
 Le champ `param` est utile pour le calcul des variables (cf le paragraphe à ce sujet). Il définit l'étendu des périodes à traiter et la dernière période pour laquelle les données d'effectif sont disponibles.
 
-Les types reconnus sont listés dans [handlers.go](https://github.com/signaux-faibles/opensignauxfaibles/blob/master/handlers.go) (variable `registeredParsers`) et dans [prepare-import](https://github.com/signaux-faibles/prepare-import/blob/master/prepareimport/filetypes.go).
+Les types reconnus sont listés dans [lib/parsing/main.go](https://github.com/signaux-faibles/opensignauxfaibles/blob/master/lib/parsing/main.go) (variable `registeredParsers`) et dans [prepare-import](https://github.com/signaux-faibles/prepare-import/blob/master/prepareimport/filetypes.go).
 
-| Parser              | type         | extension    | Scope                                 |
-| ------------------- | ------------ | ------------ | ------------------------------------- |
-| urssaf.Parser       | admin_urssaf | csv          | table etablissement <-> compte Urssaf |
-|                     | cotisation   | csv          | compte Urssaf                         |
-|                     | procol       | csv          | etablissement                         |
-|                     | debit        | csv          | compte Urssaf                         |
-|                     | effectif     | csv          | etablissement                         |
-|                     | delai        | csv          | compte Urssaf                         |
-|                     | dpae         | csv          | compte Urssaf                         |
-|                     | ccsf         | csv          | compte Urssaf                         |
-|                     | dmmo         | xlsx         | compte Urssaf                         |
-| apartconso.Parser   | apconso      | xlsx         | etablissement                         |
-| apartdemande.Parser | apdemande    | xlsx         | etablissement                         |
-| altares.Parser      | altares      | csv          | etablissement                         |
-| bdf.Parser          | bdf          | csv          | entreprise                            |
-| interim.Parser      | interim      | sas7dbat     | etablissement                         |
-| sirene.Parser       | sirene       | csv          | etablissement                         |
-| diane.Parser        | diane        | script + csv | entreprise                            |
+| Parser            | type         | extension    | Scope                                 |
+| ----------------- | ------------ | ------------ | ------------------------------------- |
+| urssaf.Parser     | admin_urssaf | csv          | table etablissement <-> compte Urssaf |
+|                   | cotisation   | csv          | compte Urssaf                         |
+|                   | procol       | csv          | etablissement                         |
+|                   | debit        | csv          | compte Urssaf                         |
+|                   | effectif     | csv          | etablissement                         |
+|                   | effectif_ent | csv          | entreprise                            |
+|                   | delai        | csv          | compte Urssaf                         |
+|                   | ccsf         | csv          | compte Urssaf                         |
+| apconso.Parser    | apconso      | xlsx         | etablissement                         |
+| apdemande.Parser  | apdemande    | xlsx         | etablissement                         |
+| bdf.Parser        | bdf          | csv          | entreprise                            |
+| sirene.Parser     | sirene       | csv          | etablissement                         |
+| sireneul.Parser   | sirene_ul    | csv          | entreprise                            |
+| diane.Parser      | diane        | script + csv | entreprise                            |
+| ellisphere.Parser | ellisphere   | xlsx         | entreprise                            |
+| paydex.Parser     | paydex       | csv          | entreprise                            |
 
 Les fichiers en provenance des urssaf ont été regroupées dans un parser spécifique du fait de leur dépendance à la table de correspondance entre comptes Urssaf et codes Siret, qui est ainsi chargée une seule fois en mémoire.
 
