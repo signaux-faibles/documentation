@@ -145,7 +145,7 @@ Le champ `complete_types` est utile pour le comportement de compactage (cf parag
 
 Le champ `param` est utile pour le calcul des variables (cf le paragraphe à ce sujet). Il définit l'étendu des périodes à traiter et la dernière période pour laquelle les données d'effectif sont disponibles.
 
-Les types reconnus sont listés dans [parsing/main.go](https://github.com/signaux-faibles/opensignauxfaibles/blob/master/parsing/main.go) (variable `registeredParsers`) et dans [prepare-import](https://github.com/signaux-faibles/prepare-import/blob/master/prepareimport/filetypes.go).
+Les types reconnus sont listés dans [lib/parsing/main.go](https://github.com/signaux-faibles/opensignauxfaibles/blob/master/lib/parsing/main.go) (variable `registeredParsers`) et dans [prepare-import](https://github.com/signaux-faibles/prepare-import/blob/master/prepareimport/filetypes.go).
 
 | Parser            | type         | extension    | Scope                                 |
 | ----------------- | ------------ | ------------ | ------------------------------------- |
