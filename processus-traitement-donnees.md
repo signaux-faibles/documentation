@@ -183,7 +183,10 @@ Le paramètre optionnel `parsers` permet de sélectionner les parsers à employe
 
 Par défaut, tous les parsers du batch sont employés.
 
-> Important: Pour prévenir l'intégration de données corrompues, nous recommandons l'usage de `./sfdata check` avant importation en base de données. (cf [Procédure d'importation de données](procedure-import-donnees.md))
+### Notes et recommandations
+
+- Pour prévenir l'intégration de données corrompues, nous recommandons l'usage de `./sfdata check` avant importation en base de données. (cf [Procédure d'importation de données](procedure-import-donnees.md))
+- Pour vider la collection `ImportedData`, vous pouvez utiliser la commande `sfdata purgeNotCompacted`.
 
 ## Spécificités du compactage
 
@@ -204,7 +207,10 @@ cd opensignauxfaibles
 
 L'option `since-batch` indique le premier batch dans l'ordre alphabétique qui nécessite d'être compacté (c'est-à-dire qui a subi des changements). Tous les suivants le seront automatiquement.
 
-> Important: Le compactage est une opération difficilement réversible. Pour prévenir toute corruption de données et/ou interruption prématurée du compactage, nous recommandons de valider les données importées avant leur compactage, à l'aide de `./sfdata validate --collection="ImportedData"`. (cf [Procédure d'importation de données](procedure-import-donnees.md))
+### Notes et recommandations
+
+- Le compactage est une opération difficilement réversible. Pour prévenir toute corruption de données et/ou interruption prématurée du compactage, nous recommandons de valider les données importées avant leur compactage, à l'aide de `./sfdata validate --collection="ImportedData"`. (cf [Procédure d'importation de données](procedure-import-donnees.md))
+- En cas d'erreur de manipulation ayant résulté en l'ajout de trop de données dans la collection `RawData`, vous pouvez utiliser les commandes `sfdata purge` (pour y supprimer les données d'une ou plusieurs entreprises) ou `sfdata pruneEntities` (pour y réappliquer le filtre de périmêtre SIREN, cf [Maintenance: nettoyage des données hors périmètre](procedure-import-donnees.md#maintenance-nettoyage-des-donn%C3%A9es-hors-p%C3%A9rim%C3%A8tre)).
 
 ## Spécificités des calculs de variables
 
@@ -236,3 +242,7 @@ cd opensignauxfaibles
 ```
 
 Le paramètre obligatoire `until-batch` spécifie la clé du dernier batch intégré.
+
+### Notes et recommandations
+
+- Pour publier les données de la collection `Public` (ex: dans `datapi`), vous pouvez utiliser les commandes d'export `sfdata etablissements` et `sfdata entreprises`.
