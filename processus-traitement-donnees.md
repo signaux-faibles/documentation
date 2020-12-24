@@ -12,9 +12,12 @@
 - [Commande `sfdata`](#commande-sfdata)
 - [La base de données MongoDB](#la-base-de-donn%C3%A9es-mongodb)
 - [Spécificités de l'import](#sp%C3%A9cificit%C3%A9s-de-limport)
+  - [Notes et recommandations](#notes-et-recommandations)
 - [Spécificités du compactage](#sp%C3%A9cificit%C3%A9s-du-compactage)
+  - [Notes et recommandations](#notes-et-recommandations-1)
 - [Spécificités des calculs de variables](#sp%C3%A9cificit%C3%A9s-des-calculs-de-variables)
 - [Spécificités de la publication de données](#sp%C3%A9cificit%C3%A9s-de-la-publication-de-donn%C3%A9es)
+  - [Notes et recommandations](#notes-et-recommandations-2)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
