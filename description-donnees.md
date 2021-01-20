@@ -35,6 +35,7 @@
   - [Données sur les délais](#donn%C3%A9es-sur-les-d%C3%A9lais)
   - [Données sur le procédures collectives](#donn%C3%A9es-sur-le-proc%C3%A9dures-collectives)
   - [Données sur les CCSF](#donn%C3%A9es-sur-les-ccsf)
+- [Variables fournies au modèle d'apprentissage (`Features`)](#variables-fournies-au-mod%C3%A8le-dapprentissage-features)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -677,3 +678,11 @@ Nous avons utilisé les données fournies par Altares concernant les défaillanc
 - **Code externe du stade** TODO
 
 - **Code externe de l'action** TODO
+
+## Variables fournies au modèle d'apprentissage (`Features`)
+
+L'exécution de la commande `sfdata reduce` (cf [Calcul des variables](processus-traitement-donnees.md#%C3%A9tape-3--calcul-des-variables)) génère des variables dans la collection `Features`, utilisées pour entrainer le modèle d'apprentissage et générer la liste de détection.
+
+Certaines de ces variables sont documentées dans la partie précédente ([Données importées](#donn%C3%A9es-import%C3%A9es)).
+
+Pour éviter une divergence de la documentation par rapport au calcul effectif de ces variables, la documentation des variables sera désormais extraite automatiquement depuis le code source des traitements correspondants. La documentation est disponible au format JSON, à l'adresse suivante: [opensignauxfaibles/variables.json](https://github.com/signaux-faibles/opensignauxfaibles/blob/master/js/reduce.algo2/docs/variables.json).
