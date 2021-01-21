@@ -91,7 +91,7 @@ On intègre pour l'algorithme également des données supplémentaires:
 date de création de l'établissement, présence ou non
 d'activité saisonnière.
 
-La description détaillée des variables du fichier Sirène est disponible [ici](https://static.data.gouv.fr/resources/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret-page-en-cours-de-construction/20181001-193247/description-fichier-stocketablissement.pdf).
+La description détaillée des variables du fichier Sirène est téléchargeable depuis le site Internet de la [Base Sirene des entreprises et de leurs établissements (SIREN, SIRET) - data.gouv.fr](https://www.data.gouv.fr/en/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/#_).
 
 ### Données financières de la Banque de France
 
