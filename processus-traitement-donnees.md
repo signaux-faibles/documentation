@@ -233,6 +233,8 @@ Le paramètre obligatoire `until-batch` spécifie la clé du dernier batch inté
 
 Le paramètre facultatif `key` permet de ne faire tourner les calculs que pour un siret particulier (ex: `--key="01234567891011"`), essentiellement pour des raisons de déboggage. Les données sont alors importées dans la collection `Features_debug` plutôt que dans la collection `Features`.
 
+Les variables de cette collection sont documentées dans: [Variables fournies au modèle d'apprentissage (`Features`)](#variables-fournies-au-mod%C3%A8le-dapprentissage-features).
+
 ## Spécificités de la publication de données
 
 La publication de variables est lancée de la manière suivante:
