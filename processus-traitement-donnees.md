@@ -150,24 +150,24 @@ Le champ `param` est utile pour le calcul des variables (cf le paragraphe à ce 
 
 Les types reconnus sont listés dans [lib/parsing/main.go](https://github.com/signaux-faibles/opensignauxfaibles/blob/master/lib/parsing/main.go) (variable `registeredParsers`) et dans [prepare-import](https://github.com/signaux-faibles/prepare-import/blob/master/prepareimport/filetypes.go).
 
-| Parser            | type         | extension    | Scope                                 |
-| ----------------- | ------------ | ------------ | ------------------------------------- |
-| urssaf.Parser     | admin_urssaf | csv          | table etablissement <-> compte Urssaf |
-|                   | cotisation   | csv          | compte Urssaf                         |
-|                   | procol       | csv          | etablissement                         |
-|                   | debit        | csv          | compte Urssaf                         |
-|                   | effectif     | csv          | etablissement                         |
-|                   | effectif_ent | csv          | entreprise                            |
-|                   | delai        | csv          | compte Urssaf                         |
-|                   | ccsf         | csv          | compte Urssaf                         |
-| apconso.Parser    | apconso      | xlsx         | etablissement                         |
-| apdemande.Parser  | apdemande    | xlsx         | etablissement                         |
-| bdf.Parser        | bdf          | csv          | entreprise                            |
-| sirene.Parser     | sirene       | csv          | etablissement                         |
-| sireneul.Parser   | sirene_ul    | csv          | entreprise                            |
-| diane.Parser      | diane        | script + csv | entreprise                            |
-| ellisphere.Parser | ellisphere   | xlsx         | entreprise                            |
-| paydex.Parser     | paydex       | csv          | entreprise                            |
+| Parser            | type         | extension      | Scope                                 |
+| ----------------- | ------------ | -------------- | ------------------------------------- |
+| urssaf.Parser     | admin_urssaf | .csv / .csv.gz | table etablissement <-> compte Urssaf |
+|                   | cotisation   | .csv / .csv.gz | compte Urssaf                         |
+|                   | procol       | .csv / .csv.gz | etablissement                         |
+|                   | debit        | .csv / .csv.gz | compte Urssaf                         |
+|                   | effectif     | .csv / .csv.gz | etablissement                         |
+|                   | effectif_ent | .csv / .csv.gz | entreprise                            |
+|                   | delai        | .csv / .csv.gz | compte Urssaf                         |
+|                   | ccsf         | .csv / .csv.gz | compte Urssaf                         |
+| apconso.Parser    | apconso      | .xlsx          | etablissement                         |
+| apdemande.Parser  | apdemande    | .xlsx          | etablissement                         |
+| bdf.Parser        | bdf          | .csv           | entreprise                            |
+| sirene.Parser     | sirene       | .csv           | etablissement                         |
+| sireneul.Parser   | sirene_ul    | .csv           | entreprise                            |
+| diane.Parser      | diane        | script + .csv  | entreprise                            |
+| ellisphere.Parser | ellisphere   | .xlsx          | entreprise                            |
+| paydex.Parser     | paydex       | .csv           | entreprise                            |
 
 Les fichiers en provenance des urssaf ont été regroupées dans un parser spécifique du fait de leur dépendance à la table de correspondance entre comptes Urssaf et codes Siret, qui est ainsi chargée une seule fois en mémoire.
 
