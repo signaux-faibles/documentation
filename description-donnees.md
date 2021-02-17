@@ -35,6 +35,9 @@
   - [Données sur les délais](#donn%C3%A9es-sur-les-d%C3%A9lais)
   - [Données sur le procédures collectives](#donn%C3%A9es-sur-le-proc%C3%A9dures-collectives)
   - [Données sur les CCSF](#donn%C3%A9es-sur-les-ccsf)
+  - [Ellisphere](#ellisphere)
+    - [1.1.1. Lexique et explication des concepts clés sur les liens Ellisphere](#111--lexique-et-explication-des-concepts-cl%C3%A9s-sur-les-liens-ellisphere)
+    - [1.1.2. Cas particuliers des Têtes de Groupe (TDG)](#112----cas-particuliers-des-t%C3%AAtes-de-groupe-tdg)
 - [Variables fournies au modèle d'apprentissage (`Features`)](#variables-fournies-au-mod%C3%A8le-dapprentissage-features)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -678,6 +681,101 @@ Nous avons utilisé les données fournies par Altares concernant les défaillanc
 - **Code externe du stade** TODO
 
 - **Code externe de l'action** TODO
+
+### Ellisphere
+
+Ellisphere fournit les liens financiers entre entités. (sociétés françaises ou étrangères, personnes physiques ou entités virtuelles)
+
+#### 1.1.1. Lexique et explication des concepts clés sur les liens Ellisphere
+
+Un **Lien Financier** est un lien capitalistique direct entre une personne morale, pourvue d’un capital social, et un actionnaire (personne morale, personne physique ou entité virtuelle, c.a.d. organisme non immatriculé ou groupe de personnes physiques).
+
+Un lien est égal à une relation entre 2 entités.
+
+Chaque lien est daté et sourcé.
+
+Le **pourcentage de détention directe** exprime la part mathématique du capital de la société détenue directement par l’entité actionnaire en direct.
+
+Les données saisies pour un lien financier entre 2 entités sont :
+
+- Pourcentage réel de détention - ou à défaut, les qualifications suivantes :
+
+  - Filiale / Majeur
+  - Contrôle
+  - Minorité de blocage
+  - Important
+  - Solde
+  - Significatif
+  - Mineur
+  - Indéterminé
+
+- Date et source de l’information
+
+L’ensemble des liens collectés sont hébergés sur les serveurs d’Ellisphere basés en France.
+
+L’entité qui détient une autre entité est nommée **actionnaire**.
+
+L’entité détenue par une entité est nommée **participation**.
+
+Une **filiale** est une participation supérieure à 50%.
+
+Un **groupe** est un ensemble de sociétés liées entre elles par des liens financiers. Un groupe est constitué de plusieurs entités et possède une tête de groupe.
+
+Une **tête de groupe** est une personne morale ou entité virtuelle déclarée comme actionnaire de référence. Toute entreprise ayant au moins une filiale peut être considérée comme tête de groupe.
+
+Ellisphere distingue deux types de tête de groupe.
+
+Le calcul des groupes permet ainsi de déterminer l’entité ayant le contrôle de l’entreprise sur laquelle on est positionné, mais au-delà du calcul, certaines entités sont définies manuellement comme tête de groupe car l’actionnaire au-dessus n’est pas significatif ou parce qu’elles sont référencées dans une cible commerciale ou privilégiée, on parle alors de **tête de groupe arbitrée** (l’arbitrage étant réalisé par l’expertise d’Ellisphere). On peut ainsi avoir plusieurs têtes de groupe dans un même organigramme. On parle alors de sous-groupe, ce qui permet d’isoler une branche de l’organigroupe.
+
+Exemple : BOUYGUES est considéré comme tête de groupe car les actionnaires au-dessus ne sont pas significatifs. Dans le groupe, on trouve plusieurs sous-groupes : BOUYGUES CONSTRUCTION, BOUYGUES TELECOM…
+
+La **Tête de groupe ultime** se définit elle comme l’actionnaire de plus haut niveau selon le calcul automatique (qui peut être égal à la tête de groupe).
+
+**Un lien groupe** est la somme des liens directs et indirects reliant 2 entités. On en déduit des pourcentages d’intérêt et de contrôle.
+
+Le **Rang** exprime le nombre d’intermédiaires entre 2 entités :
+
+- Rang 1 = lien direct entre l’actionnaire et la filiale (pas d’intermédiaire)
+- Rang 2 = lien entre l’actionnaire et la sous-filiale (1 intermédiaire)
+- Rang 3 = lien entre l’actionnaire et la sous-sous-filiale (2 intermédiaires)
+- Rang n = lien entre l’actionnaire et la sous-sous-…-filiale (n-1 intermédiaires)
+
+Le **Pourcentage d’intérêt** exprime la part mathématique du capital de la société détenue directement ou indirectement par l’entité mère.
+
+Le **Pourcentage de contrôle** traduit lui le lien de dépendance économique entre la société mère et les participations et cela à chaque niveau. Ellisphere distingue plusieurs niveaux de contrôle :
+
+- ECO50 (50%) = contrôle de droit
+- ECO40 (40%) = contrôle de fait
+- ECO33 (33.33%) = minorité de blocage
+- ECO20 (20%) = influence notable
+
+Avec le pourcentage de contrôle, Il s’agit de déterminer à quel degré un ensemble de têtes de groupe contrôle chacune des entités de la base de données.
+
+Une entité, dite tête de groupe, contrôle une société si elle contrôle une fraction de son capital supérieure à un seuil fixé.
+
+Si l’entité mère contrôle plus de x% du capital (le seuil), elle contrôle les participations de cette filiale de la même façon que celle-ci les contrôle.
+
+Si l’entité mère contrôle moins de x% du capital, elle ne contrôle ces participations qu’au prorata de son pourcentage dans cette filiale (pourcentage d’intérêt).
+
+La relation de contrôle est transitive.
+
+Si une entité C contrôle une société A qui contrôle elle-même une société B, alors l’entité C contrôle la société B.
+
+#### 1.1.2. Cas particuliers des Têtes de Groupe (TDG)
+
+Ellisphere fournira, si elle existe (= identifiée en tant que TDG dans la base Ellisphere):
+
+- La tête de groupe ultime (TDG Ultime) française ou étrangère,
+  - si la TDG ultime est étrangère, Ellisphere accompagnera cette information de la Tête de Groupe Française = dernière entreprise française identifiée comme « siren porteur ».
+
+**Pour les TDG ultimes étrangères identifiées** dans notre base, nous transmettrons l’ensemble des informations que nous connaissons :
+
+- Identifiant Ellisphere (appelé Ellinumber),
+- Raison sociale,
+- Adresse, code postal, ville, pays,
+- Pourcentage de contrôle du siren cible.
+
+**Pour les TDG ultimes françaises identifiées** dans notre base, nous transmettrons l’ensemble des informations inclues dans le fichier Entreprise.
 
 ## Variables fournies au modèle d'apprentissage (`Features`)
 
