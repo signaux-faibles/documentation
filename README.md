@@ -17,6 +17,7 @@
 - [Supervision](supervision.md) (wip)
 - [Staging frontend](staging-frontend.md)
 - [Journalisation/Logging de l'intégration](journalisation-integration.md)
+- [Comment intégrer une nouvelle source de données](integration-nouvelle-source-donnees.md)
 
 ## Présentation du projet
 
