@@ -15,14 +15,21 @@ Cette page donne la marche à suivre pour intégrer une nouvelle source de donn�
 
 ## Définition des attentes / Écriture de tests automatisés
 
-**TODO**
+Pré-requis:
 
-Exemples:
+- Se procurer des données d'exemple depuis cette source + la documentation de leur format
 
-- ajout de données (concises et anonymisées) de test: https://github.com/signaux-faibles/opensignauxfaibles/pull/277/files#diff-4d30c0a429c0bf0163db25dac95bf7578165e2f7418539a0a97f3dee99534986
-- inclusion du fichier de test dans `test-import.sh`: https://github.com/signaux-faibles/opensignauxfaibles/pull/277/files#diff-f51ecfd8355c3d64dbdf03c617e5c835fcc1c12c7a73203c43da1e2409fed425
-- ajout dans `registeredParsers`: https://github.com/signaux-faibles/opensignauxfaibles/pull/277/files#diff-aba77fcb5c2f400fe1392d619974a683863356e668b188ed70c548fba322b405R19
+- Vérifier que cette source de données n'est pas déjà supportée, ou redondante avec une source déjà supportée (cf [Description des données](https://github.com/signaux-faibles/documentation/blob/master/description-donnees.md), [Tableau des types de fichiers supportés](https://github.com/signaux-faibles/documentation/blob/master/processus-traitement-donnees.md#sp%C3%A9cificit%C3%A9s-de-limport) et [liste `registeredParsers` de `opensignauxfaibles`](https://github.com/signaux-faibles/opensignauxfaibles/blob/master/lib/parsing/main.go#L24))
 
+- Choisir un identifiant unique mais reconnaissable (ex: `paydex`, `sirene_ul`...) qui sera utilisé pour nommer le parseur, grouper les fichiers de ce type dans le `batch` et pour identifier la source d'erreurs éventuelles de parsing dans le Journal
+
+Étapes recommandées:
+
+1. Constituer un jeu de données concis et anonymisé (mais réaliste et représentatif) qui sera utilisé pour tester le bon fonctionnement du parseur et du reste de la chaine de traitement sur ces données. Exemple: [`lib/paydex/testData/paydexTestData.csv`](https://github.com/signaux-faibles/opensignauxfaibles/pull/277/files#diff-4d30c0a429c0bf0163db25dac95bf7578165e2f7418539a0a97f3dee99534986)
+
+2. Inclure ces données de test dans le `batch` de `test-import.sh`. Exemple: [ajout d'un fichier `paydex` dans la propriété `"files"`](https://github.com/signaux-faibles/opensignauxfaibles/pull/277/files#diff-f51ecfd8355c3d64dbdf03c617e5c835fcc1c12c7a73203c43da1e2409fed425)
+
+Ces premières étapes vont permettre de mesurer notre avancement pendant l'implémentation du parseur, en observant les résultats de chaque itération, après avoir exécuté `tests/test-import.sh`.
 ## Implémentation d'un parseur
 
 **TODO**
@@ -35,6 +42,8 @@ Exemples:
 - validation/alignement des types avec ceux en sortie du parseur => écrire un fichier JSON Schema: https://github.com/signaux-faibles/opensignauxfaibles/pull/318/files#diff-b2b971a31c7d966ef0a52bba76519c5ea5c5c52014abd24f9ba7c29d52740f48 => génération de `GeneratedTypes.d.ts`
 - ajout de la documentation des données: https://github.com/signaux-faibles/documentation/pull/37/files#diff-d1d9fa3a20207050840af2817a44919c8c226a5b59fd1d52e4c9b6f18982d941R685
 - ajout dans la liste des fichiers supportés: https://github.com/signaux-faibles/documentation/pull/33/files#diff-6dcf1abaea3e6c2845c1fb9ba63930e0f3dc16715cf65d821cf6e4bb514a207dR167
+
+3. Ajouter dans `registeredParsers`: https://github.com/signaux-faibles/opensignauxfaibles/pull/277/files#diff-aba77fcb5c2f400fe1392d619974a683863356e668b188ed70c548fba322b405R19
 
 ## Publication des données sur le web
 
