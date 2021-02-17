@@ -36,8 +36,8 @@
   - [Données sur le procédures collectives](#donn%C3%A9es-sur-le-proc%C3%A9dures-collectives)
   - [Données sur les CCSF](#donn%C3%A9es-sur-les-ccsf)
   - [Ellisphere](#ellisphere)
-    - [1.1.1. Lexique et explication des concepts clés sur les liens Ellisphere](#111--lexique-et-explication-des-concepts-cl%C3%A9s-sur-les-liens-ellisphere)
-    - [1.1.2. Cas particuliers des Têtes de Groupe (TDG)](#112----cas-particuliers-des-t%C3%AAtes-de-groupe-tdg)
+    - [1.1.1. Lexique et explication des concepts clés sur les liens Ellisphere](#111-lexique-et-explication-des-concepts-cl%C3%A9s-sur-les-liens-ellisphere)
+    - [1.1.2. Cas particuliers des Têtes de Groupe (TDG)](#112-cas-particuliers-des-t%C3%AAtes-de-groupe-tdg)
 - [Variables fournies au modèle d'apprentissage (`Features`)](#variables-fournies-au-mod%C3%A8le-dapprentissage-features)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
