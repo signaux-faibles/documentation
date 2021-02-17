@@ -1,24 +1,17 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-- [Comment intégrer une nouvelle source de données](#comment-int%C3%A9grer-une-nouvelle-source-de-donn%C3%A9es)
-  - [Définition des attentes / Écriture de tests automatisés](#d%C3%A9finition-des-attentes--%C3%A9criture-de-tests-automatis%C3%A9s)
-  - [Implémentation d'un parseur](#impl%C3%A9mentation-dun-parseur)
-  - [Publication des données sur le web](#publication-des-donn%C3%A9es-sur-le-web)
-  - [Pré-traitement des données pour l'apprentissage et la génération de listes](#pr%C3%A9-traitement-des-donn%C3%A9es-pour-lapprentissage-et-la-g%C3%A9n%C3%A9ration-de-listes)
-  - [Détection des fichiers pour population automatique du `batch` à importer](#d%C3%A9tection-des-fichiers-pour-population-automatique-du-batch-%C3%A0-importer)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 # Comment intégrer une nouvelle source de données
 
 Cette page donne la marche à suivre pour intégrer une nouvelle source de données, en plusieurs étapes:
 
-1. définition des attentes / écriture de tests automatisés
-2. implémentation d'un parseur
-3. publication des données sur le web
-4. pré-traitement des données pour l'apprentissage et la génération de listes
-5. détection des fichiers pour population automatique du `batch` à importer
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Définition des attentes / Écriture de tests automatisés](#d%C3%A9finition-des-attentes--%C3%A9criture-de-tests-automatis%C3%A9s)
+- [Implémentation d'un parseur](#impl%C3%A9mentation-dun-parseur)
+- [Publication des données sur le web](#publication-des-donn%C3%A9es-sur-le-web)
+- [Pré-traitement des données pour l'apprentissage et la génération de listes](#pr%C3%A9-traitement-des-donn%C3%A9es-pour-lapprentissage-et-la-g%C3%A9n%C3%A9ration-de-listes)
+- [Détection des fichiers pour population automatique du `batch` à importer](#d%C3%A9tection-des-fichiers-pour-population-automatique-du-batch-%C3%A0-importer)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Définition des attentes / Écriture de tests automatisés
 
