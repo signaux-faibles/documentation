@@ -6,12 +6,15 @@ Cette page donne la marche à suivre pour intégrer une nouvelle source de donn�
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Définition des attentes / Écriture de tests automatisés](#d%C3%A9finition-des-attentes--%C3%A9criture-de-tests-automatis%C3%A9s)
-- [Implémentation d'un parseur](#impl%C3%A9mentation-dun-parseur)
+- [Implémentation du parseur](#impl%C3%A9mentation-du-parseur)
+- [Mise à disposition des données pour la chaine de traitement](#mise-%C3%A0-disposition-des-donn%C3%A9es-pour-la-chaine-de-traitement)
 - [Publication des données sur le web](#publication-des-donn%C3%A9es-sur-le-web)
 - [Pré-traitement des données pour l'apprentissage et la génération de listes](#pr%C3%A9-traitement-des-donn%C3%A9es-pour-lapprentissage-et-la-g%C3%A9n%C3%A9ration-de-listes)
 - [Détection des fichiers pour population automatique du `batch` à importer](#d%C3%A9tection-des-fichiers-pour-population-automatique-du-batch-%C3%A0-importer)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+La plupart de ces étapes auront pour effet d'enrichir les fonctionnalités de la commande `sfdata`, en modifiant le code source du dépôt [signaux-faibles/opensignauxfaibles](https://github.com/signaux-faibles/opensignauxfaibles).
 
 ## Définition des attentes / Écriture de tests automatisés
 
@@ -31,20 +34,31 @@ Pré-requis:
 
 Ces premières étapes vont permettre de mesurer notre avancement pendant l'implémentation du parseur, en observant les résultats de chaque itération, après avoir exécuté `tests/test-import.sh`.
 
-## Implémentation d'un parseur
+## Implémentation du parseur
 
-**TODO**
+Étapes recommandées:
 
-Exemples:
+1. Écrire un test unitaire pour définir les données attendues en sortie du parseur, après lecture du jeu de données de test constitué à l'étape précédente. Ce test passera une fois que le parseur sera correctement implémenté. Exemple: [`"should parse a valid row"` défini pour le parseur `paydex`](https://github.com/signaux-faibles/opensignauxfaibles/pull/277/files#diff-45a283bb3b7bb926cb7afc4a9a70de90ab30727c00c24b5505e05cc8be77003cR18)
 
-- écriture de tests unitaires: https://github.com/signaux-faibles/opensignauxfaibles/pull/277/files#diff-45a283bb3b7bb926cb7afc4a9a70de90ab30727c00c24b5505e05cc8be77003c
-- écriture du parseur: https://github.com/signaux-faibles/opensignauxfaibles/pull/277/files#diff-a41d55843c143ae9786efd5d5f224a1ad0dede3a589e379ff502ff6c5b037979
-- ajout dans type `EntrepriseBatchProps` et/ou `EtablissementBatchProps`: https://github.com/signaux-faibles/opensignauxfaibles/pull/280/files#diff-db5088da2bac6b883d2bbe137667636a1c70cb51dbb0f8ce32ebf0722c32eb71R59
-- validation/alignement des types avec ceux en sortie du parseur => écrire un fichier JSON Schema: https://github.com/signaux-faibles/opensignauxfaibles/pull/318/files#diff-b2b971a31c7d966ef0a52bba76519c5ea5c5c52014abd24f9ba7c29d52740f48 => génération de `GeneratedTypes.d.ts`
+2. Définir le type `struct` en sortie du parseur, sans oublier d'implémenter les méthodes `Key()`, `Scope()` et `Type()` associées. Exemple: [type `Paydex`](https://github.com/signaux-faibles/opensignauxfaibles/pull/277/files#diff-a41d55843c143ae9786efd5d5f224a1ad0dede3a589e379ff502ff6c5b037979R24)
+
+3. Écrire le parseur en implémentant les méthodes attendues par l'interface `marshal/parser.go` puis définir une variable publique contenant une instance de ce parseur. Exemple: [instance de `paydexParser`](https://github.com/signaux-faibles/opensignauxfaibles/pull/277/files#diff-a41d55843c143ae9786efd5d5f224a1ad0dede3a589e379ff502ff6c5b037979R46)
+
+4. Ajouter l'instance du parseur dans `registeredParsers`. Exemple: [association de l'instance `paydex.ParserPaydex` à l'identifiant `paydex`](https://github.com/signaux-faibles/opensignauxfaibles/pull/277/files#diff-aba77fcb5c2f400fe1392d619974a683863356e668b188ed70c548fba322b405R35)
+
+5. Exécuter `go generate ./...`, `make` puis `tests/test-import.sh --update` pour inclure dans `tests/output-snapshots/test-import.golden.txt` les données parsées depuis le jeu de données de test. Si nécéssaire, effectuer des modifications du parseurs puis ré-exécuter ces commandes.
+
+## Mise à disposition des données pour la chaine de traitement
+
+Étapes recommandées:
+
 - ajout de la documentation des données: https://github.com/signaux-faibles/documentation/pull/37/files#diff-d1d9fa3a20207050840af2817a44919c8c226a5b59fd1d52e4c9b6f18982d941R685
+
 - ajout dans la liste des fichiers supportés: https://github.com/signaux-faibles/documentation/pull/33/files#diff-6dcf1abaea3e6c2845c1fb9ba63930e0f3dc16715cf65d821cf6e4bb514a207dR167
 
-3. Ajouter dans `registeredParsers`: https://github.com/signaux-faibles/opensignauxfaibles/pull/277/files#diff-aba77fcb5c2f400fe1392d619974a683863356e668b188ed70c548fba322b405R19
+- ajout dans type `EntrepriseBatchProps` et/ou `EtablissementBatchProps`: https://github.com/signaux-faibles/opensignauxfaibles/pull/280/files#diff-db5088da2bac6b883d2bbe137667636a1c70cb51dbb0f8ce32ebf0722c32eb71R59
+
+- validation/alignement des types avec ceux en sortie du parseur => écrire un fichier JSON Schema: https://github.com/signaux-faibles/opensignauxfaibles/pull/318/files#diff-b2b971a31c7d966ef0a52bba76519c5ea5c5c52014abd24f9ba7c29d52740f48 => génération de `GeneratedTypes.d.ts`
 
 ## Publication des données sur le web
 
