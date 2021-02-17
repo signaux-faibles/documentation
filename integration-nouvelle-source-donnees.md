@@ -50,16 +50,21 @@ Ces premières étapes vont permettre de mesurer notre avancement pendant l'impl
 
 ## Mise à disposition des données pour la chaine de traitement
 
+Une fois le parseur fonctionnel et correctement testé, nous allons documenter les données qu'il intègre puis rendre ces données exploitables par les commandes `sfdata public` et `sfdata reduce`.
+
 Étapes recommandées:
 
-- ajout de la documentation des données: https://github.com/signaux-faibles/documentation/pull/37/files#diff-d1d9fa3a20207050840af2817a44919c8c226a5b59fd1d52e4c9b6f18982d941R685
+1. Ajouter une section dans [`description-donnees.md`](https://github.com/signaux-faibles/documentation/blob/master/description-donnees.md) pour décrire la source des données. Exemple: [ajout de la documentation des données Ellisphere](https://github.com/signaux-faibles/documentation/pull/37/files#diff-d1d9fa3a20207050840af2817a44919c8c226a5b59fd1d52e4c9b6f18982d941R686)
 
-- ajout dans la liste des fichiers supportés: https://github.com/signaux-faibles/documentation/pull/33/files#diff-6dcf1abaea3e6c2845c1fb9ba63930e0f3dc16715cf65d821cf6e4bb514a207dR167
+2. Ajouter la source dans la liste des fichiers supportés, de [`processus-traitement-donnees.md`](https://github.com/signaux-faibles/documentation/blob/master/processus-traitement-donnees.md#sp%C3%A9cificit%C3%A9s-de-limport). Exemple: [ajout de la source `paydex` dans la liste](https://github.com/signaux-faibles/documentation/pull/33/files#diff-6dcf1abaea3e6c2845c1fb9ba63930e0f3dc16715cf65d821cf6e4bb514a207dR167)
 
-- ajout dans type `EntrepriseBatchProps` et/ou `EtablissementBatchProps`: https://github.com/signaux-faibles/opensignauxfaibles/pull/280/files#diff-db5088da2bac6b883d2bbe137667636a1c70cb51dbb0f8ce32ebf0722c32eb71R59
+3. Pour permettre la validation des données importées en base de données ainsi que pour garantir l'alignement de leur structure (en sortie du parseur) avec les types qui seront manipulés en TypeScript/JavaScript par la chaine de traitements, écrire un fichier JSON Schema dans le [répertoire `validation`](https://github.com/signaux-faibles/opensignauxfaibles/tree/master/validation) et le référencer dans [la liste `typesToCompare` de `validation/validation_test.go`](https://github.com/signaux-faibles/opensignauxfaibles/blob/master/validation/validation_test.go#L113).
 
-- validation/alignement des types avec ceux en sortie du parseur => écrire un fichier JSON Schema: https://github.com/signaux-faibles/opensignauxfaibles/pull/318/files#diff-b2b971a31c7d966ef0a52bba76519c5ea5c5c52014abd24f9ba7c29d52740f48 => génération de `GeneratedTypes.d.ts`
+4. Générer les types TypeScript (`js/GeneratedTypes.d.ts`) à l'aide de la commande `go generate ./...` puis exécuter `go test ./...` pour s'assurer que le fichier JSON Schema est aligné avec la structure en sortie du parseur.
 
+5. Ajouter un champ pour la nouvelle source de données dans le type `EntrepriseBatchProps` ou `EtablissementBatchProps` de [`js/RawDataTypes.ts`](https://github.com/signaux-faibles/opensignauxfaibles/blob/master/js/RawDataTypes.ts). Utiliser l'identifiant de la source de données en guise de clé et le type TypeScript correspondant, celui qui a été ajouté à `js/GeneratedTypes.d.ts` dans l'étape précédente. Dans les documents de la collection `RawData`, cette propriété contiendra les données de la nouvelle source, classées par `hash`. Exemple: [ajout de `paydex: ParHash<EntréePaydex>` dans le type `EntrepriseBatchProps`](https://github.com/signaux-faibles/opensignauxfaibles/pull/280/files#diff-db5088da2bac6b883d2bbe137667636a1c70cb51dbb0f8ce32ebf0722c32eb71R59)
+
+  > Note: cet ajout aura pour effet de rendre incomplets les jeux de données employés par des tests d'intégration définis dans les répertoires `js/public/` et `js/reduce.algo2/`. Nous allons compléter ces données de tests dans les étapes suivantes.
 ## Publication des données sur le web
 
 **TODO**
