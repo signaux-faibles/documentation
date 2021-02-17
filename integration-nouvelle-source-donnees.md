@@ -32,6 +32,9 @@ Exemples:
 - écriture de tests unitaires: https://github.com/signaux-faibles/opensignauxfaibles/pull/277/files#diff-45a283bb3b7bb926cb7afc4a9a70de90ab30727c00c24b5505e05cc8be77003c
 - écriture du parseur: https://github.com/signaux-faibles/opensignauxfaibles/pull/277/files#diff-a41d55843c143ae9786efd5d5f224a1ad0dede3a589e379ff502ff6c5b037979
 - ajout dans type `EntrepriseBatchProps` et/ou `EtablissementBatchProps`: https://github.com/signaux-faibles/opensignauxfaibles/pull/280/files#diff-db5088da2bac6b883d2bbe137667636a1c70cb51dbb0f8ce32ebf0722c32eb71R59
+- validation/alignement des types avec ceux en sortie du parseur => écrire un fichier JSON Schema: https://github.com/signaux-faibles/opensignauxfaibles/pull/318/files#diff-b2b971a31c7d966ef0a52bba76519c5ea5c5c52014abd24f9ba7c29d52740f48 => génération de `GeneratedTypes.d.ts`
+- ajout de la documentation des données: https://github.com/signaux-faibles/documentation/pull/37/files#diff-d1d9fa3a20207050840af2817a44919c8c226a5b59fd1d52e4c9b6f18982d941R685
+- ajout dans la liste des fichiers supportés: https://github.com/signaux-faibles/documentation/pull/33/files#diff-6dcf1abaea3e6c2845c1fb9ba63930e0f3dc16715cf65d821cf6e4bb514a207dR167
 
 ## Publication des données sur le web
 
@@ -51,6 +54,9 @@ Exemples:
 - test d'intégration par ajout dans `rawEntrData` et/ou `rawEtabData`: https://github.com/signaux-faibles/opensignauxfaibles/pull/284/files#diff-18cc393cea779aa67a061bf323932ed0f0c499e986e18e6f12744a8364ee8f9eR132
 - intégration dans `reduce.algo2/map.ts`: https://github.com/signaux-faibles/opensignauxfaibles/pull/284/files#diff-f059593bf57f4dc717825eab1fa6d2614c9df5b33e5d16175062538ef9db4fe8
 - écriture de tests unitaires: https://github.com/signaux-faibles/opensignauxfaibles/pull/284/files#diff-706ca5d4f2746d02d28ff5d5f6fa5eedc38322f8056437bd52f0c6338a531c67
+- description des champs pour génération automatique de documentation (`js/reduce.algo2/docs/variables.json`):
+  1. ajouter commentaires JSDoc sur chaque champ: https://github.com/signaux-faibles/opensignauxfaibles/pull/296/files#diff-7f402bfddb6fe578a1fa2c55f03931127de178ee44c4e6c82bca6ac5eafaa293R5
+  2. exporter un type `Variables`: https://github.com/signaux-faibles/opensignauxfaibles/pull/296/files#diff-dc4940c77ded6c779957cbc2e53475d07cb6d3ac04838d5f80674da9ee0ec446R12
 
 ## Détection des fichiers pour population automatique du `batch` à importer
 
