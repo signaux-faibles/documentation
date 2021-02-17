@@ -776,7 +776,27 @@ Ellisphere fournira, si elle existe (= identifiée en tant que TDG dans la base 
 - Pourcentage de contrôle du siren cible.
 
 **Pour les TDG ultimes françaises identifiées** dans notre base, nous transmettrons l’ensemble des informations inclues dans le fichier Entreprise.
-
+#### 1.1.3. Structure du fichier
+- GRP Personne PouM: Type de la Tête de Groupe (P=Personne Phyisque M=Personne Morale G=Etatique)
+- GRP SIREN 9: Siren Tête de Groupe
+- GRP RefID: Identifiant Interne BDD
+- GRP Raison Sociale: Dénomination Tête de Groupe
+- GRP Adresse: Adresse Tête de Groupe
+- GRP Code Postal: Code Postal Tête de Groupe
+- GRP Ville: Ville Tête de Groupe
+- GRP Pays: Pays Tête de Groupe
+- Niveau de détention: Niveau de détention de la Tête de Groupe par rapport à sa Filiale
+- % Financier: % Financier de détention de la Tête de Groupe par rapport à sa Filiale
+- Tranche % Financier: A = Plus de 50 % de détention, B = De 50 à 25,01 % de détention, C = Moins de 25,01% % de détention
+- FIL Code: Identifiant Interne BDD LF
+- FIL Personne PouM: Type de la Tête de Groupe : P=Personne Phyisque M=Personne Morale
+- FIL SIREN 9: Siren de la Filiale
+- FIL RefID: Identifiant Interne BDD
+- FIL Raison Sociale: Dénomination de la Filiale
+- FIL Adresse: Adresse de la Filiale
+- FIL Code Postal: Code Postal de la Filiale
+- FIL Ville: Ville de la Filiale
+- FIL Pays: Pays de la Filiale
 ## Variables fournies au modèle d'apprentissage (`Features`)
 
 L'exécution de la commande `sfdata reduce` (cf [Calcul des variables](processus-traitement-donnees.md#%C3%A9tape-3--calcul-des-variables)) génère des variables dans la collection `Features`, utilisées pour entrainer le modèle d'apprentissage et générer la liste de détection.
