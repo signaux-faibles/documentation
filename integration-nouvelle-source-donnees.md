@@ -30,6 +30,7 @@ Pré-requis:
 2. Inclure ces données de test dans le `batch` de `test-import.sh`. Exemple: [ajout d'un fichier `paydex` dans la propriété `"files"`](https://github.com/signaux-faibles/opensignauxfaibles/pull/277/files#diff-f51ecfd8355c3d64dbdf03c617e5c835fcc1c12c7a73203c43da1e2409fed425)
 
 Ces premières étapes vont permettre de mesurer notre avancement pendant l'implémentation du parseur, en observant les résultats de chaque itération, après avoir exécuté `tests/test-import.sh`.
+
 ## Implémentation d'un parseur
 
 **TODO**
