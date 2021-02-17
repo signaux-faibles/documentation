@@ -38,6 +38,7 @@
   - [Ellisphere](#ellisphere)
     - [1.1.1. Lexique et explication des concepts clés sur les liens Ellisphere](#111-lexique-et-explication-des-concepts-cl%C3%A9s-sur-les-liens-ellisphere)
     - [1.1.2. Cas particuliers des Têtes de Groupe (TDG)](#112-cas-particuliers-des-t%C3%AAtes-de-groupe-tdg)
+    - [1.1.3. Structure du fichier](#113-structure-du-fichier)
 - [Variables fournies au modèle d'apprentissage (`Features`)](#variables-fournies-au-mod%C3%A8le-dapprentissage-features)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -776,7 +777,9 @@ Ellisphere fournira, si elle existe (= identifiée en tant que TDG dans la base 
 - Pourcentage de contrôle du siren cible.
 
 **Pour les TDG ultimes françaises identifiées** dans notre base, nous transmettrons l’ensemble des informations inclues dans le fichier Entreprise.
+
 #### 1.1.3. Structure du fichier
+
 - GRP Personne PouM: Type de la Tête de Groupe (P=Personne Phyisque M=Personne Morale G=Etatique)
 - GRP SIREN 9: Siren Tête de Groupe
 - GRP RefID: Identifiant Interne BDD
@@ -797,6 +800,7 @@ Ellisphere fournira, si elle existe (= identifiée en tant que TDG dans la base 
 - FIL Code Postal: Code Postal de la Filiale
 - FIL Ville: Ville de la Filiale
 - FIL Pays: Pays de la Filiale
+
 ## Variables fournies au modèle d'apprentissage (`Features`)
 
 L'exécution de la commande `sfdata reduce` (cf [Calcul des variables](processus-traitement-donnees.md#%C3%A9tape-3--calcul-des-variables)) génère des variables dans la collection `Features`, utilisées pour entrainer le modèle d'apprentissage et générer la liste de détection.
