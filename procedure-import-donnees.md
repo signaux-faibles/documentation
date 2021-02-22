@@ -141,7 +141,7 @@ Insérer le document résultant dans la collection `Admin`.
 
 ## Mettre à jour la commande `sfdata` (optionnel)
 
-Depuis `ssh centos@labtenant`:
+Depuis `ssh centos@labtenant -R 1080` (pour partager la connexion internet locale):
 
 ```sh
 killall sfdata
@@ -207,7 +207,7 @@ Dans le cas où certaines entités (entreprises et/ou établissements) seraient 
 
 Ce traitement est destructif et irréversible, il convient de porter une attention particulière si le nombre de document à supprimer est conséquent.
 
-Pour celà, utiliser la commande `sfdata pruneEntities` depuis `ssh centos@labtenant`:
+Pour cela, utiliser la commande `sfdata pruneEntities` depuis `ssh centos@labtenant`:
 
 ```sh
 cd opensignauxfaibles

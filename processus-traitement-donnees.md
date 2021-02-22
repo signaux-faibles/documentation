@@ -61,7 +61,7 @@ Le workflow classique d'intégration consiste à:
 
 - Constituer un objet `batch` listant les fichiers de données à importer (cf [procédure avec `prepare-import`](procedure-import-donnees.md)), puis l'insérer dans la collection `Admin`.
 
-- Mettre à jour la commande `sfdata`, depuis `ssh centos@labtenant`:
+- Mettre à jour la commande `sfdata`, depuis `ssh centos@labtenant -R 1080` (pour partager la connexion internet locale):
 
   ```sh
   killall sfdata
