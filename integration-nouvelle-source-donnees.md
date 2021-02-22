@@ -64,7 +64,8 @@ Une fois le parseur fonctionnel et correctement testé, nous allons documenter l
 
 5. Ajouter un champ pour la nouvelle source de données dans le type `EntrepriseBatchProps` ou `EtablissementBatchProps` de [`js/RawDataTypes.ts`](https://github.com/signaux-faibles/opensignauxfaibles/blob/master/js/RawDataTypes.ts). Utiliser l'identifiant de la source de données en guise de clé et le type TypeScript correspondant, celui qui a été ajouté à `js/GeneratedTypes.d.ts` dans l'étape précédente. Dans les documents de la collection `RawData`, cette propriété contiendra les données de la nouvelle source, classées par `hash`. Exemple: [ajout de `paydex: ParHash<EntréePaydex>` dans le type `EntrepriseBatchProps`](https://github.com/signaux-faibles/opensignauxfaibles/pull/280/files#diff-db5088da2bac6b883d2bbe137667636a1c70cb51dbb0f8ce32ebf0722c32eb71R59)
 
-  > Note: cet ajout aura pour effet de rendre incomplets les jeux de données employés par des tests d'intégration définis dans les répertoires `js/public/` et `js/reduce.algo2/`. Nous allons compléter ces données de tests dans les étapes suivantes.
+> Note: cet ajout aura pour effet de rendre incomplets les jeux de données employés par des tests d'intégration définis dans les répertoires `js/public/` et `js/reduce.algo2/`. Nous allons compléter ces données de tests dans les étapes suivantes.
+
 ## Publication des données sur le web
 
 La publication de données sur l'application web de Signaux Faible commence par l'exécution d'une opération map-reduce sur la collection `RawData` appelant des fonctions TypeScript.
@@ -79,7 +80,7 @@ Il ne nous reste donc plus qu'à tester la présence et la validité de ces entr
 
 2. Implémenter l'intégration des entrées de données dans la fonction `map()` du map-reduce `public`, dans le fichier `public/map.ts`. Exemple: [intégration du champ `paydex` dans `map()`](https://github.com/signaux-faibles/opensignauxfaibles/pull/280/files#diff-5316941fcda6e5db677f7d0c709d941cc0d6aa425c3ed38a3a1abdbec2781976)
 
-  > Note: Si l'intégration prend un nombre considérable de lignes de code, ne pas hésiter à l'extraire dans une fonction séparée, définie dans un fichier dédié. Exemple: [`public/diane.ts`](https://github.com/signaux-faibles/opensignauxfaibles/blob/master/js/public/diane.ts). Dans ce cas, ne pas oublier d'inclure cette fonction dans l'espace de noms `f`, défini dans `functions.ts`. Exemple: [inclusion de `raison_sociale` dans `public/functions.ts`](https://github.com/signaux-faibles/opensignauxfaibles/commit/ac72e7f551017de9cdc4141bcbf69854560d058e#diff-73bec79f1e3b8aee202fe33fcabc681fd81a65e41d74edcfca400b53c4205cef)
+> Note: Si l'intégration prend un nombre considérable de lignes de code, ne pas hésiter à l'extraire dans une fonction séparée, définie dans un fichier dédié. Exemple: [`public/diane.ts`](https://github.com/signaux-faibles/opensignauxfaibles/blob/master/js/public/diane.ts). Dans ce cas, ne pas oublier d'inclure cette fonction dans l'espace de noms `f`, défini dans `functions.ts`. Exemple: [inclusion de `raison_sociale` dans `public/functions.ts`](https://github.com/signaux-faibles/opensignauxfaibles/commit/ac72e7f551017de9cdc4141bcbf69854560d058e#diff-73bec79f1e3b8aee202fe33fcabc681fd81a65e41d74edcfca400b53c4205cef)
 
 3. Pour transpiler et empaqueter les fonctions en JavaScript puis mettre à jour les clichés (_snapshots_ et _golden masters_) de résultats attendus de tests automatisés, exécuter `./test-all.sh --update-snapshots`.
 
@@ -97,13 +98,13 @@ Il ne nous reste donc plus qu'à tester la présence et la validité de ces entr
 
 2. Implémenter l'intégration des entrées de données dans la fonction `map()` du map-reduce `reduce.algo2`, dans le fichier `reduce.algo2/map.ts`. Exemple: [intégration du champ `paydex` dans `map()`](https://github.com/signaux-faibles/opensignauxfaibles/pull/284/files#diff-f059593bf57f4dc717825eab1fa6d2614c9df5b33e5d16175062538ef9db4fe8)
 
-  > Note: Si l'intégration prend un nombre considérable de lignes de code, ne pas hésiter à l'extraire dans une fonction séparée, définie dans un fichier dédié. Exemple: [`reduce.algo2/entr_paydex.ts`](https://github.com/signaux-faibles/opensignauxfaibles/pull/284/files#diff-dc4940c77ded6c779957cbc2e53475d07cb6d3ac04838d5f80674da9ee0ec446). Dans ce cas, ne pas oublier d'inclure cette fonction dans l'espace de noms `f`, défini dans `functions.ts`. Exemple: [inclusion de `entr_paydex` dans `reduce.algo2/functions.ts`](https://github.com/signaux-faibles/opensignauxfaibles/pull/284/files#diff-0ba5a109a0aedc28c9c5cb6a84a29342dad7ffb37ef5e7471cafcb23209d7d31)
+> Note: Si l'intégration prend un nombre considérable de lignes de code, ne pas hésiter à l'extraire dans une fonction séparée, définie dans un fichier dédié. Exemple: [`reduce.algo2/entr_paydex.ts`](https://github.com/signaux-faibles/opensignauxfaibles/pull/284/files#diff-dc4940c77ded6c779957cbc2e53475d07cb6d3ac04838d5f80674da9ee0ec446). Dans ce cas, ne pas oublier d'inclure cette fonction dans l'espace de noms `f`, défini dans `functions.ts`. Exemple: [inclusion de `entr_paydex` dans `reduce.algo2/functions.ts`](https://github.com/signaux-faibles/opensignauxfaibles/pull/284/files#diff-0ba5a109a0aedc28c9c5cb6a84a29342dad7ffb37ef5e7471cafcb23209d7d31)
 
 3. Recommandé: écrire des tests unitaires pour documenter les traitements effectués et éviter les régressions. Exemple: [`reduce.algo2/entr_paydex_tests.ts`](https://github.com/signaux-faibles/opensignauxfaibles/pull/284/files#diff-706ca5d4f2746d02d28ff5d5f6fa5eedc38322f8056437bd52f0c6338a531c67)
 
 4. Exporter un type `Variables` constitué des propriétés `source`, `computed` et `transmitted`, afin de générer de manière automatique la documentation des variables fournies à l'algorithme (`js/reduce.algo2/docs/variables.json`). Exemple: [description des champs calculés et transmis de `entr_paydex`](https://github.com/signaux-faibles/opensignauxfaibles/pull/296/files#diff-dc4940c77ded6c779957cbc2e53475d07cb6d3ac04838d5f80674da9ee0ec446R12).
 
-  > Note: Le commentaire JSDoc de chaque champs sera automatiquement extrait comme description de ce champ, au moment de la génération de `variables.json`. Exemple: [commentaire JSDoc du champ `statut_juridique` de `entr_paydex`](https://github.com/signaux-faibles/opensignauxfaibles/pull/296/files#diff-7f402bfddb6fe578a1fa2c55f03931127de178ee44c4e6c82bca6ac5eafaa293R5)
+> Note: Le commentaire JSDoc de chaque champs sera automatiquement extrait comme description de ce champ, au moment de la génération de `variables.json`. Exemple: [commentaire JSDoc du champ `statut_juridique` de `entr_paydex`](https://github.com/signaux-faibles/opensignauxfaibles/pull/296/files#diff-7f402bfddb6fe578a1fa2c55f03931127de178ee44c4e6c82bca6ac5eafaa293R5)
 
 5. Pour transpiler et empaqueter les fonctions en JavaScript puis mettre à jour les clichés (_snapshots_ et _golden masters_) de résultats attendus de tests automatisés, exécuter `./test-all.sh --update-snapshots`.
 
