@@ -141,16 +141,23 @@ Insérer le document résultant dans la collection `Admin`.
 
 ## Mettre à jour la commande `sfdata` (optionnel)
 
-Depuis `ssh centos@labtenant -R 1080` (pour partager la connexion internet locale):
+Depuis un environnement de développement ayant accès à internet:
 
 ```sh
-killall sfdata
 cd opensignauxfaibles
-git pull
-go build
+git checkout master            # sélectionne la branche principale de sfdata
+git pull                       # met à jour le code source de sfdata
+make                           # compile sfdata
+scp sfdata centos@labtenant:~  # copie sfdata dans l'environnement de production
 ```
 
-> Documentation de référence: [Commande `sfdata`](processus-traitement-donnees.md#commande-sfdata)
+Depuis `ssh centos@labtenant`:
+
+```sh
+./sfdata --help                # vérifie que la commande fonctionne
+```
+
+> Documentation d'usage: [Commande `sfdata`](processus-traitement-donnees.md#commande-sfdata)
 
 ## Lancer l'import
 

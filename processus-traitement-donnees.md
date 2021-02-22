@@ -61,17 +61,9 @@ Le workflow classique d'intégration consiste à:
 
 - Constituer un objet `batch` listant les fichiers de données à importer (cf [procédure avec `prepare-import`](procedure-import-donnees.md)), puis l'insérer dans la collection `Admin`.
 
-- Mettre à jour la commande `sfdata`, depuis `ssh centos@labtenant -R 1080` (pour partager la connexion internet locale):
+- Mettre à jour la commande `sfdata`. (cf [procédure de mise à jour de `sfdata`](procedure-import-donnees.md#mettre-%C3%A0-jour-la-commande-sfdata-optionnel))
 
-  ```sh
-  killall sfdata
-  cd opensignauxfaibles
-  git pull
-  go build # pour compiler la commande ./sfdata
-  ./sfdata --help
-  ```
-
-- Appeler séquentiellement les fonctions d'intégration (et de contrôle) pour importer, compacter les données puis calculer les variables avec les options idoines:
+- Appeler séquentiellement les opérations d'intégration (et de contrôle) pour importer, compacter les données puis calculer les variables avec les options idoines:
 
   ```sh
   # 1. Import
