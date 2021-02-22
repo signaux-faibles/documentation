@@ -155,6 +155,7 @@ Depuis `ssh centos@labtenant`:
 
 ```sh
 ./sfdata --help                # vérifie que la commande fonctionne
+mv sfdata ~/opensignauxfaibles/sfdata/
 ```
 
 > Documentation d'usage: [Commande `sfdata`](processus-traitement-donnees.md#commande-sfdata)
@@ -164,7 +165,7 @@ Depuis `ssh centos@labtenant`:
 Depuis `ssh centos@labtenant`:
 
 ```sh
-cd opensignauxfaibles
+cd ~/opensignauxfaibles/sfdata/
 ./sfdata check --batch="2002_1"
 ```
 
@@ -173,7 +174,7 @@ Vérifier dans les logs que les fichiers sont bien valides. Corriger le batch si
 Puis, toujours depuis `ssh centos@labtenant`:
 
 ```sh
-cd opensignauxfaibles
+cd ~/opensignauxfaibles/sfdata/
 ./sfdata import --batch="2002_1"
 ```
 
@@ -186,7 +187,7 @@ Le compactage consiste à intégrer dans la collection `RawData` les données du
 Commencer par vérifier la validité des données importées, depuis `ssh centos@labtenant`:
 
 ```sh
-cd opensignauxfaibles
+cd ~/opensignauxfaibles/sfdata/
 ./sfdata validate --collection="ImportedData" # valider les données importées
 ./sfdata validate --collection="RawData"      # valider les données déjà en bdd (recommandé)
 ```
@@ -198,7 +199,7 @@ Puis, avant de lancer le compactage, corriger ou supprimer les entrées invalide
 Une fois les données validées, toujours depuis `ssh centos@labtenant`:
 
 ```sh
-cd opensignauxfaibles
+cd ~/opensignauxfaibles/sfdata/
 ./sfdata compact --batch="2002_1"
 ```
 
@@ -217,7 +218,7 @@ Ce traitement est destructif et irréversible, il convient de porter une attenti
 Pour cela, utiliser la commande `sfdata pruneEntities` depuis `ssh centos@labtenant`:
 
 ```sh
-cd opensignauxfaibles
+cd ~/opensignauxfaibles/sfdata/
 
 # dry-run, pour compter les entités à supprimer
 ./sfdata pruneEntities --batch=2010 --count
