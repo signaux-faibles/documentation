@@ -239,7 +239,7 @@ $ docker exec -it sf-mongodb mongo signauxfaibles
 
 ### 5. Exécution des calculs pour populer la collection "`Features`"
 
-Depuis `ssh centos@labtenant -t tmux att`:
+Depuis `ssh centos@labtenant`:
 
 ```sh
 cd opensignauxfaibles

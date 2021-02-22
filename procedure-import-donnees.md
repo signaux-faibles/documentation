@@ -141,7 +141,7 @@ Insérer le document résultant dans la collection `Admin`.
 
 ## Mettre à jour la commande `sfdata` (optionnel)
 
-Depuis `ssh centos@labtenant -t tmux att`:
+Depuis `ssh centos@labtenant`:
 
 ```sh
 killall sfdata
@@ -154,7 +154,7 @@ go build
 
 ## Lancer l'import
 
-Depuis `ssh centos@labtenant -t tmux att`:
+Depuis `ssh centos@labtenant`:
 
 ```sh
 cd opensignauxfaibles
@@ -163,7 +163,7 @@ cd opensignauxfaibles
 
 Vérifier dans les logs que les fichiers sont bien valides. Corriger le batch si nécéssaire.
 
-Puis, toujours depuis `ssh centos@labtenant -t tmux att`:
+Puis, toujours depuis `ssh centos@labtenant`:
 
 ```sh
 cd opensignauxfaibles
@@ -176,7 +176,7 @@ cd opensignauxfaibles
 
 Le compactage consiste à intégrer dans la collection `RawData` les données du batch qui viennent d'être importées dans la collection `ImportedData`.
 
-Commencer par vérifier la validité des données importées, depuis `ssh centos@labtenant -t tmux att`:
+Commencer par vérifier la validité des données importées, depuis `ssh centos@labtenant`:
 
 ```sh
 cd opensignauxfaibles
@@ -188,7 +188,7 @@ Les entrées de données invalides seront rendues dans la sortie standard.
 
 Puis, avant de lancer le compactage, corriger ou supprimer les entrées invalides éventuellement trouvées dans les collections `ImportedData` et/ou `Rawdata`.
 
-Une fois les données validées, toujours depuis `ssh centos@labtenant -t tmux att`:
+Une fois les données validées, toujours depuis `ssh centos@labtenant`:
 
 ```sh
 cd opensignauxfaibles
@@ -207,7 +207,7 @@ Dans le cas où certaines entités (entreprises et/ou établissements) seraient 
 
 Ce traitement est destructif et irréversible, il convient de porter une attention particulière si le nombre de document à supprimer est conséquent.
 
-Pour celà, utiliser la commande `sfdata pruneEntities` depuis `ssh centos@labtenant -t tmux att`:
+Pour celà, utiliser la commande `sfdata pruneEntities` depuis `ssh centos@labtenant`:
 
 ```sh
 cd opensignauxfaibles
