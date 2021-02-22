@@ -88,13 +88,7 @@ Entre ces traitements, une façon de s'assurer que le processus tourne est de v�
 
 L'intégralité des opérations sur les données se font au moyen de la commande `sfdata` (_CLI_ anciennement connu sous le nom de `dbmongo`), qui analyse et cadence les opérations à effectuer sur la base MongoDB.
 
-Elle est implémentée en Golang, au sein du projet `opensignauxfaibles`.
-
-```sh
-cd opensignauxfaibles
-go build # pour compiler la commande ./sfdata
-./sfdata --help
-```
+Elle est implémentée en Golang, au sein du projet `opensignauxfaibles`. (cf [procédure de mise à jour de `sfdata`](procedure-import-donnees.md#mettre-%C3%A0-jour-la-commande-sfdata-optionnel))
 
 Certaines des commandes seront plus amplement détaillées dans ce qui suit.
 
@@ -166,7 +160,6 @@ Les fichiers en provenance des urssaf ont été regroupées dans un parser spéc
 L'import est lancé de la manière suivante:
 
 ```sh
-cd opensignauxfaibles
 ./sfdata import [options]
 # Par exemple
 ./sfdata import --batch="1904"
@@ -194,7 +187,6 @@ Par exemple, si certaines données n'ont pas changé d'une période sur l'autre,
 Le compactage se lance avec la commande suivante:
 
 ```sh
-cd opensignauxfaibles
 ./sfdata compact [options]
 # Par exemple
 ./sfdata compact --since-batch="1804"
@@ -215,7 +207,6 @@ TODO
 Le calcul des variables est lancé de la manière suivante:
 
 ```sh
-cd opensignauxfaibles
 ./sfdata reduce [options]
 # Par exemple
 ./sfdata reduce --until-batch="1904"
@@ -232,7 +223,6 @@ Les variables de cette collection sont documentées dans: [Variables fournies au
 La publication de variables est lancée de la manière suivante:
 
 ```sh
-cd opensignauxfaibles
 ./sfdata public [options]
 # Par exemple
 ./sfdata public --until-batch="1904"
