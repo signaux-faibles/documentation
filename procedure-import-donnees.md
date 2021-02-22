@@ -147,7 +147,7 @@ Depuis un environnement de développement ayant accès à internet:
 cd opensignauxfaibles
 git checkout master            # sélectionne la branche principale de sfdata
 git pull                       # met à jour le code source de sfdata
-make                           # compile sfdata
+make build-prod                # compile sfdata
 scp sfdata centos@labtenant:~  # copie sfdata dans l'environnement de production
 ```
 

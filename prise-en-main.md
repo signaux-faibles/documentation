@@ -187,7 +187,7 @@ Exécutez les commandes suivantes:
 ```sh
 $ git clone https://github.com/signaux-faibles/opensignauxfaibles.git
 $ cd opensignauxfaibles
-$ go build
+$ make
 $ cp config-sample.toml config.toml
 $ sed -i '' "s,/foo/bar/data-raw,${DATA_DIR}," config.toml
 $ sed -i '' 's,naf/.*\.csv,dummy.csv,' config.toml
@@ -239,10 +239,7 @@ $ docker exec -it sf-mongodb mongo signauxfaibles
 
 ### 5. Exécution des calculs pour populer la collection "`Features`"
 
-Depuis `ssh centos@labtenant`:
-
 ```sh
-cd opensignauxfaibles
 ./sfdata reduce --until-batch=1910
 ```
 
