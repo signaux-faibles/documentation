@@ -30,7 +30,7 @@ Pré-requis:
 
 1. Constituer un jeu de données concis et anonymisé (mais réaliste et représentatif) qui sera utilisé pour tester le bon fonctionnement du parseur et du reste de la chaine de traitement sur ces données. Exemple: [`lib/paydex/testData/paydexTestData.csv`](https://github.com/signaux-faibles/opensignauxfaibles/pull/277/files#diff-4d30c0a429c0bf0163db25dac95bf7578165e2f7418539a0a97f3dee99534986)
 
-2. Inclure ces données de test dans le `batch` de `test-import.sh`. Exemple: [ajout d'un fichier `paydex` dans la propriété `"files"`](https://github.com/signaux-faibles/opensignauxfaibles/pull/277/files#diff-f51ecfd8355c3d64dbdf03c617e5c835fcc1c12c7a73203c43da1e2409fed425)
+2. Inclure ces données de test dans le `batch` de `test-import.sh`. Nous allons laisser le test échouer, jusqu'à ce que le parseur soit opérationnel. (cf dernière étape de la section suivante) Exemple: [ajout d'un fichier `paydex` dans la propriété `"files"`](https://github.com/signaux-faibles/opensignauxfaibles/pull/277/files#diff-f51ecfd8355c3d64dbdf03c617e5c835fcc1c12c7a73203c43da1e2409fed425)
 
 Ces premières étapes vont permettre de mesurer notre avancement pendant l'implémentation du parseur, en observant les résultats de chaque itération, après avoir exécuté `tests/test-import.sh`.
 
@@ -67,12 +67,21 @@ Une fois le parseur fonctionnel et correctement testé, nous allons documenter l
   > Note: cet ajout aura pour effet de rendre incomplets les jeux de données employés par des tests d'intégration définis dans les répertoires `js/public/` et `js/reduce.algo2/`. Nous allons compléter ces données de tests dans les étapes suivantes.
 ## Publication des données sur le web
 
-**TODO**
+La publication de données sur l'application web de Signaux Faible commence par l'exécution d'une opération map-reduce sur la collection `RawData` appelant des fonctions TypeScript.
 
-Exemples:
+Dans la section précédente, nous avons documenté le type des entrées de données introduites de manière à ce qu'elles soient manipulables depuis ces fonctions, tout en bénéficiant de la vérification statique de l'intégrité de ces données.
 
-- test d'intégration: https://github.com/signaux-faibles/opensignauxfaibles/pull/280/files#diff-9338b6b17c7e1f5f7027f05b1d57865534a9d115ebe77e0676a11f568ff2bfedR82
-- intégration dans `public/map.ts`: https://github.com/signaux-faibles/opensignauxfaibles/pull/280/files#diff-5316941fcda6e5db677f7d0c709d941cc0d6aa425c3ed38a3a1abdbec2781976
+Il ne nous reste donc plus qu'à tester la présence et la validité de ces entrées, puis à les intégrer dans les fonctions de l'opération map-reduce appelée `public`.
+
+Étapes recommandées:
+
+1. Compléter le test d'intégration "public.map() retourne toutes les propriétés d'entreprise (_ou d'établissement_) attendues sur le frontal" défini dans `js/public/ava_tests.ts` en ajoutant à `rawEntrData` (ou `rawEtabData`) la propriété rattachant des données de test au nom de la source de données. Exemple: [ajout de `paydex` à `rawEntrData`](https://github.com/signaux-faibles/opensignauxfaibles/pull/280/files#diff-9338b6b17c7e1f5f7027f05b1d57865534a9d115ebe77e0676a11f568ff2bfedR82).
+
+2. Implémenter l'intégration des entrées de données dans la fonction `map()` du map-reduce `public`, dans le fichier `public/map.ts`. Exemple: [intégration du champ `paydex` dans `map()`](https://github.com/signaux-faibles/opensignauxfaibles/pull/280/files#diff-5316941fcda6e5db677f7d0c709d941cc0d6aa425c3ed38a3a1abdbec2781976)
+
+  > Note: Si l'intégration prend un nombre considérable de lignes de code, ne pas hésiter à l'extraire dans une fonction séparée, définie dans un fichier dédié. Exemple: [`public/diane.ts`](https://github.com/signaux-faibles/opensignauxfaibles/blob/master/js/public/diane.ts). Dans ce cas, ne pas oublier d'inclure cette fonction dans l'espace de noms `f`, défini dans `functions.ts`. Exemple: [inclusion de `raison_sociale` dans `public/functions.ts`](https://github.com/signaux-faibles/opensignauxfaibles/commit/ac72e7f551017de9cdc4141bcbf69854560d058e#diff-73bec79f1e3b8aee202fe33fcabc681fd81a65e41d74edcfca400b53c4205cef)
+
+3. Pour mettre à jour les clichés (_snapshots_ et _golden masters_) de résultats attendus de tests automatisés, exécuter `./test-all.sh --update-snapshots`.
 
 ## Pré-traitement des données pour l'apprentissage et la génération de listes
 
