@@ -109,10 +109,16 @@ Il ne nous reste donc plus qu'à tester la présence et la validité de ces entr
 
 ## Détection des fichiers pour population automatique du `batch` à importer
 
-**TODO**
+La nouvelle source de donnée est désormais supportée par toute la chaine d'intégration couverte par la commande `sfdata`.
 
-Exemples:
+Pour faciliter l'intégration régulière de données, nous pouvons à présent faire en sorte que la commande [`prepare-import`](https://github.com/signaux-faibles/prepare-import) reconnaisse automatiquement les fichiers permettant d'importer ces données.
 
-- ajout dans test de bout en bout de `prepare-import`: https://github.com/signaux-faibles/prepare-import/pull/51/files#diff-79ce3229c13921b79b1175dcb211336aaf84dfd8edcf19c07698934d4fe70e5eR37
-- ajout de tests unitaires pour la détection: https://github.com/signaux-faibles/prepare-import/pull/51/files#diff-14a00cc655ecff968c4c9e926d4348c165bf4795e942f1bd6093392b52bababd
-- implémentation de la détection du type de fichier: https://github.com/signaux-faibles/prepare-import/pull/51/files#diff-e4b9d0eb67b99b6e21ec7e8f4e2ab15272606ca07a2db3494d73eba0b15a21b1
+Étapes recommandées:
+
+1. Ajouter le(s) nom(s) de fichier(s) de test dans le test de bout en bout de `prepare-import` (`main_test.go`). Exemple: [intégration d'un fichier paydex de test](https://github.com/signaux-faibles/prepare-import/pull/51/files#diff-79ce3229c13921b79b1175dcb211336aaf84dfd8edcf19c07698934d4fe70e5eR37)
+
+2. Ajouter dans le test unitaire `TestExtractFileTypeFromFilename` quelques exemples de noms que pourraient avoir les fichiers issues de la nouvelle source de données, pour assurer que ces noms seront systématiquement reconnus par `prepare-import`. Exemple: [ajout de noms de fichiers `sirene` et `paydex`](https://github.com/signaux-faibles/prepare-import/pull/51/files#diff-14a00cc655ecff968c4c9e926d4348c165bf4795e942f1bd6093392b52bababd).
+
+3. Implémenter la détection du type de données à partir du nom du fichier (exemple: [détection `paydex` par une expression régulière](https://github.com/signaux-faibles/prepare-import/pull/51/files#diff-e4b9d0eb67b99b6e21ec7e8f4e2ab15272606ca07a2db3494d73eba0b15a21b1)), ou à partir des métadonnées associées (exemple: [détection `bdf` depuis la métadonnée `goup-path`](https://github.com/signaux-faibles/prepare-import/blob/0593e8e40ab0f89f6e15e074db7ff05538b29256/prepareimport/filemetadata.go#L20)).
+
+4. Vérifier que tous les tests passent, et mettre à jour les clichés (_snapshots_ et _golden masters_) de résultats attendus par les tests automatisés, en exécutant `make test-update`.
