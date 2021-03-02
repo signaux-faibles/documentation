@@ -41,15 +41,15 @@ Reste de la procédure: [Mettre à jour les outils](https://github.com/signaux-f
 
 ## Mettre les nouveaux fichiers dans un répertoire spécifique
 
-Procédure: [Mettre les nouveaux fichiers dans un répertoire spécifique](#mettre-les-nouveaux-fichiers-dans-un-r%C3%A9pertoire-sp%C3%A9cifique) à suivre depuis `ssh stockage`.
+Procédure: [Mettre les nouveaux fichiers dans un répertoire spécifique](https://github.com/signaux-faibles/documentation/blob/master/procedure-import-donnees.md#mettre-les-nouveaux-fichiers-dans-un-r%C3%A9pertoire-sp%C3%A9cifique) à suivre depuis `ssh stockage`.
 
 ## Télécharger le fichier Siren
 
-Procédure: [Télécharger le fichier Siren](#t%C3%A9l%C3%A9charger-le-fichier-siren) à suivre depuis le répertoire `/var/lib/goup_base/public/_<batch>_` de `ssh stockage`.
+Procédure: [Télécharger le fichier Siren](https://github.com/signaux-faibles/documentation/blob/master/procedure-import-donnees.md#t%C3%A9l%C3%A9charger-le-fichier-siren) à suivre depuis le répertoire `/var/lib/goup_base/public/_<batch>_` de `ssh stockage`.
 
 ## Créer un objet admin pour l'intégration des données
 
-Procédure: [Créer un objet admin pour l'intégration des données](#cr%C3%A9er-un-objet-admin-pour-lint%C3%A9gration-des-donn%C3%A9es) à suivre depuis le répertoire `/var/lib/goup_base/public` de `ssh stockage`.
+Procédure: [Créer un objet admin pour l'intégration des données](https://github.com/signaux-faibles/documentation/blob/master/procedure-import-donnees.md#cr%C3%A9er-un-objet-admin-pour-lint%C3%A9gration-des-donn%C3%A9es) à suivre depuis le répertoire `/var/lib/goup_base/public` de `ssh stockage`.
 
 ## Mettre à jour la commande `sfdata` (optionnel)
 
@@ -72,12 +72,12 @@ mv sfdata ~/opensignauxfaibles/sfdata/
 
 ## Lancer l'import
 
-Procédure: [Lancer l'import](#lancer-limport) à suivre depuis le répertoire `~/opensignauxfaibles/sfdata/` de `ssh centos@labtenant`.
+Procédure: [Lancer l'import](https://github.com/signaux-faibles/documentation/blob/master/procedure-import-donnees.md#lancer-limport) à suivre depuis le répertoire `~/opensignauxfaibles/sfdata/` de `ssh centos@labtenant`.
 
 ## Lancer le compactage
 
-Procédure: [Lancer le compactage](#lancer-le-compactage) à suivre depuis le répertoire `~/opensignauxfaibles/sfdata/` de `ssh centos@labtenant`.
+Procédure: [Lancer le compactage](https://github.com/signaux-faibles/documentation/blob/master/procedure-import-donnees.md#lancer-le-compactage) à suivre depuis le répertoire `~/opensignauxfaibles/sfdata/` de `ssh centos@labtenant`.
 
 ## Maintenance: nettoyage des données hors périmètre
 
-Procédure: [Nettoyage des données hors périmètre](#maintenance-nettoyage-des-donn%C3%A9es-hors-p%C3%A9rim%C3%A8tre) à suivre depuis le répertoire `~/opensignauxfaibles/sfdata/` de `ssh centos@labtenant`.
+Procédure: [Nettoyage des données hors périmètre](https://github.com/signaux-faibles/documentation/blob/master/procedure-import-donnees.md#maintenance-nettoyage-des-donn%C3%A9es-hors-p%C3%A9rim%C3%A8tre) à suivre depuis le répertoire `~/opensignauxfaibles/sfdata/` de `ssh centos@labtenant`.
