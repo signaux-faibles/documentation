@@ -18,6 +18,8 @@
 
 <!-- importé depuis https://github.com/signaux-faibles/prepare-import/blob/master/tools/procedure_import.md -->
 
+> Note: Les informations liées à l'environnement de production ont été déplacées sur notre wiki d'équipe.
+
 # Procédure pour importer les données mensuelles
 
 Cette procédure décrit:
@@ -25,8 +27,6 @@ Cette procédure décrit:
 - la structure recommandée pour organiser les fichiers par (sous-)batch;
 - comment récupérer les fichiers de données de nos partenaires;
 - comment constituer un objet `batch` à partir de ces fichiers, en vue de les importer dans la base de données MongoDB, à l'aide de `sfdata`. (cf [Processus de traitement des données](processus-traitement-donnees.md))
-
-La plupart de ces opérations sont menées sur `stockage`, serveur sur lequel sont reçus et conservés les fichiers régulièrement transmis par nos partenaires.
 
 ## Structure des fichiers
 
@@ -37,17 +37,14 @@ Un _sous-batch_ est un ensemble de fichiers de données venant compléter un _ba
 Voici une illustration de la structure des répertoires attendue par `prepare-import`, en supposant que nous ayons deux _batches_ et un _sous-batch_ sur la période de Février 2018:
 
 ```
-|
-|-- /var/lib/goup_base/public
-|     |-- 1801
-|     |-- 1802
-|     |    |-- 1802_01
+|-- 1801
+|-- 1802
+|    |-- 1802_01
 ```
 
-La génération de _batch_ ou _sous-batch_ sera effectuée depuis le répertoire `/var/lib/goup_base/public`:
+La génération de _batch_ ou _sous-batch_ s'effectue depuis le répertoire contenant les _batches_:
 
 ```sh
-$ cd /var/lib/goup_base/public
 $ ~/prepare-import/prepare-import --batch 1801
 $ ~/prepare-import/prepare-import --batch 1802
 $ ~/prepare-import/prepare-import --batch 1802_01
@@ -62,19 +59,13 @@ Note: quand on appelle `prepare-import` sur un sous-batch, le fichier `filter` d
 
 ## Mettre à jour les outils
 
-Depuis `ssh stockage -R 1080` (pour se connecter à `stockage` en partageant la connexion internet de l'hôte via le port `1080`):
-
 ```sh
-curl google.com --proxy socks5h://127.0.0.1:1080 # pour tester le bon fonctionnement du proxy http
-git config --global http.proxy 'socks5h://127.0.0.1:1080' # si nécéssaire: pour que git utilise le proxy
 cd ~/prepare-import/
 git pull # pour mettre à jour les outils
 go build
 ```
 
 ## Mettre les nouveaux fichiers dans un répertoire spécifique
-
-Depuis `ssh stockage`:
 
 ```sh
 sudo su
@@ -87,10 +78,8 @@ find -maxdepth 1 -ctime -10 -print0 | xargs -0 mv -t _<batch>_/
 
 ## Télécharger le fichier Siren
 
-Depuis `ssh stockage`:
-
 ```sh
-cd /var/lib/goup_base/public/_<batch>_
+cd _<batch>_
 curl https://files.data.gouv.fr/insee-sirene/StockUniteLegale_utf8.zip | zcat > sireneUL.csv
 curl https://data.cquest.org/geo_sirene/v2019/last/StockEtablissement_utf8_geo.csv.gz | zcat > StockEtablissement_utf8_geo.csv
 ```
@@ -128,10 +117,7 @@ _Entreprises mises à jour_ > _Données financières et descriptives_
 
 ## Créer un objet admin pour l'intégration des données
 
-Utiliser `prepare-import` depuis `ssh stockage`:
-
 ```sh
-cd /var/lib/goup_base/public/
 ~/prepare-import/prepare-import -batch "<BATCH>"
 ```
 
@@ -141,40 +127,27 @@ Insérer le document résultant dans la collection `Admin`.
 
 ## Mettre à jour la commande `sfdata` (optionnel)
 
-Depuis un environnement de développement ayant accès à internet:
-
 ```sh
 cd opensignauxfaibles
 git checkout master            # sélectionne la branche principale de sfdata
 git pull                       # met à jour le code source de sfdata
-make build-prod                # compile sfdata
-scp sfdata centos@labtenant:~  # copie sfdata dans l'environnement de production
-```
-
-Depuis `ssh centos@labtenant`:
-
-```sh
+make build-prod                # compile sfdata pour l'environnement de production
 ./sfdata --help                # vérifie que la commande fonctionne
-mv sfdata ~/opensignauxfaibles/sfdata/
 ```
 
 > Documentation d'usage: [Commande `sfdata`](processus-traitement-donnees.md#commande-sfdata)
 
 ## Lancer l'import
 
-Depuis `ssh centos@labtenant`:
-
 ```sh
-cd ~/opensignauxfaibles/sfdata/
 ./sfdata check --batch="2002_1"
 ```
 
 Vérifier dans les logs que les fichiers sont bien valides. Corriger le batch si nécéssaire.
 
-Puis, toujours depuis `ssh centos@labtenant`:
+Puis:
 
 ```sh
-cd ~/opensignauxfaibles/sfdata/
 ./sfdata import --batch="2002_1"
 ```
 
@@ -184,10 +157,9 @@ cd ~/opensignauxfaibles/sfdata/
 
 Le compactage consiste à intégrer dans la collection `RawData` les données du batch qui viennent d'être importées dans la collection `ImportedData`.
 
-Commencer par vérifier la validité des données importées, depuis `ssh centos@labtenant`:
+Commencer par vérifier la validité des données importées:
 
 ```sh
-cd ~/opensignauxfaibles/sfdata/
 ./sfdata validate --collection="ImportedData" # valider les données importées
 ./sfdata validate --collection="RawData"      # valider les données déjà en bdd (recommandé)
 ```
@@ -196,10 +168,9 @@ Les entrées de données invalides seront rendues dans la sortie standard.
 
 Puis, avant de lancer le compactage, corriger ou supprimer les entrées invalides éventuellement trouvées dans les collections `ImportedData` et/ou `Rawdata`.
 
-Une fois les données validées, toujours depuis `ssh centos@labtenant`:
+Une fois les données validées:
 
 ```sh
-cd ~/opensignauxfaibles/sfdata/
 ./sfdata compact --batch="2002_1"
 ```
 
@@ -215,11 +186,9 @@ Dans le cas où certaines entités (entreprises et/ou établissements) seraient 
 
 Ce traitement est destructif et irréversible, il convient de porter une attention particulière si le nombre de document à supprimer est conséquent.
 
-Pour cela, utiliser la commande `sfdata pruneEntities` depuis `ssh centos@labtenant`:
+Pour cela, utiliser la commande `sfdata pruneEntities`:
 
 ```sh
-cd ~/opensignauxfaibles/sfdata/
-
 # dry-run, pour compter les entités à supprimer
 ./sfdata pruneEntities --batch=2010 --count
 
