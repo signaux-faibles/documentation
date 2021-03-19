@@ -675,13 +675,17 @@ Nous avons utilisé les données fournies par Altares concernant les défaillanc
 
 ### Données sur les CCSF
 
+Les délais gérés par les Commissions des Chefs des Services Financiers (CCSF) sont des actions contentieuses dont l'objectif est de négocier un plan de paiement de dettes avec des entreprises débitrices. Il y a une commission par département et y siègent des représentants des Urssaf, du Fisc, des Douanes, de Pole emploi et de la CCMSA.
+
+C'est donc le même type de dispositif que les délais classiques URSSAF appelés aussi sursis à poursuite. Même si les CCSF traitent tout dossier, ce sont en général les entreprises d'assez grande taille avec des enjeux financiers supérieurs à la moyenne des dossiers de recouvrement qui sont concernées.
+
 - **Compte** Compte administratif URSSAF
 
 - **Date de traitement** Date de début de la procédure CCSF au format (A)AAMMJJ, ou (A)AA = AAAA -1900
 
-- **Code externe du stade** TODO
+- **Code externe du stade** Stade de la demande de délai: `DEBUT`, `REFUS`, `APPROB`, `FIN` ou `REJ`
 
-- **Code externe de l'action** TODO
+- **Code externe de l'action** Code externe de l'action: `CCSF` (valeur systématique)
 
 ### Ellisphere
 
