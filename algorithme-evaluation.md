@@ -4,235 +4,140 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Objectif et historique du modèle](#objectif-et-historique-du-mod%C3%A8le)
-- [Modèlisation et variables latentes](#mod%C3%A8lisation-et-variables-latentes)
-  - [L'apprentissage supervisé](#lapprentissage-supervis%C3%A9)
-    - [Les principaux éléments](#les-principaux-%C3%A9l%C3%A9ments)
-  - [Corrections liées à la crise](#corrections-li%C3%A9es-%C3%A0-la-crise)
-  - [Construction de variables latentes](#construction-de-variables-latentes)
+- [Modèle "à deux étages" de Mars 2021](#mod%C3%A8le-%C3%A0-deux-%C3%A9tages-de-mars-2021)
+- [Premièr étage : L'apprentissage supervisé pré-crise](#premi%C3%A8r-%C3%A9tage--lapprentissage-supervis%C3%A9-pr%C3%A9-crise)
+  - [_Objectif d'apprentissage_](#_objectif-dapprentissage_)
+  - [_Périmètre_](#_p%C3%A9rim%C3%A8tre_)
+  - [_Modèle_](#_mod%C3%A8le_)
+  - [_Features_](#_features_)
   - [Seuils de détection](#seuils-de-d%C3%A9tection)
+- [Deuxième étage: Corrections liées à la crise :construction_worker: :building_construction:](#deuxi%C3%A8me-%C3%A9tage-corrections-li%C3%A9es-%C3%A0-la-crise-construction_worker-building_construction)
 - [Évaluation du modèle](#%C3%A9valuation-du-mod%C3%A8le)
   - [Évaluation du modèle par validation croisée](#%C3%A9valuation-du-mod%C3%A8le-par-validation-crois%C3%A9e)
   - [Choix de la métrique](#choix-de-la-m%C3%A9trique)
   - [Reproductibilité de l'évaluation.](#reproductibilit%C3%A9-de-l%C3%A9valuation)
-    - [Import des données dans R](#import-des-donn%C3%A9es-dans-r)
-    - [Reproductibilité des traitements dans R](#reproductibilit%C3%A9-des-traitements-dans-r)
+    - [Import des données dans Python](#import-des-donn%C3%A9es-dans-python)
+    - [Reproductibilité des traitements dans Python](#reproductibilit%C3%A9-des-traitements-dans-python)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Objectif et historique du modèle
 
-Le modèle Signaux Faibles vise à identifier de nouvelles
-entreprises en
-situation de fragilité, passées inaperçues auprès des
-administrations, alors que
-des dispositifs d'aide pourraient leur être proposés. Pour
-cela, il est
-important d'anticiper suffisamment les défaillances pour
-avoir le temps de
-mettre en œuvre ces dispositifs.
+Le modèle Signaux Faibles vise à identifier de nouvelles entreprises en situation de fragilité, passées inaperçues auprès des administrations, alors que des dispositifs d'aide pourraient leur être proposés. Pour cela, il est important d'anticiper suffisamment les défaillances pour avoir le temps de mettre en œuvre ces dispositifs.
 
-Un modèle d'apprentissage supervisé a été initialement
-développé avant la
-crise, a été étendu à la France entière en décembre 2019, mais a été mis à
-l'arrêt depuis le début du confinement, car inapte à traiter la situation
-spécifique à la crise.
+Un modèle d'apprentissage supervisé a été initialement développé avant la crise, a été étendu à la France entière en décembre 2019, mais a été mis à l'arrêt depuis le début du confinement de Mars 2020, car inapte à traiter la situation spécifique à la crise.
 
-Depuis octobre 2020, un nouveau modèle tenant compte de
-l'impact de la crise a été proposé.
-Le modèle qui a été retenu à cet effet est un modèle
-transparent, qui permet la définition de variables latentes
-explicatives, qui a été fortement inspiré par [ce
-modèle](http://dukedatasciencefico.cs.duke.edu/). périmètre
-a été provisoirement réduit aux entreprises industrielles
-et dont on
-connaît les informations financières, mais le même modèle a
-pour vocation a être étendu à tous les secteurs d'activité.
+En octobre 2020, un nouveau modèle tenant compte de l'impact de la crise a été proposé. Le modèle qui a été retenu à cet effet est un modèle transparent, qui permet la définition de variables latentes explicatives, qui a été fortement inspiré par [ce modèle](http://dukedatasciencefico.cs.duke.edu/). Son périmètre a été provisoirement réduit aux entreprises industrielles et dont on connaît les informations financières, mais le même modèle avait pour vocation a être étendu à tous les secteurs d'activité. La documentation relative à ce modèle peut-être retrouvée [ici](ab6de5f).
 
-## Modèlisation et variables latentes
+## Modèle "à deux étages" de Mars 2021
+
+Afin d'adapter au mieux notre algorithme à la situation économique liée à la crise Covid et de rapprocher nos listes de détection des préoccupations de nos utilisateurs, il a été décidé de faire évoluer le modèle vers une approche à "deux étages".
 
 Les prédictions sont obtenues en deux étapes:
 
-- D'abord, les variables peu affectées par la crise sont
-  utilisées pour faire de l'apprentissage supervisé.
-- Ensuite, des corrections liées à la crise sont
-  apportées.
+- D'abord, un **modèle _simple_ et _explicable_** (une régression logistique) est utilisé afin de prédire la situation d'un établissement _juste avant la crise_ (à Février 2020). Cette prédiction est transformée en trois catégories : niveau d'alerte rouge, orange ou verte.
+- Ensuite, des corrections liées à la crise sont apportées via des **règles expertes** transparentes et co-construites avec nos utilisateurs afin de permettre au modèle de capter des réalités terrain liées à un contexte sans précédent et qu'un modèle d'apprentissage automatisé n'aurait — par définition — pas pu apprendre. Ces règles peuvent faire passer certaines entreprises dans un niveau d'alerte plus élevé.
 
-Le modèle permet, à des fins d'explicabilité, la
-construction de variables latentes, constituées de
-l'agrégation des contributions de plusieurs variables.
+La prédiction finale du modèle est donc complétement transparente et explicable — étant la somme d'un modèle linéaire simple et d'une règle experte ayant la forme d'un arbre de décision.
 
-Enfin, la prédiction finale est transformée en trois
-catégories: niveau d'alerte rouge, orange ou verte.
+Le modèle de Mars 2021 est détaillé dans ce qui suit :
 
-Chacun de ces aspects est détaillé dans ce qui suit.
+## Premièr étage : L'apprentissage supervisé pré-crise
 
-### L'apprentissage supervisé
+### _Objectif d'apprentissage_
 
-#### Les principaux éléments
+> anticiper de 18 mois l'entrée en procédure collective (liquidation redressement judiciaires, et sauvegarde) ou 3 mois consécutifs de cotisations sociales impayées.
 
-- _Objectif d'apprentissage_ : anticiper de 18 mois
-  l'entrée en procédure collective (liquidation,
-  redressement judiciaires, et sauvegarde) ou 3 mois
-  consécutifs de cotisations sociales impayées.
+Cet objectif d'apprentissage est imparfait : des entreprises en difficulté peuvent ne pas avoir de défaillance dans les 18 mois, mais seraient pertinentes à être détectées. C'est le cas par exemple d'entreprises financièrement solides mais dont l'activité ne leur permet pas d'être profitable. Inversement, certaines défaillances sont dues à des évènements non encore identifiables avec 18 mois d'anticipation (accidents, etc.).
 
-  Cet objectif d'apprentissage est imparfait : des
-  entreprises en difficulté peuvent ne
-  pas avoir de défaillance dans les 18 mois, mais seraient
-  pertinentes à être
-  détectées. C'est le cas par exemple d'entreprises
-  financièrement solides mais dont l'activité ne leur
-  permet pas d'être profitable. Inversement, certaines
-  défaillances sont dues à des évènements non encore
-  identifiables avec 18 mois d'anticipation (accidents,
-  etc.).
+De plus, de nombreuses entreprises ont bénéficié de reports de charges pendant le premier confinement et entrent donc mécaniquement dans notre cible d'apprentissage, n'ayant pas payé de cotisations sociales pendant 3 mois. Pour éviter que ce très fort biais dans notre cible d'apprentissage à partir de Décembre 2018 (Mai 2020 - 18 mois) n'impacte l'entrainement de notre modèle, nous avons restreint cet entrainement à la période allant de Janvier 2016 à Novembre 2018.
 
-  La cible d'apprentissage est très désiquilibrée.
+:construction_worker: nous travaillons actuellement à la redéfinition de cette cible d'apprentissage, en concertation avec nos partenaires.
 
-- _Périmètre_ :
+La cible d'apprentissage est très déséquilibrée.
 
-  - Établissements de 10 salariés et plus.
-  - France métropolitaine entière
-  - Provisoire : secteur industriel uniquement
-  - Provisoire : données financières disponibles
+### _Périmètre_
 
-- _Modèle_ : Le modèle utilisé est un modèle additif généralisé avec une
-  fonction de lien "logit". Le caractère additif du modèle permet la
-  construction facile de variables latentes en guise d'explicabilité, tout en
-  garantissant un bon niveau de performance, similaire aux modèles concurrents
-  permettant les interactions (par exemple: xgboost).
+- Établissements de 10 salariés et plus.
+- France métropolitaine entière
+- A l'exception des établissements de l'administration publique (code APE O) et de l'enseignement (code APE P).
 
-  Une différence majeure avec ce modèle et le modèle qui a servi d'inspiration
-  présenté en introduction est que les contributions de toutes les variables
-  sont calculées **concomitamment**, et non séparémment (avec un modèle
-  spécifique par variable latente). Les variables latentes sont donc des scores
-  intermédiaires **conditionnels** aux autres variables latentes.
+### _Modèle_
 
-### Corrections liées à la crise
+Le modèle utilisé est une régression logistique, à ce stade sans interactions. Elle est aujourd'hui entrainée sur de la donnée allant de janvier 2016 à novembre 2018 (pous les raisons évoquées plus haut) et produit une prédiction à Février 2020 qui peut etre interprétée comme la situation pré-crise Covid de l'etablissement.
 
-Deux corrections "expertes" sont faites après
-l'apprentissage supervisé:
+### _Features_
 
-- Une correction pour caractériser l'impact par secteur
-  d'activité de la crise, qui s'appuye sur les enquêtes de conjoncture de la
-  Banque de France. Pour cela, un modèle simple est entraîné, pour prédire le
-  taux de défaillance en fonction du niveau de l'enquête de conjoncture, et est
-  appliqué aux valeurs observées pendant la crise.
+Le modèle est entrainé sur les variables d'apprentissage suivantes:
 
-  Comme ces valeurs sont hors des données d'entraînement, il s'agit d'une
-  extrapolation, qui repose
-  sur l'hypothèse suivante: la proportion d'établissements défaillants suit une
-  fonction de répartition de la loi normale en fonction de la conjoncture
-  économique (fonction de lien "probit").
+- `apart_heures_consommees_cumulees` (en base)
+- `apart_heures_consommees` (en base)
+- `ratio_dette` (en base)
+- `avg_delta_dette_par_effectif` (calculé: évolution moyenne de la dette sociale sur effectif sur les 3 derniers mois)
+- `paydex_group` (calculé: retard de paiement moyen de l'entreprise — groupes : [0, 15, 30, 60, 90+[)
+- `paydex_yoy` (calculé: évolution sur 12 mois du retard de paiement moyen de l'entreprise)
+- `financier_court_terme` (en base)
+- `interets` (en base)
+- `ca` (en base)
+- `equilibre_financier` (en base)
+- `endettement` (en base)
+- `degre_immo_corporelle` (en base)
+- `liquidite_reduite` (en base)
+- `poids_bfr_exploitation` (en base)
+- `productivite_capital_investi` (en base)
+- `rentabilite_economique` (en base)
+- `rentabilite_nette"` (en base)
 
-  La pénalité est appliquée dans l'espace des log-vraisemblances (ce qui a pour
-  effet dans l'espace des probabilités de plus pénaliser les entreprises avec
-  un risque prédit de défaillance non-nul).
-
-- Une seconde correction vise à pénaliser les entreprises qui ont encore des
-  dettes URSSAF. Cette correction est à ce stade simpliste et mériterait d'être
-  enrichie.
-
-  Elle consiste à classer les entreprises ayant des dettes par ordre
-  décroissant de ratio dette/effectif dans chaque secteur d'activité (code ape
-  niveau 3), et d'appliquer une pénalité décroissante de 1 à 0 (dans l'espace
-  des log-vraisemblances toujours).
-
-### Construction de variables latentes
-
-Le caractère additif du modèle permet de construire des variables latentes
-simplement en additionnant les contributions d'un groupe de variables liées à
-une problématique.
-
-Les variables latentes proposées sont les suivantes: TODO à compléter
+Voir [ce document](https://github.com/signaux-faibles/opensignauxfaibles/blob/master/js/reduce.algo2/docs/variables.json) pour la définition et la source des champs présents en base.
 
 ### Seuils de détection
 
-Si les prédictions étaient calibrées en probabilité, alors une manière efficace
-de fixer les seuils serait de définir des seuils du type "L'établissement a 4x
-plus de chances de subir une défaillance à 18 mois qu'un établissement moyen".
+Les seuils ont pour l'instant été arbitrairement fixés pour garantir des volumes raisonnables d'entreprises détéctées. Il serait pertinent d'améliorer cette méthode, notamment en trouvant les seuils qui maximisent notre critère d'évaluation.
 
-Comme nous ne connaissons pas la distribution des défaillances dues à la crise,
-il est difficile de procéder de cette manière.
+## Deuxième étage: Corrections liées à la crise :construction_worker: :building_construction:
 
-Ainsi, les seuils ont pour l'instant été arbitrairement fixés pour garantir des
-volumes raisonnables d'entreprises détéctées. Il serait pertinent d'améliorer
-cette méthode.
+Des corrections "expertes" sont réalisées après l'apprentissage supervisé:
+
+- Une correction "Dette Sociale" qui vise à détecter les entreprises qui n'ont pas repris le paiement de leur dette URSSAF depuis l'été 2020 (date à laquelle les reports de charges consentis pendant le premier confinement se sont terminés).
+
+- :construction_worker: D'autres corrections encore en cours de co-construction avec nos utilisateurs autour notamment :
+  - du recours à l'activité partielle longue durée
+  - de papiers de recherche (institutionnels ou académiques) sur l'impact de la crise Covid par secteur d'activité
 
 ## Évaluation du modèle
 
-Uniquement la partie "apprentissage supervisée" du modèle peut être évaluée
-proprement, dans la mesure où la crise n'a pas produit tous ses effets
-économiques et que nous ne disposons pas de visibilité sur les défaillances
-futures pour évaluer la performance des corrections apportées.
+Uniquement la partie "apprentissage supervisée" du modèle peut être évaluée proprement, dans la mesure où la crise n'a pas produit tous ses effets économiques et que nous ne disposons pas de visibilité sur les défaillances futures pour évaluer la performance des corrections apportées.
 
 ### Évaluation du modèle par validation croisée
 
-Afin que l'évaluation représente le mieux possible la mesure de la capacité de
-généralisation à la situation réelle d'utilisation du modèle, il faut veiller
-aux éléments suivants:
+Afin que l'évaluation représente le mieux possible la mesure de la capacité de généralisation à la situation réelle d'utilisation du modèle, il faut veiller aux éléments suivants:
 
-- Plusieurs observations d'un même établissement ou les établissements de la
-  même entreprise doivent se retrouver dans le même échantillon, sous peine
-  d'avoir une fuite d'information de l'échantillon d'entraînement vers
-  l'échantillon de test (la performance biaisée du modèle favoriserait le
-  sur-apprentissage au niveau de l'entreprise).
-- la période d'entraînement et les 18 mois qui suivent ne doivent pas être
-  utilisés pour l'évaluation, sous peine de faire fuiter l'information sur la
-  situation macro-économique
-  (générale ou par secteur d'activité) au travers le la variable
-  d'apprentissage (qui observe les défaillances à 18 mois).
-- Enfin, l'évaluation ne doit pas tenir compte des entreprises déjà
-  défaillantes, pour lesquelles le modèle n'est pas utilisé en pratique.
-
-En conséquence, pour l'évaluation, une validation croisée est effectuée, dans
-laquelle sont garantis:
-
-- les différentes "vues" d'un même établissement à des périodes différentes, et
-  les établissements d'une même entreprise seront toujours regroupées dans le
-  même échantillon.
-- un établissement pour l'entraînement est observé dans la période temporelle
-  2015-01 à 2016-06 inclus, alors qu'un établissement dans l'échantillon de
-  test est observé entre 2018-01 et 2018-06 inclus. L'échantillon de test ne
-  peut pas aller au-delà car il faut au moins 18 mois de visibilité dans le
-  futur pour la variable d'apprentissage (nécessaire à l'évaluation), et du
-  fait du souhait d'exclure les périodes affectées par la crise COVID.
-- les "signaux forts", c'est-à-dire les entreprises pour lesquelles on peut
-  affirmer avec certitudes qu'elles tombent dans la cible d'apprentissage, sont
-  retirés des échantillons d'évaluation.
+- Plusieurs observations d'un même établissement ou les établissements de la même entreprise doivent se retrouver dans le même échantillon, sous peine d'avoir une fuite d'information de l'échantillon d'entraînement vers l'échantillon de test (la performance biaisée du modèle favoriserait le sur-apprentissage au niveau de l'entreprise).
+- L'évaluation ne doit pas tenir compte des entreprises déjà défaillantes (des "signaux forts"), pour lesquelles le modèle n'est pas utilisé en pratique.
 
 ### Choix de la métrique
 
 Après retrait des "signaux forts" (cf paragraphe précédent), la cible à détecter représente à peine 3% de l'échantillon d'entreprise. Il s'agit donc d'un échantillon très biaisé.
 
-L'**aire sous la courbe précision-rappel** (AUCPR) est une métrique adaptée à
-ce contexte.
+Dans le contexte de Signaux Faibles, les faux positifs (un doute est émis sur une entreprise en réalité bien portante) est beaucoup plus acceptable qu'un faux négatif (une entreprise en difficulté n'a pas été détectée).
+
+Ainsi, la **précision moyenne** (average accuracy) se prête bien à l'évaluation de notre algorithme. Nous utilisons également un **score F-beta** avec une valeur de beta proche de 2 afin de pénaliser plus fortement les faux négatifs.
+
+L'**aire sous la courbe précision-rappel** (AUCPR) est également une métrique adaptée à ce contexte.
 
 ### Reproductibilité de l'évaluation.
 
-Des mesures ont été prises pour que l'évaluation soit reproductibile,
-c'est-à-dire que sous réserve de faire les mêmes requêtes en base pour charger
-les données, la performance mesurée sera identique.
+Des mesures ont été prises pour que l'évaluation soit reproductibile, c'est-à-dire que sous réserve de faire les mêmes requêtes en base pour charger les données, la performance mesurée sera identique.
 
 Les paragraphes suivants indiquent de quelle manière cette reproductibilité est
 assurée.
 
-#### Import des données dans R
+#### Import des données dans Python
 
-D'abord, l'échantillonnage des données importées depuis la base mongodb sous R
-doit être reproductible. Pour cela, un nombre aléatoire est sauvegardé à même
-la base de données, sous l'intitulé "random_order". La requête utilisera ce
-nombre aléatoire pour ordonner les observations, et prendre les N premières, où
-N est le nombre d'observations à échantillonner.
+D'abord, l'échantillonnage des données importées depuis la base mongodb sous python doit être reproductible. Pour cela, un nombre aléatoire est sauvegardé à même la base de données, sous l'intitulé "random_order". La requête utilisera ce nombre aléatoire pour ordonner les observations, et prendre les `N` premières, où `N` est le nombre d'observations à échantillonner.
 
-#### Reproductibilité des traitements dans R
+#### Reproductibilité des traitements dans Python
 
-La reproductibilité des traitements dans R est assurée par l'utilisation de
-suites pseudo-aléatoires avec `set.seed`, au moment du découpage en différents
-échantillons (réalisé par mlr3).
+La reproductibilité des traitements dans python est assurée par l'utilisation du décorateur `is_random` pour les fonctions avec une composante aléatoire. Toutes ces fonctions peuvent alors être "seedée" via la variable d'environnement `RANDOM_SEED`.
 
-Il a néanmoins été constaté des ruptures dans la reproductibilité de
-l'échantillonnage dû à des changements de version de mlr3 (suspicion, cf
-https://github.com/signaux-faibles/rsignauxfaibles/issues/41)
-
-La même procédure peut être appliquée aux modèles qui ont un entraînement avec
-une composante aléatoire.
+La même procédure peut être appliquée aux modèles qui ont un entraînement avec une composante aléatoire.
