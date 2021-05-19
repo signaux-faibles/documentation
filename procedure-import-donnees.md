@@ -171,7 +171,7 @@ Puis, avant de lancer le compactage, corriger ou supprimer les entrées invalide
 Une fois les données validées:
 
 ```sh
-./sfdata compact --batch="2002_1"
+./sfdata compact --since-batch="2002_1"
 ```
 
 > Documentation de référence: [Spécificités du compactage](processus-traitement-donnees.md#sp%C3%A9cificit%C3%A9s-du-compactage)
