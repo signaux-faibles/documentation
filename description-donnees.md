@@ -6,7 +6,7 @@
 - [Préambule](#pr%C3%A9ambule)
 - [Périmètre des données](#p%C3%A9rim%C3%A8tre-des-donn%C3%A9es)
   - [Nombre d'établissements :house:](#nombre-d%C3%A9tablissements-house)
-  - [Périmètre temporel :clock:](#p%C3%A9rim%C3%A8tre-temporel-clock)
+  - [Périmètre temporel :clock1:](#p%C3%A9rim%C3%A8tre-temporel-clock1)
 - [Données importées](#donn%C3%A9es-import%C3%A9es)
   - [Données sirene](#donn%C3%A9es-sirene)
   - [Données financières de la Banque de France](#donn%C3%A9es-financi%C3%A8res-de-la-banque-de-france)
@@ -67,7 +67,7 @@ L'algorithme tourne désormais sur la France entière. L'unité de base est l'é
 
 Il en résulte un stock d'environ 350000 établissements issues de 250000 entreprises. Les établissements éventuellement absents de la base sirène (en cas de base sirène obsolète par exemple) sont filtrés en post-traitement.
 
-### Périmètre temporel :clock:
+### Périmètre temporel :clock1:
 
 L'algorithme est entrainé sur des données mensuelles ou annuelles à partir de Janvier 2015. Certaines sources ont des profondeurs d'historiques plus grandes mais qui ne sont pas valorisées dans notre modèle.
 
