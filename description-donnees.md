@@ -39,7 +39,7 @@
     - [1.1.1. Lexique et explication des concepts clés sur les liens Ellisphere](#111-lexique-et-explication-des-concepts-cl%C3%A9s-sur-les-liens-ellisphere)
     - [1.1.2. Cas particuliers des Têtes de Groupe (TDG)](#112-cas-particuliers-des-t%C3%AAtes-de-groupe-tdg)
     - [1.1.3. Structure du fichier](#113-structure-du-fichier)
-  - [Retards](#retards)
+  - [Retards de paiements fournisseurs](#retards-de-paiements-fournisseurs)
 - [Variables fournies au modèle d'apprentissage (`Features`)](#variables-fournies-au-mod%C3%A8le-dapprentissage-features)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -795,7 +795,7 @@ Ellisphere fournira, si elle existe (= identifiée en tant que TDG dans la base 
 - FIL Ville: Ville de la Filiale
 - FIL Pays: Pays de la Filiale
 
-### Retards
+### Retards de paiements fournisseurs
 
 Le MEFR achète auprès d'Altarès la base "Paydex" qui contient le nombre de jours de retard moyens d'un établissement sur le paiement de ses factures.
 
