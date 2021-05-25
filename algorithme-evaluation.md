@@ -27,18 +27,18 @@ Le modèle Signaux Faibles vise à identifier de nouvelles entreprises en situat
 
 Un modèle d'apprentissage supervisé a été initialement développé avant la crise, a été étendu à la France entière en décembre 2019, mais a été mis à l'arrêt depuis le début du confinement de Mars 2020, car inapte à traiter la situation spécifique à la crise.
 
-En octobre 2020, un nouveau modèle tenant compte de l'impact de la crise a été proposé. Le modèle qui a été retenu à cet effet est un modèle transparent, qui permet la définition de variables latentes explicatives, qui a été fortement inspiré par [ce modèle](http://dukedatasciencefico.cs.duke.edu/). Son périmètre a été provisoirement réduit aux entreprises industrielles et dont on connaît les informations financières, mais le même modèle avait pour vocation a être étendu à tous les secteurs d'activité. La documentation relative à ce modèle peut-être retrouvée [ici](ab6de5f).
+En octobre 2020, un nouveau modèle tenant compte de l'impact de la crise a été proposé. Le modèle qui a été retenu à cet effet est un modèle d'apprentissage automatique ("machine-learning") transparent, qui permet la définition de variables latentes explicatives, qui a été fortement inspiré par [ce modèle](http://dukedatasciencefico.cs.duke.edu/). Son périmètre a été provisoirement réduit aux entreprises industrielles et dont on connaît les informations financières, mais le même modèle a vocation a être étendu à tous les secteurs d'activité. La documentation relative à ce modèle peut-être retrouvée [ici](ab6de5f).
 
 ## Modèle "à deux étages" de Mars 2021
 
-Afin d'adapter au mieux notre algorithme à la situation économique liée à la crise Covid et de rapprocher nos listes de détection des préoccupations de nos utilisateurs, il a été décidé de faire évoluer le modèle vers une approche à "deux étages".
+La crise économique liée au Covid-19 est un contexte nouveau, pour lequel l'apprentissage automatique est mis en défaut, du fait que le crise modifie en profondeur la conjoncture économique et le comportement des entreprises. Afin d'adapter au mieux notre algorithme à la situation économique liée à la crise Covid et de rapprocher nos listes de détection des préoccupations de nos utilisateurs, il a été décidé de faire évoluer le modèle vers une approche à "deux étages", qui permet de séparer le contexte en entrée de crise et l'impact de la crise sur chaque entreprise.
 
 Les prédictions sont obtenues en deux étapes:
 
-- D'abord, un **modèle _simple_ et _explicable_** (une régression logistique) est utilisé afin de prédire la situation d'un établissement _juste avant la crise_ (à Février 2020). Cette prédiction est transformée en trois catégories : niveau d'alerte rouge, orange ou verte.
+- D'abord, un **modèle _simple_ et _explicable_** (une régression logistique) est utilisé afin de prédire la situation d'un établissement _juste avant la crise_ (à Février 2020). Cette prédiction est transformée en trois catégories : niveau d'alerte rouge (risque de défaillance élevé), orange (risque de défaillance modéré) ou verte (pas de signal de risque).
 - Ensuite, des corrections liées à la crise sont apportées via des **règles expertes** transparentes et co-construites avec nos utilisateurs afin de permettre au modèle de capter des réalités terrain liées à un contexte sans précédent et qu'un modèle d'apprentissage automatisé n'aurait — par définition — pas pu apprendre. Ces règles peuvent faire passer certaines entreprises dans un niveau d'alerte plus élevé.
 
-La prédiction finale du modèle est donc complétement transparente et explicable — étant la somme d'un modèle linéaire simple et d'une règle experte ayant la forme d'un arbre de décision.
+La prédiction finale du modèle est donc complétement transparente et explicable — étant la superposition d'une [régression logistique](https://fr.wikipedia.org/wiki/R%C3%A9gression_logistique) et d'une règle experte ayant la forme d'un arbre de décision.
 
 Le modèle de Mars 2021 est détaillé dans ce qui suit :
 
@@ -48,13 +48,13 @@ Le modèle de Mars 2021 est détaillé dans ce qui suit :
 
 > anticiper de 18 mois l'entrée en procédure collective (liquidation redressement judiciaires, et sauvegarde) ou 3 mois consécutifs de cotisations sociales impayées.
 
-Cet objectif d'apprentissage est imparfait : des entreprises en difficulté peuvent ne pas avoir de défaillance dans les 18 mois, mais seraient pertinentes à être détectées. C'est le cas par exemple d'entreprises financièrement solides mais dont l'activité ne leur permet pas d'être profitable. Inversement, certaines défaillances sont dues à des évènements non encore identifiables avec 18 mois d'anticipation (accidents, etc.).
+Cet objectif d'apprentissage est imparfait : des entreprises en difficulté peuvent ne pas avoir de défaillance dans les 18 mois, mais seraient pertinentes à être détectées. C'est le cas par exemple d'entreprises financièrement solides mais dont l'activité ne leur permet pas d'être profitable. Inversement, certaines défaillances sont dues à des évènements non encore identifiables avec 18 mois d'anticipation (accidents, etc.), qui ne pourront donc être détectés que plus tard.
 
 De plus, de nombreuses entreprises ont bénéficié de reports de charges pendant le premier confinement et entrent donc mécaniquement dans notre cible d'apprentissage, n'ayant pas payé de cotisations sociales pendant 3 mois. Pour éviter que ce très fort biais dans notre cible d'apprentissage à partir de Décembre 2018 (Mai 2020 - 18 mois) n'impacte l'entrainement de notre modèle, nous avons restreint cet entrainement à la période allant de Janvier 2016 à Novembre 2018.
 
 :construction_worker: nous travaillons actuellement à la redéfinition de cette cible d'apprentissage, en concertation avec nos partenaires.
 
-La cible d'apprentissage est très déséquilibrée.
+A noter que la cible d'apprentissage est très déséquilibrée: statistiquement, environ 5.5% des établissements observés aujourd'hui feront défaillance dans les 18 mois à venir. Ce chiffre a chuté lors au début de la crise Covid-19, du fait des dispositifs de soutien aux entreprises ayant permis de maintenir "à flot" une part des entreprises éligibles. Qui plus est, une part de ces 5.5% sont des établissements pour lequel on dispose d'un "signal fort" (voir ci-dessous).
 
 ### _Périmètre_
 
@@ -90,7 +90,7 @@ Le modèle est entrainé sur les variables d'apprentissage suivantes:
 
 Voir [ce document](https://github.com/signaux-faibles/opensignauxfaibles/blob/master/js/reduce.algo2/docs/variables.json) pour la définition et la source des champs présents en base.
 
-### Seuils de détection
+### Seuils de détection :construction_worker:
 
 Les seuils ont pour l'instant été arbitrairement fixés pour garantir des volumes raisonnables d'entreprises détéctées. Il serait pertinent d'améliorer cette méthode, notamment en trouvant les seuils qui maximisent notre critère d'évaluation.
 
