@@ -10,7 +10,7 @@
   - [_Périmètre_](#_p%C3%A9rim%C3%A8tre_)
   - [_Modèle_](#_mod%C3%A8le_)
   - [_Features_](#_features_)
-  - [Seuils de détection](#seuils-de-d%C3%A9tection)
+  - [Seuils de détection :construction_worker:](#seuils-de-d%C3%A9tection-construction_worker)
 - [Deuxième étage: Corrections liées à la crise :construction_worker: :building_construction:](#deuxi%C3%A8me-%C3%A9tage-corrections-li%C3%A9es-%C3%A0-la-crise-construction_worker-building_construction)
 - [Évaluation du modèle](#%C3%A9valuation-du-mod%C3%A8le)
   - [Évaluation du modèle par validation croisée](#%C3%A9valuation-du-mod%C3%A8le-par-validation-crois%C3%A9e)
