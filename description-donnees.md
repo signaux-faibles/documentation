@@ -51,11 +51,11 @@ Ce dossier technique décrite les données utilisées dans le projet signaux-fai
 Les données utilisées proviennent de plusieurs sources:
 
 - **Données Sirene** Raison sociale, adresse, code APE, date de création etc.\
-- **Données Altarès** Données de défaillance, base "paydex" sur les retards de paiements
 - **Données DIRECCTE** Autorisations et consommations d'activité partielle, recours à l'intérim, déclaration des mouvements de main-d'oeuvre
-- **Données URSSAF** Montant des cotisations, montant des dettes (part patronale, part ouvrière), demandes de délais de paiement, demandes préalables à l'embauche
+- **Données URSSAF** Données de défaillance, montant des cotisations, montant des dettes (part patronale, part ouvrière), demandes de délais de paiement, demandes préalables à l'embauche
 - **Données Banque de France** 6 ratios financiers
 - **Données Diane** Bilans et comptes de résultats. Permet d'enrichir les données financières de la Banque de France
+- **Données Altarès** Base "paydex" sur les retards de paiements
 
 Les sections ci-dessous détaillent la nature des données importées, et la nature des traitements qui leurs sont appliqués.
 
