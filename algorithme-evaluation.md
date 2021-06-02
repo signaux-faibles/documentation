@@ -104,7 +104,7 @@ Des corrections "expertes" sont réalisées après l'apprentissage supervisé:
   - du recours à l'activité partielle longue durée
   - de papiers de recherche (institutionnels ou académiques) sur l'impact de la crise Covid par secteur d'activité
 
-## Évaluation du modèle
+## Evaluation du modèle - Méthodologie
 
 Uniquement la partie "apprentissage supervisée" du modèle peut être évaluée proprement, dans la mesure où la crise n'a pas produit tous ses effets économiques et que nous ne disposons pas de visibilité sur les défaillances futures pour évaluer la performance des corrections apportées.
 
@@ -141,3 +141,7 @@ D'abord, l'échantillonnage des données importées depuis la base mongodb sous 
 La reproductibilité des traitements dans python est assurée par l'utilisation du décorateur `is_random` pour les fonctions avec une composante aléatoire. Toutes ces fonctions peuvent alors être "seedée" via la variable d'environnement `RANDOM_SEED`.
 
 La même procédure peut être appliquée aux modèles qui ont un entraînement avec une composante aléatoire.
+
+## Evaluation du modèle - Métriques à juin 2021
+Voir [evaluation-modele-juin2021.md](evaluation-modele-juin2021.md)
+
