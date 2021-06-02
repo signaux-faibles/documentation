@@ -125,6 +125,9 @@ Ainsi, la **précision moyenne** (average accuracy) se prête bien à l'évaluat
 
 L'**aire sous la courbe précision-rappel** (AUCPR) est également une métrique adaptée à ce contexte.
 
+### Benchmark
+Un benchmark est actuellement réalisé par l'équipe data science de Signaux Faibles, à la fois pour évaluer la performance de notre modèle relativement à d'autres modèles, et en prospective de modèles pouvant être intégrés à l'avenir. Voir: https://drive.google.com/file/d/1S7FymmDT1Ml_vccHXv2FTDvJde931YuO/view?usp=sharing
+
 ### Reproductibilité de l'évaluation.
 
 Des mesures ont été prises pour que l'évaluation soit reproductibile, c'est-à-dire que sous réserve de faire les mêmes requêtes en base pour charger les données, la performance mesurée sera identique.
