@@ -15,8 +15,8 @@ Modèle étage 2: redressement à posteriori sur reprise du règlements des enco
 ### Seuils sélectionnés - $f_{\beta}$
 
 Sur le dataset de test chargé depuis `/home/common/benchmark/052021_full_data_test.csv` (1.2M):<br>
-F1 - $\beta=0.5$ - Optimal threshold: $t_{F1,fb}=0.868$ - $f_{0.5}=0.672$<br>
-F2 - $\beta=2$ - Optimal threshold: $t_{F2,fb}=0.183$ - $f_{2}=0.495$
+Pallier "risque fort" - $\beta=0.5$ - Optimal threshold: $t_{F1}=0.817$ - $f_{0.5}=0.722$<br>
+Pallier "risque modéré" - $\beta=2$ - Optimal threshold: $t_{F2}=0.179$ - $f_{2}=0.547$
 
 ### Evaluation du modèle pré-redressements - seuils $f_{\beta}$
 ```
@@ -28,16 +28,17 @@ F2 - $\beta=2$ - Optimal threshold: $t_{F2,fb}=0.183$ - $f_{2}=0.495$
 > )
 
 {
-    'balanced_accuracy': 0.6682117091492364,
+	'aucpr': 0.522,
+    'balanced_accuracy': 0.675,
     'confusion_matrix': {
-    	'tn': 479986,
-    	'fp': 864,
-    	'fn': 14219,
-    	'tp': 7267
+    	'tn': 479649,
+    	'fp': 1201,
+    	'fn': 13893,
+    	'tp': 7593
     	},
-    'f0.5': 0.672745787817071,
-    'precision': 0.8937400073791661,
-    'recall': 0.3382202364330262
+    'f0.5': 0.670,
+    'precision': 0.863,
+    'recall': 0.353
 }
 ```
 
@@ -50,34 +51,35 @@ F2 - $\beta=2$ - Optimal threshold: $t_{F2,fb}=0.183$ - $f_{2}=0.495$
 > )
 
 {
-    'balanced_accuracy': 0.7390538988314339,
+	'aucpr': 0.522,
+    'balanced_accuracy': 0.740,
     'confusion_matrix': {
-    	'tn': 468488,
-    	'fp': 12362,
-    	'fn': 10661,
-    	'tp': 10825
+    	'tn': 468027,
+    	'fp': 12823,
+    	'fn': 10621,
+    	'tp': 10865
     	},
-    'f2': 0.4959635667225627,
-    'precision': 0.46685642817095785,
-    'recall': 0.5038164386111886
+    'f2': 0.496,
+    'precision': 0.459,
+    'recall': 0.506
 }
 ```
 
 ### Volumétrie des seuils - $f_{\beta}$
-Avec les seuils sélectionnés juste au-dessus par une maximisation des f_0.5 et f_2 scores, respectivement:
-- 8131 risque fort (1.62%)
-- 15056 risque modéré (3.0%)
+Avec les seuils sélectionnés juste au-dessus par une maximisation des scores $F_{0.5}$ et $F_{2}$, respectivement:
+- Pallier "risque fort" (rouge): 1929 (1.71%)
+- Pallier "risque modéré" (orange): 5227 (4.65%)
 
 
 ### [Bonus] Seuils sélectionnés - semi-manuel
-Sur le dataset de test chargé depuis `/home/common/benchmark/052021_full_data_test.csv` (1.2M):<br>
-F1 - $t_{F1}=0.904$ garantit une précision de 91% pour la liste F1 (rouge)<br>
-F2 - $t_{F2}=0.134$ garantit un recall de 58.5% pour la liste F2 (orange)
+Sur le dataset de test chargé depuis `/home/common/benchmark/052021_split_data_validation.csv` (1.7M):<br>
+Pallier "risque fort" - $t_{F1}=0.822$ garantit une précision de 92% pour la liste "risque fort" (rouge)<br>
+Pallier "risque modéré" - $t_{F2}=0.141$ garantit un recall de 58.5% pour la liste "risque modéré" (orange)
 
 ### [Bonus] Volumétrie des seuils - semi-manuel
 Avec les seuils sélectionnés juste au-dessus par une sélection semi-manuelle:
-- 7662 risque fort (1.53%)
-- 35913 risque modéré (7.15%)
+- Pallier "risque fort" (rouge): 1914  (1.7%)
+- Pallier "risque modéré" (orange): 8496  (7.55%)
 
 ### [Bonus] Evaluation du modèle pré-redressements - seuils semi-manuels
 ```
@@ -89,16 +91,17 @@ Avec les seuils sélectionnés juste au-dessus par une sélection semi-manuelle:
 > )
 
 {
-	'balanced_accuracy': 0.6615752852059438,
+	'aucpr': 0.522,
+	'balanced_accuracy': 0.675,
 	'confusion_matrix': {
-		'tn': 480161,
-		'fp': 689,
-		'fn': 14512,
-		'tp': 6974
+		'tn': 479693,
+		'fp': 1157,
+		'fn': 13914,
+		'tp': 7572
 		},
-	'f0.5': 0.6688020253941463,
-	'precision': 0.9100874331201879,
-	'recall': 0.32458344968816905
+	'f0.5': 0.671,
+	'precision': 0.867,
+	'recall': 0.352
 }
 ```
 
@@ -111,16 +114,17 @@ Avec les seuils sélectionnés juste au-dessus par une sélection semi-manuelle:
 > )
 
 {
-	'balanced_accuracy': 0.7620499212745868,
+	'aucpr': 0.522,
+	'balanced_accuracy': 0.746,
 	'confusion_matrix': {
-		'tn': 449917,
-		'fp': 30933,
-		'fn': 8843,
-		'tp': 12643
+		'tn': 455683,
+		'fp': 25167,
+		'fn': 9752,
+		'tp': 11734
 		},
-	'f2': 0.48807134033353927,
-	'precision': 0.29013677253534054,
-	'recall': 0.5884296751372987
+	'f2': 0.478,
+	'precision': 0.318,
+	'recall': 0.546
 }
 ```
 
@@ -133,13 +137,13 @@ Pour le modèle "small“, sur le dataset de test chargé depuis `/home/common/b
 ### Seuils sélectionnés - $f_{\beta}$
 
 Sur le dataset de test chargé depuis `/home/common/benchmark/052021_full_data_test.csv` (1.2M):<br>
-F1 - $\beta=0.5$ - Optimal threshold: $t_{F1}=0.684$ - $f_{0.5}=0.670$<br>
-F2 - $\beta=2$ - Optimal threshold: $t_{F2}=0.127$ - $f_{2}=0.514$
+Pallier "risque fort" - $\beta=0.5$ - Optimal threshold: $t_{F1}=0.667$ - $f_{0.5}=0.724$<br>
+Pallier "risque modéré" - $\beta=2$ - Optimal threshold: $t_{F2}=0.134$ - $f_{2}=0.563$
 
 ### Volumétrie des seuils - $f_{\beta}$
-Avec les seuils sélectionnés juste au-dessus par une maximisation des f_0.5 et f_2 scores, respectivement:
-- 8425 risque fort (1.68%)
-- 13640 risque modéré (2.72%)
+Avec les seuils sélectionnés juste au-dessus par une maximisation des scores $f_{0.5}$ et $f_{2}$, respectivement:
+- Pallier "risque fort" (rouge): 1896 (1.69%)
+- Pallier "risque modéré" (orange): 3237 (2.88%)
 
 ### Evaluation du modèle pré-redressements - seuils $f_{\beta}$
 ```
@@ -151,16 +155,17 @@ Avec les seuils sélectionnés juste au-dessus par une maximisation des f_0.5 et
 > )
 
 {
-	'balanced_accuracy': 0.6709448495646309,
+	'aucpr': 0.482,
+	'balanced_accuracy': 0.672,
 	'confusion_matrix': {
-		'tn': 479817,
-		'fp': 1033,
-		'fn': 14094,
-		'tp': 7392
+		'tn': 479730,
+		'fp': 1120,
+		'fn': 14008,
+		'tp': 7478
 		},
-	'f0.5': 0.6697350777371072,
-	'precision': 0.8773887240356083,
-	'recall': 0.34403797821837473
+	'f0.5': 0.669,
+	'precision': 0.870,
+	'recall': 0.348
 }
 ```
 
@@ -173,15 +178,16 @@ Avec les seuils sélectionnés juste au-dessus par une maximisation des f_0.5 et
 > )
 
 {
-	'balanced_accuracy': 0.7469789831298288,
+	'aucpr': 0.482,
+	'balanced_accuracy': 0.745,
 	'confusion_matrix': {
-		'tn': 469888,
-		'fp': 10962,
-		'fn': 10383,
-		'tp': 11103
+		'tn': 471130,
+		'fp': 9720,
+		'fn': 10533,
+		'tp': 10953
 		},
-	'f2': 0.5139849456989694,
-	'precision': 0.5031951053704963,
-	'recall': 0.5167550963418039
+	'f2': 0.514,
+	'precision': 0.530,
+	'recall': 0.510
 }
 ```

@@ -90,9 +90,68 @@ Le modèle est entrainé sur les variables d'apprentissage suivantes:
 
 Voir [ce document](https://github.com/signaux-faibles/opensignauxfaibles/blob/master/js/reduce.algo2/docs/variables.json) pour la définition et la source des champs présents en base.
 
-### Seuils de détection :construction_worker:
+### _Evaluation du modèle: lexique_
 
-Les seuils ont pour l'instant été arbitrairement fixés pour garantir des volumes raisonnables d'entreprises détéctées. Il serait pertinent d'améliorer cette méthode, notamment en trouvant les seuils qui maximisent notre critère d'évaluation.
+Pour notre problème, nous choisissons d'attribuer un score de 1 aux entreprises ayant un risque maximal de défaillance, et 0 aux entreprises ayant un risque minimal de défaillance. En conséquence, nous avons les définitions suivantes:
+
+Défaillance
+: une entrée en procédure collective, ou une dette urssaf maintenue plus de 3 mois
+
+Elément/établissement positif
+: un établissement connaissant effectivement une défaillance à au moins un moment sur les 18 prochains mois
+
+Elément/établissement négatif
+: le contraire d'un établissement positif
+
+Elément/établissement prédit positif
+: un établissement que notre algorithme identifie comme à risque de défaillance (fort ou modéré) sur les 18 prochains mois
+
+Elément/établissement prédit négatif
+: le contraire d'un établissement prédit positif
+
+Elément/établissement faux positif
+: un établissement pour lequel une défaillance est prédite, mais qui ne connaît pas de défaillance effective
+
+Elément/établissement faux négatif
+: un établissement pour lequel aucune défaillance n'est prédite, mais qui connaît effectivement une défaillance
+
+A partir de ces définitions, on dérive les métriques usuelles d'évaluation d'un algorithme d'apprentissage automatique:
+
+Précision
+: la part d'établissements prédits positifs étant effectivement positifs
+
+Rappel
+: la part d'établissements effectivement positifs étant prédits positifs
+
+Score $F_{\beta}$
+: une métrique d'évaluation prenant à la fois la précision et le rappel en compte, et accordant une importante relative $\beta$ fois plus importante au rappel qu'à la précision
+
+Seuil de classification
+: le modèle Signaux Faibles produit un score de risque entre 0 et 1 produit par notre algorithme. Hors, il faut décider à quelle pallier de risque appartient chaque établissement à partir de ce score de risque. Pour ce faire, et au vu du modèle et de la cible d'apprentissage actuelle, il est nécessaire de définir un premier seuil sur le score de risque au-delà duquel l'établissement est à considérer "à risque modéré" de défaillance, et un second seuil, plus élevé que le premier, au-delà duquel l'établissement est à considérer "à risque fort" de défaillance. La méthodologie pour déterminer ces seuils est détaillée ci-dessous 
+
+Score AUCPR
+: l'aire sous la courbe rappel-précision (Area Under Curve, for Precision-Recall curve). C'est une courbe obtenue à partir du rappel en abscisse, et de la précision en ordonnée, et qui permet d'étudier la performance du modèle en fonction du seuil de classification choisi
+
+Pour plus d'informations sur ces métriques, voir les liens ci-dessous:
+- [Précision et rappel](https://fr.wikipedia.org/wiki/Pr%C3%A9cision_et_rappel)
+- [Matrice de confusion](https://fr.wikipedia.org/wiki/Matrice_de_confusion)
+- [Score $F_{\beta}$](https://en.wikipedia.org/wiki/F-score)
+
+### _Seuils de détection_
+
+Le premier étage algorithmique produit un score de risque de défaillance, compris entre 0 (aucun signal de risque) et 1 (risque fort détecté).
+A partir de ces scores de risque, une liste d'entreprise à risque est construite, avec trois palliers de risques:
+- un niveau "risque fort" :red_circle: où la précision est élevée, c'est-à-dire que les entreprises identifiées comme à risque fort le sont effectivement, quitte à manquer quelques entreprises qui font défaillance
+- un niveau "risque modéré" :orange_circle: est construite de sorte à capturer un maximum d'entreprises à risque, quitte à avoir dans cette liste plus de faux positifs, c'est-à-dire d'établissements qui sont en réalité en bonne santé.
+- un niveau "aucun signal de risque" :green_circle:, comprenant tous les établissements de notre périmètre n'entrant pas dans les deux palliers ci-dessus.
+
+Ces seuils sont déterminés par la maximisation du score $F_{\beta}$, une métrique permettant de prendre en compte à la fois les faux positifs et les faux négatifs.
+Plus particulièrement:
+- le seuil du pallier "risque fort" est choisi pour maximiser le $F_{0.5}$, une métrique qui favorise deux fois plus la précision que le rappel. Ce score favorise ainsi une précision élevée, et donc l'exclusivité d'établissements effectivement en défaillance dans le pallier "risque fort".
+- le seuil du pallier "risque modéré" est choisi pour maximiser le score $F_2$, qui favorise deux fois plus le rappel que la précision. La maximisation de cette métrique vise à obtenir un palleir "risqe modéré" qui capture un maximum d'établissements effectivement en défaillance, quitte à capturer "par erreur" des faux positifs, c'est-à-dire quitte à viser trop large et lister des entreprises qui n'entreront pas en défaillance.
+
+La volumétrie des listes pour juin 2021 est donnée dans [evaluation-modele-juin2021.md](evaluation-modele-juin2021.md).
+
 
 ## Deuxième étage: Corrections liées à la crise :construction_worker: :building_construction:
 
