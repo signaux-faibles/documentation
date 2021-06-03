@@ -10,14 +10,17 @@
   - [_Périmètre_](#_p%C3%A9rim%C3%A8tre_)
   - [_Modèle_](#_mod%C3%A8le_)
   - [_Features_](#_features_)
-  - [Seuils de détection :construction_worker:](#seuils-de-d%C3%A9tection-construction_worker)
+  - [_Evaluation du modèle: lexique_](#_evaluation-du-mod%C3%A8le-lexique_)
+  - [_Seuils de détection_](#_seuils-de-d%C3%A9tection_)
 - [Deuxième étage: Corrections liées à la crise :construction_worker: :building_construction:](#deuxi%C3%A8me-%C3%A9tage-corrections-li%C3%A9es-%C3%A0-la-crise-construction_worker-building_construction)
-- [Évaluation du modèle](#%C3%A9valuation-du-mod%C3%A8le)
+- [Evaluation du modèle - Méthodologie](#evaluation-du-mod%C3%A8le---m%C3%A9thodologie)
   - [Évaluation du modèle par validation croisée](#%C3%A9valuation-du-mod%C3%A8le-par-validation-crois%C3%A9e)
   - [Choix de la métrique](#choix-de-la-m%C3%A9trique)
+  - [Benchmark](#benchmark)
   - [Reproductibilité de l'évaluation.](#reproductibilit%C3%A9-de-l%C3%A9valuation)
     - [Import des données dans Python](#import-des-donn%C3%A9es-dans-python)
     - [Reproductibilité des traitements dans Python](#reproductibilit%C3%A9-des-traitements-dans-python)
+- [Evaluation du modèle - Métriques à juin 2021](#evaluation-du-mod%C3%A8le---m%C3%A9triques-%C3%A0-juin-2021)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -127,12 +130,13 @@ Score $F_{\beta}$
 : une métrique d'évaluation prenant à la fois la précision et le rappel en compte, et accordant une importante relative $\beta$ fois plus importante au rappel qu'à la précision
 
 Seuil de classification
-: le modèle Signaux Faibles produit un score de risque entre 0 et 1 produit par notre algorithme. Hors, il faut décider à quelle pallier de risque appartient chaque établissement à partir de ce score de risque. Pour ce faire, et au vu du modèle et de la cible d'apprentissage actuelle, il est nécessaire de définir un premier seuil sur le score de risque au-delà duquel l'établissement est à considérer "à risque modéré" de défaillance, et un second seuil, plus élevé que le premier, au-delà duquel l'établissement est à considérer "à risque fort" de défaillance. La méthodologie pour déterminer ces seuils est détaillée ci-dessous 
+: le modèle Signaux Faibles produit un score de risque entre 0 et 1 produit par notre algorithme. Hors, il faut décider à quelle pallier de risque appartient chaque établissement à partir de ce score de risque. Pour ce faire, et au vu du modèle et de la cible d'apprentissage actuelle, il est nécessaire de définir un premier seuil sur le score de risque au-delà duquel l'établissement est à considérer "à risque modéré" de défaillance, et un second seuil, plus élevé que le premier, au-delà duquel l'établissement est à considérer "à risque fort" de défaillance. La méthodologie pour déterminer ces seuils est détaillée ci-dessous
 
 Score AUCPR
 : l'aire sous la courbe rappel-précision (Area Under Curve, for Precision-Recall curve). C'est une courbe obtenue à partir du rappel en abscisse, et de la précision en ordonnée, et qui permet d'étudier la performance du modèle en fonction du seuil de classification choisi
 
 Pour plus d'informations sur ces métriques, voir les liens ci-dessous:
+
 - [Précision et rappel](https://fr.wikipedia.org/wiki/Pr%C3%A9cision_et_rappel)
 - [Matrice de confusion](https://fr.wikipedia.org/wiki/Matrice_de_confusion)
 - [Score $F_{\beta}$](https://en.wikipedia.org/wiki/F-score)
@@ -141,17 +145,18 @@ Pour plus d'informations sur ces métriques, voir les liens ci-dessous:
 
 Le premier étage algorithmique produit un score de risque de défaillance, compris entre 0 (aucun signal de risque) et 1 (risque fort détecté).
 A partir de ces scores de risque, une liste d'entreprise à risque est construite, avec trois palliers de risques:
+
 - un niveau "risque fort" :red_circle: où la précision est élevée, c'est-à-dire que les entreprises identifiées comme à risque fort le sont effectivement, quitte à manquer quelques entreprises qui font défaillance
 - un niveau "risque modéré" :orange_circle: est construite de sorte à capturer un maximum d'entreprises à risque, quitte à avoir dans cette liste plus de faux positifs, c'est-à-dire d'établissements qui sont en réalité en bonne santé.
 - un niveau "aucun signal de risque" :green_circle:, comprenant tous les établissements de notre périmètre n'entrant pas dans les deux palliers ci-dessus.
 
 Ces seuils sont déterminés par la maximisation du score $F_{\beta}$, une métrique permettant de prendre en compte à la fois les faux positifs et les faux négatifs.
 Plus particulièrement:
+
 - le seuil du pallier "risque fort" est choisi pour maximiser le $F_{0.5}$, une métrique qui favorise deux fois plus la précision que le rappel. Ce score favorise ainsi une précision élevée, et donc l'exclusivité d'établissements effectivement en défaillance dans le pallier "risque fort".
 - le seuil du pallier "risque modéré" est choisi pour maximiser le score $F_2$, qui favorise deux fois plus le rappel que la précision. La maximisation de cette métrique vise à obtenir un palleir "risqe modéré" qui capture un maximum d'établissements effectivement en défaillance, quitte à capturer "par erreur" des faux positifs, c'est-à-dire quitte à viser trop large et lister des entreprises qui n'entreront pas en défaillance.
 
 La volumétrie des listes pour juin 2021 est donnée dans [evaluation-modele-juin2021.md](evaluation-modele-juin2021.md).
-
 
 ## Deuxième étage: Corrections liées à la crise :construction_worker: :building_construction:
 
@@ -185,6 +190,7 @@ Ainsi, la **précision moyenne** (average accuracy) se prête bien à l'évaluat
 L'**aire sous la courbe précision-rappel** (AUCPR) est également une métrique adaptée à ce contexte.
 
 ### Benchmark
+
 Un benchmark est actuellement réalisé par l'équipe data science de Signaux Faibles, à la fois pour évaluer la performance de notre modèle relativement à d'autres modèles, et en prospective de modèles pouvant être intégrés à l'avenir. Voir: https://drive.google.com/file/d/1S7FymmDT1Ml_vccHXv2FTDvJde931YuO/view?usp=sharing
 
 ### Reproductibilité de l'évaluation.
@@ -205,5 +211,5 @@ La reproductibilité des traitements dans python est assurée par l'utilisation 
 La même procédure peut être appliquée aux modèles qui ont un entraînement avec une composante aléatoire.
 
 ## Evaluation du modèle - Métriques à juin 2021
-Voir [evaluation-modele-juin2021.md](evaluation-modele-juin2021.md)
 
+Voir [evaluation-modele-juin2021.md](evaluation-modele-juin2021.md)
