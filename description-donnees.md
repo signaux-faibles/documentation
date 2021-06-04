@@ -5,8 +5,8 @@
 
 - [Préambule](#pr%C3%A9ambule)
 - [Périmètre des données](#p%C3%A9rim%C3%A8tre-des-donn%C3%A9es)
-  - [Nombre d'établissements](#nombre-d%C3%A9tablissements)
-  - [Taux de couverture des données](#taux-de-couverture-des-donn%C3%A9es)
+  - [Nombre d'établissements :house:](#nombre-d%C3%A9tablissements-house)
+  - [Périmètre temporel :clock1:](#p%C3%A9rim%C3%A8tre-temporel-clock1)
 - [Données importées](#donn%C3%A9es-import%C3%A9es)
   - [Données sirene](#donn%C3%A9es-sirene)
   - [Données financières de la Banque de France](#donn%C3%A9es-financi%C3%A8res-de-la-banque-de-france)
@@ -39,6 +39,7 @@
     - [1.1.1. Lexique et explication des concepts clés sur les liens Ellisphere](#111-lexique-et-explication-des-concepts-cl%C3%A9s-sur-les-liens-ellisphere)
     - [1.1.2. Cas particuliers des Têtes de Groupe (TDG)](#112-cas-particuliers-des-t%C3%AAtes-de-groupe-tdg)
     - [1.1.3. Structure du fichier](#113-structure-du-fichier)
+  - [Retards de paiements fournisseurs](#retards-de-paiements-fournisseurs)
 - [Variables fournies au modèle d'apprentissage (`Features`)](#variables-fournies-au-mod%C3%A8le-dapprentissage-features)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -50,30 +51,25 @@ Ce dossier technique décrite les données utilisées dans le projet signaux-fai
 Les données utilisées proviennent de plusieurs sources:
 
 - **Données Sirene** Raison sociale, adresse, code APE, date de création etc.\
-- **Données Altarès** Données de défaillance, permet la définition de l'objectif d'apprentissage
 - **Données DIRECCTE** Autorisations et consommations d'activité partielle, recours à l'intérim, déclaration des mouvements de main-d'oeuvre
-- **Données URSSAF** Montant des cotisations, montant des dettes (part patronale, part ouvrière), demandes de délais de paiement, demandes préalables à l'embauche
+- **Données URSSAF** Données de défaillance, montant des cotisations, montant des dettes (part patronale, part ouvrière), demandes de délais de paiement, demandes préalables à l'embauche
 - **Données Banque de France** 6 ratios financiers
 - **Données Diane** Bilans et comptes de résultats. Permet d'enrichir les données financières de la Banque de France
+- **Données Altarès** Base "paydex" sur les retards de paiements
 
 Les sections ci-dessous détaillent la nature des données importées, et la nature des traitements qui leurs sont appliqués.
 
 ## Périmètre des données
 
-### Nombre d'établissements
+### Nombre d'établissements :house:
 
-L'algorithme tourne désormais sur la France entière. L'unité de base est
-l'établissement. Les établissements de moins de 10 salariés ou dont
-l'effectif est inconnu ne sont pas intégrés à l'entraînement de
-l'algorithme.
+L'algorithme tourne désormais sur la France entière. L'unité de base est l'établissement. Les établissements de moins de 10 salariés ou dont l'effectif est inconnu ne sont pas intégrés à l'entraînement de l'algorithme.
 
-Il en résulte un stock d'environ 350000 établissements issues de 250000 entreprises.
-Les établissements éventuellement absents de la base sirène (en cas de base sirène obsolète par exemple) sont filtrés en post-traitement.
+Il en résulte un stock d'environ 350000 établissements issues de 250000 entreprises. Les établissements éventuellement absents de la base sirène (en cas de base sirène obsolète par exemple) sont filtrés en post-traitement.
 
-### Taux de couverture des données
+### Périmètre temporel :clock1:
 
-TODO
-Rédaction en cours.
+L'algorithme est entrainé sur des données mensuelles ou annuelles à partir de Janvier 2015. Certaines sources ont des profondeurs d'historiques plus grandes mais qui ne sont pas valorisées dans notre modèle.
 
 ## Données importées
 
@@ -86,15 +82,9 @@ Rédaction en cours.
 | Couverture siret         | Tout établissement actif                                                          |
 | Fréquence de mise-à-jour | Source mise à jour quotidiennement mais intégration mensuelle (voire bimensuelle) |
 
-Le fichier sirene est utilisé comme fichier de référence pour les
-établissements actifs. On s'en sert pour la raison sociale, le
-code naf, l'adresse (y compris région et
-département qui permettent d'ouvrir les droits de consultation sur
-le terrain). \\
+Le fichier sirene est utilisé comme fichier de référence pour les établissements actifs. On s'en sert pour la raison sociale, le code naf, l'adresse (y compris région et département qui permettent d'ouvrir les droits de consultation sur le terrain). \\
 \vfill
-On intègre pour l'algorithme également des données supplémentaires:
-date de création de l'établissement, présence ou non
-d'activité saisonnière.
+On intègre pour l'algorithme également des données supplémentaires: date de création de l'établissement, présence ou non d'activité saisonnière.
 
 La description détaillée des variables du fichier Sirène est téléchargeable depuis le site Internet de la [Base Sirene des entreprises et de leurs établissements (SIREN, SIRET) - data.gouv.fr](https://www.data.gouv.fr/en/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/#_).
 
@@ -804,6 +794,17 @@ Ellisphere fournira, si elle existe (= identifiée en tant que TDG dans la base 
 - FIL Code Postal: Code Postal de la Filiale
 - FIL Ville: Ville de la Filiale
 - FIL Pays: Pays de la Filiale
+
+### Retards de paiements fournisseurs
+
+Le MEFR achète auprès d'Altarès la base "Paydex" qui contient le nombre de jours de retard moyens d'un établissement sur le paiement de ses factures.
+
+|                          |                                  |
+| ------------------------ | -------------------------------- |
+| Source                   | Altarès                          |
+| Couverture               | Environ 55% de notre échantillon |
+| Fréquence de mise-à-jour | Mensuellement                    |
+| Délai des données        | M+1                              |
 
 ## Variables fournies au modèle d'apprentissage (`Features`)
 
