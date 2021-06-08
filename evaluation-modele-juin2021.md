@@ -1,25 +1,23 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-**Table of Contents** _generated with [DocToc](https://github.com/thlorenz/doctoc)_
-
-- [Synthèse du modèle](#synth%C3%A8se-du-mod%C3%A8le)
-- [Modèle "default"](#mod%C3%A8le-default)
-  - [Seuils sélectionnés - $f_{\beta}$](#seuils-s%C3%A9lectionn%C3%A9s---f_%5Cbeta)
-  - [Evaluation du modèle pré-redressements - seuils $f_{\beta}$](#evaluation-du-mod%C3%A8le-pr%C3%A9-redressements---seuils-f_%5Cbeta)
-  - [Volumétrie des seuils - $f_{\beta}$](#volum%C3%A9trie-des-seuils---f_%5Cbeta)
-  - [[Bonus] Seuils sélectionnés - semi-manuel](#bonus-seuils-s%C3%A9lectionn%C3%A9s---semi-manuel)
-  - [[Bonus] Volumétrie des seuils - semi-manuel](#bonus-volum%C3%A9trie-des-seuils---semi-manuel)
-  - [[Bonus] Evaluation du modèle pré-redressements - seuils semi-manuels](#bonus-evaluation-du-mod%C3%A8le-pr%C3%A9-redressements---seuils-semi-manuels)
-- [Modèle "small"](#mod%C3%A8le-small)
-  - [Seuils sélectionnés - $f_{\beta}$](#seuils-s%C3%A9lectionn%C3%A9s---f_%5Cbeta-1)
-  - [Volumétrie des seuils - $f_{\beta}$](#volum%C3%A9trie-des-seuils---f_%5Cbeta-1)
-  - [Evaluation du modèle pré-redressements - seuils $f_{\beta}$](#evaluation-du-mod%C3%A8le-pr%C3%A9-redressements---seuils-f_%5Cbeta-1)
+- [Evaluation du modèle Signaux Faibles - juin 2021](#evaluation-du-mod%C3%A8le-signaux-faibles---juin-2021)
+  - [Synthèse du modèle](#synth%C3%A8se-du-mod%C3%A8le)
+  - [Modèle "default"](#mod%C3%A8le-default)
+    - [Seuils sélectionnés - $f_{\beta}$](#seuils-s%C3%A9lectionn%C3%A9s---f_%5Cbeta)
+    - [Evaluation du modèle pré-redressements - seuils $f_{\beta}$](#evaluation-du-mod%C3%A8le-pr%C3%A9-redressements---seuils-f_%5Cbeta)
+    - [Volumétrie des seuils - $f_{\beta}$](#volum%C3%A9trie-des-seuils---f_%5Cbeta)
+    - [[Bonus] Seuils sélectionnés - semi-manuel](#bonus-seuils-s%C3%A9lectionn%C3%A9s---semi-manuel)
+    - [[Bonus] Volumétrie des seuils - semi-manuel](#bonus-volum%C3%A9trie-des-seuils---semi-manuel)
+    - [[Bonus] Evaluation du modèle pré-redressements - seuils semi-manuels](#bonus-evaluation-du-mod%C3%A8le-pr%C3%A9-redressements---seuils-semi-manuels)
+  - [Modèle "small"](#mod%C3%A8le-small)
+    - [Seuils sélectionnés - $f_{\beta}$](#seuils-s%C3%A9lectionn%C3%A9s---f_%5Cbeta-1)
+    - [Volumétrie des seuils - $f_{\beta}$](#volum%C3%A9trie-des-seuils---f_%5Cbeta-1)
+    - [Evaluation du modèle pré-redressements - seuils $f_{\beta}$](#evaluation-du-mod%C3%A8le-pr%C3%A9-redressements---seuils-f_%5Cbeta-1)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-Evaluation du modèle Signaux Faibles - juin 2021
-===
+# Evaluation du modèle Signaux Faibles - juin 2021
 
 ## Synthèse du modèle
 
