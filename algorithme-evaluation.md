@@ -126,11 +126,11 @@ Précision
 Rappel
 : la part d'établissements effectivement positifs étant prédits positifs
 
-Score F_beta
-: une métrique d'évaluation prenant à la fois la précision et le rappel en compte, et accordant une importante relative _beta_ fois plus importante au rappel qu'à la précision
+Score F*beta
+: une métrique d'évaluation prenant à la fois la précision et le rappel en compte, et accordant une importante relative \_beta* fois plus importante au rappel qu'à la précision
 
 Seuil de classification
-: le modèle Signaux Faibles produit un score de risque entre 0 et 1 produit par notre algorithme. Hors, il faut décider à quelle pallier de risque appartient chaque établissement à partir de ce score de risque. Pour ce faire, et au vu du modèle et de la cible d'apprentissage actuelle, il est nécessaire de définir un premier seuil sur le score de risque au-delà duquel l'établissement est à considérer "à risque modéré" de défaillance, et un second seuil, plus élevé que le premier, au-delà duquel l'établissement est à considérer "à risque fort" de défaillance. La méthodologie pour déterminer ces seuils est détaillée ci-dessous
+: le modèle Signaux Faibles produit un score de risque entre 0 et 1 produit par notre algorithme. Hors, il faut décider à quel pallier de risque appartient chaque établissement à partir de ce score de risque. Pour ce faire, et au vu du modèle et de la cible d'apprentissage actuelle, il est nécessaire de définir un premier seuil sur le score de risque au-delà duquel l'établissement est à considérer "à risque modéré" de défaillance, et un second seuil, plus élevé que le premier, au-delà duquel l'établissement est à considérer "à risque fort" de défaillance. La méthodologie pour déterminer ces seuils est détaillée ci-dessous
 
 Score AUCPR
 : l'aire sous la courbe rappel-précision (Area Under Curve, for Precision-Recall curve). C'est une courbe obtenue à partir du rappel en abscisse, et de la précision en ordonnée, et qui permet d'étudier la performance du modèle en fonction du seuil de classification choisi
@@ -154,7 +154,7 @@ Ces seuils sont déterminés par la maximisation du score F\_{\beta}, une métri
 Plus particulièrement:
 
 - le seuil du pallier "risque fort" est choisi pour maximiser le F\_{0.5}, une métrique qui favorise deux fois plus la précision que le rappel. Ce score favorise ainsi une précision élevée, et donc l'exclusivité d'établissements effectivement en défaillance dans le pallier "risque fort".
-- le seuil du pallier "risque modéré" est choisi pour maximiser le score F_2, qui favorise deux fois plus le rappel que la précision. La maximisation de cette métrique vise à obtenir un palleir "risqe modéré" qui capture un maximum d'établissements effectivement en défaillance, quitte à capturer "par erreur" des faux positifs, c'est-à-dire quitte à viser trop large et lister des entreprises qui n'entreront pas en défaillance.
+- le seuil du pallier "risque modéré" est choisi pour maximiser le score F_2, qui favorise deux fois plus le rappel que la précision. La maximisation de cette métrique vise à obtenir un pallier "risqe modéré" qui capture un maximum d'établissements effectivement en défaillance, quitte à capturer "par erreur" des faux positifs, c'est-à-dire quitte à viser trop large et lister des entreprises qui n'entreront pas en défaillance.
 
 La volumétrie des listes pour juin 2021 est donnée dans [evaluation-modele-juin2021.md](evaluation-modele-juin2021.md).
 
