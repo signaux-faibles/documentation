@@ -157,6 +157,7 @@ Plus particulièrement:
 - le seuil du pallier "risque modéré" est choisi pour maximiser le score F_2, qui favorise deux fois plus le rappel que la précision. La maximisation de cette métrique vise à obtenir un pallier "risqe modéré" qui capture un maximum d'établissements effectivement en défaillance, quitte à capturer "par erreur" des faux positifs, c'est-à-dire quitte à viser trop large et lister des entreprises qui n'entreront pas en défaillance.
 
 La volumétrie des listes pour juin 2021 est donnée dans [evaluation-modele-juin2021.md](evaluation-modele-juin2021.md).
+La sélection des seuils est détaillée dans [ce notebook Python](https://github.com/signaux-faibles/predictsignauxfaibles/blob/develop/notebooks/03-select-thresholds-and-evaluate-model.ipynb), mobilisant notre projet `predictsignauxfaibles`.
 
 ## Deuxième étage: Corrections liées à la crise :construction_worker: :building_construction:
 
