@@ -10,6 +10,9 @@
   - [_Périmètre_](#_p%C3%A9rim%C3%A8tre_)
   - [_Modèle_](#_mod%C3%A8le_)
   - [_Features_](#_features_)
+  - [Explication des scores de prédiction](#explication-des-scores-de-pr%C3%A9diction)
+    - [Diagramme radar](#diagramme-radar)
+    - [Explications textuelles](#explications-textuelles)
   - [_Evaluation du modèle: lexique_](#_evaluation-du-mod%C3%A8le-lexique_)
   - [_Seuils de détection_](#_seuils-de-d%C3%A9tection_)
 - [Deuxième étage: Corrections liées à la crise :construction_worker: :building_construction:](#deuxi%C3%A8me-%C3%A9tage-corrections-li%C3%A9es-%C3%A0-la-crise-construction_worker-building_construction)
@@ -92,6 +95,31 @@ Le modèle est entrainé sur les variables d'apprentissage suivantes:
 - `rentabilite_nette"` (en base)
 
 Voir [ce document](https://github.com/signaux-faibles/opensignauxfaibles/blob/master/js/reduce.algo2/docs/variables.json) pour la définition et la source des champs présents en base.
+
+### Explication des scores de prédiction
+
+Nos listes d'entreprises en difficulté sont accompagnées d'explication sur les raisons de la présence ou de l'abscence de chaque établissement.
+Ces explications sont produites sur la bases des variables utilisées par notre "premier étage algorithmique", et à deux niveaux de granularité:
+
+- au niveau de chaque variable utilisée par ce modèle de prédiction
+- à un niveau plus aggrégé, par groupe de variables de même thème. Parmi ces groupes de variables, on trouve les variables de santé financière, les variables de dette sur cotisations sociales aux URSSAF, le recours à l'activité partielle, et les retards de paiement aux fournisseurs.
+  _A noter que, à juin 2021, les méthodes d'explication implémentées dans Signaux Faibles ne fonctionnent que pour un modèle de régression logistique._
+
+Plusieurs indicateurs explicatifs sont ainsi interfacés dans l'application web.
+
+#### Diagramme radar
+
+Tout d'abord, un diagramme radar affichant, pour chaque groupe, un score de risque lié au groupe de variable. Cet indicateur est relatif à la situation de l'établissement en question par rapport à l'ensemble des établissements considérés par Signaux Faibles. Quelques exemples pour comprendre ce qu'affiche ce radar:
+
+- un indicateur "Santé financière" dans le vert indique que l'établissement a une situation financière excellente dans l'ensemble, ou plutôt qui contribue très positivement à la considérer comme une entreprise sans risque.
+- un indicateur "Retards fournisseurs" indique que l'établissement a un comportement en terme de retards de paiement qui n'influence pas spécifiquement notre score de risque. Ici, les variables de retards de paiements feraient donc, au moins en moyenne, assez peu pencher la balance vers un risque faible ou fort.
+- un indicateur "Dette Urssaf" dans le rouge indiquerait un historique d'encours de dette aux Urssaf particulièrement inquiétant, contribuant à un score de risque élevé.
+
+Pour une documentation technique des scores d'explication de la régression logistique, consulter la [documentation technique des scores d'explication](./modele-explications-doc-technique.pdf).
+
+#### Explications textuelles
+
+Sur les fiches établissement dans l'application Signaux Faibles, une liste de variables inquiétantes est fournie pour justifier un niveau de risque fort ou modéré. Il s'agit de variables qui, chacune individuellement, peuvent contribuer à un niveau de risque de 30%. A noter qu'il s'agit d'une capacité de contribution théorique maximale. Dans la pratique, ces variables contribuent ensemble à un niveau de risque fort, et leur contribution individuelle est moins élevée. Ceci est due au modèle employé. Pour plus de détail, voir la [documentation technique des scores d'explication](./modele-explications-doc-technique.pdf).
 
 ### _Evaluation du modèle: lexique_
 
