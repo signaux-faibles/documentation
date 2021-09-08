@@ -168,6 +168,8 @@ Plus particulièrement:
 
 La volumétrie des listes pour juin 2021 est donnée dans le fichier [d'évaluation du modèle de juin 2021](evaluation-modele/juin2021.md).
 
+La sélection des seuils est détaillée dans [ce notebook Python](https://github.com/signaux-faibles/predictsignauxfaibles/blob/develop/notebooks/03-select-thresholds-and-evaluate-model.ipynb), mobilisant notre projet `predictsignauxfaibles`.
+
 ## Deuxième étage: Corrections liées à la crise :construction_worker: :building_construction:
 
 Des «corrections expertes» sont réalisées après l'apprentissage supervisé:
