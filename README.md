@@ -43,3 +43,7 @@ L'objectif de ces outils est de fournir les outils techniques nécessaires à la
 - [prepare-import](https://github.com/signaux-faibles/prepare-import) permet de
   générer un "batch" de fichiers bruts (transférés via goup) en vue de leur
   importation en base de données.
+
+## Contribuer à cette documentation
+
+Avant tout commit, exécuter `make` pour une mise en forme et une génération des tables des matières automatique.

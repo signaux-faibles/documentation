@@ -1,32 +1,31 @@
 # Le modèle et son évaluation
 
-<!-- markdown-toc start - Don't edit this section. -->
-**Table des matières**
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [Le modèle et son évaluation](#le-modèle-et-son-évaluation)
-    - [Objectif et historique du modèle](#objectif-et-historique-du-modèle)
-    - [Modèle à «deux étages» de Mars 2021](#modèle-à-deux-étages-de-mars-2021)
-    - [Premièr étage : L'apprentissage supervisé pré-crise](#premièr-étage--lapprentissage-supervisé-pré-crise)
-        - [Objectif d'apprentissage](#objectif-dapprentissage)
-        - [Périmètre](#périmètre)
-        - [Modèle](#modèle)
-        - [Variables d'apprentissage](#variables-dapprentissage)
-        - [Explication des scores de prédiction](#explication-des-scores-de-prédiction)
-            - [Diagramme radar](#diagramme-radar)
-            - [Explications textuelles](#explications-textuelles)
-        - [Évaluation du modèle: lexique](#évaluation-du-modèle-lexique)
-        - [Seuils de détection](#seuils-de-détection)
-    - [Deuxième étage: Corrections liées à la crise :construction_worker: :building_construction:](#deuxième-étage-corrections-liées-à-la-crise-construction_worker-building_construction)
-    - [Evaluation du modèle - Méthodologie](#evaluation-du-modèle---méthodologie)
-        - [Évaluation du modèle par validation croisée](#évaluation-du-modèle-par-validation-croisée)
-        - [Choix de la métrique](#choix-de-la-métrique)
-        - [Benchmark](#benchmark)
-        - [Reproductibilité de l'évaluation.](#reproductibilité-de-lévaluation)
-            - [Import des données dans Python](#import-des-données-dans-python)
-            - [Reproductibilité des traitements dans Python](#reproductibilité-des-traitements-dans-python)
-    - [Évaluation du modèle - Métriques à juin 2021](#évaluation-du-modèle---métriques-à-juin-2021)
+- [Objectif et historique du modèle](#objectif-et-historique-du-mod%C3%A8le)
+- [Modèle à «deux étages» de Mars 2021](#mod%C3%A8le-%C3%A0-%C2%ABdeux-%C3%A9tages%C2%BB-de-mars-2021)
+- [Premièr étage : L'apprentissage supervisé pré-crise](#premi%C3%A8r-%C3%A9tage--lapprentissage-supervis%C3%A9-pr%C3%A9-crise)
+  - [Objectif d'apprentissage](#objectif-dapprentissage)
+  - [Périmètre](#p%C3%A9rim%C3%A8tre)
+  - [Modèle](#mod%C3%A8le)
+  - [Variables d'apprentissage](#variables-dapprentissage)
+  - [Explication des scores de prédiction](#explication-des-scores-de-pr%C3%A9diction)
+    - [Diagramme radar](#diagramme-radar)
+    - [Explications textuelles](#explications-textuelles)
+  - [Évaluation du modèle: lexique](#%C3%A9valuation-du-mod%C3%A8le-lexique)
+  - [Seuils de détection](#seuils-de-d%C3%A9tection)
+- [Deuxième étage: Corrections liées à la crise :construction_worker: :building_construction:](#deuxi%C3%A8me-%C3%A9tage-corrections-li%C3%A9es-%C3%A0-la-crise-construction_worker-building_construction)
+- [Evaluation du modèle - Méthodologie](#evaluation-du-mod%C3%A8le---m%C3%A9thodologie)
+  - [Évaluation du modèle par validation croisée](#%C3%A9valuation-du-mod%C3%A8le-par-validation-crois%C3%A9e)
+  - [Choix de la métrique](#choix-de-la-m%C3%A9trique)
+  - [Évaluation comparée](#%C3%A9valuation-compar%C3%A9e)
+  - [Reproductibilité de l'évaluation.](#reproductibilit%C3%A9-de-l%C3%A9valuation)
+    - [Import des données dans Python](#import-des-donn%C3%A9es-dans-python)
+    - [Reproductibilité des traitements dans Python](#reproductibilit%C3%A9-des-traitements-dans-python)
+- [Évaluation du modèle - Métriques à juin 2021](#%C3%A9valuation-du-mod%C3%A8le---m%C3%A9triques-%C3%A0-juin-2021)
 
-<!-- markdown-toc end -->
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Objectif et historique du modèle
 
@@ -102,6 +101,7 @@ Voir [ce document](https://github.com/signaux-faibles/opensignauxfaibles/blob/ma
 Nos listes d'entreprises en difficulté sont accompagnées d'explication sur les raisons de la présence ou absence de chaque établissement.
 
 Ces explications sont produites sur la base des variables utilisées par notre «premier étage algorithmique», et à deux niveaux de granularité :
+
 - au niveau de chaque variable utilisée par ce modèle de prédiction;
 - à un niveau plus agrégé, par groupe de variables de même «thématique». Parmi ces groupes de variables, on trouve :
   - les variables de santé financière;
@@ -117,6 +117,7 @@ Plusieurs indicateurs explicatifs sont ainsi présentés dans l'interface web : 
 #### Diagramme radar
 
 Un diagramme radar affiche, un score de risque associé à chacun des groupes de variables. Cet indicateur est relatif à la situation de l'établissement en question par rapport à l'ensemble des établissements considérés par Signaux Faibles. Quelques exemples pour comprendre ce qu'affiche ce radar:
+
 - un indicateur «Santé financière» dans le vert indique que l'établissement a une situation financière excellente dans l'ensemble, ou plutôt qui contribue très positivement à la considérer comme une entreprise sans risque.
 - un indicateur «Retards fournisseurs» indique que l'établissement a un comportement en terme de retards de paiement qui n'influence pas spécifiquement notre score de risque. Ici, les variables de retards de paiements feraient donc, au moins en moyenne, assez peu pencher la balance vers un risque faible ou fort.
 - un indicateur «Dette Urssaf» dans le rouge indiquerait un historique d'encours de dette aux Urssaf particulièrement inquiétant, contribuant à un score de risque élevé.
@@ -129,22 +130,23 @@ Sur les fiches établissement de l'application Signaux Faibles, une liste de var
 
 Par convention, nous choisissons d'attribuer un score de 1 aux entreprises ayant un risque maximal de défaillance, et 0 aux entreprises ayant un risque minimal de défaillance. En conséquence, nous avons les définitions suivantes:
 
-- **Défaillance** : une entrée en procédure collective, ou une dette urssaf maintenue plus de 3 mois
-- **Établissement positif** : un établissement connaissant effectivement une défaillance à au moins un moment sur les 18 prochains mois
-- **Établissement négatif** : le contraire d'un établissement positif
-- **Établissement prédit positif** : un établissement que notre algorithme identifie comme à risque de défaillance (fort ou modéré) sur les 18 prochains mois
-- **Établissement prédit négatif** : le contraire d'un établissement prédit positif
-- **Établissement faux positif** : un établissement pour lequel une défaillance est prédite, mais qui ne connaît pas de défaillance effective
-- **Établissement faux négatif** : un établissement pour lequel aucune défaillance n'est prédite, mais qui connaît effectivement une défaillance 
+- **Défaillance** : une entrée en procédure collective, ou une dette urssaf maintenue plus de 3 mois.
+- **Établissement positif** : un établissement connaissant effectivement une défaillance à au moins un moment sur les 18 prochains mois.
+- **Établissement négatif** : le contraire d'un établissement positif.
+- **Établissement prédit positif** : un établissement que notre algorithme identifie comme à risque de défaillance (fort ou modéré) sur les 18 prochains mois.
+- **Établissement prédit négatif** : le contraire d'un établissement prédit positif.
+- **Établissement faux positif** : un établissement pour lequel une défaillance est prédite, mais qui ne connaît pas de défaillance effective.
+- **Établissement faux négatif** : un établissement pour lequel aucune défaillance n'est prédite, mais qui connaît effectivement une défaillance.
 
 À partir de ces définitions, on définit les métriques usuelles d'évaluation d'un algorithme d'apprentissage automatique:
 
 - **Précision** : la part d'établissements prédits positifs étant effectivement positifs
-- **Rappel** : la part d'établissements effectivement positifs étant prédits positifs
-- **Score F-beta** : une métrique d'évaluation prenant à la fois la précision et le rappel en compte, et accordant une importante relative `beta` fois plus importante au rappel qu'à la précision
-- **Score AUCPR** : l'aire sous la courbe rappel-précision (Area Under Curve, for Precision-Recall curve).  Celle-ci permet d'étudier la performance du modèle et l'équilibre s'établissant entre ces deux scores en fonction du seuil de classification choisi .
+- **Rappel** : la part d'établissements effectivement positifs étant prédits positifs.
+- **Score F-beta** : une métrique d'évaluation prenant à la fois la précision et le rappel en compte, et accordant une importante relative `beta` fois plus importante au rappel qu'à la précision.
+- **Score AUCPR** : l'aire sous la courbe rappel-précision (Area Under Curve, for Precision-Recall curve). Celle-ci permet d'étudier la performance du modèle et l'équilibre s'établissant entre ces deux scores en fonction du seuil de classification choisi.
 
 Pour plus d'informations sur ces métriques, voir les liens ci-dessous:
+
 - [Précision et rappel](https://fr.wikipedia.org/wiki/Pr%C3%A9cision_et_rappel)
 - [Matrice de confusion](https://fr.wikipedia.org/wiki/Matrice_de_confusion)
 - [Score F_beta](https://en.wikipedia.org/wiki/F-score)
@@ -202,7 +204,7 @@ Le score AUCPR est également une métrique adaptée à ce contexte.
 
 ### Évaluation comparée
 
-Une évaluation comparée est actuellement réalisé par l'équipe data science de Signaux Faibles, à la fois pour évaluer la performance de notre modèle relativement à d'autres modèles, et en prospective de modèles pouvant être intégrés à l'avenir. 
+Une évaluation comparée est actuellement réalisé par l'équipe data science de Signaux Faibles, à la fois pour évaluer la performance de notre modèle relativement à d'autres modèles, et en prospective de modèles pouvant être intégrés à l'avenir.
 
 ### Reproductibilité de l'évaluation.
 
