@@ -224,4 +224,8 @@ La même procédure peut être appliquée aux modèles qui ont un entraînement 
 
 ## Évaluation du modèle - Métriques à juin 2021
 
-Voir [évaluation du modèle - juin2021](evaluation-modele/juin2021.md).
+Voir [évaluation du modèle - juin 2021](evaluation-modele/juin2021.md).
+
+## Évaluation du modèle - Métriques à septmbre 2021
+
+Voir [évaluation du modèle - septembre 2021](evaluation-modele/sept2021.md).
