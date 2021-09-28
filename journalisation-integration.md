@@ -11,13 +11,13 @@
 
 Le moteur d'intégration de données [opensignauxfaibles](https://github.com/signaux-faibles/opensignauxfaibles) génère des logs qui permettent le suivi de son bon déroulement et le traitement statistique des données d'import par type de fichier.
 
-### Accès
+## Accès
 
 Les données du journal sont stockées dans la collection `Journal` de la base de données de MongoDB.
 
 Un [outil en ligne de commande](https://github.com/signaux-faibles/opensignauxfaibles/tree/master/tools/logsReport) permet de récupérer et d'explorer les données du journal, par exemple pour vérifier que l'Intégration des données s'est bien passée.
 
-### Structure
+## Structure
 
 Les champs du journal respectent un schéma commun afin de faciliter leur lecture et leur traitement statistique. Il est documenté ci-dessous.
 
