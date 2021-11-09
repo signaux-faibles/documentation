@@ -162,17 +162,17 @@ Sur les fiches établissement de l'application Signaux Faibles, une liste de var
 Par convention, nous choisissons d'attribuer un score de 1 aux entreprises ayant un risque maximal de défaillance, et 0 aux entreprises ayant un risque minimal de défaillance. En conséquence, nous avons les définitions suivantes:
 
 - **Défaillance** : une entrée en procédure collective.
-- **Entreprise positif** : une entreprise connaissant effectivement une défaillance à au moins un moment sur les 18 prochains mois.
-- **Entreprise négatif** : le contraire d'une entreprise positif.
-- **Entreprise prédit positif** : une entreprise que notre algorithme identifie comme à risque de défaillance (fort ou modéré) sur les 18 prochains mois.
-- **Entreprise prédit négatif** : le contraire d'une entreprise prédit positif.
+- **Entreprise positive** : une entreprise connaissant effectivement une défaillance à au moins un moment sur les 18 prochains mois.
+- **Entreprise négative** : le contraire d'une entreprise positive.
+- **Entreprise prédite positive** : une entreprise que notre algorithme identifie comme à risque de défaillance (fort ou modéré) sur les 18 prochains mois.
+- **Entreprise prédite négative** : le contraire d'une entreprise prédite positive.
 - **Entreprise faux positif** : une entreprise pour lequel une défaillance est prédite, mais qui ne connaît pas de défaillance effective.
 - **Entreprise faux négatif** : une entreprise pour lequel aucune défaillance n'est prédite, mais qui connaît effectivement une défaillance.
 
 À partir de ces définitions, on définit les métriques usuelles d'évaluation d'un algorithme d'apprentissage automatique:
 
-- **Précision** : la part d'entreprises prédits positifs étant effectivement positifs
-- **Rappel** : la part d'entreprises effectivement positifs étant prédits positifs.
+- **Précision** : la part d'entreprises prédites positives étant effectivement positives
+- **Rappel** : la part d'entreprises effectivement positives étant prédites positives.
 - **Score F-beta** : une métrique d'évaluation prenant à la fois la précision et le rappel en compte, et accordant une importante relative `beta` fois plus importante au rappel qu'à la précision.
 - **Score AUCPR** : l'aire sous la courbe rappel-précision (Area Under Curve, for Precision-Recall curve). Celle-ci permet d'étudier la performance du modèle et l'équilibre s'établissant entre ces deux scores en fonction du seuil de classification choisi.
 
@@ -196,8 +196,8 @@ Ces seuils sont déterminés par la maximisation du score F-beta, une métrique 
 
 Plus particulièrement:
 
-- le seuil du pallier «risque fort» est choisi pour maximiser le F\_{0.5}, une métrique qui favorise deux fois plus la précision que le rappel. Ce score favorise ainsi une précision élevée, et donc l'exclusivité d'établissements effectivement en défaillance dans le pallier «risque fort».
-- le seuil du pallier «risque modéré» est choisi pour maximiser le score F_2, qui favorise deux fois plus le rappel que la précision. La maximisation de cette métrique vise à obtenir un pallier «risque modéré» qui capture un maximum d'entreprises effectivement en défaillance, quitte à capturer «par erreur» des faux positifs, c'est-à-dire quitte à viser trop large et lister des entreprises qui n'entreront pas en défaillance.
+- le seuil du pallier «risque fort» est choisi pour maximiser le F\_{0.5}, une métrique qui favorise deux fois plus la précision que le rappel. Ce score favorise ainsi une précision élevée, et donc l'exclusivité d'entreprises effectivement en défaillance dans le pallier «risque fort».
+- le seuil du pallier «risque modéré» est choisi pour maximiser le score F\_2, qui favorise deux fois plus le rappel que la précision. La maximisation de cette métrique vise à obtenir un pallier «risque modéré» qui capture un maximum d'entreprises effectivement en défaillance, quitte à capturer «par erreur» des faux positifs, c'est-à-dire quitte à viser trop large et lister des entreprises qui n'entreront pas en défaillance.
 
 La volumétrie des listes pour septembre 2021 est donnée dans le fichier [d'évaluation du modèle de septembre 2021](evaluation-modele/sept2021.md).
 
