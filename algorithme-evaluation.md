@@ -197,7 +197,7 @@ Ces seuils sont déterminés par la maximisation du score F-beta, une métrique 
 Plus particulièrement:
 
 - le seuil du pallier «risque fort» est choisi pour maximiser le F\_{0.5}, une métrique qui favorise deux fois plus la précision que le rappel. Ce score favorise ainsi une précision élevée, et donc l'exclusivité d'entreprises effectivement en défaillance dans le pallier «risque fort».
-- le seuil du pallier «risque modéré» est choisi pour maximiser le score F\_2, qui favorise deux fois plus le rappel que la précision. La maximisation de cette métrique vise à obtenir un pallier «risque modéré» qui capture un maximum d'entreprises effectivement en défaillance, quitte à capturer «par erreur» des faux positifs, c'est-à-dire quitte à viser trop large et lister des entreprises qui n'entreront pas en défaillance.
+- le seuil du pallier «risque modéré» est choisi pour maximiser le score F_2, qui favorise deux fois plus le rappel que la précision. La maximisation de cette métrique vise à obtenir un pallier «risque modéré» qui capture un maximum d'entreprises effectivement en défaillance, quitte à capturer «par erreur» des faux positifs, c'est-à-dire quitte à viser trop large et lister des entreprises qui n'entreront pas en défaillance.
 
 La volumétrie des listes pour septembre 2021 est donnée dans le fichier [d'évaluation du modèle de septembre 2021](evaluation-modele/sept2021.md).
 
