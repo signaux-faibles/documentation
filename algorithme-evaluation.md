@@ -32,7 +32,7 @@ Le modèle Signaux Faibles vise à identifier de nouvelles entreprises en situat
 
 Un modèle d'apprentissage supervisé a été initialement développé avant la crise, a été étendu à la France entière en décembre 2019, mais a été mis à l'arrêt depuis le début du confinement de Mars 2020, car inapte à traiter la situation spécifique à la crise.
 
-Depuis octobre 2020, de nouveaux modèles tenant compte de l'impact de la crise ont été proposés. Le dernier en date consiste en un modèle "à deux étages" qui est décrit ci-dessous.
+Depuis octobre 2020, de nouveaux modèles tenant compte de l'impact de la crise ont été proposés. Le dernier en date consiste en un modèle à « deux étages » qui est décrit ci-dessous.
 
 ## Modèle à « deux étages » de Septembre 2021
 
@@ -132,19 +132,19 @@ Voir [ce document](https://github.com/signaux-faibles/opensignauxfaibles/blob/ma
 
 Nos listes d'entreprises en difficulté sont accompagnées d'explications sur les raisons de la présence ou l'absence de chaque entreprise dans ces listes.
 
-Ces explications sont produites sur la base des variables utilisées par notre «premier étage algorithmique», et à deux niveaux de granularité :
+Ces explications sont produites sur la base des variables utilisées par notre « premier étage algorithmique », et à deux niveaux de granularité :
 
 - au niveau de chaque variable utilisée par ce modèle de prédiction;
-- à un niveau plus agrégé, par groupe de variables de même «thématique». Parmi ces groupes de variables, on trouve :
+- à un niveau plus agrégé, par groupe de variables de même « thématique ». Parmi ces groupes de variables, on trouve :
   - les variables de santé financière ;
   - les variables de dette sur cotisations sociales aux URSSAF ;
   - le recours à l'activité partielle.
 
-_À noter que, en séptembre 2021, les méthodes d'explication de Signaux Faibles ne sont implémentées que pour un modèle de régression logistique._
+_À noter que, en septembre 2021, les méthodes d'explication de Signaux Faibles ne sont implémentées que pour un modèle de régression logistique._
 
 Pour une documentation technique des scores d'explication de la régression logistique, consulter la [documentation technique des scores d'explication](./modele-explications-doc-technique.pdf).
 
-Plusieurs indicateurs explicatifs sont ainsi présentés dans l'interface web : un «diagramme radar» et des explications textuelles.
+Plusieurs indicateurs explicatifs sont ainsi présentés dans l'interface web : un « diagramme radar » et des explications textuelles.
 
 #### Diagramme radar
 
@@ -159,24 +159,22 @@ Sur les fiches établissement de l'application Signaux Faibles, une liste de var
 
 ### Évaluation du modèle: lexique
 
-Par convention, nous choisissons d'attribuer un score de 1 aux entreprises ayant un risque maximal de défaillance, et 0 aux entreprises ayant un risque minimal de défaillance. En conséquence, nous avons les définitions suivantes:
+Par convention, nous choisissons d'attribuer un score de 1 aux entreprises ayant un risque maximal de défaillance, et 0 aux entreprises ayant un risque minimal de défaillance. En conséquence, nous avons les définitions suivantes :
 
 - **Défaillance** : une entrée en procédure collective.
-- **Entreprise positive** : une entreprise connaissant effectivement une défaillance à au moins un moment sur les 18 prochains mois.
-- **Entreprise négative** : le contraire d'une entreprise positive.
-- **Entreprise prédite positive** : une entreprise que notre algorithme identifie comme à risque de défaillance (fort ou modéré) sur les 18 prochains mois.
-- **Entreprise prédite négative** : le contraire d'une entreprise prédite positive.
-- **Entreprise faux positif** : une entreprise pour lequel une défaillance est prédite, mais qui ne connaît pas de défaillance effective.
-- **Entreprise faux négatif** : une entreprise pour lequel aucune défaillance n'est prédite, mais qui connaît effectivement une défaillance.
+- **Vrai positif** : une entreprise que notre algorithme prédit comme à risque de défaillance dans les 18 mois et connaissant effectivement une défaillance à au moins un moment sur les 18 prochains mois.
+- **Vrai négatif** : une entreprise pour laquelle aucune défaillance n'est prédite, et qui ne connaît pas de défaillance dans la période considérée.
+- **Faux positif** : une entreprise pour laquelle une défaillance est prédite, mais qui ne connaît pas de défaillance effective.
+- **Faux négatif** : une entreprise pour laquelle aucune défaillance n'est prédite, mais qui connaît effectivement une défaillance.
 
-À partir de ces définitions, on définit les métriques usuelles d'évaluation d'un algorithme d'apprentissage automatique:
+À partir de ces définitions, on définit les métriques usuelles d'évaluation d'un algorithme d'apprentissage automatique :
 
 - **Précision** : la part d'entreprises prédites positives étant effectivement positives
 - **Rappel** : la part d'entreprises effectivement positives étant prédites positives.
 - **Score F-beta** : une métrique d'évaluation prenant à la fois la précision et le rappel en compte, et accordant une importante relative `beta` fois plus importante au rappel qu'à la précision.
 - **Score AUCPR** : l'aire sous la courbe rappel-précision (Area Under Curve, for Precision-Recall curve). Celle-ci permet d'étudier la performance du modèle et l'équilibre s'établissant entre ces deux scores en fonction du seuil de classification choisi.
 
-Pour plus d'informations sur ces métriques, voir les liens ci-dessous:
+Pour plus d'informations sur ces métriques, voir les liens ci-dessous :
 
 - [Précision et rappel](https://fr.wikipedia.org/wiki/Pr%C3%A9cision_et_rappel)
 - [Matrice de confusion](https://fr.wikipedia.org/wiki/Matrice_de_confusion)
@@ -188,24 +186,24 @@ Le modèle Signaux Faibles produit un score de risque entre 0 et 1. Or, il faut 
 
 A partir de ces scores de risque, une liste d'entreprises à risque est construite, avec trois palliers de risques:
 
-- un niveau «risque fort» :red_circle: où la précision est élevée, c'est-à-dire que les entreprises identifiées comme à risque fort le sont effectivement, quitte à manquer quelques entreprises qui font défaillance
-- un niveau «risque modéré» :orange_circle: est construite de sorte à capturer un maximum d'entreprises à risque, quitte à avoir dans cette liste plus de faux positifs, c'est-à-dire d'entreprises qui sont en réalité en bonne santé.
-- un niveau «aucun signal» de risque :green_circle:, comprenant toutes les entreprises de notre périmètre n'entrant pas dans les deux palliers ci-dessus.
+- un niveau « risque fort » :red_circle: où la précision est élevée, c'est-à-dire que les entreprises identifiées comme à risque fort le sont effectivement, quitte à manquer quelques entreprises qui font défaillance
+- un niveau « risque modéré » :orange_circle: est construite de sorte à capturer un maximum d'entreprises à risque, quitte à avoir dans cette liste plus de faux positifs, c'est-à-dire d'entreprises qui sont en réalité en bonne santé.
+- un niveau « aucun signal » de risque :green_circle:, comprenant toutes les entreprises de notre périmètre n'entrant pas dans les deux palliers ci-dessus.
 
-Ces seuils sont déterminés par la maximisation du score F-beta, une métrique permettant de «sanctionner» de manière pondérée les faux positifs et les faux négatifs produits par le modèle.
+Ces seuils sont déterminés par la maximisation du score F-beta, une métrique permettant de « sanctionner » de manière pondérée les faux positifs et les faux négatifs produits par le modèle.
 
 Plus particulièrement:
 
-- le seuil du pallier «risque fort» est choisi pour maximiser le F\_{0.5}, une métrique qui favorise deux fois plus la précision que le rappel. Ce score favorise ainsi une précision élevée, et donc l'exclusivité d'entreprises effectivement en défaillance dans le pallier «risque fort».
-- le seuil du pallier «risque modéré» est choisi pour maximiser le score F_2, qui favorise deux fois plus le rappel que la précision. La maximisation de cette métrique vise à obtenir un pallier «risque modéré» qui capture un maximum d'entreprises effectivement en défaillance, quitte à capturer «par erreur» des faux positifs, c'est-à-dire quitte à viser trop large et lister des entreprises qui n'entreront pas en défaillance.
+- le seuil du pallier « risque fort » est choisi pour maximiser le F\_{0.5}, une métrique qui favorise deux fois plus la précision que le rappel. Ce score favorise ainsi une précision élevée, et donc l'exclusivité d'entreprises effectivement en défaillance dans le pallier « risque fort ».
+- le seuil du pallier « risque modéré » est choisi pour maximiser le score F_2, qui favorise deux fois plus le rappel que la précision. La maximisation de cette métrique vise à obtenir un pallier « risque modéré » qui capture un maximum d'entreprises effectivement en défaillance, quitte à capturer « par erreur » des faux positifs, c'est-à-dire quitte à viser trop large et lister des entreprises qui n'entreront pas en défaillance.
 
 La volumétrie des listes pour septembre 2021 est donnée dans le fichier [d'évaluation du modèle de septembre 2021](evaluation-modele/sept2021.md).
 
 ## Deuxième étage: Corrections liées à la crise :construction_worker: :building_construction:
 
-Des «corrections expertes» sont réalisées après l'apprentissage supervisé:
+Des « corrections expertes » sont réalisées après l'apprentissage supervisé:
 
-- Une correction «Dette Sociale» qui vise à détecter les entreprises dont l'évolution de la dette sociale (URSSAF) s'est dégradée depuis l'été 2020 (date à laquelle les reports de charges consentis pendant le premier confinement se sont terminés).
+- Une correction « Dette Sociale » qui vise à détecter les entreprises dont l'évolution de la dette sociale (URSSAF) s'est dégradée depuis l'été 2020 (date à laquelle les reports de charges consentis pendant le premier confinement se sont terminés).
 - :construction_worker: D'autres corrections encore en cours de co-construction avec nos utilisateurs autour notamment :
   - du recours à l'activité partielle longue durée
   - d'articles de recherche (institutionnels ou académiques) sur l'impact de la crise Covid par secteur d'activité
@@ -224,9 +222,7 @@ Après retrait des « signaux forts » (cf. paragraphe précédent), la cible à
 
 Dans le contexte de Signaux Faibles, les faux positifs (un doute est émis sur une entreprise en réalité bien portante) est beaucoup plus acceptable qu'un faux négatif (une entreprise en difficulté n'a pas été détectée).
 
-Ainsi, la **précision moyenne** (average accuracy) se prête bien à l'évaluation de notre algorithme. Nous utilisons également un **score F-beta** avec une valeur de beta proche de 2 afin de pénaliser plus fortement les faux négatifs.
-
-Le **score AUCPR** est également une métrique adaptée à ce contexte.
+Ainsi, la **justesse rééquilibrée** ([balanced accuracy](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.balanced_accuracy_score.html)) et le **score AUCPR** ([average precision](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.average_precision_score.html)) se prêtent bien à l'évaluation de notre algorithme. Nous utilisons également un **score F-beta** avec une valeur de Beta proche de 2 afin de pénaliser plus fortement les faux négatifs. Plus de détails sont disponibles dans les documents dédiés spécifiquement à l'évaluation des modèles successifs : voir sections ci-dessous.
 
 ## Évaluation du modèle - Métriques à juin 2021
 
