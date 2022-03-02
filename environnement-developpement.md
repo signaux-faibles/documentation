@@ -1,3 +1,14 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Environnement de développement avec Docker compose](#environnement-de-d%C3%A9veloppement-avec-docker-compose)
+  - [A quoi sert docker-compose dans ce projet](#a-quoi-sert-docker-compose-dans-ce-projet)
+  - [Détails des outils mis à disposition](#d%C3%A9tails-des-outils-mis-%C3%A0-disposition)
+  - [Elements à vérifier avant l'execution](#elements-%C3%A0-v%C3%A9rifier-avant-lexecution)
+  - [Exécution](#ex%C3%A9cution)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Environnement de développement avec Docker compose
 
 En tout premier lieu, vérifiez que vous avez bien installé et configuré Docker pour votre système d'exploitation. Si besoin, se réferrer à la [documentation officielle](https://docs.docker.com/get-docker/).
