@@ -1,0 +1,60 @@
+version: "3.9"
+services:
+  mongo:
+    image: mongo:4.0-xenial
+    container_name: sf_mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+  postgres:
+    image: postgres:10-alpine
+    container_name: sf_postgres
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=password
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data/testData.sql:/docker-entrypoint-initdb.d/testData.sql
+      - postgres_data:/var/lib/postgresql/data/
+  wekan:
+    image: quay.io/wekan/wekan
+    container_name: sf_wekan
+    restart: always
+    environment:
+      - MONGO_URL=mongodb://mongo
+      - ROOT_URL=http://localhost:8080
+    ports:
+      - 8080:8080
+    links:
+      - mongo
+  keycloak:
+    image: jboss/keycloak:12.0.4
+    container_name: sf_keycloak
+    restart: always
+    environment:
+      - DB_ADDR=sf_postgres
+      - DB_DATABASE=keycloak
+      - DB_USER=postgres
+      - DB_PASSWORD=password
+      - JAVA_OPTS_APPEND=-Dkeycloak.profile.feature.upload_scripts=enabled
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=admin
+    ports:
+      - 8081:8080
+  gollum:
+    image: gollumorg/gollum
+    container_name: sf_wiki
+    restart: always
+    ports:
+      - 4567:4567
+    volumes:
+      - ./wiki:/wiki
+
+volumes:
+  postgres_data:
+    driver: local
+  mongo_data:
+    driver: local
