@@ -6,7 +6,7 @@ services:
     restart: always
     ports:
       - "27017:27017"
-    volumes:
+    volumes: 
       - mongo_data:/data/db
   postgres:
     image: postgres:10-alpine
@@ -17,6 +17,7 @@ services:
     ports:
       - 5432:5432
     volumes:
+      - ./data/init.sh:/docker-entrypoint-initdb.d/init.sh
       - ./data/testData.sql:/docker-entrypoint-initdb.d/testData.sql
       - postgres_data:/var/lib/postgresql/data/
   wekan:
@@ -29,6 +30,8 @@ services:
     ports:
       - 8080:8080
     links:
+      - mongo
+    depends_on:
       - mongo
   keycloak:
     image: jboss/keycloak:12.0.4
@@ -44,6 +47,8 @@ services:
       - KEYCLOAK_PASSWORD=admin
     ports:
       - 8081:8080
+    depends_on:
+      - postgres
   gollum:
     image: gollumorg/gollum
     container_name: sf_wiki
