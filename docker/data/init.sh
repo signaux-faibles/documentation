@@ -12,7 +12,12 @@ set -o nounset
 set -o pipefail
 
 psql --variable ON_ERROR_STOP=1  --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
---   CREATE USER keycloak WITH ENCRYPTED PASSWORD 'password';
+     CREATE USER keycloak WITH ENCRYPTED PASSWORD 'password';
      CREATE DATABASE keycloak WITH encoding 'UTF8';
---   GRANT ALL PRIVILEGES ON DATABASE keycloak TO keycloak;
+     GRANT ALL PRIVILEGES ON DATABASE keycloak TO keycloak;
+     CREATE USER datapi WITH PASSWORD 'password';
+     CREATE DATABASE datapi WITH encoding 'UTF8';
+     GRANT ALL PRIVILEGES ON DATABASE datapi TO datapi;
 EOSQL
+
+zcat /docker-entrypoint-initdb.d/testData.sql |psql --variable ON_ERROR_STOP=1  --username "$POSTGRES_USER" --dbname datapi
