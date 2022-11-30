@@ -4,20 +4,25 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Objectif et historique du modèle](#objectif-et-historique-du-mod%C3%A8le)
-- [Modèle à « deux étages » de Septembre 2021](#mod%C3%A8le-%C3%A0-%C2%AB-deux-%C3%A9tages-%C2%BB-de-septembre-2021)
+- [Modèle à « deux étages »](#mod%C3%A8le-%C3%A0-%C2%AB-deux-%C3%A9tages-%C2%BB)
 - [Premièr étage : L'apprentissage supervisé pré-crise](#premi%C3%A8r-%C3%A9tage--lapprentissage-supervis%C3%A9-pr%C3%A9-crise)
   - [Cible d'apprentissage](#cible-dapprentissage)
   - [Périmètre](#p%C3%A9rim%C3%A8tre)
   - [Modèle](#mod%C3%A8le)
   - [Variables d'apprentissage](#variables-dapprentissage)
-    - [Variables conseillées par la MRV](#variables-conseill%C3%A9es-par-la-mrv)
-    - [Variables Signaux Faibles](#variables-signaux-faibles)
+    - [Variables financières (source DGFiP)](#variables-financi%C3%A8res-source-dgfip)
+    - [Autres variables (sources URSSAF, ministère du travail, paydex)](#autres-variables-sources-urssaf-minist%C3%A8re-du-travail-paydex)
   - [Explication des scores de prédiction](#explication-des-scores-de-pr%C3%A9diction)
     - [Diagramme radar](#diagramme-radar)
     - [Explications textuelles](#explications-textuelles)
   - [Évaluation du modèle: lexique](#%C3%A9valuation-du-mod%C3%A8le-lexique)
   - [Seuils de détection](#seuils-de-d%C3%A9tection)
-- [Deuxième étage: Corrections liées à la crise :construction_worker: :building_construction:](#deuxi%C3%A8me-%C3%A9tage-corrections-li%C3%A9es-%C3%A0-la-crise-construction_worker-building_construction)
+- [Deuxième étage : Corrections liées à la crise :construction_worker:](#deuxi%C3%A8me-%C3%A9tage--corrections-li%C3%A9es-%C3%A0-la-crise-construction_worker)
+  - [URSSAF](#urssaf)
+    - [Signal favorable](#signal-favorable)
+    - [Signal défavorable](#signal-d%C3%A9favorable)
+  - [Activité Partielle](#activit%C3%A9-partielle)
+  - [Données financières](#donn%C3%A9es-financi%C3%A8res)
 - [Evaluation du modèle - Méthodologie](#evaluation-du-mod%C3%A8le---m%C3%A9thodologie)
   - [Évaluation du modèle par validation croisée](#%C3%A9valuation-du-mod%C3%A8le-par-validation-crois%C3%A9e)
   - [Choix de la métrique](#choix-de-la-m%C3%A9trique)
@@ -34,18 +39,19 @@ Un modèle d'apprentissage supervisé a été initialement développé avant la 
 
 Depuis octobre 2020, de nouveaux modèles tenant compte de l'impact de la crise ont été proposés. Le dernier en date consiste en un modèle à « deux étages » qui est décrit ci-dessous.
 
-## Modèle à « deux étages » de Septembre 2021
+## Modèle à « deux étages »
 
 La crise économique liée au Covid-19 est un contexte nouveau, pour lequel l'apprentissage automatique est mis en défaut, du fait que le crise modifie en profondeur la conjoncture économique, le comportement des entreprises, ainsi que les critères d'entrée en procédures collectives. Afin d'adapter au mieux notre algorithme à la situation économique liée à la crise Covid et de rapprocher nos listes de détection des préoccupations de nos utilisateurs, il a été décidé de faire évoluer le modèle vers une approche à « deux étages », qui permet de séparer le contexte en entrée de crise et l'impact de la crise sur chaque entreprise.
 
-Les prédictions sont obtenues en deux étapes:
+Les prédictions sont obtenues en deux étapes :
 
-- D'abord, un **modèle _simple_ et _explicable_** (une régression logistique) est utilisé afin de prédire la situation d'un entreprise _juste avant la crise_ (à Février 2020). Cette prédiction est transformée en trois catégories : niveau d'alerte rouge (risque de défaillance élevé), orange (risque de défaillance modéré) ou verte (pas de signal de risque).
-- Ensuite, des corrections liées à la crise sont apportées via des **règles expertes** transparentes et co-construites avec nos utilisateurs afin de permettre au modèle de capter des réalités terrain liées à un contexte sans précédent et qu'un modèle d'apprentissage automatisé n'aurait — par définition — pas pu apprendre. Ces règles peuvent augmenter le niveau d'alerte initialement produit par le modèle.
+1. D'abord, un **modèle _simple_ et _explicable_** (une régression logistique) est utilisé afin de prédire la situation d'un entreprise _juste avant la crise_ (à Février 2020). Cette prédiction est transformée en trois catégories :
+   niveau d'alerte rouge (risque de défaillance estimé élevé), orange (risque de défaillance estimé modéré) ou verte (pas de facteur de risque identifié).
+2. Ensuite, des corrections liées à la crise sont apportées via des **règles expertes** transparentes et co-construites avec nos utilisateurs afin de permettre au modèle de capter des réalités terrain liées à un contexte sans précédent et qu'un modèle d'apprentissage automatisé n'aurait — par définition — pas pu apprendre. Ces règles peuvent augmenter le niveau d'alerte initialement produit par le modèle.
 
-La prédiction finale du modèle est donc complétement transparente et explicable — étant la superposition d'une [régression logistique](https://fr.wikipedia.org/wiki/R%C3%A9gression_logistique) et d'une règle experte ayant la forme d'un arbre de décision.
+La prédiction finale du modèle est donc complétement transparente et explicable — étant la superposition d'une [régression logistique](https://fr.wikipedia.org/wiki/R%C3%A9gression_logistique) et de critères experts prenant la forme d'un arbre de décision (voir [paragraphe](#deuxi%C3%A8me-%C3%A9tage-corrections-li%C3%A9es-%C3%A0-la-crise-construction_worker-building_construction) _infra_ concernant ces critères experts).
 
-Le modèle de Septembre 2021 est détaillé dans ce qui suit.
+Le modèle est détaillé dans ce qui suit.
 
 ## Premièr étage : L'apprentissage supervisé pré-crise
 
@@ -55,96 +61,110 @@ Le modèle de Septembre 2021 est détaillé dans ce qui suit.
 
 Cette cible d'apprentissage est imparfaite : des entreprises en difficulté peuvent ne pas avoir de défaillance dans les 18 mois, mais il serait pertinent de les détecter. C'est le cas par exemple d'entreprises financièrement solides mais dont l'activité ne leur permet pas d'être profitable. Inversement, certaines défaillances sont dues à des évènements non encore identifiables avec 18 mois d'anticipation (accidents, etc.), qui ne pourront donc être détectés que plus tard.
 
-À noter que la cible d'apprentissage est très déséquilibrée : statistiquement, environ 2% des entreprises observées aujourd'hui feront défaillance dans les 18 mois à venir. Ce chiffre a chuté lors au début de la crise Covid-19, du fait des dispositifs de soutien aux entreprises ayant permis de maintenir « à flot » une part des entreprises éligibles. Qui plus est, une part de ces 2% sont des entreprises pour lesquelles on dispose d'un « signal fort » (voir ci-dessous).
+À noter que la cible d'apprentissage est très déséquilibrée : historiquement, environ 5% des entreprises en activité connaissent une défaillance chaque année. Ce chiffre a sensiblement diminué au début de la crise sanitaire liée au Covid-19, du fait des dispositifs de soutien aux entreprises ayant permis de maintenir « à flot » une part des entreprises éligibles. Voir, p.ex. le [suivi](https://www.banque-france.fr/statistiques/chiffres-cles-france-et-etranger/defaillances-dentreprises/suivi-mensuel-des-defaillances) des défaillances par la banque de France. Cette dynamique impacte fortement le processus d'apprentissage puisqu'une proportion importante d'entreprises sortent _de facto_ de la cible d'apprentissage, alors même qu'elles se seraient probablement trouvées particulièrement en difficulté en l'absence d'aides de l'État.
 
 ### Périmètre
 
-- Entreprises de 10 salariés et plus.
-- France entière.
-- À l'exception des entreprises de l'administration publique (code APE O) et de l'enseignement (code APE P).
+On considère l'ensemble des entreprises :
+
+- de 10 salariés et plus ;
+- étant immatriculé auprès de l'INSEE et ayant un numéro de SIREN ;
+
+On exclut du périmètre les entreprises :
+
+- faisant partie de l'administration publique (code APE O) et de l'enseignement (code APE P).
+- dont la [catégorie juridique](https://www.insee.fr/fr/information/2028129) faisant partie de la liste ci-dessous.
+
+```
+- 'Autre personne morale de droit administratif'
+- 'Établissement public des cultes d''Alsace-Lorraine'
+- 'Groupement de coopération sanitaire à gestion publique'
+- 'Groupement d''intérêt public (GIP)'
+- '(Autre) Établissement public administratif local'
+- 'Communauté d''agglomération'
+- 'Communauté de communes'
+- 'Commune et commune nouvelle'
+- 'Département'
+- 'Établissement public local à caractère industriel ou commercial'
+- 'Établissement public local culturel'
+- 'Établissement public local social et médico-social'
+- 'Établissement public national à caractère administratif'
+- 'Établissement public national à caractère industriel ou commercial doté d''un comptable public'
+- 'Établissement public national à caractère industriel ou commercial non doté d''un comptable public'
+- 'Établissement public national à caractère scientifique culturel et professionnel'
+- 'Institution Banque de France'
+- 'Autre établissement public national administratif à compétence territoriale limitée'
+```
 
 ### Modèle
 
-Le modèle utilisé est une régression logistique. Elle est aujourd'hui entrainée sur des données allant de janvier 2016 à novembre 2018 (18 mois avant la crise Covid et la diminution des entrées en procédures collectives), et produit une prédiction à Février 2020 qui peut etre interprétée comme la situation pré-crise de l’entreprise.
+Le modèle utilisé est une régression logistique. L'entraînement a lieu sur des données s'étalant de janvier 2016 à novembre 2018 (18 mois avant la crise Covid et la diminution des entrées en procédures collectives), et produit une prédiction à février 2020 qui peut être interprétée comme le risque pré-crise estimé de l’entreprise.
 
 ### Variables d'apprentissage
 
-Le modèle est entrainé sur les variables d'apprentissage suivantes.
+Le modèle est entraîné sur les variables d'apprentissage suivantes.
 
-#### Variables conseillées par la MRV
+#### Variables financières (source DGFiP)
 
-NB: la pertinence de ces variables a été remise en cause par le partenariat, la prochaine version du modèle utilisera très probablement d'autres variables financières sur base d'une sélection de variables préalable.
+N. B.: la pertinence de ces variables a été remise en cause par le partenariat, la prochaine version du modèle utilisera très probablement d'autres variables financières sur base d'une sélection de variables préalable.
 
 ```
-"MNT_AF_BFONC_BFR",
-"MNT_AF_BFONC_TRESORERIE",
-"RTO_AF_RATIO_RENT_MBE",
-"MNT_AF_BFONC_FRNG",
-"MNT_AF_CA",
-"MNT_AF_SIG_EBE_RET",
-"RTO_AF_RENT_ECO",
-"RTO_AF_SOLIDITE_FINANCIERE",
-"RTO_INVEST_CA"
+- CA
+- BFR
+- EBE retraité
+- Trésorerie
+- Ratio Rentabilité / MBE
+- FRNG
+- Rentabilité
+- Solidité financière
+- Ratio Investissements / CA
 ```
 
-#### Variables Signaux Faibles
+#### Autres variables (sources URSSAF, ministère du travail, paydex)
 
-Les variables issues de la base Signaux Faibles sont définies au niveau SIRET (établissement) et sont donc aggrégées au niveau SIREN (entreprise) selon différente modalitées :
+Les variables issues de la base Signaux Faibles sont définies au niveau SIRET (établissement) agrégées au niveau du SIREN (entreprise) :
 
-Variables aggrégée via une somme (`groupby(siren).sum()`) :
-
-```python
-"cotisation",
-"cotisation_moy12m",
-"montant_part_ouvriere",
-"montant_part_ouvriere_past_1",
-"montant_part_ouvriere_past_12",
-"montant_part_ouvriere_past_2",
-"montant_part_ouvriere_past_3",
-"montant_part_ouvriere_past_6",
-"montant_part_patronale",
-"montant_part_patronale_past_1",
-"montant_part_patronale_past_12",
-"montant_part_patronale_past_2",
-"montant_part_patronale_past_3",
-"montant_part_patronale_past_6",
-"effectif",
-"apart_heures_consommees_cumulees",
-"apart_heures_consommees",
+```
+- "cotisation" # cotisation mensuelle URSSAF
+- "cotisation_moy12m", # moyenne glissante sur 12 mois des cotisations URSSAF
+- "montant_part_ouvriere", # montant de la part salariale de la dette URSSAF
+- "montant_part_patronale", # montant de la part patronale de la dette URSSAF
+- "montant_part_ouvriere_lag1m",
+- "montant_part_ouvriere_lag2m",
+- "montant_part_ouvriere_lag3m",
+- "montant_part_ouvriere_lag6m",
+- "montant_part_ouvriere_lag12m",
+- "montant_part_patronale_lag1m",
+- "montant_part_patronale_lag2m",
+- "montant_part_patronale_lag3m",
+- "montant_part_patronale_lag6m",
+- "montant_part_patronale_lag12m",
+- "effectif", # effectif de l'entreprise
+- "apart_heures_consommees", # consommation d'activité partielle
+- "apart_heures_consommees_cumulees", # somme cumulée de la consommation d'activité partielle
+- "ratio_dette", # dette sociale / (somme des moyennes annuelles des cotisations de chaque établissement d'une entreprise
+- "ratio_dette_moy12m" # moyenne glissante sur 12 mois (à l'échelle du SIREN= de la variable précédente
+- "dette_par_effectif_slope3m", # évolution de la dette sociale par effectif sur 3 mois
 ```
 
-Variables aggrégée via une moyenne (`groupby(siren).mean()`) :
-
-```python
-"ratio_dette_moy12m"
-```
-
-Variables calculées après l'aggrégation au niveau siren :
-
-```python
-"ratio_dette", # (part_ouvriere + part_patronale) / cotisation_moyenne_12mois
-"avg_delta_dette_par_effectif", # evolution moyenne dette sociale par effectif sur 3 mois
-```
-
-Voir [ce document](https://github.com/signaux-faibles/opensignauxfaibles/blob/master/js/reduce.algo2/docs/variables.json) pour la définition et la source des champs « Signaux Faibles » présents en base.
+Voir [ce document](https://github.com/signaux-faibles/opensignauxfaibles/blob/master/js/reduce.algo2/docs/variables.json) pour la définition et la source des champs pré-calculés.
 
 ### Explication des scores de prédiction
 
 Nos listes d'entreprises en difficulté sont accompagnées d'explications sur les raisons de la présence ou l'absence de chaque entreprise dans ces listes.
 
-Ces explications sont produites sur la base des variables utilisées par notre « premier étage algorithmique », et à deux niveaux de granularité :
+Ces explications sont produites sur la base des variables utilisées par notre « premier étage » algorithmique, et à deux niveaux de granularité :
 
-- au niveau de chaque variable utilisée par ce modèle de prédiction;
+- au niveau de chaque variable utilisée par ce modèle de prédiction ;
 - à un niveau plus agrégé, par groupe de variables de même « thématique ». Parmi ces groupes de variables, on trouve :
   - les variables de santé financière ;
   - les variables de dette sur cotisations sociales aux URSSAF ;
+  - les comportements de paiement « paydex » (lorsque cette donnée est disponible)
   - le recours à l'activité partielle.
 
-_À noter que, en septembre 2021, les méthodes d'explication de Signaux Faibles ne sont implémentées que pour un modèle de régression logistique._
+Ainsi, chacune des variables prédictives du modèle appartient à un groupe thématique. Pour une entreprise donnée, l'influence associée à l'un des groupes est obtenue en sommant l'ensemble des termes `w_g * x_g`, où `w` désigne le vecteur de poids issu de la phase d'apprentissage de la régression logistique, `x` le vecteur des caractéristiques de l'entreprise étudiée, et l'indice `g` est le groupe thématique auquel la variable est associée.
 
-Pour une documentation technique des scores d'explication de la régression logistique, consulter la [documentation technique des scores d'explication](./modele-explications-doc-technique.pdf).
-
-Plusieurs indicateurs explicatifs sont ainsi présentés dans l'interface web : un « diagramme radar » et des explications textuelles.
+Plusieurs indicateurs explicatifs sont ainsi présentés dans l'interface web : un « diagramme radar » et des explications textuelles. La longueur des différentes branches du « diagramme radar » est déterminée en normalisant chacune des composantes du diagramme (calculée comme précisé dans le paragraphe précédent) par le produit scalaire `<w, x>`.
 
 #### Diagramme radar
 
@@ -197,20 +217,55 @@ Plus particulièrement:
 - le seuil du pallier « risque fort » est choisi pour maximiser le F\_{0.5}, une métrique qui favorise deux fois plus la précision que le rappel. Ce score favorise ainsi une précision élevée, et donc l'exclusivité d'entreprises effectivement en défaillance dans le pallier « risque fort ».
 - le seuil du pallier « risque modéré » est choisi pour maximiser le score F_2, qui favorise deux fois plus le rappel que la précision. La maximisation de cette métrique vise à obtenir un pallier « risque modéré » qui capture un maximum d'entreprises effectivement en défaillance, quitte à capturer « par erreur » des faux positifs, c'est-à-dire quitte à viser trop large et lister des entreprises qui n'entreront pas en défaillance.
 
-La volumétrie des listes pour septembre 2021 est donnée dans le fichier [d'évaluation du modèle de septembre 2021](evaluation-modele/sept2021.md).
+## Deuxième étage : Corrections liées à la crise :construction_worker:
 
-## Deuxième étage: Corrections liées à la crise :construction_worker: :building_construction:
+Afin de tenir compte des évènements ultérieurs au début de la crise sanitaire susceptibles d'infléchir le niveau d'alerte initialement calculé par le modèle d'apprentissage automatique, on étudie certaines situations jugées plutôt favorables ou défavorables à la santé de l'entreprise. L’occurrence ou la non-occurrence d'un ensemble de situations (signaux) est ainsi évaluée pour l'ensemble des entreprises du périmètre « Signaux Faibles », puis des règles expertes sont établies en fonction des valeurs associées à chacune des situations.
 
-Des « corrections expertes » sont réalisées après l'apprentissage supervisé:
+L'algorithme peut être résumé comme suit : un compteur de risque est initialisé à zéro ; lorsqu'une condition favorable est réalisée, on diminue la valeur de ce compteur, lorsqu'une condition est défavorable, on augment la valeur de ce compteur. La valeur finale de ce compteur est ensuite limitée à l'intervalle (entier) [-1; 1]. Si le compteur est égal à 1 (resp. -1) à la fin de la procédure, le niveau d'alerte est augmenté (resp. diminué) d'un niveau, lorsque cela est possible dans la limite des trois niveaux d'alertes initialement définis.
 
-- Une correction « Dette Sociale » qui vise à détecter les entreprises dont l'évolution de la dette sociale (URSSAF) s'est dégradée depuis l'été 2020 (date à laquelle les reports de charges consentis pendant le premier confinement se sont terminés).
-- :construction_worker: D'autres corrections encore en cours de co-construction avec nos utilisateurs autour notamment :
-  - du recours à l'activité partielle longue durée
-  - d'articles de recherche (institutionnels ou académiques) sur l'impact de la crise Covid par secteur d'activité
+Nous détaillons ci-dessous, par catégorie de variables, quelles combinaisons ainsi formées peuvent donnent lieu à une hausse ou à une baisse de ce compteur, pour ensuite éventuellement augmenter ou diminuer le niveau d'alerte présenté dans la liste de prédictions.
+
+### URSSAF
+
+#### Signal favorable
+
+On descend la valeur du compteur de 1 si :
+
+- On observe une dette significative entre mars 2020 et sept 2021, significative signifiant supérieure à 10% de la cotisation annuelle moyenne (sur l'ensemble des établissements) appelée.
+- On observe une diminution relative de cette dette (qui devait être apurée en septembre 2021), c'est-à-dire que (minimum(dette_récente) / maximum(dette_ancienne)) < 10% à l'échelle de l'entreprise.
+
+#### Signal défavorable
+
+On augmente la valeur du compteur de 1 si :
+
+- On observe une augmentation de la dette récente
+- La détection par apprentissage statistique ne mentionnait pas les données URSSAF comme raison principale de détection.
+
+### Activité Partielle
+
+On considère la demande d'activité partielle effectuée entre juillet et décembre 2022.
+
+Deux conditions sont testées :
+
+- La demande a été supérieure à 240 jours. Ces 8 mois, correspondent au 8e percentile supérieur du nombre de jours demandés sur la période considérée, et dépassent de deux mois le niveau de demande maximum nominal (hors dérogation), d'après [cette FAQ](https://travail-emploi.gouv.fr/emploi-et-insertion/accompagnement-des-mutations-economiques/activite-partielle-chomage-partiel/faq-chomage-partiel-activite-partielle#duree-max) du ministère du travail.
+- La demande concerne plus de la moitié du personnel. Cette condition est mise en place car la demande pourrait, pour un effectif plus réduit, n'être qu'un effet d'aubaine du dispositif mis en place ; on tente ainsi d'écarter ce genre de situations.
+
+Si les deux conditions sont remplies, la valeur du compteur est augmentée de 1.
+
+### Données financières
+
+On calcule la valeur de vérité des trois conditions suivantes :
+
+- Le ratio `Endettement à terme / CAF` est supérieur ou égal à 4
+- L'EBE est négatif à la clôture du dernier exercice connu et le chiffre d'affaires réalisé de janvier au dernier mois connu sur l'exercice 2022 est supérieur ou égal à 80% du CA 2019 sur la même période. L'objectif est d'exclure les entreprises dont le rebond économique n'est pas avéré (activité réduite avec perte de marché) pour cibler les entreprise que les utilisateurs de signaux faibles peuvent le plus aider.
+- Les capitaux propres de l'entreprise sont négatifs.
+
+Si deux des trois conditions précédentes sont remplies, la valeur du compteur est augmentée de 1.
+Si les trois conditions précédentes sont remplies, la valeur du compteur est augmentée de 1.
 
 ## Evaluation du modèle - Méthodologie
 
-Seule la partie « apprentissage supervisé » du modèle peut être évaluée de manière rigoureuse, dans la mesure où la crise n'a pas produit tous ses effets et que nous ne disposons pas de visibilité sur les défaillances futures pour évaluer la performance des corrections apportées.
+Seule la partie « apprentissage supervisé » du modèle peut être évaluée de manière rigoureuse et exhaustive, dans la mesure où la crise n'a probablement pas encore produit tous ses effets et que nous ne disposons pas de visibilité sur les défaillances futures pour évaluer la performance des corrections apportées.
 
 ### Évaluation du modèle par validation croisée
 
