@@ -237,13 +237,13 @@ Nous détaillons ci-dessous, par catégorie de variables, quelles combinaisons a
 On descend la valeur du compteur de 1 si :
 
 - On observe une dette significative entre mars 2020 et sept 2021, significative signifiant supérieure à 10% de la cotisation annuelle moyenne (sur l'ensemble des établissements) appelée.
-- On observe une diminution relative de cette dette (qui devait être apurée en septembre 2021), c'est-à-dire que (minimum(dette_récente) / maximum(dette_ancienne)) < 10% à l'échelle de l'entreprise.
+- On observe une diminution relative de cette dette (qui devait être apurée en septembre 2021), c'est-à-dire que `(minimum(dette_récente) / maximum(dette_ancienne)) < 10%` à l'échelle de l'entreprise.
 
 #### Signal défavorable
 
 On augmente la valeur du compteur de 1 si :
 
-- On observe une augmentation de la dette récente
+- On observe une augmentation de la dette récente.
 - La détection par apprentissage statistique ne mentionnait pas les données URSSAF comme raison principale de détection.
 
 ### Activité Partielle
@@ -261,12 +261,12 @@ Si les deux conditions sont remplies, la valeur du compteur est augmentée de 1.
 
 On calcule la valeur de vérité des trois conditions suivantes :
 
-- Le ratio `Endettement à terme / CAF` est supérieur ou égal à 4
+- Le ratio `endettement à terme / CAF` est supérieur ou égal à 4.
 - L'EBE est négatif à la clôture du dernier exercice connu et le chiffre d'affaires réalisé de janvier au dernier mois connu sur l'exercice 2022 est supérieur ou égal à 80% du CA 2019 sur la même période. L'objectif est d'exclure les entreprises dont le rebond économique n'est pas avéré (activité réduite avec perte de marché) pour cibler les entreprise que les utilisateurs de signaux faibles peuvent le plus aider.
 - Les capitaux propres de l'entreprise sont négatifs.
 
 Si deux des trois conditions précédentes sont remplies, la valeur du compteur est augmentée de 1.
-Si les trois conditions précédentes sont remplies, la valeur du compteur est augmentée de 1.
+Si les trois conditions précédentes sont remplies, la valeur du compteur est augmentée de 2.
 
 ## Evaluation du modèle : méthodologie
 
