@@ -5,7 +5,7 @@
 
 - [Objectif et historique du modèle](#objectif-et-historique-du-mod%C3%A8le)
 - [Modèle à « deux étages »](#mod%C3%A8le-%C3%A0-%C2%AB-deux-%C3%A9tages-%C2%BB)
-- [Premièr étage : L'apprentissage supervisé pré-crise](#premi%C3%A8r-%C3%A9tage--lapprentissage-supervis%C3%A9-pr%C3%A9-crise)
+- [Premier étage : apprentissage supervisé pré-crise](#premier-%C3%A9tage--apprentissage-supervis%C3%A9-pr%C3%A9-crise)
   - [Cible d'apprentissage](#cible-dapprentissage)
   - [Périmètre](#p%C3%A9rim%C3%A8tre)
   - [Modèle](#mod%C3%A8le)
@@ -15,19 +15,21 @@
   - [Explication des scores de prédiction](#explication-des-scores-de-pr%C3%A9diction)
     - [Diagramme radar](#diagramme-radar)
     - [Explications textuelles](#explications-textuelles)
-  - [Évaluation du modèle: lexique](#%C3%A9valuation-du-mod%C3%A8le-lexique)
+  - [Évaluation du modèle : lexique](#%C3%A9valuation-du-mod%C3%A8le--lexique)
   - [Seuils de détection](#seuils-de-d%C3%A9tection)
-- [Deuxième étage : Corrections liées à la crise :construction_worker:](#deuxi%C3%A8me-%C3%A9tage--corrections-li%C3%A9es-%C3%A0-la-crise-construction_worker)
+- [Deuxième étage : corrections liées à la crise :construction_worker:](#deuxi%C3%A8me-%C3%A9tage--corrections-li%C3%A9es-%C3%A0-la-crise-construction_worker)
   - [URSSAF](#urssaf)
     - [Signal favorable](#signal-favorable)
     - [Signal défavorable](#signal-d%C3%A9favorable)
   - [Activité Partielle](#activit%C3%A9-partielle)
   - [Données financières](#donn%C3%A9es-financi%C3%A8res)
-- [Evaluation du modèle - Méthodologie](#evaluation-du-mod%C3%A8le---m%C3%A9thodologie)
-  - [Évaluation du modèle par validation croisée](#%C3%A9valuation-du-mod%C3%A8le-par-validation-crois%C3%A9e)
+- [Evaluation du modèle : méthodologie](#evaluation-du-mod%C3%A8le--m%C3%A9thodologie)
+  - [Jeu de test indépendant](#jeu-de-test-ind%C3%A9pendant)
   - [Choix de la métrique](#choix-de-la-m%C3%A9trique)
-- [Évaluation du modèle - Métriques à juin 2021](#%C3%A9valuation-du-mod%C3%A8le---m%C3%A9triques-%C3%A0-juin-2021)
-- [Évaluation du modèle - Métriques à septembre 2021](#%C3%A9valuation-du-mod%C3%A8le---m%C3%A9triques-%C3%A0-septembre-2021)
+- [Évaluation du modèle : scores](#%C3%A9valuation-du-mod%C3%A8le--scores)
+  - [Métriques à juin 2021](#m%C3%A9triques-%C3%A0-juin-2021)
+  - [Métriques à septembre 2021](#m%C3%A9triques-%C3%A0-septembre-2021)
+  - [Métriques à décembre 2022](#m%C3%A9triques-%C3%A0-d%C3%A9cembre-2022)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -49,11 +51,11 @@ Les prédictions sont obtenues en deux étapes :
    niveau d'alerte rouge (risque de défaillance estimé élevé), orange (risque de défaillance estimé modéré) ou verte (pas de facteur de risque identifié).
 2. Ensuite, des corrections liées à la crise sont apportées via des **règles expertes** transparentes et co-construites avec nos utilisateurs afin de permettre au modèle de capter des réalités terrain liées à un contexte sans précédent et qu'un modèle d'apprentissage automatisé n'aurait — par définition — pas pu apprendre. Ces règles peuvent augmenter le niveau d'alerte initialement produit par le modèle.
 
-La prédiction finale du modèle est donc complétement transparente et explicable — étant la superposition d'une [régression logistique](https://fr.wikipedia.org/wiki/R%C3%A9gression_logistique) et de critères experts prenant la forme d'un arbre de décision (voir [paragraphe](#deuxi%C3%A8me-%C3%A9tage-corrections-li%C3%A9es-%C3%A0-la-crise-construction_worker-building_construction) _infra_ concernant ces critères experts).
+La prédiction finale du modèle est donc complétement transparente et explicable — étant la superposition d'une [régression logistique](https://fr.wikipedia.org/wiki/R%C3%A9gression_logistique) et de critères experts prenant la forme d'un arbre de décision (voir [paragraphe](#deuxi%C3%A8me-%C3%A9tage--corrections-li%C3%A9es-%C3%A0-la-crise-construction_worker) _infra_ concernant ces critères experts).
 
 Le modèle est détaillé dans ce qui suit.
 
-## Premièr étage : L'apprentissage supervisé pré-crise
+## Premier étage : apprentissage supervisé pré-crise
 
 ### Cible d'apprentissage
 
@@ -61,7 +63,7 @@ Le modèle est détaillé dans ce qui suit.
 
 Cette cible d'apprentissage est imparfaite : des entreprises en difficulté peuvent ne pas avoir de défaillance dans les 18 mois, mais il serait pertinent de les détecter. C'est le cas par exemple d'entreprises financièrement solides mais dont l'activité ne leur permet pas d'être profitable. Inversement, certaines défaillances sont dues à des évènements non encore identifiables avec 18 mois d'anticipation (accidents, etc.), qui ne pourront donc être détectés que plus tard.
 
-À noter que la cible d'apprentissage est très déséquilibrée : historiquement, environ 5% des entreprises en activité connaissent une défaillance chaque année. Ce chiffre a sensiblement diminué au début de la crise sanitaire liée au Covid-19, du fait des dispositifs de soutien aux entreprises ayant permis de maintenir « à flot » une part des entreprises éligibles. Voir, p.ex. le [suivi](https://www.banque-france.fr/statistiques/chiffres-cles-france-et-etranger/defaillances-dentreprises/suivi-mensuel-des-defaillances) des défaillances par la banque de France. Cette dynamique impacte fortement le processus d'apprentissage puisqu'une proportion importante d'entreprises sortent _de facto_ de la cible d'apprentissage, alors même qu'elles se seraient probablement trouvées particulièrement en difficulté en l'absence d'aides de l'État.
+Il est à noter que la cible d'apprentissage est très déséquilibrée : historiquement, environ 5% des entreprises en activité connaissent une défaillance chaque année. Ce chiffre a sensiblement diminué au début de la crise sanitaire liée au Covid-19, du fait des dispositifs de soutien aux entreprises ayant permis de maintenir « à flot » une part des entreprises éligibles. Voir, p.ex. le [suivi](https://www.banque-france.fr/statistiques/chiffres-cles-france-et-etranger/defaillances-dentreprises/suivi-mensuel-des-defaillances) des défaillances par la banque de France. Cette dynamique impacte fortement le processus d'apprentissage puisqu'une proportion importante d'entreprises sortent _de facto_ de la cible d'apprentissage, alors même qu'elles se seraient probablement trouvées particulièrement en difficulté en l'absence d'aides de l'État.
 
 ### Périmètre
 
@@ -106,8 +108,6 @@ Le modèle est entraîné sur les variables d'apprentissage suivantes.
 
 #### Variables financières (source DGFiP)
 
-N. B.: la pertinence de ces variables a été remise en cause par le partenariat, la prochaine version du modèle utilisera très probablement d'autres variables financières sur base d'une sélection de variables préalable.
-
 ```
 - CA
 - BFR
@@ -149,6 +149,8 @@ Les variables issues de la base Signaux Faibles sont définies au niveau SIRET (
 
 Voir [ce document](https://github.com/signaux-faibles/opensignauxfaibles/blob/master/js/reduce.algo2/docs/variables.json) pour la définition et la source des champs pré-calculés.
 
+N. B. : la pertinence du jeu de variables a été remise en cause par le partenariat, la prochaine version du modèle d'apprentissage utilisera très probablement d'autres variables financières sur base d'une sélection de variables préalable.
+
 ### Explication des scores de prédiction
 
 Nos listes d'entreprises en difficulté sont accompagnées d'explications sur les raisons de la présence ou l'absence de chaque entreprise dans ces listes.
@@ -177,7 +179,7 @@ Un diagramme radar affiche un score de risque associé à chacun des groupes de 
 
 Sur les fiches établissement de l'application Signaux Faibles, une liste de variables préoccupantes est fournie pour justifier un niveau de risque fort ou modéré.
 
-### Évaluation du modèle: lexique
+### Évaluation du modèle : lexique
 
 Par convention, nous choisissons d'attribuer un score de 1 aux entreprises ayant un risque maximal de défaillance, et 0 aux entreprises ayant un risque minimal de défaillance. En conséquence, nous avons les définitions suivantes :
 
@@ -217,7 +219,7 @@ Plus particulièrement:
 - le seuil du pallier « risque fort » est choisi pour maximiser le F\_{0.5}, une métrique qui favorise deux fois plus la précision que le rappel. Ce score favorise ainsi une précision élevée, et donc l'exclusivité d'entreprises effectivement en défaillance dans le pallier « risque fort ».
 - le seuil du pallier « risque modéré » est choisi pour maximiser le score F_2, qui favorise deux fois plus le rappel que la précision. La maximisation de cette métrique vise à obtenir un pallier « risque modéré » qui capture un maximum d'entreprises effectivement en défaillance, quitte à capturer « par erreur » des faux positifs, c'est-à-dire quitte à viser trop large et lister des entreprises qui n'entreront pas en défaillance.
 
-## Deuxième étage : Corrections liées à la crise :construction_worker:
+## Deuxième étage : corrections liées à la crise :construction_worker:
 
 Afin de tenir compte des évènements ultérieurs au début de la crise sanitaire susceptibles d'infléchir le niveau d'alerte initialement calculé par le modèle d'apprentissage automatique, on étudie certaines situations jugées plutôt favorables ou défavorables à la santé de l'entreprise. L’occurrence ou la non-occurrence d'un ensemble de situations (signaux) est ainsi évaluée pour l'ensemble des entreprises du périmètre « Signaux Faibles », puis des règles expertes sont établies en fonction des valeurs associées à chacune des situations.
 
@@ -263,13 +265,13 @@ On calcule la valeur de vérité des trois conditions suivantes :
 Si deux des trois conditions précédentes sont remplies, la valeur du compteur est augmentée de 1.
 Si les trois conditions précédentes sont remplies, la valeur du compteur est augmentée de 1.
 
-## Evaluation du modèle - Méthodologie
+## Evaluation du modèle : méthodologie
 
-Seule la partie « apprentissage supervisé » du modèle peut être évaluée de manière rigoureuse et exhaustive, dans la mesure où la crise n'a probablement pas encore produit tous ses effets et que nous ne disposons pas de visibilité sur les défaillances futures pour évaluer la performance des corrections apportées.
+Seule la partie « apprentissage supervisé » du modèle peut être évaluée de manière rigoureuse et exhaustive, dans la mesure où la crise n'a probablement pas encore produit tous ses effets et que nous ne disposons pas de visibilité sur les défaillances futures pour évaluer la performance des corrections expertes (« deuxième étage ») apportées.
 
-### Évaluation du modèle par validation croisée
+### Jeu de test indépendant
 
-Afin que l'évaluation mesure le mieux possible la performance réelle du modèle, il faut veiller a çe que les observations associées à une même entreprise ne se retrouvent pas dans le même échantillon, sous peine d'avoir une fuite d'information de l'échantillon d'entraînement vers l'échantillon de test (la performance biaisée du modèle favoriserait le sur-apprentissage au niveau de l'entreprise).
+Afin que l'évaluation mesure le mieux possible la performance réelle du modèle, nous faisons en sorte que les observations associées à une même entreprise ne se retrouvent pas à la fois dans le jeu d'entraînement et le jeu de test. La corrélation entre plusieurs observations successives d'une série temporelle associées à une entreprise étant importante, une fuite d'information du jeu d'entraînement vers le jeu de test est probable et fait courir le risque de biais dans la performance mesurée ou le réglage des hyper-paramètres du modèle par validation croisée.
 
 ### Choix de la métrique
 
@@ -279,10 +281,16 @@ Dans le contexte de Signaux Faibles, les faux positifs (un doute est émis sur u
 
 Ainsi, la **justesse rééquilibrée** ([balanced accuracy](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.balanced_accuracy_score.html)) et le **score AUCPR** ([average precision](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.average_precision_score.html)) se prêtent bien à l'évaluation de notre algorithme. Nous utilisons également un **score F-beta** avec une valeur de Beta proche de 2 afin de pénaliser plus fortement les faux négatifs. Plus de détails sont disponibles dans les documents dédiés spécifiquement à l'évaluation des modèles successifs : voir sections ci-dessous.
 
-## Évaluation du modèle - Métriques à juin 2021
+## Évaluation du modèle : scores
+
+### Métriques à juin 2021
 
 Voir [évaluation du modèle - juin 2021](evaluation-modele/juin2021.md).
 
-## Évaluation du modèle - Métriques à septembre 2021
+### Métriques à septembre 2021
 
 Voir [évaluation du modèle - septembre 2021](evaluation-modele/sept2021.md).
+
+### Métriques à décembre 2022
+
+Les métriques sont identiques aux métriques précédentes, le modèle d'apprentissage supervisé n'ayant pas subi de mise à jour.
