@@ -17,7 +17,7 @@
     - [Explications textuelles](#explications-textuelles)
   - [Évaluation du modèle : lexique](#%C3%A9valuation-du-mod%C3%A8le--lexique)
   - [Seuils de détection](#seuils-de-d%C3%A9tection)
-- [Deuxième étage : corrections liées à la crise :construction_worker:](#deuxi%C3%A8me-%C3%A9tage--corrections-li%C3%A9es-%C3%A0-la-crise-construction_worker)
+- [Deuxième étage : corrections liées à la crise :construction_worker: (septembre 2022)](#deuxi%C3%A8me-%C3%A9tage--corrections-li%C3%A9es-%C3%A0-la-crise-construction_worker-septembre-2022)
   - [URSSAF](#urssaf)
     - [Signal favorable](#signal-favorable)
     - [Signal défavorable](#signal-d%C3%A9favorable)
@@ -164,12 +164,12 @@ Ces explications sont produites sur la base des variables utilisées par notre �
   - les comportements de paiement « paydex » (lorsque cette donnée est disponible)
   - le recours à l'activité partielle.
 
-Ainsi, chacune des variables prédictives du modèle appartient à un groupe thématique. Pour une entreprise donnée, l'influence unitaire associée à une variable est `w_i * x_i`, où `w` désigne le vecteur de poids issu de la phase d'apprentissage de la régression logistique, `x` le vecteur des caractéristiques de l'entreprise étudiée au moment de la prédiction, et l'indice `i` est associé à la variable étudiée. Pour obtenir l'influence d'un groupe thématique, il suffit de sommer l'ensemble des contributions pour lesquelles `i` appartient au groupe thématique choisi.
+Ainsi, chacune des variables prédictives du modèle appartient à un groupe thématique. Pour une entreprise donnée, l'influence unitaire d'une variable associée à un indice `i` est le produit `w_i * x_i`, où `w` désigne le vecteur de poids issu de la phase d'apprentissage de la régression logistique, `x` le vecteur des caractéristiques de l'entreprise étudiée au moment de la prédiction. Pour obtenir l'influence d'un groupe thématique, il suffit de sommer l'ensemble des contributions unitaires des variables appartenant au groupe thématique choisi.
 
 Plusieurs indicateurs explicatifs sont ainsi présentés dans l'interface web :
 
-- des explications textuelles précisant les variables ayant la plus forte influence en faveur d'une détection.
-- un « diagramme radar » dont la longueur des différentes branches est déterminée en normalisant chacune des composantes, calculée comme précisé dans le paragraphe précédent pour chacun des groupes, par le produit scalaire `<w, x>`.
+- des explications textuelles précisant les variables ayant la plus forte contribution unitaire en faveur d'une détection.
+- un « diagramme radar » dont la longueur des différentes branches est déterminée en normalisant chacune des composantes, calculées comme précisé dans le paragraphe précédent, par le produit scalaire `<w, x>`.
 
 #### Diagramme radar
 
