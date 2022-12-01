@@ -109,12 +109,12 @@ Le modèle est entraîné sur les variables d'apprentissage suivantes.
 #### Variables financières (source DGFiP)
 
 ```
-- CA
-- BFR
-- EBE retraité
+- Chiffre d'affaire
+- Excédent brut d'exploitation retraité
 - Trésorerie
-- Ratio Rentabilité / MBE
-- FRNG
+- Ratio Rentabilité / Marge brute d'exploitation
+- Besoin en fondes de roulement
+- Fonds de roulement net global
 - Rentabilité
 - Solidité financière
 - Ratio Investissements / CA
