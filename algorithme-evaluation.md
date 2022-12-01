@@ -164,9 +164,12 @@ Ces explications sont produites sur la base des variables utilisées par notre �
   - les comportements de paiement « paydex » (lorsque cette donnée est disponible)
   - le recours à l'activité partielle.
 
-Ainsi, chacune des variables prédictives du modèle appartient à un groupe thématique. Pour une entreprise donnée, l'influence associée à l'un des groupes est obtenue en sommant l'ensemble des termes `w_g * x_g`, où `w` désigne le vecteur de poids issu de la phase d'apprentissage de la régression logistique, `x` le vecteur des caractéristiques de l'entreprise étudiée, et l'indice `g` est le groupe thématique auquel la variable est associée.
+Ainsi, chacune des variables prédictives du modèle appartient à un groupe thématique. Pour une entreprise donnée, l'influence unitaire associée à une variable est `w_i * x_i`, où `w` désigne le vecteur de poids issu de la phase d'apprentissage de la régression logistique, `x` le vecteur des caractéristiques de l'entreprise étudiée au moment de la prédiction, et l'indice `i` est associé à la variable étudiée. Pour obtenir l'influence d'un groupe thématique, il suffit de sommer l'ensemble des contributions pour lesquelles `i` appartient au groupe thématique choisi.
 
-Plusieurs indicateurs explicatifs sont ainsi présentés dans l'interface web : un « diagramme radar » et des explications textuelles. La longueur des différentes branches du « diagramme radar » est déterminée en normalisant chacune des composantes du diagramme (calculée comme précisé dans le paragraphe précédent) par le produit scalaire `<w, x>`.
+Plusieurs indicateurs explicatifs sont ainsi présentés dans l'interface web :
+
+- des explications textuelles précisant les variables ayant la plus forte influence en faveur d'une détection.
+- un « diagramme radar » dont la longueur des différentes branches est déterminée en normalisant chacune des composantes, calculée comme précisé dans le paragraphe précédent pour chacun des groupes, par le produit scalaire `<w, x>`.
 
 #### Diagramme radar
 
@@ -221,9 +224,9 @@ Plus particulièrement:
 
 ## Deuxième étage : corrections liées à la crise :construction_worker:
 
-Afin de tenir compte des évènements ultérieurs au début de la crise sanitaire susceptibles d'infléchir le niveau d'alerte initialement calculé par le modèle d'apprentissage automatique, on étudie certaines situations jugées plutôt favorables ou défavorables à la santé de l'entreprise. L’occurrence ou la non-occurrence d'un ensemble de situations (signaux) est ainsi évaluée pour l'ensemble des entreprises du périmètre « Signaux Faibles », puis des règles expertes sont établies en fonction des valeurs associées à chacune des situations.
+Afin de tenir compte des évènements ultérieurs au début de la crise sanitaire susceptibles d'infléchir le niveau d'alerte initialement calculé par le modèle d'apprentissage automatique, on étudie certaines situations jugées plutôt favorables ou défavorables à la santé de l'entreprise, et se traduisant concrètement en terme d'évolution des variables d'intérêt pour le modèle prédictif. L’occurrence ou la non-occurrence d'un ensemble de situations (signaux) est ainsi évaluée pour l'ensemble des entreprises du périmètre « Signaux Faibles », puis des règles expertes sont établies en fonction des valeurs associées à chacune des situations.
 
-L'algorithme peut être résumé comme suit : un compteur de risque est initialisé à zéro ; lorsqu'une condition favorable est réalisée, on diminue la valeur de ce compteur, lorsqu'une condition est défavorable, on augment la valeur de ce compteur. La valeur finale de ce compteur est ensuite limitée à l'intervalle (entier) [-1; 1]. Si le compteur est égal à 1 (resp. -1) à la fin de la procédure, le niveau d'alerte est augmenté (resp. diminué) d'un niveau, lorsque cela est possible dans la limite des trois niveaux d'alertes initialement définis.
+L'algorithme de ces correctifs peut être résumé comme suit : un compteur de risque est initialisé à zéro ; lorsqu'une condition favorable est réalisée, on diminue la valeur de ce compteur, lorsqu'une condition est défavorable, on augment la valeur de ce compteur. La valeur finale de ce compteur est ensuite limitée à l'intervalle (entier) [-1; 1]. Si le compteur est égal à 1 (resp. -1) à la fin de la procédure, le niveau d'alerte est augmenté (resp. diminué) d'un niveau, lorsque cela est possible dans la limite des trois niveaux d'alertes initialement définis.
 
 Nous détaillons ci-dessous, par catégorie de variables, quelles combinaisons ainsi formées peuvent donnent lieu à une hausse ou à une baisse de ce compteur, pour ensuite éventuellement augmenter ou diminuer le niveau d'alerte présenté dans la liste de prédictions.
 
