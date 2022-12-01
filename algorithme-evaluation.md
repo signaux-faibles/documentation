@@ -222,7 +222,7 @@ Plus particulièrement:
 - le seuil du pallier « risque fort » est choisi pour maximiser le F\_{0.5}, une métrique qui favorise deux fois plus la précision que le rappel. Ce score favorise ainsi une précision élevée, et donc l'exclusivité d'entreprises effectivement en défaillance dans le pallier « risque fort ».
 - le seuil du pallier « risque modéré » est choisi pour maximiser le score F_2, qui favorise deux fois plus le rappel que la précision. La maximisation de cette métrique vise à obtenir un pallier « risque modéré » qui capture un maximum d'entreprises effectivement en défaillance, quitte à capturer « par erreur » des faux positifs, c'est-à-dire quitte à viser trop large et lister des entreprises qui n'entreront pas en défaillance.
 
-## Deuxième étage : corrections liées à la crise :construction_worker:
+## Deuxième étage : corrections liées à la crise :construction_worker: (septembre 2022)
 
 Afin de tenir compte des évènements ultérieurs au début de la crise sanitaire susceptibles d'infléchir le niveau d'alerte initialement calculé par le modèle d'apprentissage automatique, on étudie certaines situations jugées plutôt favorables ou défavorables à la santé de l'entreprise, et se traduisant concrètement en terme d'évolution des variables d'intérêt pour le modèle prédictif. L’occurrence ou la non-occurrence d'un ensemble de situations (signaux) est ainsi évaluée pour l'ensemble des entreprises du périmètre « Signaux Faibles », puis des règles expertes sont établies en fonction des valeurs associées à chacune des situations.
 
