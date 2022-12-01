@@ -226,7 +226,7 @@ Plus particulièrement:
 
 Afin de tenir compte des évènements ultérieurs au début de la crise sanitaire susceptibles d'infléchir le niveau d'alerte initialement calculé par le modèle d'apprentissage automatique, on étudie certaines situations jugées plutôt favorables ou défavorables à la santé de l'entreprise, et se traduisant concrètement en terme d'évolution des variables d'intérêt pour le modèle prédictif. L’occurrence ou la non-occurrence d'un ensemble de situations (signaux) est ainsi évaluée pour l'ensemble des entreprises du périmètre « Signaux Faibles », puis des règles expertes sont établies en fonction des valeurs associées à chacune des situations.
 
-L'algorithme de ces correctifs peut être résumé comme suit : un compteur de risque est initialisé à zéro ; lorsqu'une condition favorable est réalisée, on diminue la valeur de ce compteur, lorsqu'une condition est défavorable, on augment la valeur de ce compteur. La valeur finale de ce compteur est ensuite limitée à l'intervalle (entier) [-1; 1]. Si le compteur est égal à 1 (resp. -1) à la fin de la procédure, le niveau d'alerte est augmenté (resp. diminué) d'un niveau, lorsque cela est possible dans la limite des trois niveaux d'alertes initialement définis.
+L'algorithme de ces correctifs peut être résumé comme suit : un compteur de risque est initialisé à zéro ; lorsqu'une condition favorable est réalisée, on diminue la valeur de ce compteur, lorsqu'une condition défavorable est réalisée, on augment la valeur de ce compteur. La valeur finale de ce compteur est ensuite limitée à l'intervalle (entier) [[-1; 1]]. Si le compteur est égal à 1 (resp. -1) à la fin de la procédure, le niveau d'alerte est augmenté (resp. diminué) d'un niveau, lorsque cela est possible dans la limite des trois niveaux d'alertes initialement définis (voir [seuils de détection](#seuils-de-d%C3%A9tection)).
 
 Nous détaillons ci-dessous, par catégorie de variables, quelles combinaisons ainsi formées peuvent donnent lieu à une hausse ou à une baisse de ce compteur, pour ensuite éventuellement augmenter ou diminuer le niveau d'alerte présenté dans la liste de prédictions.
 
@@ -237,13 +237,15 @@ Nous détaillons ci-dessous, par catégorie de variables, quelles combinaisons a
 On descend la valeur du compteur de 1 si :
 
 - On observe une dette significative entre mars 2020 et sept 2021, significative signifiant supérieure à 10% de la cotisation annuelle moyenne (sur l'ensemble des établissements) appelée.
-- On observe une diminution relative de cette dette (qui devait être apurée en septembre 2021), c'est-à-dire que `(minimum(dette_récente) / maximum(dette_ancienne)) < 10%` à l'échelle de l'entreprise.
+- On observe une diminution relative de cette dette — qui devait être apurée en septembre 2021 — en c'est-à-dire que `(minimum(dette_récente) / maximum(dette_ancienne)) < 10%` à l'échelle de l'entreprise, où :
+    - `dette_récente` représente les données de dette sociale mensuelle postérieures à septembre 2021 ;
+    - `dette_ancienne` les données de dette sociale mensuelle entre mars 2020 et septembre 2021.
 
 #### Signal défavorable
 
 On augmente la valeur du compteur de 1 si :
 
-- On observe une augmentation de la dette récente.
+- On observe une augmentation de la dette récente (définie comme précédemment).
 - La détection par apprentissage statistique ne mentionnait pas les données URSSAF comme raison principale de détection.
 
 ### Activité Partielle
