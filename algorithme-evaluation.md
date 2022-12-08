@@ -238,8 +238,8 @@ On descend la valeur du compteur de 1 si :
 
 - On observe une dette significative entre mars 2020 et sept 2021, significative signifiant supérieure à 10% de la cotisation annuelle moyenne (sur l'ensemble des établissements) appelée.
 - On observe une diminution relative de cette dette — qui devait être apurée en septembre 2021 — en c'est-à-dire que `(minimum(dette_récente) / maximum(dette_ancienne)) < 10%` à l'échelle de l'entreprise, où :
-    - `dette_récente` représente les données de dette sociale mensuelle postérieures à septembre 2021 ;
-    - `dette_ancienne` les données de dette sociale mensuelle entre mars 2020 et septembre 2021.
+  - `dette_récente` représente les données de dette sociale mensuelle postérieures à septembre 2021 ;
+  - `dette_ancienne` les données de dette sociale mensuelle entre mars 2020 et septembre 2021.
 
 #### Signal défavorable
 
