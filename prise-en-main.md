@@ -12,7 +12,7 @@
   - [5. Lancer datapi](#5-lancer-datapi)
   - [6. Créer un utilisateur sur Keycloak](#6-cr%C3%A9er-un-utilisateur-sur-keycloak)
   - [7. Lancer le serveur web frontal](#7-lancer-le-serveur-web-frontal)
-- [Étape de calculs pour populer "`Features`"](#%C3%A9tape-de-calculs-pour-populer-features)
+- [Étape de calculs pour populer "`Features`"](#%C3%89tape-de-calculs-pour-populer-features)
   - [1. Lancement de mongodb avec Docker](#1-lancement-de-mongodb-avec-docker)
   - [2. Préparation du répertoire de données `${DATA_DIR}`](#2-pr%C3%A9paration-du-r%C3%A9pertoire-de-donn%C3%A9es-data_dir)
   - [3. Installation et configuration de `sfdata`](#3-installation-et-configuration-de-sfdata)

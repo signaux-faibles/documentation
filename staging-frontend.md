@@ -2,7 +2,7 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Staging frontend](#staging-frontend)
-  - [Évolution des numéros de version](#%C3%A9volution-des-num%C3%A9ros-de-version)
+  - [Évolution des numéros de version](#%C3%89volution-des-num%C3%A9ros-de-version)
   - [Développement](#d%C3%A9veloppement)
   - [Pré-production](#pr%C3%A9-production)
   - [Mise en production](#mise-en-production)
