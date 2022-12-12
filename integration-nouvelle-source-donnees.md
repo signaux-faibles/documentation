@@ -5,7 +5,7 @@ Cette page donne la marche à suivre pour intégrer une nouvelle source de donn�
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [Définition des attentes / Écriture de tests automatisés](#d%C3%A9finition-des-attentes--%C3%A9criture-de-tests-automatis%C3%A9s)
+- [Définition des attentes / Écriture de tests automatisés](#d%C3%A9finition-des-attentes--%C3%89criture-de-tests-automatis%C3%A9s)
 - [Implémentation du parseur](#impl%C3%A9mentation-du-parseur)
 - [Mise à disposition des données pour la chaine de traitement](#mise-%C3%A0-disposition-des-donn%C3%A9es-pour-la-chaine-de-traitement)
 - [Publication des données sur le web](#publication-des-donn%C3%A9es-sur-le-web)
