@@ -5,9 +5,9 @@
 
 - [Préambule](#pr%C3%A9ambule)
 - [Vue d'ensemble des canaux de transformation des données](#vue-densemble-des-canaux-de-transformation-des-donn%C3%A9es)
-  - [Étape 1 – Import](#%C3%A9tape-1--import)
-  - [Étape 2 – Compactage](#%C3%A9tape-2--compactage)
-  - [Étape 3 – Calcul des variables](#%C3%A9tape-3--calcul-des-variables)
+  - [Étape 1 – Import](#%C3%89tape-1--import)
+  - [Étape 2 – Compactage](#%C3%89tape-2--compactage)
+  - [Étape 3 – Calcul des variables](#%C3%89tape-3--calcul-des-variables)
 - [Workflow classique](#workflow-classique)
 - [Commande `sfdata`](#commande-sfdata)
 - [La base de données MongoDB](#la-base-de-donn%C3%A9es-mongodb)
