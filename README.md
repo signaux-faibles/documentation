@@ -9,7 +9,6 @@
 - [Architecture logicielle](architecture-logicielle.md) (wip)
 - [Procédure de préparation des données](procedure-import-donnees.md)
 - [Processus de traitement des données](processus-traitement-donnees.md)
-- [Publication des données](publication-donnees.md) (TODO)
 - [Description des données](description-donnees.md) (wip)
 - [Algorithme + Evaluation](algorithme-evaluation.md) (wip)
 - [Interface Graphique](interface-graphique.md) (wip)
