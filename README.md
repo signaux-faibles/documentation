@@ -28,21 +28,20 @@ L'objectif de ces outils est de fournir les outils techniques nécessaires à la
 ## Logiciels
 
 - [signauxfaibles-web](https://github.com/signaux-faibles/signauxfaibles-web) est l'interface utilisateur destinée aux agents publics
-- [opensignauxfaibles](https://github.com/signaux-faibles/opensignauxfaibles)
-  contient le socle technique permettant l'intégration des données et les
-  calculs en vue d'entraîner l'algorithme.
-- [rsignauxfaibles](https://github.com/signaux-faibles/rsignauxfaibles)
-  contient les méthodes d'apprentissage de l'algorithme et de prédiction.
 - [datapi](https://github.com/signaux-faibles/datapi) est une api orientée sur
   l'hébergement et l'échange de données dans un contexte de gestion complexe
   des attributions
-- [goup](https://github.com/signaux-faibles/goup) est une api destinée à permettre le transfert des fichiers bruts avec un protocole flexible et fiable basé sur http (voir [tus](https://github.com/tus))
-- [frontend](https://github.com/signaux-faibles/frontend) est le site vitrine à
-  vocation publique.
-- [gorncs-api](https://github.com/signaux-faibles/gorncs-api) est une api basée sur le dépôt RNCS fourni par l'INPI.
+- [opensignauxfaibles](https://github.com/signaux-faibles/opensignauxfaibles)
+  contient le socle technique permettant l'intégration des données et les
+  calculs en vue d'entraîner l'algorithme.
 - [prepare-import](https://github.com/signaux-faibles/prepare-import) permet de
   générer un "batch" de fichiers bruts (transférés via goup) en vue de leur
   importation en base de données.
+- [keycloakUpdater](https://github.com/signaux-faibles/keycloakUpdater) se charge de configurer les utilisateurs de l'application et leurs permissions
+- [libwekan](https://github.com/signaux-faibles/libwekan) contient des fonctions pour accéder à une base de données Wekan
+- [goSirene](https://github.com/signaux-faibles/goSirene) permet la lecture des fichiers de l'INSEE
+- [wekan-alerter](https://github.com/signaux-faibles/wekan-alerter) envoie certaines notifications liées à l'activité Wekan
+- [signaux-faibles.github.io](https://github.com/signaux-faibles/signaux-faibles.beta.gouv.fr) est la page des statistiques publiques éponymes
 
 ## Contribuer à cette documentation
 
