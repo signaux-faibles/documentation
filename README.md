@@ -5,17 +5,16 @@
 ## Table des matières
 
 - [Présentation du projet](#présentation-du-projet)
+- [Guide utilisateur de l'application](https://signaux-faibles.gitbook.io/guide-dutilisation-et-f.a.q.-de-signaux-faibles/)
 - [Prise en Main](prise-en-main.md)
 - [Architecture logicielle](architecture-logicielle.md) (wip)
+- [Description des données](description-donnees.md) (wip)
 - [Procédure de préparation des données](procedure-import-donnees.md)
 - [Processus de traitement des données](processus-traitement-donnees.md)
-- [Description des données](description-donnees.md) (wip)
+- [Mise en ligne d'une nouvelle liste de détection](processus-nouvelle-liste.md) (TODO)
 - [Algorithme + Evaluation](algorithme-evaluation.md) (wip)
-- [Interface Graphique](interface-graphique.md) (wip)
 - [Permissions d'accès](permissions.md) (wip)
-- [Supervision](supervision.md) (wip)
 - [Staging frontend](staging-frontend.md)
-- [Journalisation/Logging de l'intégration](journalisation-integration.md)
 - [Comment intégrer une nouvelle source de données](integration-nouvelle-source-donnees.md)
 
 ## Présentation du projet
