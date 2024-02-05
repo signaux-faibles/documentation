@@ -11,7 +11,6 @@
 - [Description des données](description-donnees.md) (wip)
 - [Procédure de préparation des données](procedure-import-donnees.md)
 - [Processus de traitement des données](processus-traitement-donnees.md)
-- [Mise en ligne d'une nouvelle liste de détection](processus-nouvelle-liste.md) (TODO)
 - [Algorithme + Evaluation](algorithme-evaluation.md) (wip)
 - [Permissions d'accès](permissions.md) (wip)
 - [Staging frontend](staging-frontend.md)
