@@ -1,13 +1,5 @@
 # Doctrine des habilitations au produit numérique « Signaux Faibles »
 
-[Les agents éligibles à être habilité et leur périmètre d'habilitation](#Les agents éligibles à être habilité et leur périmètre d'habilitation)
-
-[Protocole de validation des habilitations](47)
-
-[Embarquement des agents habilités et ressources de formation](53)
-
-[Revue des habilitations et suppression des accès](61)
-
 ## Les agents éligibles à être habilité et leur périmètre d'habilitation
 
 Les agents en droit d'accéder à « Signaux Faibles » doivent appartenir à l'une des cinq administrations du partenariat (DGFiP, DGE, DGEFP, Banque de France et Urssaf) et avoir pour mission d'analyser, contacter et accompagner des entreprises identifiées comme pouvant présenter des difficultés.
