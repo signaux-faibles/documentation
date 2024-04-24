@@ -176,7 +176,7 @@ Par convention, nous choisissons pour la classification d'attribuer l’étiquet
 
 - **Précision** : la part d'entreprises prédites positives étant effectivement positives
 - **Rappel** : la part d'entreprises effectivement positives étant prédites positives.
-- **Score** $F_\beta$ : une métrique d'évaluation prenant à la fois la précision et le rappel en compte, et accordant une importante relative `beta` fois plus importante au rappel qu'à la précision.
+- **Score** $F_\beta$ : une métrique d'évaluation prenant à la fois la précision et le rappel en compte, et accordant une importante relative $\beta$ fois plus importante au rappel qu'à la précision.
 - **Score AUCPR** : l'aire sous la courbe rappel-précision (Area Under Curve, for Precision-Recall curve). Celle-ci permet d'étudier la performance du modèle et l'équilibre s'établissant entre ces deux scores en fonction du seuil de classification choisi.
 - **Exactitude** : la proportion de prédictions correctes (à la fois vraies positives et vraies négatives) parmi le nombre total de cas examinés.
 
@@ -184,7 +184,7 @@ Pour plus d'informations sur ces métriques, voir les liens ci-dessous :
 
 - [Précision et rappel](https://fr.wikipedia.org/wiki/Pr%C3%A9cision_et_rappel)
 - [Matrice de confusion](https://fr.wikipedia.org/wiki/Matrice_de_confusion)
-- [Score F_beta](https://fr.wikipedia.org/wiki/F-mesure)
+- [Score $F_beta$](https://fr.wikipedia.org/wiki/F-mesure)
 - [Score AUCPR](<https://en.wikipedia.org/wiki/Evaluation_measures_(information_retrieval)#Average_precision>)
 - [Exactitude](https://fr.wikipedia.org/wiki/Exactitude_et_pr%C3%A9cision#Classification_binaire)
 
@@ -192,7 +192,7 @@ Pour plus d'informations sur ces métriques, voir les liens ci-dessous :
 
 Afin que l'évaluation mesure le mieux possible la performance réelle du modèle, nous faisons en sorte que des observations associées à une entreprise donnée ne se retrouvent pas à la fois dans le jeu d'entraînement et le jeu de test. La corrélation entre plusieurs observations successives d'une série temporelle associées à une entreprise étant importante, une fuite d'information du jeu d'entraînement vers le jeu de test est probable et fait courir le risque de biais dans la performance mesurée ou le réglage des hyper-paramètres du modèle par validation croisée.
 
-### Choix de la métrique
+### Choix des métriques
 
 Si l’on retire des jeux de test les cas des entreprises pour lesquelles une défaillance est déjà connue au moment où une prédiction pour les 18 mois à venir est prononcée (signaux « forts »), les échantillons positifs représentent un pourcentage extrêmement faibles de l'ensemble des échantillons traités ; on parle de cible très déséquilibrée.
 
