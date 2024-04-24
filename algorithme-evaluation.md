@@ -50,34 +50,32 @@ On considère l'ensemble des entreprises qui répondent aux critères suivant 
 On exclut du périmètre les entreprises :
 
 - faisant partie de l'administration publique (code APE O) et de l'enseignement (code APE P).
-- dont la [catégorie juridique](https://www.insee.fr/fr/information/2028129) fait partie de la liste ci-dessous.
+- dont la [catégorie juridique](https://www.insee.fr/fr/information/2028129) fait partie de la liste ci-dessous :
 
-```
-- 'Autre personne morale de droit administratif'
-- 'Établissement public des cultes d''Alsace-Lorraine'
-- 'Groupement de coopération sanitaire à gestion publique'
-- 'Groupement d''intérêt public (GIP)'
-- '(Autre) Établissement public administratif local'
-- 'Communauté d''agglomération'
-- 'Communauté de communes'
-- 'Commune et commune nouvelle'
-- 'Département'
-- 'Établissement public local à caractère industriel ou commercial'
-- 'Établissement public local culturel'
-- 'Établissement public local social et médico-social'
-- 'Établissement public national à caractère administratif'
-- 'Établissement public national à caractère industriel ou commercial doté d''un comptable public'
-- 'Établissement public national à caractère industriel ou commercial non doté d''un comptable public'
-- 'Établissement public national à caractère scientifique culturel et professionnel'
-- 'Institution Banque de France'
-- 'Autre établissement public national administratif à compétence territoriale limitée'
-```
+  - Autre personne morale de droit administratif.
+  - Établissement public des cultes d’Alsace-Lorraine.
+  - Groupement de coopération sanitaire à gestion publique.
+  - Groupement d’intérêt public (GIP).
+  - (Autre) Établissement public administratif local.
+  - Communauté d’agglomération.
+  - Communauté de communes.
+  - Commune et commune nouvelle.
+  - Département.
+  - Établissement public local à caractère industriel ou commercial.
+  - Établissement public local culturel.
+  - Établissement public local social et médico-social.
+  - Établissement public national à caractère administratif.
+  - Établissement public national à caractère industriel ou commercial doté d''un comptable public.
+  - Établissement public national à caractère industriel ou commercial non doté d''un comptable public.
+  - Établissement public national à caractère scientifique culturel et professionnel.
+  - Institution Banque de France.
+  - Autre établissement public national administratif à compétence territoriale limitée.
 
 ### Modèle statistique et jeux de données
 
 Le modèle employé est une forêt aléatoire (implémentation [pyspark](https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.ml.classification.RandomForestClassifier.html)) pour la classification, avec les paramètres spécifiques suivants : `{"maxDepth": 9, "numTrees": 100, "featureSubsetStrategy": "sqrt"}`.
 
-L'entraînement (ou l’évaluation) a lieu sur un jeu de données localisées entre janvier 2016 et une date à laquelle le statut de défaillance à 18 mois est connu pour l’ensemble des entreprises considérées — ceci étant une condition nécessaire à la construction de la cible d’apprentissage en tout point du jeu. Un échantillon est défini comme un vecteur $X \in R^n$ de $n$ caractéristiques rassemblant un certain nombre d’informations concernant une entreprise à un instant donné. Formellement, chaque ligne du jeu est associée à un couple `(SIREN, période)` distinct, le pas de temps entre deux échantillons d’une même entreprise étant le mois.
+L'entraînement (ou l’évaluation) a lieu sur un jeu de données localisées entre janvier 2016 et une date à laquelle le statut de défaillance à 18 mois est connu pour l’ensemble des entreprises considérées — ceci étant une condition nécessaire à la construction de la cible d’apprentissage en tout point du jeu. Un échantillon est défini comme un vecteur $X \in \mathbf{R}^n$ de $n$ caractéristiques rassemblant un certain nombre d’informations concernant une entreprise à un instant donné. Formellement, chaque ligne du jeu est associée à un couple `(SIREN, période)` distinct, le pas de temps entre deux échantillons d’une même entreprise étant le mois.
 
 La prédiction produit, pour un échantillon associé à un couple `(SIREN, période)` une prédiction pour les 18 mois suivant la période choisie.
 
@@ -145,6 +143,7 @@ Chaque prédiction « positive » (niveau de risque fort ou modéré) est ac
 
 - au niveau de chaque caractéristique utilisée par ce modèle de prédiction ;
 - à un niveau agrégé, par groupes « thématiques » de variables exposés plus haut :
+
   - santé financière ;
   - cotisations sociales aux URSSAF ;
   - les comportements de paiement fournisseur ;
@@ -156,6 +155,7 @@ Plusieurs indicateurs explicatifs sont ainsi présentés aux agents :
 
 - des explications textuelles précisant les variables ayant la plus forte contribution unitaire en faveur d'une détection.
 - un « diagramme radar » dont la longueur des branches représente l’influence de chaque groupe thématique, telle que calculée dans le paragraphe précédent. Quelques exemples pour comprendre ce qu'affiche ce radar :
+
   - un indicateur « Santé financière » dans le vert indique que l'entreprise a une situation financière excellente dans l'ensemble, ou plutôt qui contribue très fortement à la considérer comme une entreprise sans risque de défaut ;
   - un indicateur « Dette URSSAF » dans le rouge indiquerait un historique d'encours de dette aux Urssaf contribuant à un score de risque élevé.
 
@@ -176,7 +176,7 @@ Par convention, nous choisissons pour la classification d'attribuer l’étiquet
 
 - **Précision** : la part d'entreprises prédites positives étant effectivement positives
 - **Rappel** : la part d'entreprises effectivement positives étant prédites positives.
-- **Score F-beta** : une métrique d'évaluation prenant à la fois la précision et le rappel en compte, et accordant une importante relative `beta` fois plus importante au rappel qu'à la précision.
+- **Score** $F_\beta$ : une métrique d'évaluation prenant à la fois la précision et le rappel en compte, et accordant une importante relative `beta` fois plus importante au rappel qu'à la précision.
 - **Score AUCPR** : l'aire sous la courbe rappel-précision (Area Under Curve, for Precision-Recall curve). Celle-ci permet d'étudier la performance du modèle et l'équilibre s'établissant entre ces deux scores en fonction du seuil de classification choisi.
 - **Exactitude** : la proportion de prédictions correctes (à la fois vraies positives et vraies négatives) parmi le nombre total de cas examinés.
 
@@ -194,11 +194,12 @@ Afin que l'évaluation mesure le mieux possible la performance réelle du modèl
 
 ### Choix de la métrique
 
-Après retrait des « signaux forts », la cible à détecter représente un très faible 1% de l'échantillon d'entreprise. Il s'agit donc d'un échantillon très biaisé.
+Si l’on retire des jeux de test les cas des entreprises pour lesquelles une défaillance est déjà connue au moment où une prédiction pour les 18 mois à venir est prononcée (signaux « forts »), les échantillons positifs représentent un pourcentage extrêmement faibles de l'ensemble des échantillons traités ; on parle de cible très déséquilibrée.
 
-Dans le contexte de Signaux Faibles, les faux positifs (une alerte est émise sur une entreprise jugée bien portante par l’agent) est beaucoup plus acceptable qu'un faux négatif (une entreprise en difficulté n'a pas été détectée).
+Dans le contexte de Signaux Faibles, les faux positifs est beaucoup plus acceptable qu'un faux négatif. Ainsi, l’**exactitude rééquilibrée** ([balanced accuracy](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.balanced_accuracy_score.html)) et le **score AUCPR** ([average precision](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.average_precision_score.html)) se prêtent bien à l'évaluation de notre algorithme au global. On pourra regarder les $F_\beta$ associés à chacun des seuils :
 
-Ainsi, la **justesse rééquilibrée** ([balanced accuracy](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.balanced_accuracy_score.html)) et le **score AUCPR** ([average precision](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.average_precision_score.html)) se prêtent bien à l'évaluation de notre algorithme.
+- $F_{0.5}$ et la précision pour le niveau d’alerte « risque fort » ;
+- $F_{2}$ et le rappel pour le niveau d’alerte « risque modéré »
 
 ### Performances mesurées
 
