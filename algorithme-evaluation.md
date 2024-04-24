@@ -15,7 +15,7 @@
 - [Évaluation du modèle](#%C3%89valuation-du-mod%C3%A8le)
   - [Lexique](#lexique)
   - [Jeu de test indépendant](#jeu-de-test-ind%C3%A9pendant)
-  - [Choix de la métrique](#choix-de-la-m%C3%A9trique)
+  - [Choix des métriques](#choix-des-m%C3%A9triques)
   - [Performances mesurées](#performances-mesur%C3%A9es)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
