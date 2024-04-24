@@ -124,18 +124,18 @@ Chaque échantillon contient des données associées à un couple `(SIREN, péri
 
 ### Seuils de détection
 
-Le modèle Signaux Faibles résout un problème de classification binaire (l’entrée ou non en procédure collective à 18 mois), qui produit pour chaque échantillon évalué une probabilité estimée de défaut à 18 mois. Cette probabilité est un nombre réel entre 0 et 1, nous devons choisir à partir de quel seuil une entreprise est portée à la connaissance des agents pour les alerter d’une potentielle fragilité. Afin de permettre aux agents de prioriser leur action, nous définissons deux seuils en probabilités qui séparent les prédictions en 3 catégories :
+Le modèle Signaux Faibles résout un problème de classification binaire (l’entrée ou non en procédure collective à 18 mois), qui produit pour chaque échantillon évalué une probabilité estimée de défaut à 18 mois. Cette probabilité est un nombre réel entre 0 et 1, nous devons choisir à partir de quel seuil une entreprise est portée à la connaissance des agents pour les alerter d’une potentielle fragilité. Afin de permettre aux agents de prioriser leur action, nous définissons deux seuils en probabilités qui séparent les prédictions en trois catégories :
 
 - un niveau « risque fort » 🔴 où la précision est plus élevée, c'est-à-dire que les entreprises identifiées comme à risque fort le sont effectivement, quitte à ne pas détecter certaines entreprises qui feront effectivement défaut ;
 - un niveau « risque modéré » 🟠 construit de sorte à capturer un maximum d'entreprises à risque, quitte à avoir dans cette liste plus de faux positifs, c'est-à-dire d'entreprises qui ne feront en réalité pas défaut dans les 18 mois ;
 - un niveau « aucune alerte » 🟢, pour toutes les entreprises pour lesquelles la probabilité estimée est plus basse que le seuil « risque modéré ». Ce niveau comprend donc toutes les entreprises de notre périmètre n'entrant pas dans les deux catégories ci-dessus.
 
-Ces seuils sont déterminés par la maximisation d’un score $F_\beta$, une métrique permettant de « sanctionner » de manière pondérée les faux positifs et les faux négatifs produits par le modèle. Plus précisément :
+Les deux seuils sont déterminés comme les points de l’intervalle $\[0 ; 1\]$ qui maximisent la valeur de scores $F_{\beta}$ lorsque les échantillons sont classifiés autour de la valeur de seuil choisie. Plus précisément :
 
 - le seuil du palier « risque fort » est choisi pour maximiser le $F_{0.5}$, une métrique qui favorise deux fois plus la précision que le rappel.
 - le seuil du palier « risque modéré » est choisi pour maximiser le score $F_2$, qui favorise deux fois plus le rappel que la précision.
 
-Plus de précisions sur ces métriques peuvent être trouvées au paragraphe concernant l’[évaluation](#%C3%89valuation-du-mod%C3%A8le) du modèle.
+Plus de précisions sur les métriques mentionnées peuvent être trouvées au paragraphe concernant l’[évaluation](#%C3%89valuation-du-mod%C3%A8le) du modèle.
 
 ### Explication des prédictions
 
@@ -184,7 +184,7 @@ Pour plus d'informations sur ces métriques, voir les liens ci-dessous :
 
 - [Précision et rappel](https://fr.wikipedia.org/wiki/Pr%C3%A9cision_et_rappel)
 - [Matrice de confusion](https://fr.wikipedia.org/wiki/Matrice_de_confusion)
-- [Score $F_beta$](https://fr.wikipedia.org/wiki/F-mesure)
+- [F-mesure](https://fr.wikipedia.org/wiki/F-mesure)
 - [Score AUCPR](<https://en.wikipedia.org/wiki/Evaluation_measures_(information_retrieval)#Average_precision>)
 - [Exactitude](https://fr.wikipedia.org/wiki/Exactitude_et_pr%C3%A9cision#Classification_binaire)
 
