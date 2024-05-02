@@ -24,13 +24,13 @@
 
 Le modèle Signaux Faibles vise à identifier des signes de fragilité des entreprises françaises, afin de permettre aux administrations de prendre contact avec ces entreprises et, le cas échéant, mettre en œuvre des dispositifs d'aide. Pour cela, il est important d'anticiper suffisamment en amont les difficultés afin que ces dispositifs soient efficaces.
 
-Un modèle d'apprentissage supervisé a été initialement développé avant la crise, a été étendu à la France entière en décembre 2019, mais a été mis à l'arrêt depuis le début du confinement de Mars 2020, car inapte à traiter la situation spécifique à la crise. Entre octobre 2020 et fin 2023, de nouveaux modèles tenant compte de l'impact de la crise ont été proposés, notamment à travers la combinaison d’une prédiction par apprentissage supervisé et de règles « métier ». Ce type de modèle est décrit en détail dans les précédentes versions de ce document (depuis github.com, cliquer sur le bouton « ⟲ Historique » en haut à droite). Depuis début 2024, la profondeur d’historique acquise et la relative stabilité des indicateurs employés depuis l’épisode pandémique permettent de produire une prédiction de nouveau basée entièrement sur un apprentissage supervisé.
+Un modèle d'apprentissage supervisé a été initialement développé en 2018. Il a ensuite été étendu à la France entière en décembre 2019, puis mis à l'arrêt en mars 2020 au début de la crise économique et sociale induite par le COVID-19. Le modèle s'est, à cette époque, révélé inapte à traiter la situation spécifique à la crise. Entre octobre 2020 et fin 2023, de nouveaux modèles tenant compte de l'impact de la crise ont été proposés, notamment à travers la combinaison d’une prédiction par apprentissage supervisé et de règles « métier ». Ce type de modèle est décrit en détail dans les précédentes versions de ce document (depuis github.com, cliquer sur le bouton « ⟲ Historique » en haut à droite). Depuis début 2024, la profondeur d’historique acquise et la relative stabilité des indicateurs employés depuis l’épisode pandémique permettent de produire une prédiction de nouveau basée entièrement sur un apprentissage supervisé.
 
 Le modèle et ses composants sont détaillés dans les paragraphes qui suivent. Le code implémentant ce modèle est ouvert et consultable [ici](https://github.com/signaux-faibles/sf-datalake-mirror).
 
-## Description du modèle
+## Description du modèle d'apprentissage supervisé 
 
-### Cible d'apprentissage
+### Cible d'apprentissage 
 
 Nous posons le problème de classification binaire suivant :
 
