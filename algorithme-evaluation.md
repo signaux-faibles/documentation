@@ -24,9 +24,9 @@
 
 Le modèle Signaux Faibles vise à identifier des signes de fragilité des entreprises françaises, afin de permettre aux administrations de prendre contact avec ces entreprises et, le cas échéant, mettre en œuvre des dispositifs d'aide. Pour cela, il est important d'anticiper suffisamment en amont les difficultés afin que ces dispositifs soient efficaces.
 
-Un modèle d'apprentissage supervisé a été initialement développé avant la crise, a été étendu à la France entière en décembre 2019, mais a été mis à l'arrêt depuis le début du confinement de Mars 2020, car inapte à traiter la situation spécifique à la crise. Entre octobre 2020 et fin 2023, de nouveaux modèles tenant compte de l'impact de la crise ont été proposés, notamment à travers la combinaison d’une prédiction par apprentissage supervisé et de règles « métier ». Ce type de modèle est décrit en détail dans les précédentes versions de ce document (depuis github.com, cliquer sur le bouton « ⟲ Historique » en haut à droite). Depuis début 2024, la profondeur d’historique acquise et la relative stabilité des indicateurs employés depuis la crise permettent de produire une prédiction de nouveau basée entièrement sur un apprentissage supervisé.
+Un modèle d'apprentissage supervisé a été initialement développé avant la crise, a été étendu à la France entière en décembre 2019, mais a été mis à l'arrêt depuis le début du confinement de Mars 2020, car inapte à traiter la situation spécifique à la crise. Entre octobre 2020 et fin 2023, de nouveaux modèles tenant compte de l'impact de la crise ont été proposés, notamment à travers la combinaison d’une prédiction par apprentissage supervisé et de règles « métier ». Ce type de modèle est décrit en détail dans les précédentes versions de ce document (depuis github.com, cliquer sur le bouton « ⟲ Historique » en haut à droite). Depuis début 2024, la profondeur d’historique acquise et la relative stabilité des indicateurs employés depuis l’épisode pandémique permettent de produire une prédiction de nouveau basée entièrement sur un apprentissage supervisé.
 
-Le modèle est ses composants sont détaillés dans les paragraphes qui suivent. Le code implémentant ce modèle est ouvert et consultable [ici](https://github.com/signaux-faibles/sf-datalake-mirror).
+Le modèle et ses composants sont détaillés dans les paragraphes qui suivent. Le code implémentant ce modèle est ouvert et consultable [ici](https://github.com/signaux-faibles/sf-datalake-mirror).
 
 ## Description du modèle
 
@@ -44,7 +44,7 @@ Il est à noter que la cible d'apprentissage est très déséquilibrée : hist
 
 On considère l'ensemble des entreprises qui répondent aux critères suivant :
 
-- avoir (ou avoir déjà eu) 10 salariés et plus ;
+- employer (ou avoir déjà employé) 10 salariés ou plus ;
 - être immatriculé auprès de l'INSEE et avoir un numéro de SIREN.
 
 On exclut du périmètre les entreprises :
@@ -77,7 +77,7 @@ Le modèle employé est une forêt aléatoire (implémentation [pyspark](https:/
 
 L'entraînement (ou l’évaluation) a lieu sur un jeu de données localisées entre janvier 2016 et une date à laquelle le statut de défaillance à 18 mois est connu pour l’ensemble des entreprises considérées — ceci étant une condition nécessaire à la construction de la cible d’apprentissage en tout point du jeu. Un échantillon est défini comme un vecteur $X \in \mathbf{R}^n$ de $n$ caractéristiques rassemblant un certain nombre d’informations concernant une entreprise à un instant donné. Formellement, chaque ligne du jeu est associée à un couple `(SIREN, période)` distinct, le pas de temps entre deux échantillons d’une même entreprise étant le mois.
 
-La prédiction produit, pour un échantillon associé à un couple `(SIREN, période)` une prédiction pour les 18 mois suivant la période choisie.
+La prédiction produit, pour un échantillon associé à un couple `(SIREN, période)`, une prédiction pour les 18 mois suivant la période choisie.
 
 ### Variables d'apprentissage
 
@@ -127,7 +127,7 @@ Chaque échantillon contient des données associées à un couple `(SIREN, péri
 Le modèle Signaux Faibles résout un problème de classification binaire (l’entrée ou non en procédure collective à 18 mois), qui produit pour chaque échantillon évalué une probabilité estimée de défaut à 18 mois. Cette probabilité est un nombre réel entre 0 et 1, nous devons choisir à partir de quel seuil une entreprise est portée à la connaissance des agents pour les alerter d’une potentielle fragilité. Afin de permettre aux agents de prioriser leur action, nous définissons deux seuils en probabilités qui séparent les prédictions en trois catégories :
 
 - un niveau « risque fort » 🔴 où la précision est plus élevée, c'est-à-dire que les entreprises identifiées comme à risque fort le sont effectivement, quitte à ne pas détecter certaines entreprises qui feront effectivement défaut ;
-- un niveau « risque modéré » 🟠 construit de sorte à capturer un maximum d'entreprises à risque, quitte à avoir dans cette liste plus de faux positifs, c'est-à-dire d'entreprises qui ne feront en réalité pas défaut dans les 18 mois ;
+- un niveau « risque modéré » 🟠 construit de sorte à capturer un maximum d'entreprises à risque, quitte à produire plus de faux positifs, c'est-à-dire détecter des entreprises qui ne feront en réalité pas défaut dans les 18 mois ;
 - un niveau « aucune alerte » 🟢, pour toutes les entreprises pour lesquelles la probabilité estimée est plus basse que le seuil « risque modéré ». Ce niveau comprend donc toutes les entreprises de notre périmètre n'entrant pas dans les deux catégories ci-dessus.
 
 Les deux seuils sont déterminés comme les points de l’intervalle $\[0 ; 1\]$ qui maximisent la valeur de scores $F_{\beta}$ lorsque les échantillons sont classifiés autour de la valeur de seuil choisie. Plus précisément :
@@ -135,7 +135,7 @@ Les deux seuils sont déterminés comme les points de l’intervalle $\[0 ; 1\]$
 - le seuil du palier « risque fort » est choisi pour maximiser le $F_{0.5}$, une métrique qui favorise deux fois plus la précision que le rappel.
 - le seuil du palier « risque modéré » est choisi pour maximiser le score $F_2$, qui favorise deux fois plus le rappel que la précision.
 
-Plus de précisions sur les métriques mentionnées peuvent être trouvées au paragraphe concernant l’[évaluation](#%C3%89valuation-du-mod%C3%A8le) du modèle.
+Plus de précisions sur les métriques mentionnées sont fournies dans la section concernant l’[évaluation](#%C3%89valuation-du-mod%C3%A8le) du modèle.
 
 ### Explication des prédictions
 
