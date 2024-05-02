@@ -1,8 +1,6 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-**Table of Contents** _generated with [DocToc](https://github.com/thlorenz/doctoc)_
-
 - [Doctrine des habilitations au produit numérique « Signaux Faibles »](#doctrine-des-habilitations-au-produit-num%C3%A9rique-%C2%AB-signaux-faibles-%C2%BB)
   - [Les agents éligibles à être habilité et leur périmètre d'habilitation](#les-agents-%C3%A9ligibles-%C3%A0-%C3%AAtre-habilit%C3%A9-et-leur-p%C3%A9rim%C3%A8tre-dhabilitation)
   - [Protocole de validation des habilitations](#protocole-de-validation-des-habilitations)
