@@ -36,13 +36,13 @@ Nous posons le problème de classification binaire suivant :
 
 > Le modèle cherche à prédire l'entrée en procédure collective (redressement ou liquidation judiciaire, sauvegarde, etc.) à 18 mois.
 
-Cette cible d'apprentissage est imparfaite : des entreprises en difficulté peuvent ne pas connaître de défaillance dans les 18 mois, mais il serait pertinent de les détecter. C'est le cas par exemple d'entreprises financièrement solides mais dont l'activité ne leur permet pas d'être profitable. Inversement, certaines défaillances sont dues à des évènements non identifiables avec 18 mois d'anticipation (accidents, etc.), qui ne pourront donc être que potentiellement détectés plus tard.
+Cette cible d'apprentissage est imparfaite : des entreprises en difficulté peuvent ne pas connaître de défaillance dans les 18 mois, mais il serait pertinent de les détecter. C'est le cas par exemple d'entreprises financièrement solides mais dont l'activité ne leur permet pas d'être profitables. Inversement, certaines défaillances sont dues à des évènements non identifiables avec 18 mois d'anticipation (accidents, etc.), qui ne pourront donc être que potentiellement détectés plus tard.
 
 Il est à noter que la cible d'apprentissage est très déséquilibrée : historiquement, environ 5% des entreprises en activité connaissent une défaillance chaque année. Ce chiffre a sensiblement diminué au début de la crise sanitaire liée au Covid-19, du fait des dispositifs de soutien aux entreprises ayant permis de maintenir « à flot » une part des entreprises éligibles. Voir, p.ex. le [suivi](https://www.banque-france.fr/statistiques/chiffres-cles-france-et-etranger/defaillances-dentreprises/suivi-mensuel-des-defaillances) des défaillances par la banque de France. Cette dynamique impacte fortement le processus d'apprentissage puisqu'une proportion importante d'entreprises sortent _de facto_ de la cible d'apprentissage, alors même qu'elles se seraient probablement trouvées particulièrement en difficulté en l'absence d'aides de l'État.
 
 ### Périmètre
 
-On considère l'ensemble des entreprises qui répondent aux critères suivant :
+Pour nourrir le modèle de détection, on se restreint aux données des entreprises répondant aux critères suivant :
 
 - employer (ou avoir déjà employé) 10 salariés ou plus ;
 - être immatriculé auprès de l'INSEE et avoir un numéro de SIREN.
