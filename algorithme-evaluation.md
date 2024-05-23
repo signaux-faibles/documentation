@@ -40,12 +40,12 @@ Cette cible d'apprentissage est imparfaite : des entreprises en difficulté pe
 
 Il est à noter que la cible d'apprentissage est très déséquilibrée : historiquement, environ 5% des entreprises en activité connaissent une défaillance chaque année. Ce chiffre a sensiblement diminué au début de la crise sanitaire liée au Covid-19, du fait des dispositifs de soutien aux entreprises ayant permis de maintenir « à flot » une part des entreprises éligibles. Voir, p.ex. le [suivi](https://www.banque-france.fr/statistiques/chiffres-cles-france-et-etranger/defaillances-dentreprises/suivi-mensuel-des-defaillances) des défaillances par la banque de France. Cette dynamique impacte fortement le processus d'apprentissage puisqu'une proportion importante d'entreprises sortent _de facto_ de la cible d'apprentissage, alors même qu'elles se seraient probablement trouvées particulièrement en difficulté en l'absence d'aides de l'État.
 
-### Périmètre
+### Périmètre d’apprentissage
 
 Pour nourrir le modèle de détection, on se restreint aux données des entreprises répondant aux critères suivant :
 
-- employer (ou avoir déjà employé) 10 salariés ou plus ;
-- être immatriculé auprès de l'INSEE et avoir un numéro de SIREN.
+- l’entreprise emploie (ou a déjà employé) 10 salariés ou plus ;
+- l’entreprise est en activité au moment de la donnée considérée, et est immatriculée à l’aide d’un numéro de SIREN auprès de l'INSEE.
 
 On exclut du périmètre les entreprises :
 
