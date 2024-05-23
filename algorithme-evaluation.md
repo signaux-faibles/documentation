@@ -4,7 +4,7 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Objectif et historique du modèle](#objectif-et-historique-du-mod%C3%A8le)
-- [Description du modèle](#description-du-mod%C3%A8le)
+- [Description du modèle d'apprentissage supervisé](#description-du-mod%C3%A8le-dapprentissage-supervis%C3%A9)
   - [Cible d'apprentissage](#cible-dapprentissage)
   - [Périmètre](#p%C3%A9rim%C3%A8tre)
   - [Modèle statistique et jeux de données](#mod%C3%A8le-statistique-et-jeux-de-donn%C3%A9es)
@@ -28,9 +28,9 @@ Un modèle d'apprentissage supervisé a été initialement développé en 2018. 
 
 Le modèle et ses composants sont détaillés dans les paragraphes qui suivent. Le code implémentant ce modèle est ouvert et consultable [ici](https://github.com/signaux-faibles/sf-datalake-mirror).
 
-## Description du modèle d'apprentissage supervisé 
+## Description du modèle d'apprentissage supervisé
 
-### Cible d'apprentissage 
+### Cible d'apprentissage
 
 Nous posons le problème de classification binaire suivant :
 
