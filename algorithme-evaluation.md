@@ -6,7 +6,7 @@
 - [Objectif et historique du modèle](#objectif-et-historique-du-mod%C3%A8le)
 - [Description du modèle d'apprentissage supervisé](#description-du-mod%C3%A8le-dapprentissage-supervis%C3%A9)
   - [Cible d'apprentissage](#cible-dapprentissage)
-  - [Périmètre](#p%C3%A9rim%C3%A8tre)
+  - [Périmètre d’apprentissage](#p%C3%A9rim%C3%A8tre-dapprentissage)
   - [Modèle statistique et jeux de données](#mod%C3%A8le-statistique-et-jeux-de-donn%C3%A9es)
   - [Variables d'apprentissage](#variables-dapprentissage)
 - [Prédictions](#pr%C3%A9dictions)
@@ -165,7 +165,7 @@ Des illustrations sont proposées dans le [guide d’information](https://signau
 
 ### Lexique
 
-Par convention, nous choisissons pour la classification d'attribuer l’étiquette `1` aux échantillons qui répondent à la cible d’apprentissage, et `0` aux autres. En conséquence, nous définissons les termes suivante :
+Par convention, nous choisissons pour la classification d'attribuer l’étiquette `1` aux échantillons qui répondent à la cible d’apprentissage, et `0` aux autres. En conséquence, nous définissons les termes suivants :
 
 - **Vrai positif** : une entreprise que notre algorithme prédit comme à risque de défaillance dans les 18 mois et connaissant effectivement (au moins) une défaillance durant cette période.
 - **Vrai négatif** : une entreprise pour laquelle aucune défaillance n'est prédite, et qui ne connaît pas de défaillance.
