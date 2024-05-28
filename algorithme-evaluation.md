@@ -194,8 +194,6 @@ Afin que l'évaluation mesure le mieux possible la performance réelle du modèl
 
 ### Choix des métriques
 
-Si l’on retire des jeux de test les cas des entreprises pour lesquelles une défaillance est déjà connue au moment où une prédiction pour les 18 mois à venir est prononcée (signaux « forts »), les échantillons positifs représentent un pourcentage extrêmement faibles de l'ensemble des échantillons traités ; on parle de cible très déséquilibrée.
-
 Dans le contexte de Signaux Faibles, les faux positifs est beaucoup plus acceptable qu'un faux négatif. Ainsi, l’**exactitude rééquilibrée** ([balanced accuracy](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.balanced_accuracy_score.html)) et le **score AUCPR** ([average precision](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.average_precision_score.html)) se prêtent bien à l'évaluation de notre algorithme au global. On pourra regarder les $F_\beta$ associés à chacun des seuils :
 
 - $F_{0.5}$ et la précision pour le niveau d’alerte « risque fort » ;
