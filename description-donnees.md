@@ -214,9 +214,18 @@ Dans le cas où figurent différentes consommations mensuelles rattachées à di
 
 - **Etat du compte** Compte ouvert (1) ou fermé (3) ?
 - **Numéro siren** Numéro Siren de l'entreprise
-- **Numéro d'établissement** Numéro Siret de l'établissement. Les numéros avec des Lettres sont des sirets provisoires.
+- **Numéro d'établissement** Numéro Siret de l'établissement. Les numéros avec des lettres sont des sirets provisoires. Certains Siret sont des pseudo-siret de l'ACOSS, cf [détail](#pseudo-siret) ci-dessous.
 - **Date de création de l'établissement** Date de création de l'établissement au format (A)AAMMJJ. (A)AA = AAAA - 1900.
 - **Date de disparition de l'établissement** Date de disparition de l'établissement au format (A)AAMMJJ (cf date de création)
+
+#### Pseudo-siret
+
+Les pseudo-sirets sont des SIRET forgés par l'ACOSS pour le traitement spécifique de certaines activités avec travail temporaire, notamment : 
+- Agences d'intérim,
+- Agences de mannequinat,
+- Agences de production de films.
+
+Ces pseudo-sirets sont reconnaissables par le fait que le premier chiffre du NIC (10ème chiffre du SIRET) est 5,6,7 ou 9. 
 
 ### Données sur l'effectif
 
@@ -227,7 +236,7 @@ Dans le cas où figurent différentes consommations mensuelles rattachées à di
 | Fréquence de mise-à-jour | Variable, tous les 3 à 6 mois |
 | Délai des données        | 0 à 6 mois selon mise-à-jour  |
 
-- **Siret** Siret de l'établissement
+- **Siret** Siret de l'établissement. Certains Siret sont des pseudo-sirets, cf [détail](#pseudo-siret)
 - **Compte** Compte administratif URSSAF
 - **Rais_soc** Raison sociale
 - **Ur_emet** Urssaf en charge de la gestion du compte
